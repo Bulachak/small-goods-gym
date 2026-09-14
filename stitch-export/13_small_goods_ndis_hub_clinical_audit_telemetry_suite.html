@@ -1,0 +1,975 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Small Goods Gym • NDIS Clinical Audit &amp; Telemetry Suite</title>
+<!-- Tailwind CSS CDN with container queries & forms -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Google Fonts: Poppins, JetBrains Mono, Reenie Beanie -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&amp;family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600&amp;family=Reenie+Beanie&amp;display=swap" rel="stylesheet"/>
+<!-- Lucide Icons CDN -->
+<script src="https://unpkg.com/lucide@latest"></script>
+<script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              dark: '#090D16',
+              deep: '#0B0F19',
+              card: '#0F172A',
+              surface: '#172033',
+              border: '#27354F',
+              violet: '#6A3CF4',
+              royal: '#4724BA',
+              lime: '#9AEF0F',
+              yellow: '#ECFD28',
+              coral: '#FF4500',
+              mandy: '#E95766',
+              champagne: '#FAF2CE'
+            },
+            emerald: {
+              400: '#34d399',
+              500: '#10B981',
+              600: '#059669',
+              950: '#022c22'
+            }
+          },
+          fontFamily: {
+            sans: ['Poppins', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+            hand: ['"Reenie Beanie"', 'cursive'],
+          },
+          boxShadow: {
+            'brutal': '4px 4px 0 0 #000',
+            'brutal-lg': '6px 6px 0 0 #000',
+            'brutal-sm': '2px 2px 0 0 #000',
+            'glow-violet': '0 0 25px -4px rgba(106, 60, 244, 0.45)',
+            'glow-lime': '0 0 25px -4px rgba(154, 239, 15, 0.35)',
+            'glow-coral': '0 0 25px -4px rgba(233, 87, 102, 0.35)',
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    body {
+      background-color: #090D16;
+      color: #F8FAFC;
+      font-family: 'Poppins', sans-serif;
+      overflow-x: hidden;
+    }
+    .font-mono-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-feature-settings: "tnum" 1, "zero" 1;
+    }
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 7px;
+      height: 7px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #090D16;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #27354F;
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #6A3CF4;
+    }
+    .clip-brutal-tag {
+      clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 0 100%);
+    }
+    .dashed-grid-bg {
+      background-image: radial-gradient(rgba(106, 60, 244, 0.18) 1px, transparent 1px);
+      background-size: 16px 16px;
+    }
+  
+    /* Kamilla Zero-Orphan Standard */
+    h1, h2, h3, h4, h5, h6 {
+      text-wrap: balance !important;
+    }
+    p, .card-desc, label {
+      text-wrap: pretty !important;
+    }
+    .no-orphan {
+      text-wrap: balance !important;
+      white-space: nowrap !important;
+    }
+  
+</style>
+</head>
+<body class="min-h-screen bg-[#090D16] text-slate-100 selection:bg-[#6A3CF4] selection:text-white antialiased flex flex-col">
+<!-- ================= PERSISTENT CLINICAL HUB TOP NAVIGATION ================= -->
+<header class="sticky top-0 z-50 bg-[#090D16]/95 backdrop-blur-md border-b-2 border-black shadow-brutal px-4 lg:px-8 py-3 transition-all">
+<div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+<!-- Brand & Facility Identifier -->
+<div class="flex items-center gap-3.5 w-full md:w-auto justify-between md:justify-start">
+<div class="flex items-center gap-3">
+<!-- Small Goods Gym Sticker Logo -->
+<div class="relative group cursor-pointer">
+<div class="w-12 h-12 rounded-xl bg-gradient-to-tr from-[#4724ba] via-[#6A3CF4] to-[#ECFD28] p-0.5 shadow-brutal border-2 border-black flex items-center justify-center bg-black">
+<img alt="Small Goods Gym Morley" class="w-full h-full object-contain p-1 rounded-lg drop-shadow" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAkwkSId3aNKMiJclcgA8iYLGfCTH2oF933bcH0BGOXQ3Mn8rj3vVIHOIF_yBnZQvlRs77gctS2Amq74uzbgEG1beqLhTDeAdTUufaGQne7IIfPMW_gUN2A7WPLNHkFo_EWbSO_Kmt4UG7BMk3ZHJjex7-cn--5CbFYW18WVYZbMGNT1x7uCuu6mQuUu6xPmRfFc_PY3OvDvuluxCBAc_xHsVfDL4RyyfxuHNvy3hrkBV3KSKmt4cDOajaiCKacLqqPkw"/>
+</div>
+<!-- Telemetry active pulse -->
+<span class="absolute -bottom-1 -right-1 flex h-4 w-4">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#9AEF0F] opacity-75"></span>
+<span class="relative inline-flex rounded-full h-4 w-4 bg-[#9AEF0F] border-2 border-black"></span>
+</span>
+</div>
+<div>
+<div class="flex items-center gap-2 flex-wrap">
+<h1 class="font-extrabold text-sm md:text-base tracking-tight text-white flex items-center gap-1.5 uppercase font-sans">
+                Small Goods Gym
+                <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-[#4724BA] text-[#ECFD28] border-2 border-black shadow-brutal-sm font-bold tracking-wider">
+                  NDIS CLINICAL AUDIT &amp; TELEMETRY SUITE
+                </span>
+</h1>
+</div>
+<p class="text-xs text-slate-400 flex items-center gap-2 font-mono mt-0.5">
+<span class="flex items-center gap-1 text-[#9AEF0F]"><i class="w-3.5 h-3.5" data-lucide="map-pin"></i> Morley, Perth WA</span>
+<span class="text-slate-600">•</span>
+<span class="text-slate-300">Holly Hunt (Titled Sports Physio) &amp; Joel Mullen (CSCS/ASCA)</span>
+</p>
+</div>
+</div>
+<!-- Quick Status for Mobile -->
+<div class="md:hidden flex items-center gap-1.5 px-2.5 py-1 rounded bg-[#0F172A] border border-slate-700 text-[11px] font-mono text-[#9AEF0F]">
+<span class="w-2 h-2 rounded-full bg-[#9AEF0F] animate-pulse"></span>
+<span>100% Audit-Ready</span>
+</div>
+</div>
+<!-- Right Nav: Hardware Active Sync & Participant Profile Selector -->
+<div class="flex items-center gap-3 w-full md:w-auto justify-end flex-wrap">
+<!-- Live Hardware Telemetry Sync Chip -->
+<div class="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-lg bg-[#0F172A] border-2 border-black shadow-brutal-sm text-xs font-mono">
+<span class="relative flex h-2.5 w-2.5">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#9AEF0F] opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#9AEF0F]"></span>
+</span>
+<span class="text-slate-300 font-semibold">Hardware Telemetry:</span>
+<span class="text-[#9AEF0F] font-bold flex items-center gap-1">
+<i class="w-3.5 h-3.5" data-lucide="activity"></i>
+            Activforce 2 + Enode VBT Live
+          </span>
+</div>
+<!-- Active Participant Context Selector -->
+<div class="flex items-center gap-2 bg-[#0F172A] p-1.5 rounded-xl border-2 border-black shadow-brutal w-full md:w-auto">
+<div class="pl-2 flex items-center gap-1.5 text-slate-300 text-xs font-mono">
+<i class="w-4 h-4 text-[#9AEF0F]" data-lucide="shield-check"></i>
+<span class="text-slate-400 hidden lg:inline">Participant:</span>
+</div>
+<select class="bg-[#172033] text-white text-xs rounded-lg px-2.5 py-1.5 font-mono font-semibold border border-slate-700 focus:outline-none focus:ring-2 focus:ring-[#6A3CF4] cursor-pointer" id="activeParticipant">
+<option selected="" value="p">'P' (NDIS Core &amp; Capacity Building • Plan-Managed)</option>
+<option value="mark">Mark T. (Self-Managed • Quad Tendinopathy PE)</option>
+<option value="sarah">Sarah W. (NDIA Review • Functional Transfer Wave)</option>
+</select>
+</div>
+</div>
+</div>
+<!-- Quick Telemetry View Tabs -->
+<div class="max-w-7xl mx-auto mt-2.5 border-t border-slate-800/80 pt-2 flex items-center justify-between overflow-x-auto no-scrollbar gap-2 text-xs font-mono">
+<div class="flex items-center gap-2 min-w-max">
+<button class="filter-tab px-3 py-1.5 rounded-lg bg-[#6A3CF4] text-white font-bold border-2 border-black shadow-brutal-sm flex items-center gap-1.5 transition-all" id="filter-all" onclick="filterSection('all')">
+<i class="w-3.5 h-3.5" data-lucide="layout-dashboard"></i>
+<span>Full Clinical Audit Dashboard</span>
+</button>
+<button class="filter-tab px-3 py-1.5 rounded-lg bg-[#0F172A] text-slate-300 hover:text-white border-2 border-black shadow-brutal-sm flex items-center gap-1.5 transition-all" id="filter-dynamometer" onclick="filterSection('dynamometer')">
+<i class="w-3.5 h-3.5 text-[#ECFD28]" data-lucide="gauge"></i>
+<span>Activforce 2 Dynamometry</span>
+</button>
+<button class="filter-tab px-3 py-1.5 rounded-lg bg-[#0F172A] text-slate-300 hover:text-white border-2 border-black shadow-brutal-sm flex items-center gap-1.5 transition-all" id="filter-velocity" onclick="filterSection('velocity')">
+<i class="w-3.5 h-3.5 text-[#9AEF0F]" data-lucide="zap"></i>
+<span>Enode VBT Sit-to-Stand</span>
+</button>
+<button class="filter-tab px-3 py-1.5 rounded-lg bg-[#0F172A] text-slate-300 hover:text-white border-2 border-black shadow-brutal-sm flex items-center gap-1.5 transition-all" id="filter-plan-manager" onclick="filterSection('plan-manager')">
+<i class="w-3.5 h-3.5 text-[#E95766]" data-lucide="file-check-2"></i>
+<span>Support Coordinator Plain Evidence</span>
+</button>
+<button class="filter-tab px-3 py-1.5 rounded-lg bg-[#0F172A] text-slate-300 hover:text-white border-2 border-black shadow-brutal-sm flex items-center gap-1.5 transition-all" id="filter-matrix" onclick="filterSection('matrix')">
+<i class="w-3.5 h-3.5 text-cyan-400" data-lucide="receipt"></i>
+<span>Line Item 15_056_0128_1_3 Ledger</span>
+</button>
+</div>
+<!-- Plan Manager details capsule -->
+<div class="hidden xl:flex items-center gap-2 text-[11px] text-slate-400 font-mono pl-4 border-l border-slate-800">
+<span class="text-slate-500">Coordinator:</span>
+<span class="text-white font-semibold">Sarah Jenkins (Apex Plan Management)</span>
+<span class="text-slate-600">•</span>
+<span class="text-[#9AEF0F] font-bold">Cycle 4 of 6</span>
+</div>
+</div>
+</header>
+<!-- ================= MAIN DASHBOARD CONTAINER ================= -->
+<main class="flex-1 max-w-7xl w-full mx-auto p-4 md:p-6 lg:p-8 space-y-6">
+<!-- ========================================================================= -->
+<!-- TOP CLINICAL METRICS BANNER (4 Key Audit Pillars) -->
+<!-- ========================================================================= -->
+<section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+<!-- Metric 1: NDIA Goal Metric -->
+<div class="bg-[#0F172A] border-2 border-black rounded-2xl p-4 shadow-brutal relative overflow-hidden group hover:border-[#6A3CF4] transition-all">
+<div class="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-[#6A3CF4]/20 to-transparent rounded-bl-full pointer-events-none"></div>
+<div class="flex items-center justify-between mb-2">
+<span class="px-2 py-0.5 rounded bg-purple-950/80 border border-purple-800 text-purple-300 text-[10px] font-mono font-bold uppercase tracking-wider">NDIS Goal 3.2</span>
+<i class="w-4 h-4 text-purple-400" data-lucide="target"></i>
+</div>
+<h3 class="text-xs font-mono uppercase text-slate-400 font-bold tracking-wider">NDIA Target Objective</h3>
+<p class="text-sm font-bold text-white mt-1 leading-snug">Bilateral Lower Limb Capacity &amp; Transfer Independence</p>
+<div class="mt-2.5 flex items-center gap-1.5 text-[11px] font-mono text-[#9AEF0F]">
+<i class="w-3.5 h-3.5" data-lucide="check-circle"></i>
+<span>Morley Gym Platform Wave 2</span>
+</div>
+</div>
+<!-- Metric 2: Overall Functional Progress -->
+<div class="bg-[#0F172A] border-2 border-black rounded-2xl p-4 shadow-brutal relative overflow-hidden group hover:border-[#9AEF0F] transition-all">
+<div class="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-[#9AEF0F]/15 to-transparent rounded-bl-full pointer-events-none"></div>
+<div class="flex items-center justify-between mb-2">
+<span class="px-2 py-0.5 rounded bg-emerald-950 border border-emerald-600 text-[#9AEF0F] text-[10px] font-mono font-bold uppercase tracking-wider">Validated Outcome</span>
+<i class="w-4 h-4 text-[#9AEF0F]" data-lucide="trending-up"></i>
+</div>
+<h3 class="text-xs font-mono uppercase text-slate-400 font-bold tracking-wider">8-Week Cycle Force Delta</h3>
+<div class="flex items-baseline gap-2 mt-1">
+<span class="text-2xl font-mono font-extrabold text-[#9AEF0F]">+18.4%</span>
+<span class="text-xs font-mono text-slate-300 font-semibold">Peak Force (N)</span>
+</div>
+<div class="mt-2 text-[11px] font-mono text-emerald-400 flex items-center gap-1">
+<span class="inline-block w-2 h-2 rounded-full bg-[#9AEF0F]"></span>
+<span>Statistically Significant (p &lt; 0.01)</span>
+</div>
+</div>
+<!-- Metric 3: Objective Audit Status -->
+<div class="bg-[#0F172A] border-2 border-black rounded-2xl p-4 shadow-brutal relative overflow-hidden group hover:border-[#ECFD28] transition-all">
+<div class="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-[#ECFD28]/15 to-transparent rounded-bl-full pointer-events-none"></div>
+<div class="flex items-center justify-between mb-2">
+<span class="px-2 py-0.5 rounded bg-yellow-950/80 border border-yellow-700/80 text-[#ECFD28] text-[10px] font-mono font-bold uppercase tracking-wider">Hardware Protocol</span>
+<i class="w-4 h-4 text-[#ECFD28]" data-lucide="shield-alert"></i>
+</div>
+<h3 class="text-xs font-mono uppercase text-slate-400 font-bold tracking-wider">Audit Defense Grade</h3>
+<p class="text-sm font-bold text-white mt-1 leading-snug">100% Audit-Ready Telemetry</p>
+<div class="mt-2 text-[11px] font-mono text-slate-300 flex items-center gap-1">
+<i class="w-3.5 h-3.5 text-[#ECFD28]" data-lucide="cpu"></i>
+<span>Activforce 2 + Enode 1000Hz Optical</span>
+</div>
+</div>
+<!-- Metric 4: Clinical Governance -->
+<div class="bg-[#0F172A] border-2 border-black rounded-2xl p-4 shadow-brutal relative overflow-hidden group hover:border-[#E95766] transition-all">
+<div class="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-[#E95766]/15 to-transparent rounded-bl-full pointer-events-none"></div>
+<div class="flex items-center justify-between mb-2">
+<span class="px-2 py-0.5 rounded bg-rose-950/80 border border-rose-800 text-rose-300 text-[10px] font-mono font-bold uppercase tracking-wider">Governance</span>
+<i class="w-4 h-4 text-rose-400" data-lucide="award"></i>
+</div>
+<h3 class="text-xs font-mono uppercase text-slate-400 font-bold tracking-wider">Dual Practitioner Oversight</h3>
+<p class="text-sm font-bold text-white mt-1 leading-snug">Holly Hunt (AHPRA Physio) &amp; Joel Mullen (CSCS)</p>
+<div class="mt-2 text-[11px] font-mono text-slate-400 flex items-center gap-1">
+<span class="text-[#E95766]">Reg #PHY00021481</span>
+<span>• ASCA Level 2</span>
+</div>
+</div>
+</section>
+<!-- ========================================================================= -->
+<!-- PROMINENT ACTION HEADER (NDIA Report Export & Coordinator Portal Share) -->
+<!-- ========================================================================= -->
+<section class="bg-gradient-to-r from-[#172033] via-[#0F172A] to-[#172033] border-2 border-black rounded-2xl p-5 md:p-6 shadow-brutal-lg relative overflow-hidden">
+<!-- Background subtle grid -->
+<div class="absolute inset-0 dashed-grid-bg opacity-30 pointer-events-none"></div>
+<div class="relative z-10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
+<!-- Left: Summary Description -->
+<div class="space-y-2 max-w-2xl">
+<div class="flex items-center gap-2.5 flex-wrap">
+<span class="px-2.5 py-1 rounded bg-[#6A3CF4] text-white text-xs font-mono font-bold border border-black shadow-brutal-sm uppercase">
+              Participant Evidence Dossier: 'P'
+            </span>
+<span class="px-2 py-0.5 rounded bg-emerald-950 border border-emerald-600/70 text-[#9AEF0F] text-[11px] font-mono font-bold flex items-center gap-1">
+<i class="w-3.5 h-3.5" data-lucide="badge-check"></i>
+              NDIS Pricing Guide Line Item 15_056_0128_1_3 Compliant
+            </span>
+</div>
+<h2 class="text-xl md:text-2xl font-extrabold text-white tracking-tight">
+            NDIS Capacity Building Evidence Package • 8-Week Review
+          </h2>
+<p class="text-xs md:text-sm text-slate-300 font-sans leading-relaxed">
+            Compiled for Plan Manager <strong class="text-white">Sarah Jenkins (Apex Plan Management)</strong> and Support Coordinator review. Contains timestamped dynamometer peak force curves, sit-to-stand velocity metrics, and Holly Hunt physiotherapy clinical sign-off.
+          </p>
+<div class="flex items-center gap-4 text-xs font-mono text-slate-400 pt-1">
+<span class="flex items-center gap-1"><i class="w-3.5 h-3.5 text-purple-400" data-lucide="calendar"></i> Assessment Date: 28 Oct 2024</span>
+<span class="flex items-center gap-1"><i class="w-3.5 h-3.5 text-[#9AEF0F]" data-lucide="clock"></i> Valid Through: Plan Review Q1 2025</span>
+</div>
+</div>
+<!-- Right: Huge High-Contrast Action Buttons -->
+<div class="flex flex-col sm:flex-row lg:flex-col gap-3 w-full lg:w-auto flex-shrink-0">
+<!-- Primary Huge Button: 1-Click PDF Export -->
+<button class="px-6 py-4 rounded-xl bg-[#ECFD28] hover:bg-[#d9ea1d] text-black font-extrabold font-mono text-sm uppercase tracking-wide border-2 border-black shadow-brutal hover:translate-x-[1px] hover:translate-y-[1px] active:shadow-none transition-all flex items-center justify-center gap-3 group" id="primaryExportBtn" onclick="triggerReportExport()">
+<i class="w-5 h-5 group-hover:scale-110 transition-transform" data-lucide="file-down"></i>
+<div class="text-left">
+<span class="block text-xs font-bold leading-none text-slate-800">1-CLICK AUDIT EXPORT</span>
+<span class="block text-sm font-black tracking-tight text-black">DOWNLOAD NDIA PROGRESS REPORT (PDF)</span>
+</div>
+</button>
+<!-- Secondary Button: Share Portal Link -->
+<div class="flex items-center gap-2">
+<button class="flex-1 px-4 py-2.5 rounded-xl bg-[#090D16] hover:bg-[#1E293B] text-slate-200 font-mono text-xs font-bold border-2 border-black shadow-brutal-sm flex items-center justify-center gap-2 transition-all" id="sharePortalBtn" onclick="shareReadOnlyPortal()">
+<i class="w-4 h-4 text-[#6A3CF4]" data-lucide="link-2"></i>
+<span>Share Secure Coordinator Link</span>
+</button>
+<!-- Preview Modal Trigger -->
+<button class="px-3.5 py-2.5 rounded-xl bg-[#4724BA] hover:bg-[#6A3CF4] text-white font-mono text-xs font-bold border-2 border-black shadow-brutal-sm transition-all" onclick="openPreviewModal()" title="Instant Dossier Preview">
+<i class="w-4 h-4" data-lucide="eye"></i>
+</button>
+</div>
+<div class="hidden text-center text-[11px] font-mono text-[#9AEF0F] bg-emerald-950/80 p-1.5 rounded-lg border border-emerald-700 animate-pulse" id="exportStatusBadge">
+            ✓ PDF Dossier Generated (SHA-256 Verified: 4b92...f81)
+          </div>
+</div>
+</div>
+</section>
+<!-- ========================================================================= -->
+<!-- TWO CORE HARDWARE TELEMETRY CARDS (ACTIVFORCE 2 & ENODE ACCELEROMETER) -->
+<!-- ========================================================================= -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+<!-- ===================================================================== -->
+<!-- CARD 1: ACTIVFORCE 2 DIGITAL DYNAMOMETER TELEMETRY -->
+<!-- ===================================================================== -->
+<section class="bg-[#0F172A] border-2 border-black rounded-2xl p-5 md:p-6 shadow-brutal flex flex-col justify-between relative" id="section-dynamometer">
+<div>
+<!-- Header -->
+<div class="flex items-start justify-between gap-3 mb-4 pb-3 border-b-2 border-slate-800">
+<div class="flex items-center gap-3">
+<div class="w-11 h-11 rounded-xl bg-[#6A3CF4]/20 border-2 border-[#6A3CF4] flex items-center justify-center text-[#6A3CF4] shadow-brutal-sm">
+<i class="w-6 h-6" data-lucide="gauge"></i>
+</div>
+<div>
+<div class="flex items-center gap-2">
+<h3 class="font-extrabold text-base text-white tracking-tight">Activforce 2 Digital Dynamometry</h3>
+<span class="px-2 py-0.5 rounded bg-purple-950 border border-purple-700 text-purple-300 font-mono text-[10px] font-bold">CALIBRATED ISO</span>
+</div>
+<p class="text-xs font-mono text-slate-400 mt-0.5">Isometric Knee Extension &amp; Hip Abduction Peak Force</p>
+</div>
+</div>
+<!-- Gain Badge -->
+<div class="text-right flex-shrink-0">
+<span class="inline-block px-3 py-1 rounded-lg bg-emerald-950 border-2 border-[#9AEF0F] text-[#9AEF0F] font-mono font-extrabold text-xs shadow-brutal-sm">
+                +18.4% OVER 8 WEEKS
+              </span>
+<span class="block text-[10px] font-mono text-slate-400 mt-0.5">312.0 N → 369.4 N</span>
+</div>
+</div>
+<!-- Quantitative Data Matrix (Newtons & Kg equivalent) -->
+<div class="grid grid-cols-3 gap-3 mb-5 text-center">
+<div class="bg-[#090D16] p-3 rounded-xl border border-slate-800">
+<span class="text-[10px] font-mono text-slate-400 block uppercase">Week 1 Baseline</span>
+<span class="text-lg md:text-xl font-mono font-extrabold text-slate-300">312.0 N</span>
+<span class="block text-[10px] font-mono text-slate-500">31.8 kg equivalent</span>
+</div>
+<div class="bg-[#090D16] p-3 rounded-xl border border-slate-800">
+<span class="text-[10px] font-mono text-slate-400 block uppercase">Week 4 Mid-Point</span>
+<span class="text-lg md:text-xl font-mono font-extrabold text-purple-300">341.2 N</span>
+<span class="block text-[10px] font-mono text-purple-400/80">+9.3% gain</span>
+</div>
+<div class="bg-[#090D16] p-3 rounded-xl border-2 border-[#9AEF0F]/60 bg-[#9AEF0F]/5">
+<span class="text-[10px] font-mono text-[#9AEF0F] block uppercase font-bold">Week 8 Current Audit</span>
+<span class="text-lg md:text-xl font-mono font-extrabold text-[#9AEF0F]">369.4 N</span>
+<span class="block text-[10px] font-mono text-emerald-300 font-bold">37.7 kg equivalent</span>
+</div>
+</div>
+<!-- Interactive Bilateral Torque & Force Curve SVG Graphic -->
+<div class="bg-[#090D16] p-4 rounded-xl border-2 border-slate-800 relative mb-4">
+<div class="flex items-center justify-between text-xs font-mono mb-2">
+<div class="flex items-center gap-2">
+<span class="text-slate-300 font-bold">Limb Force Symmetry Curve (5-Second Isometric MVIC)</span>
+</div>
+<div class="flex items-center gap-3 text-[10px]">
+<span class="flex items-center gap-1 text-purple-400">
+<span class="w-2.5 h-2.5 rounded-full bg-[#6A3CF4]"></span> Left Quad (358 N)
+                </span>
+<span class="flex items-center gap-1 text-[#9AEF0F]">
+<span class="w-2.5 h-2.5 rounded-full bg-[#9AEF0F]"></span> Right Quad (369 N)
+                </span>
+</div>
+</div>
+<!-- SVG Torque Curve -->
+<div class="h-40 w-full relative">
+<svg class="w-full h-full" fill="none" preserveaspectratio="none" viewbox="0 0 460 140">
+<!-- Grid Lines -->
+<line stroke="#1E293B" stroke-dasharray="3 3" stroke-width="1" x1="0" x2="460" y1="20" y2="20"></line>
+<line stroke="#1E293B" stroke-dasharray="3 3" stroke-width="1" x1="0" x2="460" y1="60" y2="60"></line>
+<line stroke="#1E293B" stroke-dasharray="3 3" stroke-width="1" x1="0" x2="460" y1="100" y2="100"></line>
+<!-- Week 1 Baseline Curve (Faint Dashed Red/Slate) -->
+<path d="M 0,130 C 50,110 80,75 140,70 C 200,66 280,72 360,78 C 410,84 440,115 460,135" fill="none" stroke="#48444E" stroke-dasharray="4 4" stroke-width="2"></path>
+<!-- Week 8 Left Quad Curve (Purple) -->
+<path d="M 0,135 C 40,90 90,38 160,30 C 240,22 320,26 390,34 C 420,40 445,85 460,130" fill="none" stroke="#6A3CF4" stroke-width="3"></path>
+<!-- Week 8 Right Quad Curve (Acid Lime) -->
+<path d="M 0,135 C 45,80 95,28 170,22 C 250,16 330,20 395,28 C 425,35 448,75 460,128" fill="none" stroke="#9AEF0F" stroke-width="3"></path>
+<!-- Area fill for peak force -->
+<polygon fill="url(#limeGradient)" opacity="0.12" points="0,135 45,80 95,28 170,22 250,16 330,20 395,28 425,35 448,75 460,128 460,140 0,140"></polygon>
+<defs>
+<lineargradient id="limeGradient" x1="0%" x2="0%" y1="0%" y2="100%">
+<stop offset="0%" stop-color="#9AEF0F"></stop>
+<stop offset="100%" stop-color="#9AEF0F" stop-opacity="0"></stop>
+</lineargradient>
+</defs>
+<!-- Annotation markers -->
+<circle cx="170" cy="22" fill="#9AEF0F" r="4" stroke="#000" stroke-width="2"></circle>
+<circle cx="160" cy="30" fill="#6A3CF4" r="4" stroke="#000" stroke-width="2"></circle>
+</svg>
+<!-- Peak annotation badge floating -->
+<div class="absolute top-2 right-4 bg-black/80 px-2 py-1 rounded border border-[#9AEF0F] text-[10px] font-mono text-[#9AEF0F]">
+                Peak: 369.4 N @ 1.84s (High RFD)
+              </div>
+<div class="absolute bottom-1 left-2 text-[9px] font-mono text-slate-500">
+                0.0s Ramp • 5.0s Sustained Contraction
+              </div>
+</div>
+<!-- Bilateral Limb Deficit Improvement Pill -->
+<div class="mt-3 flex items-center justify-between text-[11px] font-mono p-2 rounded-lg bg-[#172033] border border-slate-700">
+<div class="flex items-center gap-1.5 text-slate-300">
+<i class="w-3.5 h-3.5 text-[#ECFD28]" data-lucide="scale"></i>
+<span>Limb Deficit Asymmetry:</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="text-rose-400 line-through">22.0% Deficit</span>
+<span class="text-slate-400">→</span>
+<span class="text-[#9AEF0F] font-bold">6.8% Deficit (Clinically Symmetrical)</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Clinical Commentary Box (Holly Hunt) -->
+<div class="bg-purple-950/40 border border-purple-800/60 rounded-xl p-3.5 text-xs text-slate-200">
+<div class="flex items-center gap-2 text-purple-300 font-mono font-bold mb-1">
+<i class="w-3.5 h-3.5" data-lucide="stethoscope"></i>
+<span>CLINICAL EVIDENCE SUMMARY (PHYSIOTHERAPY REVIEW):</span>
+</div>
+<p class="font-sans text-slate-300 text-pretty leading-relaxed">
+            “Statistically significant quad force symmetry improvement: limb deficit reduced from <span class="text-rose-300 font-semibold">22%</span> to <span class="text-[#9AEF0F] font-semibold">6.8%</span>. This directly correlates with unassisted chair transfers and stair descent without handrail support during community access outings.”
+          </p>
+<div class="mt-2 text-[10px] font-mono text-slate-400 flex items-center justify-between">
+<span>Holly Hunt • Titled APA Sports &amp; Exercise Physiotherapist</span>
+<span class="text-purple-300 font-semibold">Sensor S/N: AF2-9941</span>
+</div>
+</div>
+</section>
+<!-- ===================================================================== -->
+<!-- CARD 2: ENODE ACCELEROMETER SIT-TO-STAND & TRANSFER VELOCITY -->
+<!-- ===================================================================== -->
+<section class="bg-[#0F172A] border-2 border-black rounded-2xl p-5 md:p-6 shadow-brutal flex flex-col justify-between relative" id="section-velocity">
+<div>
+<!-- Header -->
+<div class="flex items-start justify-between gap-3 mb-4 pb-3 border-b-2 border-slate-800">
+<div class="flex items-center gap-3">
+<div class="w-11 h-11 rounded-xl bg-[#ECFD28]/20 border-2 border-[#ECFD28] flex items-center justify-center text-[#ECFD28] shadow-brutal-sm">
+<i class="w-6 h-6" data-lucide="zap"></i>
+</div>
+<div>
+<div class="flex items-center gap-2">
+<h3 class="font-extrabold text-base text-white tracking-tight">Enode Accelerometer Telemetry</h3>
+<span class="px-2 py-0.5 rounded bg-yellow-950 border border-yellow-700 text-[#ECFD28] font-mono text-[10px] font-bold">1000Hz BLE PRO</span>
+</div>
+<p class="text-xs font-mono text-slate-400 mt-0.5">5× Sit-to-Stand Functional Transfer Velocity &amp; Rate of Force Development</p>
+</div>
+</div>
+<!-- Sensor Status Pill -->
+<div class="text-right flex-shrink-0">
+<span class="inline-block px-3 py-1 rounded-lg bg-indigo-950 border-2 border-[#6A3CF4] text-purple-300 font-mono font-extrabold text-xs shadow-brutal-sm">
+                +45.2% VELOCITY GAIN
+              </span>
+<span class="block text-[10px] font-mono text-slate-400 mt-0.5">0.42 → 0.61 m/s</span>
+</div>
+</div>
+<!-- Quantitative Breakdown -->
+<div class="grid grid-cols-3 gap-3 mb-5 text-center">
+<div class="bg-[#090D16] p-3 rounded-xl border border-slate-800">
+<span class="text-[10px] font-mono text-slate-400 block uppercase">Baseline Mean V</span>
+<span class="text-lg md:text-xl font-mono font-extrabold text-slate-300">0.42 m/s</span>
+<span class="block text-[10px] font-mono text-rose-400">High Hesitancy (0.8s)</span>
+</div>
+<div class="bg-[#090D16] p-3 rounded-xl border border-slate-800">
+<span class="text-[10px] font-mono text-slate-400 block uppercase">Peak Rep Velocity</span>
+<span class="text-lg md:text-xl font-mono font-extrabold text-[#ECFD28]">0.68 m/s</span>
+<span class="block text-[10px] font-mono text-[#ECFD28]/80">Rep 3 Peak Pop</span>
+</div>
+<div class="bg-[#090D16] p-3 rounded-xl border-2 border-[#6A3CF4]/60 bg-[#6A3CF4]/10">
+<span class="text-[10px] font-mono text-purple-300 block uppercase font-bold">Current Mean V</span>
+<span class="text-lg md:text-xl font-mono font-extrabold text-white">0.61 m/s</span>
+<span class="block text-[10px] font-mono text-[#9AEF0F] font-bold">+45.2% Speed</span>
+</div>
+</div>
+<!-- 5-Rep Accelerometer Bar Telemetry Graphic -->
+<div class="bg-[#090D16] p-4 rounded-xl border-2 border-slate-800 relative mb-4">
+<div class="flex items-center justify-between text-xs font-mono mb-3">
+<span class="text-slate-300 font-bold">5× Sit-to-Stand Repetition Concurrency (Platform 4)</span>
+<span class="text-[#9AEF0F] font-bold text-[11px]">Zero Neuromuscular Dropout</span>
+</div>
+<!-- Rep Bars -->
+<div class="grid grid-cols-5 gap-3 items-end h-32 pt-2 pb-1 border-b border-l border-slate-700 px-2">
+<!-- Rep 1 -->
+<div class="flex flex-col items-center h-full justify-end group cursor-pointer">
+<span class="text-[10px] font-mono text-slate-300 font-bold mb-1">0.58</span>
+<div class="w-full bg-[#4724BA] group-hover:bg-[#6A3CF4] rounded-t-lg transition-all border border-black shadow-sm" style="height: 64%"></div>
+<span class="text-[10px] font-mono text-slate-400 mt-1">Rep 1</span>
+</div>
+<!-- Rep 2 -->
+<div class="flex flex-col items-center h-full justify-end group cursor-pointer">
+<span class="text-[10px] font-mono text-slate-300 font-bold mb-1">0.62</span>
+<div class="w-full bg-[#4724BA] group-hover:bg-[#6A3CF4] rounded-t-lg transition-all border border-black shadow-sm" style="height: 72%"></div>
+<span class="text-[10px] font-mono text-slate-400 mt-1">Rep 2</span>
+</div>
+<!-- Rep 3 (Peak) -->
+<div class="flex flex-col items-center h-full justify-end group cursor-pointer relative">
+<span class="text-[10px] font-mono text-[#ECFD28] font-black mb-1">0.68</span>
+<div class="w-full bg-gradient-to-t from-[#6A3CF4] to-[#ECFD28] rounded-t-lg transition-all border-2 border-black shadow-brutal-sm" style="height: 88%"></div>
+<span class="text-[10px] font-mono text-[#ECFD28] font-bold mt-1">Rep 3★</span>
+</div>
+<!-- Rep 4 -->
+<div class="flex flex-col items-center h-full justify-end group cursor-pointer">
+<span class="text-[10px] font-mono text-slate-300 font-bold mb-1">0.59</span>
+<div class="w-full bg-[#4724BA] group-hover:bg-[#6A3CF4] rounded-t-lg transition-all border border-black shadow-sm" style="height: 66%"></div>
+<span class="text-[10px] font-mono text-slate-400 mt-1">Rep 4</span>
+</div>
+<!-- Rep 5 -->
+<div class="flex flex-col items-center h-full justify-end group cursor-pointer">
+<span class="text-[10px] font-mono text-slate-300 font-bold mb-1">0.58</span>
+<div class="w-full bg-[#4724BA] group-hover:bg-[#6A3CF4] rounded-t-lg transition-all border border-black shadow-sm" style="height: 64%"></div>
+<span class="text-[10px] font-mono text-slate-400 mt-1">Rep 5</span>
+</div>
+</div>
+<!-- Hardware Spec Pill Footer -->
+<div class="mt-3 flex items-center justify-between text-[10px] font-mono text-slate-400">
+<span class="flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-[#9AEF0F] inline-block"></span>
+                Enode BLE Pro • Calibrated Platform 4
+              </span>
+<span class="text-purple-300 font-semibold">1000Hz Optical Sampling Rate</span>
+</div>
+</div>
+</div>
+<!-- Transfer Velocity Clinical Benchmark Context -->
+<div class="bg-indigo-950/30 border border-indigo-800/50 rounded-xl p-3.5 text-xs text-slate-200">
+<div class="flex items-center justify-between text-indigo-300 font-mono font-bold mb-1">
+<span class="flex items-center gap-1.5">
+<i class="w-3.5 h-3.5 text-[#ECFD28]" data-lucide="gauge-circle"></i>
+              COMMUNITY ACCELERATION BENCHMARK:
+            </span>
+<span class="text-[#9AEF0F]">122% of Norm</span>
+</div>
+<p class="font-sans text-slate-300 text-pretty leading-relaxed">
+            Standard community transfer threshold is 0.50 m/s. 'P' clocked a consistent <strong class="text-white">0.61 m/s mean</strong> without hand pushing off armrests, indicating restored gluteal and quad rate of force development (RFD).
+          </p>
+</div>
+</section>
+</div>
+<!-- ========================================================================= -->
+<!-- READ-ONLY SUPPORT COORDINATOR & PLAN MANAGER CAPACITY CARD -->
+<!-- (Non-clinical plain English evidence, fall risk index, digital seal & coach note) -->
+<!-- ========================================================================= -->
+<section class="bg-[#0F172A] border-2 border-black rounded-2xl p-6 shadow-brutal-lg relative overflow-hidden" id="section-plan-manager">
+<!-- Top banner label -->
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b-2 border-slate-800 mb-6">
+<div>
+<div class="flex items-center gap-2">
+<span class="px-2.5 py-0.5 rounded bg-rose-950 border border-rose-700 text-rose-300 font-mono text-xs font-bold uppercase">
+              PLAIN-ENGLISH AUDIT TRANSLATION
+            </span>
+<span class="text-xs font-mono text-slate-400">Non-Clinical Plan Manager Review Card</span>
+</div>
+<h3 class="text-xl font-bold text-white mt-1">NDIA Goal Progress &amp; Independence Justification</h3>
+<p class="text-xs text-slate-400 font-sans mt-0.5">
+            Clear, defensible functional outcomes designed for NDIA funding continuity and Support Coordinator reports.
+          </p>
+</div>
+<div class="flex items-center gap-3 bg-[#090D16] p-2.5 rounded-xl border border-slate-800">
+<div class="w-9 h-9 rounded-lg bg-emerald-950 border border-emerald-600 flex items-center justify-center text-[#9AEF0F]">
+<i class="w-5 h-5" data-lucide="check-check"></i>
+</div>
+<div>
+<span class="text-xs font-mono font-bold text-white block">Funding Category 15</span>
+<span class="text-[11px] font-mono text-[#9AEF0F]">100% Goal Alignment</span>
+</div>
+</div>
+</div>
+<!-- Plain English Goals Grid -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+<!-- Goal 1 -->
+<div class="bg-[#090D16] p-4 rounded-xl border-2 border-black shadow-brutal-sm relative">
+<div class="flex items-center justify-between mb-2">
+<span class="text-xs font-mono font-bold text-purple-400 uppercase">Functional Goal 1</span>
+<span class="px-2 py-0.5 rounded bg-emerald-950 text-[#9AEF0F] border border-emerald-600 text-[10px] font-mono font-bold">ACHIEVED</span>
+</div>
+<h4 class="text-sm font-bold text-white mb-1">Unassisted Transfers from Soft Couch</h4>
+<p class="text-xs text-slate-300 leading-relaxed text-pretty">
+            Baseline required 1 carer assist + rocking momentum. Current status: <strong class="text-[#9AEF0F]">0 carer assistance needed</strong>. Can transition cleanly from 42cm low seated surface.
+          </p>
+</div>
+<!-- Goal 2 -->
+<div class="bg-[#090D16] p-4 rounded-xl border-2 border-black shadow-brutal-sm relative">
+<div class="flex items-center justify-between mb-2">
+<span class="text-xs font-mono font-bold text-indigo-400 uppercase">Functional Goal 2</span>
+<span class="px-2 py-0.5 rounded bg-emerald-950 text-[#9AEF0F] border border-emerald-600 text-[10px] font-mono font-bold">IMPROVED</span>
+</div>
+<h4 class="text-sm font-bold text-white mb-1">10-Meter Community Mobility Velocity</h4>
+<p class="text-xs text-slate-300 leading-relaxed text-pretty">
+            Gait speed improved by <strong class="text-[#ECFD28]">+0.31 m/s</strong> (now 1.14 m/s). Participant can comfortably clear pedestrian signal crossings at Morley Galleria without panic.
+          </p>
+</div>
+<!-- Goal 3 / Falls Risk -->
+<div class="bg-[#090D16] p-4 rounded-xl border-2 border-black shadow-brutal-sm relative">
+<div class="flex items-center justify-between mb-2">
+<span class="text-xs font-mono font-bold text-[#E95766] uppercase">Risk Mitigation</span>
+<span class="px-2 py-0.5 rounded bg-emerald-950 text-[#9AEF0F] border border-emerald-600 text-[10px] font-mono font-bold">-64% RISK</span>
+</div>
+<h4 class="text-sm font-bold text-white mb-1">Falls Risk Reduction Index</h4>
+<p class="text-xs text-slate-300 leading-relaxed text-pretty">
+            Calculated via Timed Up and Go (TUG) decrement from 14.8s to 8.9s. Statistically shifts participant from 'Elevated Falls Risk' to 'Low Risk Independent'.
+          </p>
+</div>
+</div>
+<!-- Two-Column Clinical Endorsement & Coach Handwriting Section -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+<!-- Left: Holly Hunt Official Physio Digital Signature Seal (7 cols) -->
+<div class="lg:col-span-7 bg-[#172033] p-5 rounded-2xl border-2 border-slate-700 shadow-sm relative">
+<div class="flex items-start justify-between gap-4">
+<div class="flex items-center gap-3">
+<div class="w-12 h-12 rounded-full bg-[#4724BA] border-2 border-[#9AEF0F] flex items-center justify-center text-white font-bold text-sm shadow-md">
+                HH
+              </div>
+<div>
+<h4 class="text-sm font-bold text-white">Holly Hunt • B.Phty, M.Sports Physio</h4>
+<p class="text-[11px] font-mono text-[#9AEF0F]">Titled APA Sports &amp; Exercise Physiotherapist • AHPRA #PHY00021481</p>
+</div>
+</div>
+<!-- Digital Seal Badge -->
+<div class="text-center px-2.5 py-1 rounded bg-[#090D16] border border-slate-700">
+<span class="block text-[9px] font-mono text-slate-400">AHPRA VERIFIED</span>
+<span class="text-[10px] font-mono text-[#ECFD28] font-bold">DIGITAL SEAL ✓</span>
+</div>
+</div>
+<p class="text-xs text-slate-300 italic mt-3 leading-relaxed">
+            “In my clinical capacity as treating titled physiotherapist at Small Goods Gym, I certify that participant 'P' has achieved measurable, objective biomechanical adaptations. Continued sports science capacity building under Category 15 is clinically vital to prevent neuromuscular regression and maintain community independence.”
+          </p>
+<div class="mt-3 pt-3 border-t border-slate-700/80 flex items-center justify-between text-[11px] font-mono text-slate-400">
+<span>Signed digitally via Small Goods Clinical EMR</span>
+<span class="text-slate-300">Auth Token: SG-HH-2024-NDIS-9021</span>
+</div>
+</div>
+<!-- Right: Joel Mullen Handwritten Coach Cue (Reenie Beanie) (5 cols) -->
+<div class="lg:col-span-5 bg-[#FAF2CE] text-black p-5 rounded-2xl border-2 border-black shadow-brutal rotate-1 relative transform hover:rotate-0 transition-transform">
+<!-- Pushpin or sticker -->
+<div class="absolute -top-3 left-6 w-6 h-6 rounded-full bg-[#FF4500] border-2 border-black shadow-sm"></div>
+<div class="flex items-center justify-between mb-1 pl-6">
+<span class="text-[11px] font-mono font-bold tracking-widest text-slate-700 uppercase">HEAD COACH FLOOR NOTE</span>
+<span class="text-[10px] font-mono text-slate-600">Platform 4 • Morley</span>
+</div>
+<!-- Handwritten style message -->
+<p class="font-hand text-2xl md:text-3xl text-[#090D16] leading-tight mt-2">
+            "P is locking out 70kg box squats with zero knee cave. The transfer speed onto the bus is night and day! Proud coach."
+          </p>
+<div class="text-right mt-2 font-mono text-xs font-bold text-slate-800">
+            — Joel Mullen (Head Coach, Small Goods)
+          </div>
+</div>
+</div>
+</section>
+<!-- ========================================================================= -->
+<!-- NDIA EVIDENCE MATRIX & LINE ITEM ALLOCATION (Category 15 Ledger) -->
+<!-- ========================================================================= -->
+<section class="bg-[#0F172A] border-2 border-black rounded-2xl p-6 shadow-brutal relative" id="section-matrix">
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b-2 border-slate-800 mb-5">
+<div>
+<div class="flex items-center gap-2">
+<span class="px-2.5 py-0.5 rounded bg-cyan-950 border border-cyan-700 text-cyan-300 font-mono text-xs font-bold uppercase">
+              ATTENDANCE &amp; BUDGET LEDGER
+            </span>
+<span class="text-xs font-mono text-slate-400">NDIS Support Item: 15_056_0128_1_3</span>
+</div>
+<h3 class="text-lg font-bold text-white mt-1">NDIA Session Verification &amp; Capacity Budget Allocation</h3>
+</div>
+<!-- 100% Adherence Badge -->
+<div class="flex items-center gap-2 bg-emerald-950 border border-emerald-600 px-3.5 py-1.5 rounded-xl text-xs font-mono">
+<i class="w-4 h-4 text-[#9AEF0F]" data-lucide="calendar-check"></i>
+<span class="text-white font-bold">16 of 16 Platform Sessions Completed</span>
+<span class="text-[#9AEF0F] font-extrabold">(100% Adherence)</span>
+</div>
+</div>
+<!-- Budget Utilization Gauge Bar -->
+<div class="bg-[#090D16] p-4 rounded-xl border border-slate-800 mb-6">
+<div class="flex items-center justify-between text-xs font-mono mb-2">
+<span class="text-slate-300 font-bold">NDIS Capacity Budget Utilization (Current 12-Month Plan)</span>
+<span class="text-slate-300">$3,103.84 / $4,655.76 Allocated (<strong class="text-[#9AEF0F]">66.7%</strong>)</span>
+</div>
+<!-- Progress Bar -->
+<div class="w-full h-4 bg-slate-800 rounded-full overflow-hidden border border-slate-700 flex">
+<div class="h-full bg-gradient-to-r from-[#4724BA] to-[#6A3CF4]" style="width: 66.7%" title="Expended ($3,103.84)"></div>
+<div class="h-full bg-[#ECFD28]/60" style="width: 25%" title="Forecasted Remainder ($1,163.94)"></div>
+<div class="h-full bg-slate-700" style="width: 8.3%" title="Unallocated Contingency"></div>
+</div>
+<div class="flex items-center justify-between text-[11px] font-mono text-slate-400 mt-2">
+<div class="flex items-center gap-4">
+<span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-[#6A3CF4]"></span> Expended: 16 Hours</span>
+<span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-[#ECFD28]"></span> Remaining Scheduled: 6 Hours</span>
+</div>
+<span class="text-[#9AEF0F] font-bold">Pacing: On Target with Zero Overrun</span>
+</div>
+</div>
+<!-- Session Matrix Table -->
+<div class="overflow-x-auto rounded-xl border-2 border-black shadow-brutal-sm">
+<table class="w-full text-left text-xs font-mono">
+<thead class="bg-[#172033] text-slate-300 border-b border-slate-700 uppercase tracking-wider">
+<tr>
+<th class="p-3.5">Session Date</th>
+<th class="p-3.5">Practitioner / Coach</th>
+<th class="p-3.5">Line Item Code</th>
+<th class="p-3.5">Primary Target Focus</th>
+<th class="p-3.5 text-center">Hardware Evidence</th>
+<th class="p-3.5 text-right">Status / Claim</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-slate-800 bg-[#090D16]">
+<!-- Row 1 -->
+<tr class="hover:bg-slate-900/80 transition-colors">
+<td class="p-3.5 font-bold text-white">28 Oct 2024</td>
+<td class="p-3.5 text-purple-300">Holly Hunt (Physio)</td>
+<td class="p-3.5 text-slate-400">15_056_0128_1_3</td>
+<td class="p-3.5 text-slate-200">Activforce Dynamometer MVIC &amp; Bilateral Torque Audit</td>
+<td class="p-3.5 text-center">
+<span class="px-2 py-0.5 rounded bg-purple-950 border border-purple-700 text-purple-300 text-[10px] font-bold">369.4 N Verified</span>
+</td>
+<td class="p-3.5 text-right font-bold text-[#9AEF0F]">Claimed • $193.99</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-slate-900/80 transition-colors">
+<td class="p-3.5 font-bold text-white">24 Oct 2024</td>
+<td class="p-3.5 text-[#ECFD28]">Joel Mullen (CSCS)</td>
+<td class="p-3.5 text-slate-400">15_056_0128_1_3</td>
+<td class="p-3.5 text-slate-200">Enode 5x Sit-to-Stand Acceleration &amp; Box Squats (70kg)</td>
+<td class="p-3.5 text-center">
+<span class="px-2 py-0.5 rounded bg-yellow-950 border border-yellow-700 text-[#ECFD28] text-[10px] font-bold">0.61 m/s V_mean</span>
+</td>
+<td class="p-3.5 text-right font-bold text-[#9AEF0F]">Claimed • $193.99</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-slate-900/80 transition-colors">
+<td class="p-3.5 font-bold text-white">21 Oct 2024</td>
+<td class="p-3.5 text-purple-300">Holly Hunt (Physio)</td>
+<td class="p-3.5 text-slate-400">15_056_0128_1_3</td>
+<td class="p-3.5 text-slate-200">Hip Abduction Torque &amp; Stair Descent Simulation</td>
+<td class="p-3.5 text-center">
+<span class="px-2 py-0.5 rounded bg-purple-950 border border-purple-700 text-purple-300 text-[10px] font-bold">288 N Hip Abduct</span>
+</td>
+<td class="p-3.5 text-right font-bold text-[#9AEF0F]">Claimed • $193.99</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-slate-900/80 transition-colors">
+<td class="p-3.5 font-bold text-white">17 Oct 2024</td>
+<td class="p-3.5 text-[#ECFD28]">Joel Mullen (CSCS)</td>
+<td class="p-3.5 text-slate-400">15_056_0128_1_3</td>
+<td class="p-3.5 text-slate-200">Platform 4 Heavy Lockout &amp; Midfoot Rooting Mechanics</td>
+<td class="p-3.5 text-center">
+<span class="px-2 py-0.5 rounded bg-yellow-950 border border-yellow-700 text-[#ECFD28] text-[10px] font-bold">Enode Live Telemetry</span>
+</td>
+<td class="p-3.5 text-right font-bold text-[#9AEF0F]">Claimed • $193.99</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</main>
+<!-- ================= FOOTER / MORLEY GYM CLINICAL AUDIT FOOTER ================= -->
+<footer class="border-t-2 border-black bg-[#090D16] py-5 px-4 text-center text-xs text-slate-500 font-mono mt-8">
+<div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
+<div class="flex items-center gap-2">
+<img alt="Small Goods Gym Morley" class="w-6 h-6 object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAjgBAHwzj21Kdvm25sEq9yKq5L9wRAX6mrMXSGu4411NHsB_2stUl5mNam8ULrF8tQEh9D2CqvfVzjP2Q0PEPJohiYBdERoSx_WkU_O57foD02KqSXY3a4c90DEc7m_PCSK1g2q9yCynOnVC670BN-QBTCTcOUSFB8CGRMInWuaElcfg1svx0LWzIYvBiHGVxCJKCgYct69Ez8gZBbScKoVRiKNAgxly3ZgiB08tZZoa8FW4aIae4ygw7PBg5x47dgxw"/>
+<span class="text-slate-300 font-bold">Small Goods Gym Morley</span>
+<span>• NDIS Registered Provider Compliant Framework</span>
+</div>
+<div class="flex items-center gap-4 text-slate-400">
+<span>AHPRA #PHY00021481</span>
+<span>•</span>
+<span>Activforce 2 ISO Certified</span>
+<span>•</span>
+<span>Enode Optical Accel 1000Hz</span>
+</div>
+</div>
+</footer>
+<!-- ================= PREVIEW MODAL (INSTANT DOSSIER PREVIEW) ================= -->
+<div class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden items-center justify-center p-4" id="previewModal">
+<div class="bg-[#0F172A] border-2 border-black rounded-3xl max-w-2xl w-full p-6 shadow-brutal-lg relative max-h-[90vh] overflow-y-auto">
+<button class="absolute top-4 right-4 p-2 rounded-xl bg-[#172033] hover:bg-rose-900/60 text-slate-300 hover:text-white border border-slate-700" onclick="closePreviewModal()">
+<i class="w-5 h-5" data-lucide="x"></i>
+</button>
+<div class="flex items-center gap-3 mb-4">
+<div class="w-10 h-10 rounded-xl bg-[#6A3CF4] border-2 border-black flex items-center justify-center text-white">
+<i class="w-5 h-5" data-lucide="file-check"></i>
+</div>
+<div>
+<h3 class="font-extrabold text-base text-white">NDIA Progress Report Dossier Preview</h3>
+<span class="text-xs font-mono text-[#9AEF0F]">Ready for Sarah Jenkins (Apex Plan Management)</span>
+</div>
+</div>
+<div class="space-y-3 text-xs font-mono text-slate-300 bg-[#090D16] p-4 rounded-xl border border-slate-800">
+<div class="flex justify-between border-b border-slate-800 pb-2">
+<span class="text-slate-500">Participant:</span>
+<span class="text-white font-bold">'P' (NDIS Core &amp; Capacity Building)</span>
+</div>
+<div class="flex justify-between border-b border-slate-800 pb-2">
+<span class="text-slate-500">Facility:</span>
+<span class="text-white">Small Goods Gym (Morley, Perth WA)</span>
+</div>
+<div class="flex justify-between border-b border-slate-800 pb-2">
+<span class="text-slate-500">Primary Objective:</span>
+<span class="text-[#9AEF0F]">Bilateral Lower Limb Capacity &amp; Transfer Independence</span>
+</div>
+<div class="flex justify-between border-b border-slate-800 pb-2">
+<span class="text-slate-500">Activforce 2 Result:</span>
+<span class="text-[#9AEF0F] font-bold">+18.4% Peak Force (312 N → 369.4 N)</span>
+</div>
+<div class="flex justify-between border-b border-slate-800 pb-2">
+<span class="text-slate-500">Enode Accelerometer Result:</span>
+<span class="text-[#ECFD28] font-bold">+45.2% Sit-to-Stand Speed (0.42 → 0.61 m/s)</span>
+</div>
+<div class="flex justify-between border-b border-slate-800 pb-2">
+<span class="text-slate-500">Limb Deficit Asymmetry:</span>
+<span class="text-white">Reduced from 22.0% to 6.8% (Normal Symmetry)</span>
+</div>
+<div class="flex justify-between">
+<span class="text-slate-500">Clinical Sign-Off:</span>
+<span class="text-purple-300">Holly Hunt (AHPRA #PHY00021481)</span>
+</div>
+</div>
+<div class="mt-5 flex gap-3">
+<button class="flex-1 py-3 rounded-xl bg-[#ECFD28] text-black font-mono font-bold text-xs uppercase border-2 border-black shadow-brutal hover:bg-yellow-300 transition-all flex items-center justify-center gap-2" onclick="triggerReportExport(); closePreviewModal();">
+<i class="w-4 h-4" data-lucide="download"></i>
+<span>Confirm &amp; Download PDF</span>
+</button>
+<button class="px-4 py-3 rounded-xl bg-[#172033] text-slate-300 font-mono text-xs border border-slate-700" onclick="closePreviewModal()">
+          Dismiss
+        </button>
+</div>
+</div>
+</div>
+<!-- ================= INTERACTIVE APPLICATION JAVASCRIPT ================= -->
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+      if (window.lucide) {
+        lucide.createIcons();
+      }
+    });
+
+    // 1. PDF Export Simulation with State Feedback
+    function triggerReportExport() {
+      const btn = document.getElementById('primaryExportBtn');
+      const badge = document.getElementById('exportStatusBadge');
+      
+      const originalContent = btn.innerHTML;
+      btn.innerHTML = `
+        <i data-lucide="loader-2" class="w-5 h-5 animate-spin"></i>
+        <div class="text-left">
+          <span class="block text-xs font-bold leading-none text-slate-800">GENERATING AUDIT-PROOF PDF...</span>
+          <span class="block text-sm font-black tracking-tight text-black">COMPILING HARDWARE CSV & DIGITAL SEAL</span>
+        </div>
+      `;
+      if (window.lucide) lucide.createIcons();
+
+      setTimeout(() => {
+        btn.innerHTML = `
+          <i data-lucide="check" class="w-5 h-5 text-black"></i>
+          <div class="text-left">
+            <span class="block text-xs font-bold leading-none text-slate-800">SUCCESSFULLY EXPORTED</span>
+            <span class="block text-sm font-black tracking-tight text-black">NDIA_REPORT_P_CYCLE8.PDF (3.4 MB)</span>
+          </div>
+        `;
+        if (badge) badge.classList.remove('hidden');
+        if (window.lucide) lucide.createIcons();
+
+        // Trigger alert receipt
+        alert(
+          "NDIA Clinical Progress Report Generated Successfully!\n\n" +
+          "• Participant: 'P' (Apex Plan Management)\n" +
+          "• Item: 15_056_0128_1_3 Assessment & Capacity Building\n" +
+          "• Activforce 2 Peak Force: 369.4 N (+18.4% gain)\n" +
+          "• Sit-to-Stand V_mean: 0.61 m/s (+45.2% velocity)\n" +
+          "• Clinical Sign-off: Holly Hunt (AHPRA #PHY00021481)\n" +
+          "• File: SHA-256 Verified audit report dispatched to local download queue."
+        );
+
+        setTimeout(() => {
+          btn.innerHTML = originalContent;
+          if (window.lucide) lucide.createIcons();
+        }, 5000);
+      }, 1100);
+    }
+
+    // 2. Share Portal Link Simulation
+    function shareReadOnlyPortal() {
+      const btn = document.getElementById('sharePortalBtn');
+      navigator.clipboard ? navigator.clipboard.writeText("https://smallgoodsgym.com.au/portal/ndis/audit/p-apex-9941") : null;
+      btn.innerHTML = '<i data-lucide="check" class="w-4 h-4 text-[#9AEF0F]"></i><span>Secure Link Copied!</span>';
+      if (window.lucide) lucide.createIcons();
+      setTimeout(() => {
+        btn.innerHTML = '<i data-lucide="link-2" class="w-4 h-4 text-[#6A3CF4]"></i><span>Share Secure Coordinator Link</span>';
+        if (window.lucide) lucide.createIcons();
+      }, 2500);
+    }
+
+    // 3. Section Filtering Tabs
+    function filterSection(type) {
+      document.querySelectorAll('.filter-tab').forEach(t => {
+        t.classList.remove('bg-[#6A3CF4]', 'text-white');
+        t.classList.add('bg-[#0F172A]', 'text-slate-300');
+      });
+
+      const activeBtn = document.getElementById('filter-' + type);
+      if (activeBtn) {
+        activeBtn.classList.remove('bg-[#0F172A]', 'text-slate-300');
+        activeBtn.classList.add('bg-[#6A3CF4]', 'text-white');
+      }
+
+      const dyna = document.getElementById('section-dynamometer');
+      const velo = document.getElementById('section-velocity');
+      const plan = document.getElementById('section-plan-manager');
+      const matrix = document.getElementById('section-matrix');
+
+      if (type === 'all') {
+        dyna.classList.remove('hidden');
+        velo.classList.remove('hidden');
+        plan.classList.remove('hidden');
+        matrix.classList.remove('hidden');
+      } else if (type === 'dynamometer') {
+        dyna.classList.remove('hidden');
+        velo.classList.add('hidden');
+        plan.classList.add('hidden');
+        matrix.classList.add('hidden');
+      } else if (type === 'velocity') {
+        dyna.classList.add('hidden');
+        velo.classList.remove('hidden');
+        plan.classList.add('hidden');
+        matrix.classList.add('hidden');
+      } else if (type === 'plan-manager') {
+        dyna.classList.add('hidden');
+        velo.classList.add('hidden');
+        plan.classList.remove('hidden');
+        matrix.classList.add('hidden');
+      } else if (type === 'matrix') {
+        dyna.classList.add('hidden');
+        velo.classList.add('hidden');
+        plan.classList.add('hidden');
+        matrix.classList.remove('hidden');
+      }
+
+      if (window.lucide) lucide.createIcons();
+    }
+
+    // 4. Preview Modal controls
+    function openPreviewModal() {
+      document.getElementById('previewModal').classList.remove('hidden');
+      document.getElementById('previewModal').classList.add('flex');
+    }
+    function closePreviewModal() {
+      document.getElementById('previewModal').classList.add('hidden');
+      document.getElementById('previewModal').classList.remove('flex');
+    }
+  </script>
+</body></html>

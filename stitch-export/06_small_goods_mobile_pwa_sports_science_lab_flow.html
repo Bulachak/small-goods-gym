@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<title>Small Goods Gym • VBT Sports-Science Mobile PWA</title>
+<!-- Tailwind CSS CDN -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Google Fonts: Plus Jakarta Sans, JetBrains Mono, Reenie Beanie -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&amp;family=Reenie+Beanie&amp;display=swap" rel="stylesheet"/>
+<!-- Lucide Icons CDN -->
+<script src="https://unpkg.com/lucide@latest"></script>
+<script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              dark: '#090D16',
+              surface: '#131B2E',
+              card: '#162035',
+              border: '#23304C',
+              violet: '#8B5CF6',
+              neonLime: '#9AEF0F',
+              coral: '#E95766',
+              yellow: '#ECFD28',
+              cyan: '#06B6D4'
+            }
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+            hand: ['"Reenie Beanie"', 'cursive']
+          },
+          boxShadow: {
+            'brutal': '3px 3px 0 0 #000',
+            'brutal-lg': '5px 5px 0 0 #000',
+            'glow-violet': '0 0 24px -4px rgba(139, 92, 246, 0.45)',
+            'glow-lime': '0 0 20px -4px rgba(154, 239, 15, 0.4)',
+            'glow-emerald': '0 0 24px -4px rgba(16, 185, 129, 0.5)'
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    body {
+      background-color: #05070D;
+      color: #F8FAFC;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+    }
+    .font-mono-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-feature-settings: "tnum" 1, "zero" 1;
+    }
+    /* Hide scrollbars for slick native app feel */
+    ::-webkit-scrollbar {
+      display: none;
+    }
+    * {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  
+    /* Kamilla Zero-Orphan Standard */
+    h1, h2, h3, h4, h5, h6 {
+      text-wrap: balance !important;
+    }
+    p, .card-desc, label {
+      text-wrap: pretty !important;
+    }
+    .no-orphan {
+      text-wrap: balance !important;
+      white-space: nowrap !important;
+    }
+  
+</style>
+</head>
+<body class="min-h-screen bg-[#05070D] flex justify-center items-start py-0 sm:py-6 px-0 selection:bg-purple-600 selection:text-white antialiased">
+<!-- ================= 390px NATIVE MOBILE PWA VIEWPORT ================= -->
+<main class="w-full max-w-[390px] min-h-screen sm:min-h-[844px] bg-[#090D16] border-0 sm:border-[3px] sm:border-slate-800/90 sm:rounded-[46px] shadow-2xl overflow-hidden flex flex-col relative sm:ring-8 sm:ring-slate-900/60 pb-8">
+<!-- ================= STATUS BAR / ISLAND NOTCH ================= -->
+<header class="sticky top-0 z-50 bg-[#090D16]/95 backdrop-blur-md pt-2 px-4 pb-3 border-b border-[#23304C]/60">
+<!-- iOS Notch / Pill -->
+<div class="w-28 h-4 bg-slate-900/90 rounded-full mx-auto mb-2 flex items-center justify-center">
+<div class="w-2.5 h-2.5 rounded-full bg-[#131B2E] border border-slate-700 mr-2"></div>
+<div class="w-10 h-1.5 rounded-full bg-slate-800"></div>
+</div>
+<!-- Top PWA System Bar -->
+<div class="flex items-center justify-between">
+<!-- Gym Brand with SG Sticker Emblem -->
+<div class="flex items-center gap-2.5">
+<div class="relative w-8 h-8 rounded-lg overflow-hidden border border-black shadow-brutal flex-shrink-0 bg-black/40">
+<img alt="Small Goods Gym SG Emblem" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAt61QvC244vqjB9DiKzgIlKKR-E6gIUhKpPrPPCF6-F293BOVA1UyDl8pXQHSxbMV_05zgo4l35Bu4k5yW1RPUMXcN7ve0q6pCPHX9jbUaZ0Uew1FMkSTcbeiyr6sn_fzDt9rUL2s2_onkgQBHmKHt-WwXHkHVeSlEyhh_MRwP6noKzCR4WW-RL6ZwvHW7cEOg5-WELvBdo7cwQac7gz8FAZ-HsCb-laARD1ryxuA5PjidT5OXtDMSuy-P3AeKbhJuUg"/>
+</div>
+<div>
+<div class="flex items-center gap-1.5">
+<span class="font-extrabold text-[13px] tracking-tight text-white uppercase font-mono">SMALL GOODS GYM</span>
+<span class="px-1.5 py-0.2 rounded bg-purple-950/90 border border-purple-800/80 text-purple-300 text-[9px] font-mono font-bold">PWA</span>
+</div>
+<p class="text-[10px] text-slate-400 font-mono flex items-center gap-1">
+              Morley • Coach Joel • Physio Holly
+            </p>
+</div>
+</div>
+<!-- Telemetry & Offline Cache Indicators -->
+<div class="flex flex-col items-end gap-0.5">
+<div class="flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-[#131B2E] border border-emerald-500/40 text-[10px] font-mono text-emerald-400">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span>
+<span class="font-semibold">Live: Enode 2 Pro</span>
+</div>
+<span class="text-[9px] font-mono text-slate-400 flex items-center gap-1">
+<i class="w-2.5 h-2.5 text-cyan-400" data-lucide="database"></i> Offline Cache: 0 pending
+          </span>
+</div>
+</div>
+</header>
+<!-- ================= PWA SCROLLABLE WORKSPACE ================= -->
+<div class="flex-1 px-3.5 pt-3.5 space-y-3.5">
+<!-- ================= 1. MOVEMENT & FORM DIAGNOSTIC CARD ================= -->
+<section class="bg-[#131B2E] border-2 border-[#23304C] rounded-2xl p-3.5 shadow-brutal relative overflow-hidden">
+<!-- Category Stamp -->
+<div class="flex items-center justify-between mb-1.5">
+<div class="flex items-center gap-1.5">
+<span class="px-2 py-0.5 rounded bg-purple-950/80 border border-purple-700/60 text-[#8B5CF6] font-mono text-[10px] font-bold">
+              BLOCK 4 • WK 2
+            </span>
+<span class="text-[11px] font-mono text-slate-400">Primary Strength</span>
+</div>
+<span class="bg-[#E95766]/20 text-[#E95766] border border-[#E95766]/50 text-[9px] font-mono font-extrabold px-2 py-0.5 rounded uppercase tracking-wider">
+            Comp Lift
+          </span>
+</div>
+<h1 class="text-base font-extrabold text-white tracking-tight leading-tight">
+          Competition Back Squat
+        </h1>
+<p class="text-xs font-mono text-slate-300 mt-0.5 flex items-center gap-1.5">
+<span class="text-[#9AEF0F] font-bold">Target:</span> 5×5 @ 100 kg • Cap RPE 8.0
+        </p>
+<!-- Dual Coaching Cues: Joel Mullen + Holly Hunt -->
+<div class="mt-2.5 space-y-1.5">
+<!-- Joel's Technical Cue -->
+<div class="p-2 rounded-xl bg-purple-950/40 border border-purple-800/40 flex items-start gap-2">
+<span class="w-4 h-4 rounded-full bg-purple-900 text-purple-300 text-[10px] font-bold flex items-center justify-center flex-shrink-0 mt-0.5">JM</span>
+<div class="text-[11px] leading-tight">
+<span class="font-bold text-[#ECFD28]">Joel's Technical Cue:</span>
+<span class="text-slate-200"> "Drive traps into bar; keep mid-foot tripod pressure on ascent."</span>
+</div>
+</div>
+<!-- Holly Hunt Physio Flag -->
+<div class="p-2 rounded-xl bg-emerald-950/30 border border-emerald-700/40 flex items-start gap-2">
+<span class="w-4 h-4 rounded-full bg-emerald-900 text-emerald-300 text-[10px] font-bold flex items-center justify-center flex-shrink-0 mt-0.5">HH</span>
+<div class="text-[11px] leading-tight">
+<span class="font-bold text-emerald-400">Holly Hunt Physio Flag:</span>
+<span class="text-slate-200"> "Lumbar safe; 0 pain reported in warm-up sets. Cleared for load."</span>
+</div>
+</div>
+</div>
+<!-- ================= 2. VIDEO STANDARD DEMO WITH ANGLE OVERLAY ================= -->
+<div class="mt-2.5 relative rounded-xl overflow-hidden border border-[#23304C] bg-[#090D16] group cursor-pointer" onclick="toggleVideoPlay()">
+<div class="relative h-24 w-full bg-gradient-to-tr from-[#090D16] via-[#162035] to-[#1F173B] flex items-center justify-center">
+<!-- Biomechanical Angle Lines Overlay -->
+<div class="absolute inset-0 flex items-center justify-between px-6 opacity-80 pointer-events-none">
+<div class="flex flex-col items-center">
+<span class="text-[9px] font-mono font-bold text-[#ECFD28] bg-black/60 px-1 rounded border border-[#ECFD28]/40">Hip: 48°</span>
+<div class="w-8 h-px bg-[#ECFD28] mt-1 transform rotate-45"></div>
+</div>
+<div class="flex flex-col items-center">
+<span class="text-[9px] font-mono font-bold text-[#06B6D4] bg-black/60 px-1 rounded border border-[#06B6D4]/40">Knee: 112° Depth</span>
+<div class="w-8 h-px bg-[#06B6D4] mt-1 transform -rotate-45"></div>
+</div>
+</div>
+<!-- Play button & status -->
+<div class="z-10 flex flex-col items-center">
+<div class="w-9 h-9 rounded-full bg-[#8B5CF6] text-white flex items-center justify-center shadow-lg border border-white/20 transition-transform active:scale-90" id="playBtnCircle">
+<i class="w-4 h-4 ml-0.5 fill-current" data-lucide="play" id="playIcon"></i>
+</div>
+<span class="text-[10px] font-mono text-slate-300 mt-1 font-semibold" id="videoLabel">Standard Hip Crease Depth (0:18)</span>
+</div>
+</div>
+<div class="px-2.5 py-1 bg-black/60 text-[9px] font-mono text-slate-400 flex justify-between items-center border-t border-[#23304C]/80">
+<span class="text-[#8B5CF6] font-semibold">Joel Mullen Coaching Standard</span>
+<span class="text-emerald-400">1080p • 60 FPS</span>
+</div>
+</div>
+</section>
+<!-- ================= 3. MICRO-LOADING MATRIX (FITTS'S LAW) ================= -->
+<section class="bg-[#131B2E] border-2 border-[#23304C] rounded-2xl p-3 shadow-brutal">
+<div class="flex items-center justify-between mb-2">
+<div class="flex items-center gap-1.5">
+<i class="w-3.5 h-3.5 text-[#8B5CF6]" data-lucide="disc"></i>
+<span class="text-[11px] font-bold text-slate-200 tracking-wider uppercase font-mono">Micro-Loading Matrix</span>
+</div>
+<span class="text-[9px] font-mono text-slate-400">Eleiko Calibrated (20kg Bar)</span>
+</div>
+<!-- 64px High-Visibility Micro-Loading Targets -->
+<div class="grid grid-cols-5 gap-1.5 items-center">
+<!-- -5kg (White Rim) -->
+<button class="h-14 rounded-xl bg-[#162035] hover:bg-[#1E2B46] border-2 border-white/80 active:scale-95 transition-all flex flex-col items-center justify-center shadow-sm" onclick="adjustBarWeight(-5)">
+<span class="text-xs font-mono font-extrabold text-white">-5</span>
+<span class="text-[8px] font-mono text-slate-300 uppercase">White</span>
+</button>
+<!-- -2.5kg (Blue Rim) -->
+<button class="h-14 rounded-xl bg-[#162035] hover:bg-[#1E2B46] border-2 border-blue-500 active:scale-95 transition-all flex flex-col items-center justify-center shadow-sm" onclick="adjustBarWeight(-2.5)">
+<span class="text-xs font-mono font-extrabold text-blue-400">-2.5</span>
+<span class="text-[8px] font-mono text-blue-300 uppercase">Blue</span>
+</button>
+<!-- Total Calculated Weight Readout -->
+<div class="h-14 bg-black/60 border-2 border-[#8B5CF6] rounded-xl flex flex-col items-center justify-center text-center shadow-inner px-1">
+<span class="font-mono font-black text-xl text-white tracking-tighter leading-none" id="displayBarWeight">100.0</span>
+<span class="text-[8px] font-mono text-[#9AEF0F] uppercase tracking-wider font-bold mt-0.5">kg Total</span>
+</div>
+<!-- +2.5kg (Blue Rim) -->
+<button class="h-14 rounded-xl bg-[#162035] hover:bg-[#1E2B46] border-2 border-blue-500 active:scale-95 transition-all flex flex-col items-center justify-center shadow-sm" onclick="adjustBarWeight(2.5)">
+<span class="text-xs font-mono font-extrabold text-blue-400">+2.5</span>
+<span class="text-[8px] font-mono text-blue-300 uppercase">Blue</span>
+</button>
+<!-- +5kg (White Rim) -->
+<button class="h-14 rounded-xl bg-[#162035] hover:bg-[#1E2B46] border-2 border-white/80 active:scale-95 transition-all flex flex-col items-center justify-center shadow-sm" onclick="adjustBarWeight(5)">
+<span class="text-xs font-mono font-extrabold text-white">+5</span>
+<span class="text-[8px] font-mono text-slate-300 uppercase">White</span>
+</button>
+</div>
+<!-- Plate Math Breakdown Preview -->
+<div class="mt-2 px-2 py-1 rounded bg-[#090D16] border border-slate-800 text-[10px] font-mono text-slate-400 flex justify-between items-center">
+<span>Per Sleeve (40kg side):</span>
+<span class="text-slate-200 font-semibold" id="plateBreakdown">1×20kg • 1×15kg • 1×5kg</span>
+</div>
+</section>
+<!-- ================= 4. 1-TAP RPE & RIR SELECTOR ================= -->
+<section class="bg-[#131B2E] border-2 border-[#23304C] rounded-2xl p-3 shadow-brutal">
+<div class="flex items-center justify-between mb-1.5 font-mono text-[11px]">
+<span class="font-bold text-slate-300 uppercase">1-Tap RPE / Effort</span>
+<span class="text-[#8B5CF6] font-bold" id="rpeDescription">RPE 7.5 (2-3 RIR)</span>
+</div>
+<div class="grid grid-cols-7 gap-1">
+<button class="rpe-btn py-2 rounded-lg bg-[#162035] border border-slate-700 text-xs font-mono font-bold text-slate-300 hover:bg-[#1E2B46] active:scale-95 flex flex-col items-center" onclick="setRPE(6, 'RPE 6.0 (4 RIR in tank)', this)">
+<span>6</span>
+<span class="text-[7px] text-slate-500 font-normal">4 RIR</span>
+</button>
+<button class="rpe-btn py-2 rounded-lg bg-[#162035] border border-slate-700 text-xs font-mono font-bold text-slate-300 hover:bg-[#1E2B46] active:scale-95 flex flex-col items-center" onclick="setRPE(7, 'RPE 7.0 (3 RIR left)', this)">
+<span>7</span>
+<span class="text-[7px] text-slate-500 font-normal">3 RIR</span>
+</button>
+<button class="rpe-btn py-2 rounded-lg bg-[#8B5CF6] border-2 border-black text-xs font-mono font-bold text-white shadow-brutal active:scale-95 flex flex-col items-center" onclick="setRPE(7.5, 'RPE 7.5 (2-3 RIR in tank)', this)">
+<span>7.5</span>
+<span class="text-[7px] text-purple-200 font-normal">2.5</span>
+</button>
+<button class="rpe-btn py-2 rounded-lg bg-[#162035] border border-slate-700 text-xs font-mono font-bold text-slate-300 hover:bg-[#1E2B46] active:scale-95 flex flex-col items-center" onclick="setRPE(8, 'RPE 8.0 (2 RIR definite)', this)">
+<span>8</span>
+<span class="text-[7px] text-slate-500 font-normal">2 RIR</span>
+</button>
+<button class="rpe-btn py-2 rounded-lg bg-[#162035] border border-slate-700 text-xs font-mono font-bold text-slate-300 hover:bg-[#1E2B46] active:scale-95 flex flex-col items-center" onclick="setRPE(8.5, 'RPE 8.5 (1-2 RIR left)', this)">
+<span>8.5</span>
+<span class="text-[7px] text-slate-500 font-normal">1.5</span>
+</button>
+<button class="rpe-btn py-2 rounded-lg bg-[#162035] border border-slate-700 text-xs font-mono font-bold text-slate-300 hover:bg-[#1E2B46] active:scale-95 flex flex-col items-center" onclick="setRPE(9, 'RPE 9.0 (1 RIR remaining)', this)">
+<span>9</span>
+<span class="text-[7px] text-slate-500 font-normal">1 RIR</span>
+</button>
+<button class="rpe-btn py-2 rounded-lg bg-[#162035] border border-red-900/60 text-xs font-mono font-bold text-[#E95766] hover:bg-[#1E2B46] active:scale-95 flex flex-col items-center" onclick="setRPE(10, 'RPE 10.0 (Maximal effort / 0 RIR)', this)">
+<span>10</span>
+<span class="text-[7px] text-[#E95766] font-normal">0 RIR</span>
+</button>
+</div>
+</section>
+<!-- ================= 5. LIVE ENODE VBT VELOCITY GRAPH & CALLOUT ================= -->
+<section class="bg-[#131B2E] border-2 border-[#23304C] rounded-2xl p-3.5 shadow-brutal">
+<div class="flex items-center justify-between mb-2">
+<div class="flex items-center gap-1.5">
+<i class="w-3.5 h-3.5 text-cyan-400" data-lucide="gauge"></i>
+<span class="text-[11px] font-bold text-white uppercase font-mono tracking-wider">Enode VBT Concentric Curve</span>
+</div>
+<span class="text-[10px] font-mono text-slate-400">Mean Bar Velocity (m/s)</span>
+</div>
+<!-- Velocity Mini Bar Chart with Visual Benchmark Threshold (0.75m/s line) -->
+<div class="bg-[#090D16] p-3 rounded-xl border border-[#23304C] relative">
+<!-- 0.70 m/s Threshold Guide Line -->
+<div class="absolute left-2 right-2 top-8 border-b border-dashed border-slate-700 z-0 flex justify-end">
+<span class="text-[8px] font-mono text-slate-500 -mt-3.5">Threshold 0.70 m/s</span>
+</div>
+<div class="h-20 flex items-end justify-around gap-4 pt-4 relative z-10">
+<!-- Set 1 -->
+<div class="flex-1 flex flex-col items-center">
+<span class="text-[10px] font-mono font-bold text-emerald-400 mb-1">0.78</span>
+<div class="w-full max-w-[38px] bg-emerald-500 rounded-t-md shadow-sm" style="height: 58px;"></div>
+<span class="text-[9px] font-mono text-slate-400 mt-1">Set 1</span>
+</div>
+<!-- Set 2 -->
+<div class="flex-1 flex flex-col items-center">
+<span class="text-[10px] font-mono font-bold text-emerald-400 mb-1">0.74</span>
+<div class="w-full max-w-[38px] bg-emerald-500/80 rounded-t-md shadow-sm" style="height: 52px;"></div>
+<span class="text-[9px] font-mono text-slate-400 mt-1">Set 2</span>
+</div>
+<!-- Set 3 (Live Telemetry) -->
+<div class="flex-1 flex flex-col items-center">
+<span class="text-[10px] font-mono font-bold text-amber-400 mb-1">0.64</span>
+<div class="w-full max-w-[38px] bg-amber-500 rounded-t-md shadow-glow-amber animate-pulse" style="height: 40px;"></div>
+<span class="text-[9px] font-mono text-amber-300 font-bold mt-1">Set 3</span>
+</div>
+<!-- Set 4 & 5 (Pending) -->
+<div class="flex-1 flex flex-col items-center opacity-40">
+<span class="text-[9px] font-mono text-slate-500 mb-1">--</span>
+<div class="w-full max-w-[38px] bg-slate-800 rounded-t-md border-t border-slate-700" style="height: 10px;"></div>
+<span class="text-[9px] font-mono text-slate-500 mt-1">Set 4</span>
+</div>
+<div class="flex-1 flex flex-col items-center opacity-40">
+<span class="text-[9px] font-mono text-slate-500 mb-1">--</span>
+<div class="w-full max-w-[38px] bg-slate-800 rounded-t-md border-t border-slate-700" style="height: 10px;"></div>
+<span class="text-[9px] font-mono text-slate-500 mt-1">Set 5</span>
+</div>
+</div>
+</div>
+<!-- Vivid Amber Velocity Loss Callout (18% drop detected) -->
+<div class="mt-2.5 p-2 rounded-xl bg-amber-950/60 border border-amber-500/80 flex items-start gap-2">
+<i class="w-4 h-4 text-amber-400 flex-shrink-0 mt-0.5" data-lucide="alert-triangle"></i>
+<div class="text-[10px] leading-tight text-amber-200">
+<strong class="text-amber-400 font-mono font-bold uppercase">Velocity Loss Detected (18% Drop):</strong>
+            Mean bar velocity declined from 0.78 to 0.64 m/s. Neuromuscular CNS fatigue indicated. Take full 180s rest before Set 4.
+          </div>
+</div>
+</section>
+<!-- ================= 6. INTERACTIVE SET CARD (SET 3 ACTIVE) ================= -->
+<section class="bg-[#131B2E] border-2 border-[#8B5CF6] rounded-2xl p-3.5 shadow-glow-violet transition-all duration-300" id="setCard3">
+<div class="flex items-center justify-between mb-2">
+<div class="flex items-center gap-2">
+<span class="w-6 h-6 rounded-full bg-[#8B5CF6] text-white flex items-center justify-center font-mono font-bold text-xs border border-black shadow-sm" id="setNumberBadge">
+              3
+            </span>
+<div>
+<h2 class="text-xs font-bold text-white flex items-center gap-1.5">
+<span>Set 3: 100 kg × 5 reps</span>
+<span class="px-1.5 py-0.2 rounded bg-purple-950 border border-purple-700 text-[9px] font-mono text-purple-300" id="setStatusBadge">ACTIVE</span>
+</h2>
+</div>
+</div>
+<!-- Real-Time Enode Telemetry Pill -->
+<div class="flex items-center gap-1 px-2 py-0.5 rounded-full bg-purple-950 border border-purple-500 text-[11px] font-mono font-bold text-purple-200">
+<i class="w-3 h-3 text-[#9AEF0F] animate-pulse" data-lucide="zap"></i>
+<span>0.64 m/s</span>
+</div>
+</div>
+<p class="text-[11px] text-slate-300 mb-3">
+          Completed all 5 reps within technical criteria. Bar velocity confirmed via Enode hardware BLE stream.
+        </p>
+<!-- Tap to Complete Set Action Button -->
+<button class="w-full py-3.5 px-4 rounded-xl bg-[#8B5CF6] hover:bg-purple-500 active:scale-98 text-white font-mono font-extrabold text-xs tracking-wider shadow-brutal border-2 border-black flex items-center justify-center gap-2 transition-all" id="completeSetBtn" onclick="handleSetCompletion()">
+<i class="w-4 h-4" data-lucide="check-circle" id="completeSetIcon"></i>
+<span id="completeSetText">COMPLETE SET (0.64 m/s)</span>
+</button>
+<!-- Sets 4 & 5 Mini Queue Strip -->
+<div class="mt-2.5 flex items-center justify-between text-[10px] font-mono text-slate-400 pt-2 border-t border-[#23304C]">
+<span>Set 4: 100kg × 5 (Queued)</span>
+<span>Set 5: 100kg × 5 (Queued)</span>
+</div>
+</section>
+<!-- ================= 7. PROMINENT 180s CIRCULAR COUNTDOWN TIMER ================= -->
+<section class="bg-[#131B2E] border-2 border-[#23304C] rounded-2xl p-3.5 shadow-brutal flex items-center justify-between" id="timerModule">
+<div class="flex items-center gap-3">
+<!-- Circular SVG Countdown Ring -->
+<div class="relative w-14 h-14 flex items-center justify-center flex-shrink-0">
+<svg class="w-14 h-14 transform -rotate-90">
+<circle cx="28" cy="28" fill="transparent" r="23" stroke="#23304C" stroke-width="4.5"></circle>
+<circle class="transition-all duration-1000" cx="28" cy="28" fill="transparent" id="timerProgressRing" r="23" stroke="#8B5CF6" stroke-dasharray="144.5" stroke-dashoffset="36" stroke-linecap="round" stroke-width="4.5"></circle>
+</svg>
+<span class="absolute font-mono text-[13px] font-black text-white tracking-tight" id="timerText">2:18</span>
+</div>
+<div>
+<div class="flex items-center gap-1.5">
+<span class="text-xs font-bold text-white block">CNS Rest Protocol</span>
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+</div>
+<span class="text-[10px] text-slate-400 font-mono block">180s Standard Peaking Target</span>
+</div>
+</div>
+<!-- Controls: +30s CNS Extension & Pause/Play -->
+<div class="flex items-center gap-1.5">
+<button class="px-2.5 py-1.5 rounded-lg bg-[#162035] hover:bg-[#1E2B46] border border-[#23304C] text-[10px] font-mono font-bold text-[#9AEF0F] active:scale-95 transition-all" onclick="addRestSeconds(30)">
+            +30s CNS
+          </button>
+<button class="p-2 rounded-lg bg-[#8B5CF6] text-white border border-black shadow-sm active:scale-95 transition-all" id="toggleTimerBtn" onclick="toggleTimerState()">
+<i class="w-4 h-4" data-lucide="pause" id="toggleTimerIcon"></i>
+</button>
+</div>
+</section>
+<!-- ================= 8. HOLLY HUNT CLINICAL TRIAGE SOS BUTTON ================= -->
+<section class="pt-1">
+<button class="w-full py-2.5 px-3 rounded-xl bg-gradient-to-r from-red-950/70 via-[#162035] to-red-950/70 hover:from-red-900/80 hover:to-red-900/80 border border-[#E95766]/60 text-slate-200 text-xs font-mono font-bold flex items-center justify-between shadow-sm active:scale-98 transition-all" id="physioSosBtn" onclick="triggerPhysioTriage()">
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded-md bg-[#E95766]/20 border border-[#E95766]/60 text-[#E95766] flex items-center justify-center flex-shrink-0">
+<i class="w-3.5 h-3.5" data-lucide="stethoscope"></i>
+</div>
+<span class="text-[11px] text-[#E95766] font-extrabold uppercase tracking-wide">Holly Hunt Clinical Triage SOS</span>
+</div>
+<span class="text-[9px] bg-red-950 px-2 py-0.5 rounded border border-red-800 text-red-300">Fast Triage</span>
+</button>
+<!-- Triage Notification Banner (Hidden initially) -->
+<div class="hidden mt-2 p-2.5 rounded-xl bg-emerald-950 border border-emerald-500 text-emerald-200 text-[11px] font-mono flex items-start gap-2 shadow-lg" id="physioToast">
+<i class="w-4 h-4 text-emerald-400 mt-0.5 flex-shrink-0" data-lucide="check-check"></i>
+<div>
+<span class="font-bold text-white block">Triage Request Dispatched to Holly Hunt</span>
+<span>Attached: Femur ratio, Set 3 bar velocity (0.64m/s), and active RPE log. Holly alerted on gym floor.</span>
+</div>
+</div>
+</section>
+</div>
+<!-- ================= BOTTOM PWA NAVIGATION TAB BAR ================= -->
+<footer class="sticky bottom-0 z-40 bg-[#090D16]/95 backdrop-blur-md border-t border-[#23304C]/80 px-4 py-2 mt-4">
+<div class="grid grid-cols-4 gap-1 text-center">
+<!-- Tab 1: Logger (Active) -->
+<button class="flex flex-col items-center justify-center py-1 text-[#8B5CF6]">
+<i class="w-4 h-4" data-lucide="dumbbell"></i>
+<span class="text-[9px] font-mono font-bold mt-1">Logger</span>
+</button>
+<!-- Tab 2: VBT Stream -->
+<button class="flex flex-col items-center justify-center py-1 text-slate-400 hover:text-slate-200">
+<i class="w-4 h-4" data-lucide="gauge"></i>
+<span class="text-[9px] font-mono mt-1">Telemetry</span>
+</button>
+<!-- Tab 3: Roster Platform -->
+<button class="flex flex-col items-center justify-center py-1 text-slate-400 hover:text-slate-200">
+<i class="w-4 h-4" data-lucide="calendar"></i>
+<span class="text-[9px] font-mono mt-1">Platforms</span>
+</button>
+<!-- Tab 4: NDIS & Holly -->
+<button class="flex flex-col items-center justify-center py-1 text-slate-400 hover:text-slate-200">
+<i class="w-4 h-4" data-lucide="shield-check"></i>
+<span class="text-[9px] font-mono mt-1">Clinical</span>
+</button>
+</div>
+<!-- Native Home Indicator Bar -->
+<div class="w-32 h-1 bg-slate-700/80 rounded-full mx-auto mt-2"></div>
+</footer>
+</main>
+<!-- ================= INTERACTIVE PWA JAVASCRIPT ================= -->
+<script>
+    // Initialize Lucide Icons
+    document.addEventListener('DOMContentLoaded', () => {
+      if (window.lucide) {
+        lucide.createIcons();
+      }
+      updatePlateBreakdown();
+    });
+
+    // 1. Bar Weight Adjuster & Plate Calculation
+    let currentWeight = 100.0;
+
+    function adjustBarWeight(delta) {
+      currentWeight = Math.max(20.0, currentWeight + delta);
+      document.getElementById('displayBarWeight').innerText = currentWeight.toFixed(1);
+      updatePlateBreakdown();
+    }
+
+    function updatePlateBreakdown() {
+      const perSide = (currentWeight - 20) / 2;
+      const breakdownEl = document.getElementById('plateBreakdown');
+      if (perSide <= 0) {
+        breakdownEl.innerText = "Empty Bar (20kg)";
+        return;
+      }
+
+      // Simple heuristic plate load display
+      let rem = perSide;
+      let parts = [];
+      const plates = [25, 20, 15, 10, 5, 2.5, 1.25];
+      plates.forEach(p => {
+        const count = Math.floor(rem / p);
+        if (count > 0) {
+          parts.push(`${count}×${p}kg`);
+          rem -= count * p;
+        }
+      });
+      breakdownEl.innerText = parts.join(' • ');
+    }
+
+    // 2. 1-Tap RPE / RIR Selector
+    function setRPE(value, description, buttonEl) {
+      document.getElementById('rpeDescription').innerText = description;
+      document.querySelectorAll('.rpe-btn').forEach(btn => {
+        btn.classList.remove('bg-[#8B5CF6]', 'border-2', 'border-black', 'text-white', 'shadow-brutal');
+        btn.classList.add('bg-[#162035]', 'border', 'border-slate-700', 'text-slate-300');
+      });
+      buttonEl.classList.remove('bg-[#162035]', 'border', 'border-slate-700', 'text-slate-300');
+      buttonEl.classList.add('bg-[#8B5CF6]', 'border-2', 'border-black', 'text-white', 'shadow-brutal');
+    }
+
+    // 3. Video Demo Play Toggle
+    let isVideoPlaying = false;
+    function toggleVideoPlay() {
+      isVideoPlaying = !isVideoPlaying;
+      const label = document.getElementById('videoLabel');
+      const icon = document.getElementById('playIcon');
+      const circle = document.getElementById('playBtnCircle');
+
+      if (isVideoPlaying) {
+        label.innerText = "Playing: Hip Crease Depth Track (0:18)";
+        label.classList.add('text-emerald-400');
+        circle.classList.replace('bg-[#8B5CF6]', 'bg-emerald-500');
+        icon.setAttribute('data-lucide', 'pause');
+      } else {
+        label.innerText = "Standard Hip Crease Depth (0:18)";
+        label.classList.remove('text-emerald-400');
+        circle.classList.replace('bg-emerald-500', '#8B5CF6');
+        icon.setAttribute('data-lucide', 'play');
+      }
+      if (window.lucide) lucide.createIcons();
+    }
+
+    // 4. Set 3 Completion Action (Emerald Transition + Countdown Reset)
+    let isSetCompleted = false;
+    function handleSetCompletion() {
+      if (isSetCompleted) return;
+
+      const setCard = document.getElementById('setCard3');
+      const completeBtn = document.getElementById('completeSetBtn');
+      const statusBadge = document.getElementById('setStatusBadge');
+      const setBadge = document.getElementById('setNumberBadge');
+
+      isSetCompleted = true;
+
+      // Switch to emerald verified theme
+      setCard.classList.remove('border-[#8B5CF6]', 'shadow-glow-violet');
+      setCard.classList.add('border-emerald-500', 'shadow-glow-emerald');
+
+      statusBadge.innerText = "LOGGED TO PG";
+      statusBadge.className = "px-1.5 py-0.2 rounded bg-emerald-950 border border-emerald-600 text-[9px] font-mono text-emerald-300 font-bold";
+
+      setBadge.className = "w-6 h-6 rounded-full bg-emerald-500 text-black flex items-center justify-center font-mono font-bold text-xs border border-black shadow-sm";
+
+      completeBtn.classList.remove('bg-[#8B5CF6]', 'hover:bg-purple-500');
+      completeBtn.classList.add('bg-emerald-600', 'hover:bg-emerald-500');
+      completeBtn.innerHTML = '<i data-lucide="check-check" class="w-4 h-4"></i><span>SET 3 VERIFIED (0.64 m/s)</span>';
+
+      // Trigger 180s countdown restart
+      startRestCountdown(180);
+
+      if (window.lucide) lucide.createIcons();
+    }
+
+    // 5. Circular Rest Timer Logic (180s Standard)
+    let restDurationTotal = 180;
+    let restSecondsLeft = 138;
+    let timerTimerId = null;
+    let isTimerActive = true;
+    const perimeter = 2 * Math.PI * 23; // ~144.5
+
+    function formatTimerDisplay(sec) {
+      const m = Math.floor(sec / 60);
+      const s = sec % 60;
+      return `${m}:${s < 10 ? '0' : ''}${s}`;
+    }
+
+    function stepTimer() {
+      if (restSecondsLeft > 0) {
+        restSecondsLeft--;
+        document.getElementById('timerText').innerText = formatTimerDisplay(restSecondsLeft);
+        
+        // Progress ring offset
+        const ring = document.getElementById('timerProgressRing');
+        if (ring) {
+          const ratio = (restDurationTotal - restSecondsLeft) / restDurationTotal;
+          ring.style.strokeDashoffset = (perimeter * (1 - ratio)).toFixed(1);
+        }
+      } else {
+        clearInterval(timerTimerId);
+        isTimerActive = false;
+        document.getElementById('timerText').innerText = "0:00";
+        document.getElementById('timerText').classList.add('text-emerald-400');
+      }
+    }
+
+    function toggleTimerState() {
+      const icon = document.getElementById('toggleTimerIcon');
+      if (isTimerActive) {
+        clearInterval(timerTimerId);
+        isTimerActive = false;
+        icon.setAttribute('data-lucide', 'play');
+      } else {
+        timerTimerId = setInterval(stepTimer, 1000);
+        isTimerActive = true;
+        icon.setAttribute('data-lucide', 'pause');
+      }
+      if (window.lucide) lucide.createIcons();
+    }
+
+    function addRestSeconds(seconds) {
+      restSecondsLeft += seconds;
+      restDurationTotal += seconds;
+      document.getElementById('timerText').innerText = formatTimerDisplay(restSecondsLeft);
+    }
+
+    function startRestCountdown(seconds) {
+      clearInterval(timerTimerId);
+      restDurationTotal = seconds;
+      restSecondsLeft = seconds;
+      isTimerActive = true;
+      document.getElementById('timerText').innerText = formatTimerDisplay(restSecondsLeft);
+      timerTimerId = setInterval(stepTimer, 1000);
+    }
+
+    // Start timer initially
+    timerTimerId = setInterval(stepTimer, 1000);
+
+    // 6. Holly Hunt Clinical Triage SOS
+    function triggerPhysioTriage() {
+      const toast = document.getElementById('physioToast');
+      const btn = document.getElementById('physioSosBtn');
+      toast.classList.remove('hidden');
+      btn.classList.add('border-emerald-500');
+      if (window.lucide) lucide.createIcons();
+    }
+  </script>
+</body></html>

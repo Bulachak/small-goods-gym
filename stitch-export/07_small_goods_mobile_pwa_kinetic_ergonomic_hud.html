@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<title>Small Goods Gym • High-Fatigue Kinetic Speed-Log PWA</title>
+<!-- Tailwind CSS with Forms & Container Queries -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Fonts: Plus Jakarta Sans & JetBrains Mono -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700;800&amp;family=Plus+Jakarta+Sans:wght@500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<!-- Lucide Icons CDN -->
+<script src="https://unpkg.com/lucide@latest"></script>
+<script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              bg: '#090D16',
+              card: '#0E1626',
+              surface: '#151F33',
+              subtle: '#1C2B47',
+              border: '#243452',
+              purple: '#8B5CF6',
+              electric: '#6A3CF4',
+              emerald: '#10B981',
+              amber: '#F59E0B',
+              rose: '#EF4444'
+            }
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+          boxShadow: {
+            'brutal-sm': '2px 2px 0 0 #000',
+            'brutal': '4px 4px 0 0 #000',
+            'glow-purple': '0 0 24px -2px rgba(139, 92, 246, 0.45)',
+            'glow-emerald': '0 0 28px -2px rgba(16, 185, 129, 0.55)',
+            'glow-amber': '0 0 22px -2px rgba(245, 158, 11, 0.35)',
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    /* Native PWA Mobile Experience Lockdown */
+    * {
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+    }
+    body {
+      background-color: #05080F;
+      color: #F8FAFC;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      touch-action: manipulation;
+    }
+    .font-mono-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-feature-settings: "tnum" 1, "zero" 1;
+    }
+    /* Hide scrollbars */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    /* Pulse glow animation */
+    @keyframes subtlePulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.85; transform: scale(1.03); }
+    }
+    .animate-rest-pulse {
+      animation: subtlePulse 2s ease-in-out infinite;
+    }
+  
+    /* Kamilla Zero-Orphan Standard */
+    h1, h2, h3, h4, h5, h6 {
+      text-wrap: balance !important;
+    }
+    p, .card-desc, label {
+      text-wrap: pretty !important;
+    }
+    .no-orphan {
+      text-wrap: balance !important;
+      white-space: nowrap !important;
+    }
+  
+</style>
+</head>
+<body class="min-h-screen bg-[#05080F] flex items-center justify-center p-0 sm:p-4 text-slate-100 antialiased selection:bg-purple-600">
+<!-- ================= 390px Native Mobile Viewport Container ================= -->
+<div class="w-full max-w-[390px] h-[100dvh] sm:h-[844px] bg-[#090D16] sm:rounded-[48px] sm:border-[5px] sm:border-slate-800/90 shadow-2xl relative flex flex-col overflow-hidden ring-1 ring-white/10">
+<!-- Top Native iOS Dynamic Island / Safe Area -->
+<header class="sticky top-0 z-30 bg-[#090D16]/95 backdrop-blur-md border-b border-[#243452]/60 pt-2 px-3 pb-2.5">
+<!-- Speaker Notch on Desktop Frame -->
+<div class="hidden sm:flex justify-center mb-1.5">
+<div class="w-24 h-4 bg-slate-900 rounded-full flex items-center justify-center gap-1.5">
+<div class="w-2 h-2 rounded-full bg-slate-800"></div>
+<div class="w-9 h-1 bg-slate-800 rounded-full"></div>
+</div>
+</div>
+<!-- Top PWA Header Bar -->
+<div class="flex items-center justify-between gap-2">
+<!-- SG Sticker Brand & Athlete Persona -->
+<div class="flex items-center gap-2.5 min-w-0">
+<div class="relative flex-shrink-0 group">
+<img alt="Small Goods Gym Morley" class="w-9 h-9 object-contain drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)] transform -rotate-3 hover:rotate-0 transition-transform" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD0ZND1Yu4ctWkL23k-rpNJNxBMN014PfDri5P6_wZNJHYnHVbX4RP3nKoMbct2PK75dw-O0CNoi6qiS4LwejlBXD7xekIlp9CYHbHSKuF9rOnWWbt6k2tQBTShFyi1Dy09L35jNOPNCFte_YshEM-EqxU6BfY9xAaRO_DUJE6VEUFWCCzCFxWavWGsyfB36hRjJm3h3yoFkRqo2GFt_TwIk3fv9pJ9eS0hKLnCdWrLx3bvUcBNP9wvegjC30koXAjnFA"/>
+<span class="absolute -bottom-0.5 -right-0.5 flex h-2.5 w-2.5">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500 border border-[#090D16]"></span>
+</span>
+</div>
+<div class="leading-none truncate">
+<div class="flex items-center gap-1.5">
+<h1 class="text-xs font-black tracking-tight text-white uppercase">Small Goods</h1>
+<span class="text-[9px] font-mono px-1 py-0.2 rounded bg-purple-950/90 border border-purple-800/70 text-purple-300 font-bold tracking-wider">MORLEY</span>
+</div>
+<div class="flex items-center gap-1 mt-1 text-[11px] text-slate-400 font-medium truncate">
+<i class="w-3 h-3 text-purple-400 flex-shrink-0" data-lucide="user"></i>
+<span class="text-slate-200 font-semibold truncate">Joel's Athlete</span>
+<span class="text-slate-500 font-mono text-[10px]">• U93kg</span>
+</div>
+</div>
+</div>
+<!-- Enode Live VBT & Battery Status Badges -->
+<div class="flex items-center gap-1.5 flex-shrink-0">
+<div class="flex items-center gap-1 px-2 py-1 rounded-lg bg-[#0E1626] border border-[#243452] text-[10px] font-mono text-emerald-400">
+<i class="w-3 h-3 text-purple-400" data-lucide="bluetooth"></i>
+<span class="font-bold">1000Hz</span>
+</div>
+<div class="flex items-center gap-1 px-2 py-1 rounded-lg bg-[#0E1626] border border-[#243452] text-[10px] font-mono text-slate-300">
+<i class="w-3 h-3 text-emerald-400" data-lucide="battery-charging"></i>
+<span>94%</span>
+</div>
+</div>
+</div>
+</header>
+<!-- Scrollable Main Workout Zone (With Bottom Clearance for Floating Action Bar) -->
+<main class="flex-1 overflow-y-auto no-scrollbar px-3 py-3 space-y-3 pb-24">
+<!-- ================= MOVEMENT FOCUS HERO CARD ================= -->
+<section class="bg-[#0E1626] border-2 border-[#243452] rounded-2xl p-3.5 shadow-brutal relative overflow-hidden">
+<!-- Floating Primary Tag -->
+<div class="flex items-center justify-between mb-1.5">
+<div class="flex items-center gap-1.5">
+<span class="px-2 py-0.5 rounded-md bg-purple-950/90 border border-purple-700/80 text-purple-300 font-mono text-[10px] font-extrabold tracking-wider uppercase">
+              W2 • SQUAT A
+            </span>
+<span class="text-[10px] font-mono text-amber-400 font-bold bg-amber-950/50 border border-amber-800/40 px-1.5 py-0.5 rounded">
+              PEAK WAVE
+            </span>
+</div>
+<span class="text-[10px] font-mono text-slate-400">Eleiko Platform 3</span>
+</div>
+<h2 class="text-xl font-black text-white tracking-tight leading-tight uppercase font-sans">
+          Competition Back Squat
+        </h2>
+<!-- Prescription & Target Summary -->
+<div class="mt-1 flex items-center justify-between text-xs">
+<div class="font-mono text-slate-300 flex items-center gap-1.5">
+<span class="text-slate-400">Prescription:</span>
+<strong class="text-purple-300 text-sm font-bold font-mono-num">5×5 @ 100 kg</strong>
+</div>
+<span class="px-2 py-0.5 rounded bg-purple-900/40 border border-purple-600/50 text-purple-300 font-mono text-[11px] font-bold">
+            Target RPE 7.5
+          </span>
+</div>
+<!-- Integrated Video Quick-Inspect Thumbnail -->
+<div class="mt-2.5 p-2 rounded-xl bg-[#151F33] border border-[#243452] flex items-center justify-between cursor-pointer active:scale-[0.99] transition-transform group" onclick="toggleVideoModal()">
+<div class="flex items-center gap-2.5 min-w-0">
+<div class="relative w-12 h-10 rounded-lg bg-slate-900 border border-purple-500/40 overflow-hidden flex-shrink-0 flex items-center justify-center">
+<div class="absolute inset-0 bg-gradient-to-tr from-purple-900/80 to-slate-900"></div>
+<div class="w-6 h-6 rounded-full bg-purple-600/90 text-white flex items-center justify-center shadow">
+<i class="w-3 h-3 ml-0.5 fill-current" data-lucide="play"></i>
+</div>
+</div>
+<div class="truncate">
+<span class="text-[11px] font-bold text-slate-200 block truncate group-hover:text-purple-300 transition-colors">
+                Joel's Standard: Root Big Toe &amp; Drive Back
+              </span>
+<span class="text-[9px] font-mono text-purple-400 flex items-center gap-1">
+<i class="w-2.5 h-2.5" data-lucide="video"></i>
+                1080p 60fps • 0:18s Quick Check
+              </span>
+</div>
+</div>
+<span class="text-[10px] font-mono text-slate-400 px-2 py-1 rounded bg-[#090D16] border border-[#243452]">View</span>
+</div>
+</section>
+<!-- ================= BARBELL MICRO-LOADING (FITTS'S LAW 64px SHELF) ================= -->
+<section class="bg-[#0E1626] border-2 border-[#243452] rounded-2xl p-3 shadow-brutal">
+<div class="flex items-center justify-between mb-2">
+<span class="text-[10px] font-mono uppercase font-bold text-slate-400 tracking-wider flex items-center gap-1">
+<i class="w-3 h-3 text-purple-400" data-lucide="disc"></i>
+            Barbell Load &amp; Plates
+          </span>
+<span class="text-[10px] font-mono text-emerald-400 font-semibold">20kg Bar + 2x(25kg, 15kg)</span>
+</div>
+<!-- Massive Load Display & Thumb-Zone 64px Micro-Loading Shelf -->
+<div class="grid grid-cols-[1fr_1fr_1.8fr_1fr_1fr] items-center gap-1.5">
+<!-- -5kg -->
+<button class="h-16 rounded-xl bg-[#151F33] active:bg-purple-900 hover:border-purple-500 border-2 border-[#243452] flex flex-col items-center justify-center transition-all active:scale-95 shadow-sm" onclick="adjustLoad(-5)">
+<span class="font-mono font-black text-sm text-slate-200 leading-none">-5</span>
+<span class="text-[9px] font-mono text-slate-400 mt-0.5">kg</span>
+</button>
+<!-- -2.5kg -->
+<button class="h-16 rounded-xl bg-[#151F33] active:bg-purple-900 hover:border-purple-500 border-2 border-[#243452] flex flex-col items-center justify-center transition-all active:scale-95 shadow-sm" onclick="adjustLoad(-2.5)">
+<span class="font-mono font-black text-sm text-slate-200 leading-none">-2.5</span>
+<span class="text-[9px] font-mono text-slate-400 mt-0.5">kg</span>
+</button>
+<!-- Giant Center Metric -->
+<div class="h-16 rounded-xl bg-[#090D16] border-2 border-purple-500 flex flex-col items-center justify-center text-center shadow-inner px-1.5 overflow-hidden">
+<div class="flex items-baseline justify-center">
+<span class="text-xl font-mono font-black text-white tracking-tight leading-none truncate" id="currentLoadNumber">100.0</span>
+</div>
+<span class="text-[9px] font-mono uppercase font-extrabold text-purple-300 tracking-wider mt-1">LOAD (KG)</span>
+</div>
+<!-- +2.5kg -->
+<button class="h-16 rounded-xl bg-[#151F33] active:bg-purple-900 hover:border-purple-500 border-2 border-[#243452] flex flex-col items-center justify-center transition-all active:scale-95 shadow-sm" onclick="adjustLoad(2.5)">
+<span class="font-mono font-black text-sm text-slate-200 leading-none">+2.5</span>
+<span class="text-[9px] font-mono text-slate-400 mt-0.5">kg</span>
+</button>
+<!-- +5kg -->
+<button class="h-16 rounded-xl bg-[#151F33] active:bg-purple-900 hover:border-purple-500 border-2 border-[#243452] flex flex-col items-center justify-center transition-all active:scale-95 shadow-sm" onclick="adjustLoad(5)">
+<span class="font-mono font-black text-sm text-slate-200 leading-none">+5</span>
+<span class="text-[9px] font-mono text-slate-400 mt-0.5">kg</span>
+</button>
+</div>
+<!-- Quick 20kg Collar Check -->
+<div class="mt-2 pt-2 border-t border-[#243452]/60 flex items-center justify-between text-[10px] font-mono text-slate-400">
+<span>Standard Bar (20kg) Included</span>
+<button class="text-purple-400 hover:underline font-bold" onclick="resetWeight()">Reset 100kg</button>
+</div>
+</section>
+<!-- ================= 1-TAP DISCRETE RPE DIAL (LARGE 60px TAP TARGETS) ================= -->
+<section class="bg-[#0E1626] border-2 border-[#243452] rounded-2xl p-3 shadow-brutal">
+<div class="flex items-center justify-between mb-2 gap-2">
+<span class="text-[10px] font-mono uppercase font-bold text-slate-400 tracking-wider whitespace-nowrap">
+            Exertion Rating&nbsp;(RPE/RIR)
+          </span>
+<span class="text-[10px] font-mono font-bold text-purple-300 whitespace-nowrap" id="activeRpeDesc">
+            RPE 7.5&nbsp;•&nbsp;2-3&nbsp;Reps&nbsp;in&nbsp;Tank
+          </span>
+</div>
+<!-- Large 60px Ergonomic Tap Targets for Shaking Hands -->
+<div class="grid grid-cols-6 gap-1.5">
+<button class="rpe-button h-14 rounded-xl bg-[#151F33] border-2 border-[#243452] font-mono font-black text-base text-slate-300 active:scale-95 transition-all" onclick="selectRPE(6, 'RPE 6 • Warm/Fast', this)">6</button>
+<button class="rpe-button h-14 rounded-xl bg-[#151F33] border-2 border-[#243452] font-mono font-black text-base text-slate-300 active:scale-95 transition-all" onclick="selectRPE(7, 'RPE 7 • 3 Reps Left', this)">7</button>
+<button class="rpe-button h-14 rounded-xl bg-purple-600 border-2 border-white text-white font-mono font-black text-base shadow-brutal-sm ring-2 ring-purple-400/40 active:scale-95 transition-all" onclick="selectRPE(7.5, 'RPE 7.5 • 2-3 Reps in Tank', this)">7.5</button>
+<button class="rpe-button h-14 rounded-xl bg-[#151F33] border-2 border-[#243452] font-mono font-black text-base text-slate-300 active:scale-95 transition-all" onclick="selectRPE(8, 'RPE 8 • 2 Reps Remaining', this)">8</button>
+<button class="rpe-button h-14 rounded-xl bg-[#151F33] border-2 border-[#243452] font-mono font-black text-base text-slate-300 active:scale-95 transition-all" onclick="selectRPE(8.5, 'RPE 8.5 • 1-2 Reps Maximum', this)">8.5</button>
+<button class="rpe-button h-14 rounded-xl bg-[#151F33] border-2 border-[#243452] font-mono font-black text-base text-slate-300 active:scale-95 transition-all" onclick="selectRPE(9, 'RPE 9 • 1 Rep Remaining', this)">9</button>
+</div>
+</section>
+<!-- ================= ENODE VELOCITY TELEMETRY & ALERT CARD ================= -->
+<section class="bg-[#0E1626] border-2 border-purple-500/70 rounded-2xl p-3.5 shadow-brutal relative transition-colors duration-300" id="vbtCard">
+<div class="flex items-center justify-between mb-2">
+<div class="flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+<span class="text-xs font-black text-white font-mono tracking-wide uppercase">Enode VBT Telemetry</span>
+</div>
+<span class="text-[10px] font-mono px-2 py-0.5 rounded bg-purple-950 border border-purple-700/60 text-purple-300">
+            Optic Concentric
+          </span>
+</div>
+<!-- Telemetry Numbers: Current vs Baseline -->
+<div class="grid grid-cols-2 gap-2 mb-2.5">
+<div class="bg-[#090D16] p-2.5 rounded-xl border border-[#243452]">
+<span class="text-[10px] font-mono text-slate-400 block mb-0.5">CURRENT (SET 3)</span>
+<div class="flex items-baseline gap-1">
+<span class="text-2xl font-mono font-black text-amber-400" id="currentVelocity">0.64</span>
+<span class="text-xs font-mono text-slate-400">m/s</span>
+</div>
+<span class="text-[9px] font-mono text-amber-400/80">Mean Concentric Vel</span>
+</div>
+<div class="bg-[#090D16] p-2.5 rounded-xl border border-[#243452]">
+<span class="text-[10px] font-mono text-slate-400 block mb-0.5">BASELINE (SET 1)</span>
+<div class="flex items-baseline gap-1">
+<span class="text-2xl font-mono font-black text-emerald-400">0.78</span>
+<span class="text-xs font-mono text-slate-400">m/s</span>
+</div>
+<span class="text-[9px] font-mono text-emerald-400/80">Peak Match 0.91 m/s</span>
+</div>
+</div>
+<!-- Animated Velocity Drop Visual Gauge -->
+<div class="mb-2.5 bg-[#090D16] p-2 rounded-xl border border-[#243452]">
+<div class="flex items-center justify-between text-[10px] font-mono mb-1">
+<span class="text-slate-400">Fatigue Threshold (&lt;15% safe)</span>
+<span class="text-amber-400 font-bold">-17.9% Velocity Loss</span>
+</div>
+<div class="w-full h-2.5 bg-slate-800 rounded-full overflow-hidden p-0.5 flex">
+<!-- Safe Zone (Green) -->
+<div class="h-full bg-emerald-500 rounded-l" style="width: 50%"></div>
+<!-- Moderate Fatigue (Yellow) -->
+<div class="h-full bg-amber-400" style="width: 32%"></div>
+<!-- Red zone -->
+<div class="h-full bg-rose-500/40 rounded-r" style="width: 18%"></div>
+</div>
+</div>
+<!-- Glowing Amber Alert Banner -->
+<div class="p-2 rounded-xl bg-amber-950/70 border border-amber-500/80 shadow-glow-amber flex items-start gap-2">
+<i class="w-4 h-4 text-amber-400 flex-shrink-0 mt-0.5" data-lucide="alert-triangle"></i>
+<p class="text-[10.5px] font-medium text-amber-200 leading-snug">
+<strong class="text-amber-300 font-mono">18% Velocity Drop:</strong> Form fatigue &amp; CNS taper detected. Rest full 180s before Set 4.
+          </p>
+</div>
+</section>
+<!-- ================= SET PROGRESSION ACCORDION / DRAWER ================= -->
+<section class="bg-[#0E1626] border border-[#243452] rounded-2xl p-3 shadow-sm">
+<div class="flex items-center justify-between mb-2">
+<span class="text-[10px] font-mono uppercase font-bold text-slate-400 tracking-wider">
+            Session Sets (Wave A)
+          </span>
+<span class="text-[11px] font-mono font-bold text-purple-400" id="setTrackerText">
+            2 of 5 Completed
+          </span>
+</div>
+<!-- Set 1 Completed -->
+<div class="flex items-center justify-between p-2 rounded-xl bg-[#090D16] border border-emerald-500/40 mb-1.5">
+<div class="flex items-center gap-2">
+<span class="w-5 h-5 rounded-full bg-emerald-500 text-black flex items-center justify-center font-mono font-bold text-[10px]">✓</span>
+<div>
+<span class="text-xs font-bold text-slate-200">Set 1: 100 kg × 5 reps</span>
+<span class="block text-[9px] font-mono text-slate-400">RPE 7.0 • 0.78 m/s</span>
+</div>
+</div>
+<span class="text-[10px] font-mono text-emerald-400 font-bold bg-emerald-950/80 px-2 py-0.5 rounded border border-emerald-800/40">DONE</span>
+</div>
+<!-- Set 2 Completed -->
+<div class="flex items-center justify-between p-2 rounded-xl bg-[#090D16] border border-emerald-500/40 mb-1.5">
+<div class="flex items-center gap-2">
+<span class="w-5 h-5 rounded-full bg-emerald-500 text-black flex items-center justify-center font-mono font-bold text-[10px]">✓</span>
+<div>
+<span class="text-xs font-bold text-slate-200">Set 2: 100 kg × 5 reps</span>
+<span class="block text-[9px] font-mono text-slate-400">RPE 7.5 • 0.74 m/s</span>
+</div>
+</div>
+<span class="text-[10px] font-mono text-emerald-400 font-bold bg-emerald-950/80 px-2 py-0.5 rounded border border-emerald-800/40">DONE</span>
+</div>
+<!-- Set 3 (Currently Active) -->
+<div class="flex items-center justify-between p-2 rounded-xl bg-purple-950/40 border-2 border-purple-500 mb-1.5 transition-all" id="set3Row">
+<div class="flex items-center gap-2">
+<span class="w-5 h-5 rounded-full bg-purple-600 text-white flex items-center justify-center font-mono font-bold text-[10px]" id="set3Badge">3</span>
+<div>
+<span class="text-xs font-bold text-white">Set 3: 100 kg × 5 reps</span>
+<span class="block text-[9px] font-mono text-purple-300" id="set3Sub">Ready to complete • Live Telemetry</span>
+</div>
+</div>
+<span class="text-[10px] font-mono text-purple-300 font-bold bg-purple-900/60 px-2 py-0.5 rounded border border-purple-600" id="set3StatusTag">IN PROGRESS</span>
+</div>
+<!-- Queued Sets 4 & 5 Dots & Lines -->
+<div class="grid grid-cols-2 gap-2 mt-2 pt-2 border-t border-[#243452]/50 text-slate-500 text-[10px] font-mono">
+<div class="flex items-center gap-1.5 bg-[#090D16] p-1.5 rounded-lg border border-[#243452]">
+<span class="w-4 h-4 rounded-full bg-slate-800 text-slate-400 flex items-center justify-center font-bold text-[9px]">4</span>
+<span>Set 4 (Queued)</span>
+</div>
+<div class="flex items-center gap-1.5 bg-[#090D16] p-1.5 rounded-lg border border-[#243452]">
+<span class="w-4 h-4 rounded-full bg-slate-800 text-slate-400 flex items-center justify-center font-bold text-[9px]">5</span>
+<span>Set 5 (Queued)</span>
+</div>
+</div>
+</section>
+<!-- Rest Timer Modal / Pinned Inline Card (Hidden initially, triggers on complete) -->
+<div class="hidden bg-gradient-to-b from-[#0E1626] to-[#090D16] border-2 border-emerald-500 rounded-2xl p-3 shadow-glow-emerald" id="activeRestSection">
+<div class="flex items-center justify-between">
+<!-- Circular SVG Countdown Timer -->
+<div class="flex items-center gap-3">
+<div class="relative w-14 h-14 flex items-center justify-center flex-shrink-0">
+<svg class="w-14 h-14 transform -rotate-90">
+<circle cx="28" cy="28" fill="transparent" r="23" stroke="#151F33" stroke-width="4"></circle>
+<circle class="transition-all duration-1000" cx="28" cy="28" fill="transparent" id="svgRestRing" r="23" stroke="#10B981" stroke-dasharray="144.5" stroke-dashoffset="0" stroke-linecap="round" stroke-width="4"></circle>
+</svg>
+<span class="absolute font-mono text-sm font-black text-white" id="restTimerDigits">3:00</span>
+</div>
+<div>
+<div class="flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-emerald-400 animate-rest-pulse"></span>
+<span class="text-xs font-black text-white font-mono uppercase">Resting for Set 4</span>
+</div>
+<span class="text-[10px] text-slate-400 font-mono block mt-0.5">Target: 180s CNS Reset</span>
+<span class="text-[9px] font-mono text-emerald-400 flex items-center gap-1">
+<i class="w-2.5 h-2.5" data-lucide="bell"></i>
+                Haptic cue armed
+              </span>
+</div>
+</div>
+<!-- Quick Rest Timer Modifiers -->
+<div class="flex items-center gap-1">
+<button class="px-2 py-1.5 rounded-lg bg-[#151F33] border border-[#243452] text-[10px] font-mono font-bold text-slate-200 active:scale-95" onclick="addRest(30)">+30s</button>
+<button class="p-2 rounded-lg bg-[#151F33] border border-[#243452] text-white active:scale-95" id="pausePlayBtn" onclick="toggleRestTimer()">
+<i class="w-4 h-4" data-lucide="pause" id="pausePlayIcon"></i>
+</button>
+</div>
+</div>
+</div>
+</main>
+<!-- ================= BIG PINNED / FLOATING ACTION BAR (68px FITTS'S LAW) ================= -->
+<div class="sticky bottom-0 z-40 bg-gradient-to-t from-[#05080F] via-[#090D16] to-[#090D16]/90 border-t border-[#243452] p-2.5 backdrop-blur-lg">
+<button class="w-full h-[68px] rounded-2xl bg-gradient-to-r from-purple-600 via-brand-purple to-brand-electric active:from-emerald-600 active:to-emerald-500 text-white font-black text-base tracking-wide shadow-brutal border-2 border-black flex items-center justify-center gap-3 transition-all transform active:scale-[0.98] group" id="mainActionBtn" onclick="handleSetCompletion()">
+<div class="w-9 h-9 rounded-xl bg-black/30 border border-white/20 flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform">
+<i class="w-5 h-5 text-white" data-lucide="check-check" id="actionBtnIcon"></i>
+</div>
+<div class="text-left leading-tight">
+<span class="block text-sm sm:text-base font-black uppercase tracking-wider" id="actionBtnMainText">COMPLETE SET 3 • START REST</span>
+<span class="block text-[10px] font-mono text-purple-200" id="actionBtnSubText">Enode: 0.64 m/s • Auto 180s Timer</span>
+</div>
+</button>
+</div>
+<!-- ================= MODAL: MOVEMENT QUICK-INSPECT VIDEO ================= -->
+<div class="hidden fixed inset-0 z-50 bg-black/85 backdrop-blur-sm flex items-center justify-center p-4" id="videoModal">
+<div class="w-full max-w-xs bg-[#0E1626] border-2 border-purple-500 rounded-3xl p-4 shadow-2xl relative">
+<div class="flex items-center justify-between pb-3 border-b border-[#243452]">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+<span class="text-xs font-mono font-bold text-white uppercase">Movement Cue Inspect</span>
+</div>
+<button class="w-7 h-7 rounded-full bg-[#151F33] text-slate-300 flex items-center justify-center border border-[#243452]" onclick="toggleVideoModal()">
+<i class="w-4 h-4" data-lucide="x"></i>
+</button>
+</div>
+<!-- Simulated Video Stage -->
+<div class="mt-3 relative rounded-xl overflow-hidden bg-slate-950 border border-[#243452] h-44 flex items-center justify-center">
+<div class="absolute inset-0 opacity-30 bg-[radial-gradient(#8B5CF6_1px,transparent_1px)] [background-size:12px_12px]"></div>
+<div class="z-10 text-center p-4">
+<div class="w-12 h-12 rounded-full bg-purple-600 text-white mx-auto flex items-center justify-center mb-2 shadow-lg animate-pulse">
+<i class="w-6 h-6 ml-0.5 fill-current" data-lucide="play"></i>
+</div>
+<p class="text-xs font-bold text-white">Joel's Squat Form Standard</p>
+<p class="text-[10px] font-mono text-slate-400 mt-0.5">Foot angle 28° • Midfoot balance point</p>
+</div>
+</div>
+<div class="mt-3 p-2.5 rounded-xl bg-[#090D16] border border-[#243452] text-[11px] text-slate-300 space-y-1">
+<p><span class="font-bold text-purple-400">Key Cue:</span> "Grip the floor with your big toe and lateral heel edge. Keep ribs down throughout the eccentric descent."</p>
+</div>
+<button class="w-full mt-3 py-2.5 rounded-xl bg-purple-600 text-white font-mono font-bold text-xs" onclick="toggleVideoModal()">
+          GOT IT • RETURN TO SET
+        </button>
+</div>
+</div>
+</div>
+<!-- ================= LOGIC & INTERACTION SCRIPT ================= -->
+<script>
+    // Initialize icons
+    document.addEventListener('DOMContentLoaded', () => {
+      if (window.lucide) {
+        lucide.createIcons();
+      }
+    });
+
+    // 1. Barbell Load Adjustment
+    let currentBarLoad = 100.0;
+    function adjustLoad(delta) {
+      currentBarLoad = Math.max(20, currentBarLoad + delta);
+      document.getElementById('currentLoadNumber').innerText = currentBarLoad.toFixed(1);
+    }
+    function resetWeight() {
+      currentBarLoad = 100.0;
+      document.getElementById('currentLoadNumber').innerText = "100.0";
+    }
+
+    // 2. 1-Tap Discrete RPE Dial Selector
+    function selectRPE(val, desc, buttonElement) {
+      document.getElementById('activeRpeDesc').innerText = desc;
+      document.querySelectorAll('.rpe-button').forEach(btn => {
+        btn.className = 'rpe-button h-14 rounded-xl bg-[#151F33] border-2 border-[#243452] font-mono font-black text-base text-slate-300 active:scale-95 transition-all';
+      });
+      buttonElement.className = 'rpe-button h-14 rounded-xl bg-purple-600 border-2 border-white text-white font-mono font-black text-base shadow-brutal-sm ring-2 ring-purple-400/40 active:scale-95 transition-all';
+    }
+
+    // 3. Movement Video Preview Modal Toggle
+    function toggleVideoModal() {
+      const modal = document.getElementById('videoModal');
+      modal.classList.toggle('hidden');
+      if (window.lucide) lucide.createIcons();
+    }
+
+    // 4. Set 3 Completion + Rest Timer Launch
+    let isSetCompleted = false;
+    let restSeconds = 180;
+    let restInterval = null;
+    let isRestRunning = false;
+
+    function handleSetCompletion() {
+      if (isSetCompleted) {
+        // If already completed, toggle pause/continue
+        toggleRestTimer();
+        return;
+      }
+
+      isSetCompleted = true;
+
+      // Visual Feedback: Flash High-Contrast Emerald Green (#10B981)
+      const btn = document.getElementById('mainActionBtn');
+      btn.className = 'w-full h-[68px] rounded-2xl bg-emerald-500 hover:bg-emerald-600 text-black font-black text-base tracking-wide shadow-glow-emerald border-2 border-black flex items-center justify-center gap-3 transition-all transform active:scale-[0.98]';
+      
+      document.getElementById('actionBtnMainText').innerText = "SET 3 RECORDED ✓ (RESTING)";
+      document.getElementById('actionBtnMainText').className = "block text-sm sm:text-base font-black uppercase tracking-wider text-black";
+      document.getElementById('actionBtnSubText').innerText = "180s Countdown Active • Next: Set 4";
+      document.getElementById('actionBtnSubText').className = "block text-[10px] font-mono text-emerald-950 font-bold";
+      
+      document.getElementById('actionBtnIcon').setAttribute('data-lucide', 'timer');
+
+      // Update Set Tracker UI
+      document.getElementById('setTrackerText').innerText = "3 of 5 Completed";
+      const set3Row = document.getElementById('set3Row');
+      set3Row.className = 'flex items-center justify-between p-2 rounded-xl bg-[#090D16] border-2 border-emerald-500 shadow-glow-emerald mb-1.5 transition-all';
+      document.getElementById('set3Badge').className = 'w-5 h-5 rounded-full bg-emerald-500 text-black flex items-center justify-center font-mono font-bold text-[10px]';
+      document.getElementById('set3Badge').innerText = "✓";
+      document.getElementById('set3Sub').innerText = "Logged: 0.64 m/s • RPE 7.5";
+      document.getElementById('set3StatusTag').className = 'text-[10px] font-mono text-emerald-400 font-bold bg-emerald-950/80 px-2 py-0.5 rounded border border-emerald-600';
+      document.getElementById('set3StatusTag').innerText = "SAVED";
+
+      // Reveal & Start Rest Timer
+      const restSection = document.getElementById('activeRestSection');
+      restSection.classList.remove('hidden');
+      startRestCountdown(180);
+
+      // Trigger standard mobile vibration if supported
+      if (navigator.vibrate) {
+        navigator.vibrate([100, 50, 100]);
+      }
+
+      if (window.lucide) lucide.createIcons();
+    }
+
+    // 5. Rest Timer Logic & SVG Ring Animation
+    function formatTimerDisplay(totalSec) {
+      const mins = Math.floor(totalSec / 60);
+      const secs = totalSec % 60;
+      return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+    }
+
+    function startRestCountdown(seconds) {
+      clearInterval(restInterval);
+      restSeconds = seconds;
+      isRestRunning = true;
+      updateTimerUI();
+
+      restInterval = setInterval(() => {
+        if (restSeconds > 0) {
+          restSeconds--;
+          updateTimerUI();
+        } else {
+          clearInterval(restInterval);
+          isRestRunning = false;
+          document.getElementById('restTimerDigits').innerText = "0:00";
+          if (navigator.vibrate) navigator.vibrate([300, 100, 300, 100, 500]);
+        }
+      }, 1000);
+    }
+
+    function updateTimerUI() {
+      document.getElementById('restTimerDigits').innerText = formatTimerDisplay(restSeconds);
+      // SVG Circle circumference is ~144.5 (2 * PI * 23)
+      const maxStroke = 144.5;
+      const progress = ((180 - restSeconds) / 180) * maxStroke;
+      const ring = document.getElementById('svgRestRing');
+      if (ring) {
+        ring.style.strokeDashoffset = progress.toString();
+      }
+    }
+
+    function toggleRestTimer() {
+      const icon = document.getElementById('pausePlayIcon');
+      if (isRestRunning) {
+        clearInterval(restInterval);
+        isRestRunning = false;
+        if (icon) icon.setAttribute('data-lucide', 'play');
+      } else {
+        isRestRunning = true;
+        restInterval = setInterval(() => {
+          if (restSeconds > 0) {
+            restSeconds--;
+            updateTimerUI();
+          } else {
+            clearInterval(restInterval);
+            isRestRunning = false;
+          }
+        }, 1000);
+        if (icon) icon.setAttribute('data-lucide', 'pause');
+      }
+      if (window.lucide) lucide.createIcons();
+    }
+
+    function addRest(amount) {
+      restSeconds += amount;
+      updateTimerUI();
+    }
+  </script>
+</body></html>

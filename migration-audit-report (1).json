@@ -1,0 +1,39 @@
+{
+  "total_records_read": 6,
+  "successful_migrations": 4,
+  "failed_migrations": 2,
+  "warnings": [
+    {
+      "row": 1,
+      "type": "Data Normalization",
+      "message": "Sanitized logged weight from '140 kg' to 140 kg."
+    },
+    {
+      "row": 1,
+      "type": "Range Normalization",
+      "message": "Standardized target RPE range '7-8' to upper limit: 8.0."
+    },
+    {
+      "row": 2,
+      "type": "Data Normalization",
+      "message": "Sanitized logged weight from '75kg' to 75 kg."
+    },
+    {
+      "row": 3,
+      "type": "Data Normalization",
+      "message": "Sanitized logged weight from '220KG' to 220 kg."
+    }
+  ],
+  "failures": [
+    {
+      "row": 5,
+      "reason": "Unresolvable Athlete User",
+      "details": "Email 'invalid-email-format' not found in Javier's auth database."
+    },
+    {
+      "row": 6,
+      "reason": "Unresolvable Exercise Name",
+      "details": "Exercise 'Unknown Movement X' could not be matched to our standardized video library."
+    }
+  ]
+}

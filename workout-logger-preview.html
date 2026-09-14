@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Small Goods Gym - Workout Logger Prototype</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- React and ReactDOM CDN -->
+  <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+  <!-- Babel Standalone for JSX -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <style>
+    body {
+      background-color: #020617;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+  </style>
+</head>
+<body class="bg-slate-950 flex justify-center items-center min-h-screen p-0 sm:p-4">
+
+  <div id="root" class="w-full max-w-md"></div>
+
+  <script type="text/babel">
+    const { useState, useEffect } = React;
+
+    function GymFloorWorkoutLogger() {
+      // Athlete Profile with Anthropometrics
+      const athleteProfile = {
+        name: "Alex",
+        leverageTags: ["Long Femurs", "Short Torso"],
+        setupTip: "Long Femurs & Short Torso detected: Elevate heels 1-2cm and adopt a wider squat stance to optimize hip mechanics."
+      };
+
+      // Current Exercise
+      const [currentExercise] = useState({
+        id: "ex-01",
+        name: "A1. High-Bar Back Squat",
+        videoUrl: "https://vimeo.com/1016399622",
+        category: "Squat",
+        mechanicalTags: ["Quad Dominant", "Hip Flexion", "Axial Loading"],
+        coachesTips: "Drive knees outward in the hole. Maintain upper back tightness and push the floor away through the mid-foot."
+      });
+
+      // Sets State
+      const [sets, setSets] = useState([
+        { setNumber: 1, prescribedReps: 5, prescribedWeight: 100, prescribedRpe: 7, loggedReps: "5", loggedWeight: "100", loggedRpe: "7", velocity: 0.62, isCompleted: true },
+        { setNumber: 2, prescribedReps: 5, prescribedWeight: 100, prescribedRpe: 7, loggedReps: "5", loggedWeight: "100", loggedRpe: "7.5", velocity: 0.58, isCompleted: true },
+        { setNumber: 3, prescribedReps: 5, prescribedWeight: 100, prescribedRpe: 8, loggedReps: "5", loggedWeight: "100", loggedRpe: "8", velocity: 0.48, isCompleted: true },
+        { setNumber: 4, prescribedReps: 5, prescribedWeight: 100, prescribedRpe: 8, loggedReps: "", loggedWeight: "", loggedRpe: "", velocity: null, isCompleted: false },
+        { setNumber: 5, prescribedReps: 5, prescribedWeight: 100, prescribedRpe: 8, loggedReps: "", loggedWeight: "", loggedRpe: "", velocity: null, isCompleted: false },
+      ]);
+
+      const [activeSetIndex, setActiveSetIndex] = useState(3);
+      const [isPlayingVideo, setIsPlayingVideo] = useState(false);
+      const [isSimulatingVbt, setIsSimulatingVbt] = useState(false);
+      const [currentSimulatedVelocity, setCurrentSimulatedVelocity] = useState(null);
+      const [vbtAlert, setVbtAlert] = useState(null);
+      const [activeTab, setActiveTab] = useState("workout");
+      const [notificationToast, setNotificationToast] = useState(null);
+
+      const parseLoggedInput = (value) => value.replace(/[^0-9.]/g, '');
+
+      const handleInputChange = (index, field, value) => {
+        const updatedSets = [...sets];
+        updatedSets[index][field] = parseLoggedInput(value);
+        setSets(updatedSets);
+      };
+
+      const completeSet = (index) => {
+        const updatedSets = [...sets];
+        const currentSet = updatedSets[index];
+
+        if (!currentSet.loggedReps) currentSet.loggedReps = currentSet.prescribedReps.toString();
+        if (!currentSet.loggedWeight) currentSet.loggedWeight = currentSet.prescribedWeight.toString();
+        if (!currentSet.loggedRpe) currentSet.loggedRpe = currentSet.prescribedRpe.toString();
+        
+        if (!currentSet.velocity) {
+          currentSet.velocity = Number((0.42 + Math.random() * 0.20).toFixed(2));
+        }
+
+        currentSet.isCompleted = true;
+        setSets(updatedSets);
+
+        // Instant Doherty visual toast
+        setNotificationToast(`Set ${currentSet.setNumber} Saved! (${currentSet.loggedReps} @ ${currentSet.loggedWeight}kg)`);
+        setTimeout(() => setNotificationToast(null), 2500);
+
+        if (navigator.vibrate) navigator.vibrate(40);
+
+        const nextUncompletedIndex = updatedSets.findIndex(s => !s.isCompleted);
+        if (nextUncompletedIndex !== -1) {
+          setActiveSetIndex(nextUncompletedIndex);
+        }
+      };
+
+      const startVbtSimulation = () => {
+        setIsSimulatingVbt(true);
+        setCurrentSimulatedVelocity(0.72);
+        setVbtAlert(null);
+
+        let velocity = 0.72;
+        const interval = setInterval(() => {
+          velocity = Number((velocity - 0.08).toFixed(2));
+          setCurrentSimulatedVelocity(velocity);
+
+          if (velocity < 0.48 && velocity >= 0.40) {
+            setVbtAlert("⚠️ Velocity Loss Detected (~25% fatigue). Push hard through the sticking point!");
+          } else if (velocity < 0.40) {
+            setVbtAlert("🛑 CRITICAL FATIGUE (>35% Velocity Loss). Terminate set immediately to prevent technical breakdown!");
+            clearInterval(interval);
+            setIsSimulatingVbt(false);
+          }
+        }, 1200);
+      };
+
+      return (
+        <div className="bg-slate-950 text-slate-100 min-h-screen sm:min-h-[844px] sm:rounded-3xl flex flex-col font-sans border border-slate-800 shadow-2xl relative overflow-hidden">
+          
+          {/* TOAST NOTIFICATION */}
+          {notificationToast && (
+            <div className="absolute top-16 left-4 right-4 z-50 bg-emerald-500 text-slate-950 px-4 py-2 rounded-xl text-xs font-black tracking-wide text-center shadow-lg animate-bounce">
+              ✓ {notificationToast}
+            </div>
+          )}
+
+          {/* STATUS BAR HEADER */}
+          <header className="p-4 border-b border-slate-900 bg-slate-950/90 backdrop-blur sticky top-0 z-40 flex items-center justify-between">
+            <div className="flex items-center space-x-2.5">
+              <div className="w-8 h-8 rounded-lg bg-orange-600 flex items-center justify-center font-extrabold text-white text-xs tracking-tighter">
+                SG
+              </div>
+              <div>
+                <h1 className="font-extrabold text-xs tracking-wider uppercase text-slate-200">Small Goods Gym</h1>
+                <p className="text-[10px] text-slate-500 font-medium">Morley, Perth • Club Session</p>
+              </div>
+            </div>
+            <div className="flex items-center space-x-2 bg-slate-900 px-3 py-1 rounded-full border border-slate-800">
+              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+              <span className="text-[11px] font-bold text-slate-300">Live Sync</span>
+            </div>
+          </header>
+
+          {/* TAB 1: WORKOUT VIEW */}
+          {activeTab === "workout" && (
+            <main className="flex-1 p-4 space-y-4 overflow-y-auto pb-28">
+              
+              {/* ATHLETE ANTHROPOMETRIC LEVERAGE CALLOUT */}
+              <div className="bg-gradient-to-r from-orange-950/40 via-slate-900 to-slate-900 p-3.5 rounded-xl border border-orange-500/20 shadow">
+                <div className="flex items-center space-x-2 mb-1.5">
+                  <span className="text-[10px] font-extrabold uppercase bg-orange-500/20 text-orange-400 px-2 py-0.5 rounded tracking-wider">
+                    Leverage Profile
+                  </span>
+                  <div className="flex space-x-1">
+                    {athleteProfile.leverageTags.map((tag) => (
+                      <span key={tag} className="text-[10px] font-bold bg-slate-800 text-slate-400 px-1.5 py-0.5 rounded">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+                <p className="text-xs text-slate-300 leading-relaxed italic font-medium">
+                  &ldquo;{athleteProfile.setupTip}&rdquo; <span className="text-orange-400 font-bold">— Holly Hunt, Physio</span>
+                </p>
+              </div>
+
+              {/* ACTIVE EXERCISE VIEW */}
+              <div className="space-y-2.5">
+                <div className="flex items-center justify-between">
+                  <h2 className="text-base font-black tracking-tight text-slate-100">{currentExercise.name}</h2>
+                  <div className="flex space-x-1">
+                    {currentExercise.mechanicalTags.map(tag => (
+                      <span key={tag} className="text-[9px] font-bold text-slate-400 border border-slate-800 px-1.5 py-0.5 rounded">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Master Video Demonstrator Panel */}
+                <div className="relative aspect-video rounded-xl overflow-hidden border border-slate-800 bg-slate-900 flex flex-col justify-center items-center shadow-lg">
+                  {isPlayingVideo ? (
+                    <div className="absolute inset-0 bg-slate-900 flex flex-col items-center justify-center p-4">
+                      <div className="w-12 h-12 rounded-full bg-orange-600/20 text-orange-400 flex items-center justify-center text-xl mb-2 animate-pulse">
+                        ▶
+                      </div>
+                      <span className="text-xs font-bold text-slate-300">Streaming Small Goods Vimeo Guide</span>
+                      <p className="text-[10px] text-slate-500 mt-1">High-Bar Squat: Mid-Foot Balance & Knee Tracking</p>
+                      <button 
+                        onClick={() => setIsPlayingVideo(false)}
+                        className="mt-3 px-3 py-1 bg-slate-800 hover:bg-slate-700 text-xs rounded-lg text-slate-300"
+                      >
+                        Close Video
+                      </button>
+                    </div>
+                  ) : (
+                    <>
+                      <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent z-10" />
+                      <div className="text-center z-20 space-y-1.5 p-3">
+                        <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Coach Joel's Cue Notes:</p>
+                        <p className="text-xs text-slate-200 px-2 leading-relaxed italic font-medium">
+                          &ldquo;{currentExercise.coachesTips}&rdquo;
+                        </p>
+                        <button 
+                          onClick={() => setIsPlayingVideo(true)}
+                          className="mt-2 px-3.5 py-1.5 bg-orange-600 hover:bg-orange-500 text-xs font-black tracking-wider uppercase rounded-lg text-white shadow transition flex items-center mx-auto space-x-1.5"
+                        >
+                          <span>▶</span>
+                          <span>Watch Movement Guide</span>
+                        </button>
+                      </div>
+                    </>
+                  )}
+                </div>
+              </div>
+
+              {/* GYM-FLOOR SET WORKSPACE */}
+              <div className="space-y-2.5">
+                <div className="flex items-center justify-between">
+                  <span className="text-xs font-black tracking-wider text-slate-400 uppercase">Set Progression Worklist</span>
+                  <span className="text-xs font-bold text-orange-500">Active: Set {activeSetIndex + 1}</span>
+                </div>
+
+                <div className="space-y-2">
+                  {sets.map((set, idx) => {
+                    const isActive = idx === activeSetIndex;
+                    return (
+                      <div 
+                        key={set.setNumber}
+                        onClick={() => setActiveSetIndex(idx)}
+                        className={`p-3 rounded-xl border transition-all cursor-pointer ${
+                          isActive 
+                            ? 'bg-slate-900 border-orange-500 shadow-md shadow-orange-500/10 ring-1 ring-orange-500/50' 
+                            : set.isCompleted 
+                              ? 'bg-slate-950/80 border-emerald-500/30' 
+                              : 'bg-slate-950 border-slate-900 opacity-60'
+                        }`}
+                      >
+                        <div className="flex items-center justify-between">
+                          {/* Set Identifier & Target */}
+                          <div className="flex items-center space-x-3">
+                            <div className={`w-8 h-8 rounded-lg font-black text-xs flex items-center justify-center ${
+                              set.isCompleted 
+                                ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30' 
+                                : isActive 
+                                  ? 'bg-orange-600 text-white shadow' 
+                                  : 'bg-slate-900 text-slate-500'
+                            }`}>
+                              #{set.setNumber}
+                            </div>
+                            
+                            <div className="space-y-0.5">
+                              <div className="text-[10px] text-slate-400 uppercase font-bold tracking-wider">Target Prescribed:</div>
+                              <div className="text-xs font-bold text-slate-200">
+                                {set.prescribedReps} reps @ {set.prescribedWeight}kg <span className="text-orange-400 font-medium">(RPE {set.prescribedRpe})</span>
+                              </div>
+                            </div>
+                          </div>
+
+                          {/* Interactive Input Block */}
+                          {isActive ? (
+                            <div className="flex items-center space-x-1.5">
+                              <div className="flex flex-col items-center">
+                                <label className="text-[8px] font-black text-slate-500 uppercase">REPS</label>
+                                <input 
+                                  type="text" 
+                                  value={set.loggedReps}
+                                  onChange={(e) => handleInputChange(idx, 'loggedReps', e.target.value)}
+                                  placeholder={set.prescribedReps.toString()}
+                                  className="w-11 h-10 bg-slate-950 text-center font-black text-sm text-white border border-slate-700 rounded-lg focus:border-orange-500 focus:outline-none"
+                                  onClick={(e) => e.stopPropagation()}
+                                />
+                              </div>
+
+                              <div className="flex flex-col items-center">
+                                <label className="text-[8px] font-black text-slate-500 uppercase">KG</label>
+                                <input 
+                                  type="text" 
+                                  value={set.loggedWeight}
+                                  onChange={(e) => handleInputChange(idx, 'loggedWeight', e.target.value)}
+                                  placeholder={set.prescribedWeight.toString()}
+                                  className="w-14 h-10 bg-slate-950 text-center font-black text-sm text-white border border-slate-700 rounded-lg focus:border-orange-500 focus:outline-none"
+                                  onClick={(e) => e.stopPropagation()}
+                                />
+                              </div>
+
+                              <div className="flex flex-col items-center">
+                                <label className="text-[8px] font-black text-slate-500 uppercase">RPE</label>
+                                <input 
+                                  type="text" 
+                                  value={set.loggedRpe}
+                                  onChange={(e) => handleInputChange(idx, 'loggedRpe', e.target.value)}
+                                  placeholder={set.prescribedRpe.toString()}
+                                  className="w-11 h-10 bg-slate-950 text-center font-black text-sm text-white border border-slate-700 rounded-lg focus:border-orange-500 focus:outline-none"
+                                  onClick={(e) => e.stopPropagation()}
+                                />
+                              </div>
+
+                              {/* Massive Touch Target Log Button */}
+                              <button 
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  completeSet(idx);
+                                }}
+                                className="h-10 px-3.5 bg-orange-600 hover:bg-orange-500 active:scale-95 text-xs font-black rounded-lg text-white transition flex items-center justify-center shadow"
+                                title="Confirm Set"
+                              >
+                                ✓
+                              </button>
+                            </div>
+                          ) : (
+                            <div className="text-right">
+                              {set.isCompleted ? (
+                                <div className="space-y-0.5">
+                                  <span className="text-[9px] font-extrabold uppercase bg-emerald-500/20 text-emerald-400 px-1.5 py-0.5 rounded">
+                                    ✓ Logged
+                                  </span>
+                                  <div className="text-xs font-black text-emerald-400">
+                                    {set.loggedReps} @ {set.loggedWeight}kg (RPE {set.loggedRpe})
+                                  </div>
+                                  {set.velocity && (
+                                    <div className="text-[9px] font-medium text-slate-400 italic">
+                                      Speed: {set.velocity} m/s
+                                    </div>
+                                  )}
+                                </div>
+                              ) : (
+                                <span className="text-xs font-bold text-slate-600">Pending</span>
+                              )}
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* LIVE VBT ACCELEROMETER MODULE */}
+              <div className="bg-slate-900 rounded-xl border border-slate-800 p-3.5 space-y-2.5 shadow">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-2">
+                    <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
+                    <span className="text-[10px] font-black tracking-wider text-slate-300 uppercase">Live VBT Engine Module</span>
+                  </div>
+                  {!isSimulatingVbt && (
+                    <button 
+                      onClick={startVbtSimulation}
+                      className="px-2.5 py-1 bg-red-600/20 hover:bg-red-600/30 text-red-400 text-[9px] font-black uppercase rounded border border-red-500/20 transition"
+                    >
+                      Test Rep Speed
+                    </button>
+                  )}
+                </div>
+
+                {isSimulatingVbt ? (
+                  <div className="space-y-2 bg-slate-950 p-3 rounded-lg border border-slate-800 text-center">
+                    <span className="text-[9px] font-bold text-slate-500 uppercase tracking-widest block">Barbell Real-Time Velocity</span>
+                    <div className="text-3xl font-black text-slate-100 tracking-wider font-mono">
+                      {currentSimulatedVelocity !== null ? `${currentSimulatedVelocity} m/s` : '-- m/s'}
+                    </div>
+                    <div className="h-2 w-full bg-slate-900 rounded-full overflow-hidden">
+                      <div 
+                        className="h-full bg-gradient-to-r from-red-500 via-amber-500 to-emerald-500 transition-all duration-300"
+                        style={{ width: `${Math.min(100, (currentSimulatedVelocity || 0) * 130)}%` }}
+                      />
+                    </div>
+                    {vbtAlert && (
+                      <div className="text-[11px] font-bold text-amber-300 bg-amber-950/40 border border-amber-500/30 p-2 rounded-md">
+                        {vbtAlert}
+                      </div>
+                    )}
+                  </div>
+                ) : (
+                  <p className="text-[11px] text-slate-400 leading-relaxed font-normal">
+                    Ready to stream bar velocity metrics from Bluetooth sensors (RepOne / GymAware) to calculate fatigue drop-off in real time.
+                  </p>
+                )}
+              </div>
+
+            </main>
+          )}
+
+          {/* TAB 2: EVENTS & COMMUNITY (February Goal 1) */}
+          {activeTab === "events" && (
+            <main className="flex-1 p-4 space-y-4 overflow-y-auto pb-28">
+              <div className="flex items-center justify-between">
+                <h2 className="text-base font-black text-slate-100 tracking-tight">Community Events & Workshops</h2>
+                <span className="text-[10px] font-bold text-orange-400 bg-orange-500/10 px-2 py-0.5 rounded">High Signal Hub</span>
+              </div>
+              <p className="text-xs text-slate-400">Say goodbye to noisy WhatsApp chat threads. Get direct RSVPs and notifications.</p>
+
+              {/* Event Card 1 */}
+              <div className="bg-slate-900 rounded-xl border border-slate-800 p-4 space-y-3">
+                <div className="flex items-center justify-between">
+                  <span className="text-[10px] font-extrabold uppercase bg-purple-500/20 text-purple-400 px-2 py-0.5 rounded">
+                    Competition Throwdown
+                  </span>
+                  <span className="text-xs font-bold text-slate-400">Oct 24 • 9:00 AM</span>
+                </div>
+                <h3 className="text-sm font-black text-slate-100">SG4 Throwdown (Small Goods Annual Lift Off)</h3>
+                <p className="text-xs text-slate-300 leading-relaxed">
+                  Our internal mock-meet for Powerlifting and Olympic Lifting. Test your PBs in a judgment-free, supportive environment.
+                </p>
+                <div className="flex items-center justify-between pt-2 border-t border-slate-800">
+                  <span className="text-xs text-slate-400 font-medium">32 Athletes Attending</span>
+                  <button className="px-4 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-xs font-black rounded-lg text-white transition">
+                    ✓ Attending
+                  </button>
+                </div>
+              </div>
+
+              {/* Event Card 2 */}
+              <div className="bg-slate-900 rounded-xl border border-slate-800 p-4 space-y-3">
+                <div className="flex items-center justify-between">
+                  <span className="text-[10px] font-extrabold uppercase bg-orange-500/20 text-orange-400 px-2 py-0.5 rounded">
+                    Workshop
+                  </span>
+                  <span className="text-xs font-bold text-slate-400">Nov 8 • 11:30 AM</span>
+                </div>
+                <h3 className="text-sm font-black text-slate-100">Hip & Ankle Mobility for Deep Squats</h3>
+                <p className="text-xs text-slate-300 leading-relaxed">
+                  Hosted by Holly Hunt (Physiotherapist). Dedicated drills for lifters with long femurs and tight ankles.
+                </p>
+                <div className="flex items-center justify-between pt-2 border-t border-slate-800">
+                  <span className="text-xs text-slate-400 font-medium">18 Athletes Attending</span>
+                  <button className="px-4 py-1.5 bg-orange-600 hover:bg-orange-500 text-xs font-black rounded-lg text-white transition">
+                    1-Tap RSVP
+                  </button>
+                </div>
+              </div>
+            </main>
+          )}
+
+          {/* TAB 3: PERSONAL BESTS (PBs) */}
+          {activeTab === "pbs" && (
+            <main className="flex-1 p-4 space-y-4 overflow-y-auto pb-28">
+              <div className="flex items-center justify-between">
+                <h2 className="text-base font-black text-slate-100 tracking-tight">Personal Bests & Progress</h2>
+                <span className="text-[10px] font-bold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded">All-Time Board</span>
+              </div>
+
+              <div className="grid grid-cols-2 gap-2.5">
+                <div className="bg-slate-900 p-3.5 rounded-xl border border-slate-800">
+                  <span className="text-[10px] font-bold text-slate-400 uppercase">Back Squat (1RM)</span>
+                  <div className="text-xl font-black text-white mt-1">165.0 kg</div>
+                  <span className="text-[10px] text-emerald-400 font-bold">↑ +7.5kg this block</span>
+                </div>
+                <div className="bg-slate-900 p-3.5 rounded-xl border border-slate-800">
+                  <span className="text-[10px] font-bold text-slate-400 uppercase">Deadlift (1RM)</span>
+                  <div className="text-xl font-black text-white mt-1">205.0 kg</div>
+                  <span className="text-[10px] text-emerald-400 font-bold">↑ +10.0kg this block</span>
+                </div>
+                <div className="bg-slate-900 p-3.5 rounded-xl border border-slate-800">
+                  <span className="text-[10px] font-bold text-slate-400 uppercase">Bench Press (1RM)</span>
+                  <div className="text-xl font-black text-white mt-1">115.0 kg</div>
+                  <span className="text-[10px] text-slate-400 font-bold">Maintained</span>
+                </div>
+                <div className="bg-slate-900 p-3.5 rounded-xl border border-slate-800">
+                  <span className="text-[10px] font-bold text-slate-400 uppercase">Snatch (1RM)</span>
+                  <div className="text-xl font-black text-white mt-1">82.5 kg</div>
+                  <span className="text-[10px] text-emerald-400 font-bold">↑ +2.5kg PR</span>
+                </div>
+              </div>
+
+              <div className="bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-2">
+                <h3 className="text-xs font-bold text-slate-300 uppercase tracking-wider">AI Progress Reflection</h3>
+                <p className="text-xs text-slate-400 leading-relaxed italic">
+                  &ldquo;Squat velocity decay in set 3 indicates consistent power generation up to 100kg. Your leverage profile (long femurs) responded strongly to the stance adjustment. Recommended: increase primary working weight by 2.5kg in next week's microcycle.&rdquo;
+                </p>
+                <div className="text-[10px] font-bold text-orange-400 text-right">— Small Goods AI Co-Pilot</div>
+              </div>
+            </main>
+          )}
+
+          {/* TAB 4: PROFILE */}
+          {activeTab === "profile" && (
+            <main className="flex-1 p-4 space-y-4 overflow-y-auto pb-28">
+              <h2 className="text-base font-black text-slate-100 tracking-tight">Athlete Profile & Anthropometry</h2>
+              <div className="bg-slate-900 rounded-xl border border-slate-800 p-4 space-y-3">
+                <div className="flex items-center space-x-3">
+                  <div className="w-12 h-12 rounded-full bg-orange-600/20 text-orange-400 flex items-center justify-center font-black text-lg">
+                    A
+                  </div>
+                  <div>
+                    <h3 className="text-sm font-black text-white">Alex Member</h3>
+                    <p className="text-xs text-slate-400">Club Athlete • Small Goods Gym</p>
+                  </div>
+                </div>
+                <div className="pt-2 border-t border-slate-800 space-y-2 text-xs">
+                  <div className="flex justify-between py-1 border-b border-slate-800/50">
+                    <span className="text-slate-400">Height:</span>
+                    <span className="font-bold text-slate-200">182 cm</span>
+                  </div>
+                  <div className="flex justify-between py-1 border-b border-slate-800/50">
+                    <span className="text-slate-400">Femur Length:</span>
+                    <span className="font-bold text-orange-400">46 cm (Long)</span>
+                  </div>
+                  <div className="flex justify-between py-1 border-b border-slate-800/50">
+                    <span className="text-slate-400">Torso Length:</span>
+                    <span className="font-bold text-orange-400">42 cm (Short)</span>
+                  </div>
+                  <div className="flex justify-between py-1">
+                    <span className="text-slate-400">Arm Span:</span>
+                    <span className="font-bold text-slate-200">188 cm</span>
+                  </div>
+                </div>
+              </div>
+            </main>
+          )}
+
+          {/* FIXED FOOTER NAVIGATION */}
+          <footer className="absolute bottom-0 left-0 right-0 border-t border-slate-900 bg-slate-950/95 backdrop-blur px-6 py-3 flex items-center justify-between z-40">
+            <button 
+              onClick={() => setActiveTab("workout")}
+              className={`flex flex-col items-center space-y-1 transition ${activeTab === 'workout' ? 'text-orange-500 font-black' : 'text-slate-500 hover:text-slate-300'}`}
+            >
+              <span className="text-lg">🏋️</span>
+              <span className="text-[10px] tracking-wider uppercase font-bold">Workout</span>
+            </button>
+            <button 
+              onClick={() => setActiveTab("events")}
+              className={`flex flex-col items-center space-y-1 transition ${activeTab === 'events' ? 'text-orange-500 font-black' : 'text-slate-500 hover:text-slate-300'}`}
+            >
+              <span className="text-lg">📅</span>
+              <span className="text-[10px] tracking-wider uppercase font-bold">Events</span>
+            </button>
+            <button 
+              onClick={() => setActiveTab("pbs")}
+              className={`flex flex-col items-center space-y-1 transition ${activeTab === 'pbs' ? 'text-orange-500 font-black' : 'text-slate-500 hover:text-slate-300'}`}
+            >
+              <span className="text-lg">🏆</span>
+              <span className="text-[10px] tracking-wider uppercase font-bold">PBs</span>
+            </button>
+            <button 
+              onClick={() => setActiveTab("profile")}
+              className={`flex flex-col items-center space-y-1 transition ${activeTab === 'profile' ? 'text-orange-500 font-black' : 'text-slate-500 hover:text-slate-300'}`}
+            >
+              <span className="text-lg">👤</span>
+              <span className="text-[10px] tracking-wider uppercase font-bold">Profile</span>
+            </button>
+          </footer>
+
+        </div>
+      );
+    }
+
+    const root = ReactDOM.createRoot(document.getElementById("root"));
+    root.render(<GymFloorWorkoutLogger />);
+  </script>
+</body>
+</html>

@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Small Goods Gym - Biomechanical Profiles & Leverages Dashboard</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- React and ReactDOM CDN -->
+  <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+  <!-- Babel Standalone for JSX -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <style>
+    body {
+      background-color: #171717;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+    input[type=range]::-webkit-slider-thumb {
+      height: 18px;
+      width: 18px;
+      border-radius: 50%;
+      background: #f59e0b;
+      cursor: pointer;
+      -webkit-appearance: none;
+      margin-top: -5px;
+    }
+  </style>
+</head>
+<body class="bg-neutral-900 text-neutral-100 min-h-screen">
+
+  <div id="root"></div>
+
+  <script type="text/babel">
+    const { useState, useMemo } = React;
+
+    const MOCK_ATHLETES = [
+      {
+        id: "ath-001",
+        name: "Joel Mullen (Founder/Coach)",
+        email: "joel.mullen@smallgoodsgym.com.au",
+        heightCm: 182.0,
+        femurCm: 53.5,
+        torsoCm: 48.0,
+        armSpanCm: 188.5,
+        primarySport: "Powerlifting",
+        currentPhase: "Absolute Strength Block"
+      },
+      {
+        id: "ath-002",
+        name: "Holly Hunt (Physio/Coach)",
+        email: "holly.hunt@smallgoodsgym.com.au",
+        heightCm: 168.0,
+        femurCm: 43.0,
+        torsoCm: 45.0,
+        armSpanCm: 164.0,
+        primarySport: "Athletic Rehab",
+        currentPhase: "Ankle Mobility & Quad Dominance"
+      },
+      {
+        id: "ath-003",
+        name: "Liam O'Connor",
+        email: "liam.oc@gmail.com",
+        heightCm: 175.0,
+        femurCm: 51.0,
+        torsoCm: 42.0,
+        armSpanCm: 185.0,
+        primarySport: "Olympic Weightlifting",
+        currentPhase: "Snatch & Clean Pull Focus"
+      }
+    ];
+
+    function AthleteBiometricsDashboard() {
+      const [athletes, setAthletes] = useState(MOCK_ATHLETES);
+      const [selectedAthleteId, setSelectedAthleteId] = useState(MOCK_ATHLETES[0].id);
+
+      const [isEditing, setIsEditing] = useState(true);
+      const [height, setHeight] = useState(MOCK_ATHLETES[0].heightCm);
+      const [femur, setFemur] = useState(MOCK_ATHLETES[0].femurCm);
+      const [torso, setTorso] = useState(MOCK_ATHLETES[0].torsoCm);
+      const [armSpan, setArmSpan] = useState(MOCK_ATHLETES[0].armSpanCm);
+
+      const activeAthlete = useMemo(() => {
+        return athletes.find(a => a.id === selectedAthleteId) || athletes[0];
+      }, [athletes, selectedAthleteId]);
+
+      const handleAthleteChange = (id) => {
+        setSelectedAthleteId(id);
+        const athlete = athletes.find(a => a.id === id) || athletes[0];
+        setHeight(athlete.heightCm);
+        setFemur(athlete.femurCm);
+        setTorso(athlete.torsoCm);
+        setArmSpan(athlete.armSpanCm);
+      };
+
+      const analysis = useMemo(() => {
+        const h = height;
+        const f = femur;
+        const t = torso;
+        const a = armSpan;
+
+        const femurToTorsoRatio = t > 0 ? f / t : 1.1;
+        const femurToHeightRatio = h > 0 ? f / h : 0.26;
+        const torsoToHeightRatio = h > 0 ? t / h : 0.26;
+        const armSpanToHeightRatio = h > 0 ? a / h : 1.0;
+
+        const leverageTags = [];
+        let squatClassification = "Moderate / Average Leverages";
+        let deadliftClassification = "Neutral Leverages";
+        let benchClassification = "Neutral Pressing Geometry";
+
+        if (femurToTorsoRatio > 1.15) {
+          leverageTags.push("Long Femurs");
+          squatClassification = "Extreme Forward Lean / Hip-Dominant Squatter";
+        } else if (femurToTorsoRatio < 0.95) {
+          leverageTags.push("Short Femurs");
+          squatClassification = "Upright Torso / Highly Quad-Dominant";
+        } else {
+          leverageTags.push("Proportional Femurs");
+        }
+
+        if (torsoToHeightRatio < 0.25) {
+          leverageTags.push("Short Torso");
+        } else if (torsoToHeightRatio > 0.28) {
+          leverageTags.push("Long Torso");
+        }
+
+        if (armSpanToHeightRatio > 1.03) {
+          leverageTags.push("Long Arms (Ape Index > 1.03)");
+          deadliftClassification = "Highly Favored Deadlifter (Short Pulling Range)";
+          benchClassification = "Extended Pressing Range (Requires High Lat Arch)";
+        } else if (armSpanToHeightRatio < 0.97) {
+          leverageTags.push("Short Arms (Ape Index < 0.97)");
+          deadliftClassification = "Challenged Deadlift Setup (Deep Hip Flexion)";
+          benchClassification = "Short Pressing Range (Advantaged Bencher)";
+        } else {
+          leverageTags.push("Proportional Arms");
+        }
+
+        const squatDirective = femurToTorsoRatio > 1.15
+          ? "Recommend wider stance, moderate out-toeing (15-30°), and low-bar barbell placement to reduce shearing forces on the lumbar spine. Focus on dynamic ankle mobility protocols to keep the knees tracking forward."
+          : "Advantaged squat mechanics. High-bar back squats, front squats, and safety-bar squats are highly effective. Maintain structural upright posture; emphasize driving through mid-foot.";
+
+        const benchDirective = armSpanToHeightRatio > 1.03
+          ? "Extended stroke depth. Emphasize scapular retraction and lat packing to build a stable platform. Recommend building a robust arch within competitive parameters and focusing on dynamic overhead mobility."
+          : "Excellent pressing advantages. Short range of motion. Focus on maximum tricep leg-drive coordination and close-grip bench variations to overload pressing capacity.";
+
+        const deadliftDirective = armSpanToHeightRatio > 1.03
+          ? "Outstanding biomechanical setup. Conventional deadlifts are highly natural. Keep hips relatively high during the setup, engage lats early, and emphasize explosive hamstring drive."
+          : "Sub-optimal conventional geometry. To reduce spinal shear, consider a wide-stance Sumo deadlift to shorten the effective lever arms, or utilize elevated blocks/trap bars during high-fatigue training blocks.";
+
+        return {
+          femurToTorsoRatio,
+          femurToHeightRatio,
+          torsoToHeightRatio,
+          armSpanToHeightRatio,
+          squatClassification,
+          deadliftClassification,
+          benchClassification,
+          leverageTags,
+          coachingDirectives: {
+            squat: squatDirective,
+            bench: benchDirective,
+            deadlift: deadliftDirective
+          }
+        };
+      }, [height, femur, torso, armSpan]);
+
+      return (
+        <div className="min-h-screen bg-neutral-900 text-neutral-100 p-4 md:p-8 font-sans">
+          
+          {/* Header Panel */}
+          <div className="max-w-7xl mx-auto mb-8 flex flex-col md:flex-row md:items-center md:justify-between border-b border-neutral-800 pb-6 gap-4">
+            <div>
+              <div className="flex items-center space-x-3">
+                <span className="px-3 py-1 text-xs font-semibold uppercase tracking-wider bg-amber-500/10 text-amber-400 rounded-full border border-amber-500/20">
+                  Coaching Co-Pilot Core
+                </span>
+                <span className="text-xs text-neutral-400 font-mono">Small Goods Gym • Perth</span>
+              </div>
+              <h1 className="text-2xl md:text-3xl font-black tracking-tight text-white mt-2">Biomechanical Profiles & Leverages Dashboard</h1>
+              <p className="text-sm text-neutral-400 mt-1">Founder & Coach Intelligence Interface for Joel Mullen & Holly Hunt</p>
+            </div>
+
+            {/* Athlete Selection Dropdown */}
+            <div className="flex items-center space-x-3 bg-neutral-800/80 p-3 rounded-lg border border-neutral-700/60 shadow-lg">
+              <label htmlFor="athlete-select" className="text-sm font-semibold text-neutral-300">Active Athlete:</label>
+              <select
+                id="athlete-select"
+                value={selectedAthleteId}
+                onChange={(e) => handleAthleteChange(e.target.value)}
+                className="bg-neutral-950 text-white border border-neutral-700 rounded px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-amber-500 text-sm font-medium cursor-pointer"
+              >
+                {athletes.map(ath => (
+                  <option key={ath.id} value={ath.id}>
+                    {ath.name} ({ath.primarySport})
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+
+          <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-8">
+            
+            {/* Left Column: Anthropometrics Sliders */}
+            <div className="bg-neutral-950 p-6 rounded-xl border border-neutral-800 shadow-xl flex flex-col justify-between">
+              <div>
+                <div className="flex justify-between items-center mb-6">
+                  <h2 className="text-lg font-bold tracking-wide text-amber-400">Anthropometry Inputs</h2>
+                  <span className="text-xs font-mono text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">
+                    Live Reactive
+                  </span>
+                </div>
+
+                {/* Input Sliders */}
+                <div className="space-y-6">
+                  {/* Total Height */}
+                  <div>
+                    <div className="flex justify-between items-center mb-1.5">
+                      <label className="text-xs font-bold text-neutral-300 uppercase tracking-wider">Height</label>
+                      <span className="text-sm font-mono font-bold text-amber-400">{height} cm</span>
+                    </div>
+                    <input
+                      type="range"
+                      min="140"
+                      max="210"
+                      step="0.5"
+                      value={height}
+                      onChange={(e) => setHeight(parseFloat(e.target.value))}
+                      className="w-full h-2 bg-neutral-800 rounded-lg appearance-none cursor-pointer accent-amber-500"
+                    />
+                  </div>
+
+                  {/* Femur Length */}
+                  <div>
+                    <div className="flex justify-between items-center mb-1.5">
+                      <label className="text-xs font-bold text-neutral-300 uppercase tracking-wider">Femur Length</label>
+                      <span className="text-sm font-mono font-bold text-amber-400">{femur} cm</span>
+                    </div>
+                    <input
+                      type="range"
+                      min="35"
+                      max="65"
+                      step="0.5"
+                      value={femur}
+                      onChange={(e) => setFemur(parseFloat(e.target.value))}
+                      className="w-full h-2 bg-neutral-800 rounded-lg appearance-none cursor-pointer accent-amber-500"
+                    />
+                  </div>
+
+                  {/* Torso Length */}
+                  <div>
+                    <div className="flex justify-between items-center mb-1.5">
+                      <label className="text-xs font-bold text-neutral-300 uppercase tracking-wider">Torso Length</label>
+                      <span className="text-sm font-mono font-bold text-amber-400">{torso} cm</span>
+                    </div>
+                    <input
+                      type="range"
+                      min="35"
+                      max="65"
+                      step="0.5"
+                      value={torso}
+                      onChange={(e) => setTorso(parseFloat(e.target.value))}
+                      className="w-full h-2 bg-neutral-800 rounded-lg appearance-none cursor-pointer accent-amber-500"
+                    />
+                  </div>
+
+                  {/* Arm Span */}
+                  <div>
+                    <div className="flex justify-between items-center mb-1.5">
+                      <label className="text-xs font-bold text-neutral-300 uppercase tracking-wider">Arm Span</label>
+                      <span className="text-sm font-mono font-bold text-amber-400">{armSpan} cm</span>
+                    </div>
+                    <input
+                      type="range"
+                      min="140"
+                      max="220"
+                      step="0.5"
+                      value={armSpan}
+                      onChange={(e) => setArmSpan(parseFloat(e.target.value))}
+                      className="w-full h-2 bg-neutral-800 rounded-lg appearance-none cursor-pointer accent-amber-500"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* Athlete Metadata */}
+              <div className="mt-8 pt-6 border-t border-neutral-800 text-xs text-neutral-400 space-y-2 font-mono">
+                <div><span className="text-neutral-500">Athlete:</span> {activeAthlete.name}</div>
+                <div><span className="text-neutral-500">Email:</span> {activeAthlete.email}</div>
+                <div><span className="text-neutral-500">Current Phase:</span> {activeAthlete.currentPhase}</div>
+              </div>
+            </div>
+
+            {/* Center & Right Column: Biomechanical Analysis & AI Directives */}
+            <div className="bg-neutral-950 p-6 rounded-xl border border-neutral-800 shadow-xl lg:col-span-2 space-y-6">
+              <div>
+                <h2 className="text-lg font-bold tracking-wide text-white mb-3">Computed Biomechanical Leverages</h2>
+
+                {/* Dynamic Leverage Tags */}
+                <div className="flex flex-wrap gap-2 mb-6">
+                  {analysis.leverageTags.map((tag, idx) => (
+                    <span
+                      key={idx}
+                      className="px-3 py-1 text-xs font-bold font-mono tracking-wider bg-neutral-800 border border-neutral-700 text-amber-400 rounded-md"
+                    >
+                      # {tag}
+                    </span>
+                  ))}
+                </div>
+
+                {/* Micro-bar charts */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {/* Femur-to-Torso */}
+                  <div className="bg-neutral-900/60 p-4 rounded-lg border border-neutral-800">
+                    <div className="flex justify-between items-center text-xs text-neutral-400 mb-1">
+                      <span>Femur-to-Torso Ratio (f / t)</span>
+                      <span className="font-mono font-bold text-white">{analysis.femurToTorsoRatio.toFixed(2)}</span>
+                    </div>
+                    <div className="w-full bg-neutral-800 h-3 rounded-full overflow-hidden mt-2">
+                      <div
+                        className="h-full bg-gradient-to-r from-amber-500 to-amber-400 transition-all duration-200"
+                        style={{ width: `${Math.min(100, (analysis.femurToTorsoRatio / 1.4) * 100)}%` }}
+                      />
+                    </div>
+                    <div className="flex justify-between text-[10px] text-neutral-500 mt-1.5 font-mono">
+                      <span>&lt;0.95 (Short)</span>
+                      <span>1.05 (Neutral)</span>
+                      <span>&gt;1.15 (Long)</span>
+                    </div>
+                  </div>
+
+                  {/* Ape Index */}
+                  <div className="bg-neutral-900/60 p-4 rounded-lg border border-neutral-800">
+                    <div className="flex justify-between items-center text-xs text-neutral-400 mb-1">
+                      <span>Ape Index (Arm Span / Height)</span>
+                      <span className="font-mono font-bold text-white">{analysis.armSpanToHeightRatio.toFixed(2)}</span>
+                    </div>
+                    <div className="w-full bg-neutral-800 h-3 rounded-full overflow-hidden mt-2">
+                      <div
+                        className="h-full bg-gradient-to-r from-amber-500 to-amber-400 transition-all duration-200"
+                        style={{ width: `${Math.min(100, (analysis.armSpanToHeightRatio / 1.15) * 100)}%` }}
+                      />
+                    </div>
+                    <div className="flex justify-between text-[10px] text-neutral-500 mt-1.5 font-mono">
+                      <span>&lt;0.97 (Short)</span>
+                      <span>1.00 (Neutral)</span>
+                      <span>&gt;1.03 (Long)</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* AI Coach Co-Pilot Section */}
+              <div className="pt-6 border-t border-neutral-800">
+                <div className="flex items-center space-x-2 mb-4">
+                  <span className="inline-block w-2.5 h-2.5 rounded-full bg-amber-500 animate-pulse" />
+                  <h3 className="text-sm font-bold tracking-wider text-white uppercase font-mono">
+                    AI Coach Co-Pilot Directives (Human-in-the-Loop)
+                  </h3>
+                </div>
+
+                <div className="space-y-4">
+                  {/* Squat Mechanics */}
+                  <div className="p-4 bg-neutral-900/40 border border-neutral-800 rounded-lg hover:border-neutral-700 transition">
+                    <div className="flex flex-col md:flex-row md:items-center justify-between mb-2">
+                      <h4 className="text-xs font-black text-neutral-200 uppercase tracking-wider">SQUAT PATTERN</h4>
+                      <span className="text-xs font-semibold text-amber-400 font-mono mt-1 md:mt-0">
+                        {analysis.squatClassification}
+                      </span>
+                    </div>
+                    <p className="text-xs text-neutral-300 leading-relaxed">
+                      {analysis.coachingDirectives.squat}
+                    </p>
+                  </div>
+
+                  {/* Bench Mechanics */}
+                  <div className="p-4 bg-neutral-900/40 border border-neutral-800 rounded-lg hover:border-neutral-700 transition">
+                    <div className="flex flex-col md:flex-row md:items-center justify-between mb-2">
+                      <h4 className="text-xs font-black text-neutral-200 uppercase tracking-wider">BENCH PRESS</h4>
+                      <span className="text-xs font-semibold text-amber-400 font-mono mt-1 md:mt-0">
+                        {analysis.benchClassification}
+                      </span>
+                    </div>
+                    <p className="text-xs text-neutral-300 leading-relaxed">
+                      {analysis.coachingDirectives.bench}
+                    </p>
+                  </div>
+
+                  {/* Deadlift Mechanics */}
+                  <div className="p-4 bg-neutral-900/40 border border-neutral-800 rounded-lg hover:border-neutral-700 transition">
+                    <div className="flex flex-col md:flex-row md:items-center justify-between mb-2">
+                      <h4 className="text-xs font-black text-neutral-200 uppercase tracking-wider">DEADLIFT GEOMETRY</h4>
+                      <span className="text-xs font-semibold text-amber-400 font-mono mt-1 md:mt-0">
+                        {analysis.deadliftClassification}
+                      </span>
+                    </div>
+                    <p className="text-xs text-neutral-300 leading-relaxed">
+                      {analysis.coachingDirectives.deadlift}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Physio Review Gateway */}
+                <div className="mt-5 p-4 bg-rose-950/20 border border-rose-800/30 rounded-lg flex items-start space-x-3">
+                  <span className="text-xl">🩺</span>
+                  <div>
+                    <h5 className="text-xs font-black text-rose-400 uppercase tracking-wider font-mono">
+                      Physiotherapist Review Gateway (Holly Hunt, Physio)
+                    </h5>
+                    <p className="text-xs text-neutral-300 leading-relaxed mt-1">
+                      &ldquo;Getting strong and getting out of pain should never be two separate conversations.&rdquo; Joint shear indicators and range-of-motion limits are automatically sync'd to Holly Hunt's clinical review portal for real-time safety checks.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    const root = ReactDOM.createRoot(document.getElementById("root"));
+    root.render(<AthleteBiometricsDashboard />);
+  </script>
+</body>
+</html>

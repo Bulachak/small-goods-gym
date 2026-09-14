@@ -1,0 +1,12 @@
+{
+    "status": "success",
+    "migrated_count": 5,
+    "failed_count": 1,
+    "skipped_details": [
+        {
+            "row_index": 5,
+            "athlete": "Unknown Lifter",
+            "reason": "Invalid/Suspicious Email structure: 'messy-email@domain'"
+        }
+    ]
+}

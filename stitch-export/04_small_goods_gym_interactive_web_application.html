@@ -1,0 +1,1712 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Small Goods Gym • Elite Sports Science & Rehab</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Plus Jakarta Sans, JetBrains Mono, Reenie Beanie -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Reenie+Beanie&display=swap" rel="stylesheet">
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              dark: '#090D16',
+              card: '#0F172A',
+              surface: '#1E293B',
+              border: '#334155',
+              purple: '#8B5CF6',
+              indigo: '#6366F1',
+              royal: '#4724ba',
+              lime: '#9aef0f',
+              yellow: '#ecfd28',
+              coral: '#e95766'
+            },
+            emerald: {
+              400: '#34d399',
+              500: '#10B981',
+              600: '#059669',
+            },
+            amber: {
+              400: '#fbbf24',
+              500: '#F59E0B',
+            },
+            rose: {
+              400: '#fb7185',
+              500: '#F43F5E',
+            }
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+            hand: ['"Reenie Beanie"', 'cursive'],
+          },
+          boxShadow: {
+            'brutal': '4px 4px 0 0 #000',
+            'brutal-lg': '6px 6px 0 0 #000',
+            'glow-purple': '0 0 25px -5px rgba(139, 92, 246, 0.35)',
+            'glow-emerald': '0 0 25px -5px rgba(16, 185, 129, 0.35)',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background-color: #090D16;
+      color: #F8FAFC;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      overflow-x: hidden;
+    }
+    .font-mono-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-feature-settings: "tnum" 1, "zero" 1;
+    }
+    .text-balance {
+      text-wrap: balance;
+    }
+    .text-pretty {
+      text-wrap: pretty;
+    }
+    /* Custom subtle scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #090D16;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #334155;
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #8B5CF6;
+    }
+    /* Range slider custom styling */
+    input[type=range] {
+      -webkit-appearance: none;
+      background: #1E293B;
+      height: 8px;
+      border-radius: 9999px;
+      border: 1px solid #334155;
+    }
+    input[type=range]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      height: 22px;
+      width: 22px;
+      border-radius: 50%;
+      background: #8B5CF6;
+      cursor: pointer;
+      border: 2px solid #FFFFFF;
+      box-shadow: 0 0 10px rgba(139, 92, 246, 0.6);
+      transition: transform 0.1s ease;
+    }
+    input[type=range]::-webkit-slider-thumb:hover {
+      transform: scale(1.15);
+    }
+  
+    /* Kamilla Zero-Orphan Standard */
+    h1, h2, h3, h4, h5, h6 {
+      text-wrap: balance !important;
+    }
+    p, .card-desc, label {
+      text-wrap: pretty !important;
+    }
+    .no-orphan {
+      text-wrap: balance !important;
+      white-space: nowrap !important;
+    }
+  
+</style>
+</head>
+<body class="min-h-screen bg-[#090D16] text-slate-100 selection:bg-purple-600 selection:text-white antialiased flex flex-col">
+
+  <!-- ================= PERSISTENT TOP NAVIGATION ================= -->
+  <header class="sticky top-0 z-50 bg-[#090D16]/95 backdrop-blur-md border-b border-slate-800/80 px-4 lg:px-8 py-3.5 transition-all">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+      
+      <!-- Gym Brand Identity -->
+      <div class="flex items-center gap-3.5 w-full md:w-auto justify-between md:justify-start">
+        <div class="flex items-center gap-3">
+          <div class="relative group cursor-pointer">
+            <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-[#4724ba] via-[#8B5CF6] to-[#ecfd28] p-0.5 shadow-brutal border border-black flex items-center justify-center">
+              <div class="w-full h-full bg-[#090D16] rounded-[10px] flex items-center justify-center">
+                <span class="font-extrabold text-lg text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-yellow-300 font-mono tracking-tighter">SG</span>
+              </div>
+            </div>
+            <!-- Sticker accent icon badge -->
+            <span class="absolute -bottom-1 -right-1 flex h-3.5 w-3.5">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-3.5 w-3.5 bg-emerald-500 border-2 border-[#090D16]"></span>
+            </span>
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <h1 class="font-bold text-base tracking-tight text-white flex items-center gap-1.5">
+                Small Goods Gym
+                <span class="hidden sm:inline-block text-[10px] uppercase font-mono px-1.5 py-0.5 rounded bg-purple-950/80 text-purple-300 border border-purple-800/60 font-semibold tracking-wider">Science • Power • Rehab</span>
+              </h1>
+            </div>
+            <p class="text-xs text-slate-400 flex items-center gap-1.5">
+              <i data-lucide="map-pin" class="w-3.5 h-3.5 text-purple-400"></i>
+              Morley, Perth WA &bull; Head Coach Joel Mullen & Physio Holly Hunt
+            </p>
+          </div>
+        </div>
+
+        <!-- Offline Sync Chip (Mobile Header View) -->
+        <div class="md:hidden flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-slate-900 border border-slate-700/80 text-[11px] font-mono text-emerald-400">
+          <i data-lucide="wifi" class="w-3 h-3 text-emerald-400"></i>
+          <span>Synced</span>
+        </div>
+      </div>
+
+      <!-- Right Nav: Persona Switcher & Global Sync Status -->
+      <div class="flex items-center gap-3 w-full md:w-auto justify-end">
+        <!-- Gym Floor Offline Mode Status Indicator -->
+        <div id="offlineSyncStatus" class="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-lg bg-[#0F172A] border border-slate-800 text-xs font-mono">
+          <span class="relative flex h-2 w-2">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+          </span>
+          <span class="text-slate-300 font-medium">Gym-Floor Offline Sync:</span>
+          <span class="text-emerald-400 font-semibold flex items-center gap-1">
+            <i data-lucide="check-check" class="w-3.5 h-3.5"></i>
+            Active &bull; 0 queued
+          </span>
+        </div>
+
+        <!-- Active Athlete Persona Selector -->
+        <div class="flex items-center gap-2 bg-[#0F172A] p-1 rounded-xl border border-slate-700/80 shadow-inner w-full md:w-auto">
+          <div class="pl-2.5 flex items-center gap-1.5 text-slate-400 text-xs font-medium">
+            <i data-lucide="user-check" class="w-3.5 h-3.5 text-purple-400"></i>
+            <span class="hidden lg:inline text-slate-400 text-xs">Persona:</span>
+          </div>
+          <select id="personaSelector" onchange="changePersona(this.value)" class="bg-[#1E293B] text-slate-100 text-xs rounded-lg px-2.5 py-1.5 font-medium border border-slate-700 focus:outline-none focus:ring-2 focus:ring-purple-500 cursor-pointer">
+            <option value="joel" selected>Joel Mullen (Head Coach / VBT Lead)</option>
+            <option value="holly">Holly Hunt (Titled Sports Physiotherapist)</option>
+            <option value="alex">Alex Carter (Open U93kg Powerlifter)</option>
+            <option value="p_ndis">&apos;P&apos; (NDIS Capacity Champion)</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- Navigation Tabs (5 Persistent Functional Views) -->
+    <div class="max-w-7xl mx-auto mt-3 border-t border-slate-800/60 pt-2.5 overflow-x-auto no-scrollbar">
+      <nav class="flex items-center gap-2 min-w-max pb-1" aria-label="Tabs">
+        <button onclick="switchTab('tab-logger')" id="nav-tab-logger" class="tab-btn active-tab flex items-center gap-2 px-3.5 py-2 rounded-lg text-xs font-semibold tracking-wide transition-all bg-purple-600 text-white shadow-brutal border border-black">
+          <i data-lucide="smartphone" class="w-4 h-4"></i>
+          <span>1. Athlete Gym-Floor Logger</span>
+          <span class="bg-black/30 text-white text-[10px] font-mono px-1.5 py-0.2 rounded">Mobile</span>
+        </button>
+
+        <button onclick="switchTab('tab-leverage')" id="nav-tab-leverage" class="tab-btn flex items-center gap-2 px-3.5 py-2 rounded-lg text-xs font-semibold tracking-wide transition-all bg-[#0F172A] text-slate-400 hover:text-slate-200 border border-slate-800 hover:border-slate-700">
+          <i data-lucide="activity" class="w-4 h-4 text-purple-400"></i>
+          <span>2. Biomechanical Leverage & Coach Profile</span>
+          <span class="bg-purple-950/60 text-purple-300 text-[10px] font-mono px-1.5 py-0.2 rounded border border-purple-800/40">Joel's Eye</span>
+        </button>
+
+        <button onclick="switchTab('tab-platform')" id="nav-tab-platform" class="tab-btn flex items-center gap-2 px-3.5 py-2 rounded-lg text-xs font-semibold tracking-wide transition-all bg-[#0F172A] text-slate-400 hover:text-slate-200 border border-slate-800 hover:border-slate-700">
+          <i data-lucide="calendar" class="w-4 h-4 text-indigo-400"></i>
+          <span>3. Platform Session RSVP & Waitlist</span>
+          <span class="bg-emerald-950/60 text-emerald-400 text-[10px] font-mono px-1.5 py-0.2 rounded border border-emerald-800/40">12/12 Capped</span>
+        </button>
+
+        <button onclick="switchTab('tab-ndis')" id="nav-tab-ndis" class="tab-btn flex items-center gap-2 px-3.5 py-2 rounded-lg text-xs font-semibold tracking-wide transition-all bg-[#0F172A] text-slate-400 hover:text-slate-200 border border-slate-800 hover:border-slate-700">
+          <i data-lucide="heart-pulse" class="w-4 h-4 text-rose-400"></i>
+          <span>4. NDIS Capacity & Clinical Portal</span>
+          <span class="bg-rose-950/60 text-rose-300 text-[10px] font-mono px-1.5 py-0.2 rounded border border-rose-800/40">Audit Ready</span>
+        </button>
+
+        <button onclick="switchTab('tab-architecture')" id="nav-tab-architecture" class="tab-btn flex items-center gap-2 px-3.5 py-2 rounded-lg text-xs font-semibold tracking-wide transition-all bg-[#0F172A] text-slate-400 hover:text-slate-200 border border-slate-800 hover:border-slate-700">
+          <i data-lucide="cpu" class="w-4 h-4 text-cyan-400"></i>
+          <span>5. Javier Developer Handshake</span>
+          <span class="bg-cyan-950/60 text-cyan-300 text-[10px] font-mono px-1.5 py-0.2 rounded border border-cyan-800/40">FastAPI & PG</span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ================= MAIN CONTENT CONTAINER ================= -->
+  <main class="flex-1 max-w-7xl w-full mx-auto p-4 md:p-6 lg:p-8">
+
+    <!-- ========================================================================= -->
+    <!-- TAB 1: ATHLETE GYM-FLOOR LOGGER (Centered 390px Mobile Viewport Mockup) -->
+    <!-- ========================================================================= -->
+    <section id="tab-logger" class="tab-content transition-all duration-200 flex flex-col items-center">
+      
+      <!-- Context Guidance Banner -->
+      <div class="w-full max-w-md mb-4 bg-[#0F172A] border border-purple-900/40 rounded-xl p-3 flex items-start gap-3 shadow-lg">
+        <div class="p-2 rounded-lg bg-purple-900/40 text-purple-400 mt-0.5">
+          <i data-lucide="info" class="w-4 h-4"></i>
+        </div>
+        <div class="text-xs">
+          <p class="font-semibold text-slate-200">Gym-Floor High-Fatigue Optimization</p>
+          <p class="text-slate-400 text-pretty mt-0.5">Calibrated for sweaty hands and CNS fatigue: 64px micro-loading targets, 1-tap RPE dial, instant Enode VBT telemetry, and auto rest-timer.</p>
+        </div>
+      </div>
+
+      <!-- 390px iPhone Viewport Frame -->
+      <div class="w-full max-w-[390px] bg-[#090D16] border-[3px] border-slate-800 rounded-[44px] shadow-2xl overflow-hidden p-4 relative flex flex-col ring-8 ring-slate-900/80">
+        
+        <!-- Mobile Device Speaker & Island Notch -->
+        <div class="w-28 h-4 bg-slate-900 rounded-full mx-auto mb-3 flex items-center justify-center">
+          <div class="w-2 h-2 rounded-full bg-slate-800 mr-2"></div>
+          <div class="w-10 h-1.5 rounded-full bg-slate-800"></div>
+        </div>
+
+        <!-- Phone Top Bar -->
+        <div class="flex items-center justify-between text-[11px] font-mono text-slate-400 mb-3 px-1">
+          <div class="flex items-center gap-1.5">
+            <span class="font-bold text-slate-200">SMALL GOODS</span>
+            <span class="text-purple-400 font-semibold">• MORLEY</span>
+          </div>
+          <div class="flex items-center gap-1.5">
+            <span class="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+            <span class="text-slate-300 font-mono">Enode VBT Live</span>
+          </div>
+        </div>
+
+        <!-- Single-Movement Card (Hick's Law - No clutter, primary focus) -->
+        <div class="bg-[#0F172A] border-2 border-slate-800 rounded-2xl p-4 shadow-brutal mb-4 relative overflow-hidden">
+          <div class="absolute top-0 right-0 transform translate-x-2 -translate-y-2">
+            <span class="bg-gradient-to-r from-purple-600 to-indigo-600 text-white text-[10px] font-mono font-bold px-3 py-1 rounded-bl-xl border-b border-l border-black uppercase tracking-wider">
+              Primary Lift
+            </span>
+          </div>
+
+          <div class="flex items-center gap-2 mb-1">
+            <span class="px-2 py-0.5 rounded bg-purple-950 border border-purple-800/60 text-purple-300 font-mono text-[11px] font-semibold">BLOCK 4 • WEEK 2</span>
+            <span class="text-slate-400 text-xs">Squat Wave A</span>
+          </div>
+          <h2 class="text-lg font-bold text-white tracking-tight text-balance">Competition Back Squat</h2>
+          <p class="text-xs font-mono text-slate-300 mt-1 flex items-center gap-1">
+            <span class="text-purple-400 font-bold">Prescription:</span> 5&times;5 @&nbsp;100&nbsp;kg &bull; Target RPE&nbsp;7.5
+          </p>
+
+          <!-- Holly & Joel's Coaching Form Cue -->
+          <div class="mt-3 p-2.5 rounded-xl bg-purple-950/30 border border-purple-800/30 flex items-start gap-2">
+            <span class="text-purple-400 text-sm font-hand mt-0.5">"</span>
+            <p class="text-xs text-purple-200/90 font-medium">
+              <span class="font-bold text-yellow-300">Joel's Cue:</span> Root big toe into platform; drive upper back into bar out of the hole.
+            </p>
+          </div>
+
+          <!-- Video Demonstration (1-Tap Playback) -->
+          <div class="mt-3 relative rounded-xl overflow-hidden border border-slate-700 bg-slate-900 group cursor-pointer" onclick="toggleVideoPlayback()">
+            <div class="relative h-28 w-full bg-gradient-to-br from-slate-900 via-slate-800 to-purple-950 flex items-center justify-center">
+              <!-- Video background representation -->
+              <div class="absolute inset-0 opacity-40 bg-[radial-gradient(#8B5CF6_1px,transparent_1px)] [background-size:12px_12px]"></div>
+              
+              <div id="videoPlaceholderContent" class="z-10 flex flex-col items-center text-center p-2">
+                <div class="w-10 h-10 rounded-full bg-purple-600/90 text-white flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform border border-white/20">
+                  <i id="playIcon" data-lucide="play" class="w-5 h-5 ml-0.5 fill-current"></i>
+                </div>
+                <span id="videoStatusText" class="text-[11px] font-medium text-slate-300 mt-1.5">Movement Standard Demo (0:18s)</span>
+              </div>
+            </div>
+            <div class="px-3 py-1.5 bg-slate-950 text-[10px] font-mono text-slate-400 flex justify-between items-center border-t border-slate-800">
+              <span class="text-purple-400">Joel Mullen Coaching Standard</span>
+              <span>1080p 60fps</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Ergonomic Input Target: Load & RPE (Fitts's Law) -->
+        <div class="bg-[#0F172A] border border-slate-800 rounded-2xl p-3.5 mb-4 shadow-md">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-xs font-bold text-slate-300 tracking-wide uppercase font-mono">Working Bar Load</span>
+            <span class="text-[11px] text-slate-400 font-mono">Eleiko Calibrated Plates</span>
+          </div>
+
+          <!-- Active Load Display & Micro-loading 64px Touch Targets -->
+          <div class="flex items-center justify-between gap-2 mb-3">
+            <button onclick="adjustWeight(-5)" class="h-14 w-14 rounded-xl bg-[#1E293B] hover:bg-slate-700 border-2 border-slate-700 active:border-purple-500 font-mono font-bold text-sm text-slate-200 active:scale-95 transition-all flex flex-col items-center justify-center shadow-sm">
+              <span>-5</span>
+              <span class="text-[9px] text-slate-400 font-normal">kg</span>
+            </button>
+            <button onclick="adjustWeight(-2.5)" class="h-14 w-14 rounded-xl bg-[#1E293B] hover:bg-slate-700 border-2 border-slate-700 active:border-purple-500 font-mono font-bold text-sm text-slate-200 active:scale-95 transition-all flex flex-col items-center justify-center shadow-sm">
+              <span>-2.5</span>
+              <span class="text-[9px] text-slate-400 font-normal">kg</span>
+            </button>
+
+            <!-- Big Metric Center -->
+            <div class="flex-1 bg-black/50 border-2 border-purple-600/60 rounded-xl py-2 flex flex-col items-center justify-center text-center">
+              <span id="currentWeightDisplay" class="font-mono font-black text-2xl text-white tracking-tight">100.0</span>
+              <span class="text-[10px] font-mono text-purple-400 uppercase tracking-widest font-semibold">Total Load (kg)</span>
+            </div>
+
+            <button onclick="adjustWeight(2.5)" class="h-14 w-14 rounded-xl bg-[#1E293B] hover:bg-slate-700 border-2 border-slate-700 active:border-purple-500 font-mono font-bold text-sm text-slate-200 active:scale-95 transition-all flex flex-col items-center justify-center shadow-sm">
+              <span>+2.5</span>
+              <span class="text-[9px] text-slate-400 font-normal">kg</span>
+            </button>
+            <button onclick="adjustWeight(5)" class="h-14 w-14 rounded-xl bg-[#1E293B] hover:bg-slate-700 border-2 border-slate-700 active:border-purple-500 font-mono font-bold text-sm text-slate-200 active:scale-95 transition-all flex flex-col items-center justify-center shadow-sm">
+              <span>+5</span>
+              <span class="text-[9px] text-slate-400 font-normal">kg</span>
+            </button>
+          </div>
+
+          <!-- RPE Fast-Tap Selector Dial (1 to 10) -->
+          <div>
+            <div class="flex items-center justify-between text-[11px] mb-1.5 font-mono">
+              <span class="text-slate-400">Actual Effort Rating (RIR/RPE)</span>
+              <span id="selectedRpeLabel" class="text-purple-400 font-bold">RPE 7.5 (2-3 reps in tank)</span>
+            </div>
+            <div class="grid grid-cols-6 gap-1.5">
+              <button onclick="selectRPE(6, 'RPE 6 (4 reps in tank)')" class="rpe-btn py-1.5 rounded-lg bg-[#1E293B] border border-slate-700 text-xs font-mono font-bold text-slate-300 hover:bg-purple-900/40">6</button>
+              <button onclick="selectRPE(7, 'RPE 7 (3 reps in tank)')" class="rpe-btn py-1.5 rounded-lg bg-[#1E293B] border border-slate-700 text-xs font-mono font-bold text-slate-300 hover:bg-purple-900/40">7</button>
+              <button onclick="selectRPE(7.5, 'RPE 7.5 (2-3 reps in tank)')" class="rpe-btn py-1.5 rounded-lg bg-purple-600 border border-black text-xs font-mono font-bold text-white shadow-brutal">7.5</button>
+              <button onclick="selectRPE(8, 'RPE 8 (2 definite reps left)')" class="rpe-btn py-1.5 rounded-lg bg-[#1E293B] border border-slate-700 text-xs font-mono font-bold text-slate-300 hover:bg-purple-900/40">8</button>
+              <button onclick="selectRPE(8.5, 'RPE 8.5 (1-2 reps left)')" class="rpe-btn py-1.5 rounded-lg bg-[#1E293B] border border-slate-700 text-xs font-mono font-bold text-slate-300 hover:bg-purple-900/40">8.5</button>
+              <button onclick="selectRPE(9, 'RPE 9 (1 rep in tank)')" class="rpe-btn py-1.5 rounded-lg bg-[#1E293B] border border-slate-700 text-xs font-mono font-bold text-slate-300 hover:bg-purple-900/40">9</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Interactive Set Progression (Sets 1 to 5) & VBT Telemetry -->
+        <div class="space-y-2 mb-4">
+          <div class="flex items-center justify-between text-xs font-mono text-slate-400">
+            <span>SET LOG & VBT TELEMETRY</span>
+            <span id="setCounterTracker" class="text-purple-400 font-bold">2 of 5 Completed</span>
+          </div>
+
+          <!-- Set 1 (Completed) -->
+          <div class="flex items-center justify-between p-2.5 rounded-xl bg-slate-900/90 border border-emerald-500/40">
+            <div class="flex items-center gap-2.5">
+              <span class="w-6 h-6 rounded-full bg-emerald-500 text-black flex items-center justify-center font-mono font-bold text-xs">
+                <i data-lucide="check" class="w-3.5 h-3.5"></i>
+              </span>
+              <div>
+                <span class="text-xs font-bold text-slate-200">Set 1: 100&nbsp;kg &times; 5 reps</span>
+                <span class="block text-[10px] font-mono text-slate-400">RPE 7.0 &bull; 10:14 AM</span>
+              </div>
+            </div>
+            <div class="text-right">
+              <span class="inline-block px-2 py-0.5 rounded bg-emerald-950 border border-emerald-600/50 text-emerald-400 text-xs font-mono font-bold">
+                0.78&nbsp;m/s
+              </span>
+              <span class="block text-[9px] font-mono text-slate-500">Enode Peak 0.91</span>
+            </div>
+          </div>
+
+          <!-- Set 2 (Completed) -->
+          <div class="flex items-center justify-between p-2.5 rounded-xl bg-slate-900/90 border border-emerald-500/40">
+            <div class="flex items-center gap-2.5">
+              <span class="w-6 h-6 rounded-full bg-emerald-500 text-black flex items-center justify-center font-mono font-bold text-xs">
+                <i data-lucide="check" class="w-3.5 h-3.5"></i>
+              </span>
+              <div>
+                <span class="text-xs font-bold text-slate-200">Set 2: 100&nbsp;kg &times; 5 reps</span>
+                <span class="block text-[10px] font-mono text-slate-400">RPE 7.5 &bull; 10:18 AM</span>
+              </div>
+            </div>
+            <div class="text-right">
+              <span class="inline-block px-2 py-0.5 rounded bg-emerald-950 border border-emerald-600/50 text-emerald-400 text-xs font-mono font-bold">
+                0.74&nbsp;m/s
+              </span>
+              <span class="block text-[9px] font-mono text-slate-500">Enode Peak 0.88</span>
+            </div>
+          </div>
+
+          <!-- Set 3 (ACTIVE TARGET SET) -->
+          <div id="activeSetCard" class="p-3 rounded-xl bg-[#0F172A] border-2 border-purple-500 shadow-glow-purple">
+            <div class="flex items-center justify-between mb-2">
+              <div class="flex items-center gap-2">
+                <span class="w-6 h-6 rounded-full bg-purple-600 text-white flex items-center justify-center font-mono font-bold text-xs">
+                  3
+                </span>
+                <span class="text-xs font-bold text-white">Set 3: 100&nbsp;kg &times; 5 reps (Active)</span>
+              </div>
+              <!-- Real-time Enode Concentric Velocity Telemetry Pill -->
+              <div class="flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-purple-950 border border-purple-500 text-purple-300 font-mono text-xs font-bold">
+                <i data-lucide="gauge" class="w-3 h-3 text-purple-400 animate-pulse"></i>
+                <span id="activeVelocityTelemetry">0.64&nbsp;m/s</span>
+              </div>
+            </div>
+
+            <!-- Enode Velocity Loss Alert: Form Fatigue Detected -->
+            <div id="velocityAlertBanner" class="p-2 rounded-lg bg-amber-950/80 border border-amber-500/80 flex items-start gap-2 mb-3">
+              <i data-lucide="alert-triangle" class="w-4 h-4 text-amber-400 mt-0.5 flex-shrink-0"></i>
+              <div class="text-[11px] text-amber-200">
+                <span class="font-bold text-amber-400">Velocity Loss Alert (&gt;18% drop):</span> Mean concentric velocity decayed from 0.78 to 0.64&nbsp;m/s. CNS fatigue detected. Take full 180s rest.
+              </div>
+            </div>
+
+            <!-- Complete Set Action Button (Instant Emerald Transition) -->
+            <button id="completeSetBtn" onclick="triggerCompleteSet()" class="w-full py-3.5 px-4 rounded-xl bg-purple-600 hover:bg-purple-500 active:bg-emerald-600 text-white font-bold text-sm tracking-wide shadow-brutal border-2 border-black flex items-center justify-center gap-2 transition-all">
+              <i data-lucide="check-circle" class="w-4 h-4"></i>
+              <span>COMPLETE SET 3</span>
+            </button>
+          </div>
+
+          <!-- Set 4 & 5 (Queued) -->
+          <div class="flex items-center justify-between p-2 rounded-xl bg-slate-900/40 border border-slate-800 text-slate-500 text-xs">
+            <span>Set 4: 100&nbsp;kg &times; 5 reps</span>
+            <span class="font-mono text-[11px]">Queued</span>
+          </div>
+          <div class="flex items-center justify-between p-2 rounded-xl bg-slate-900/40 border border-slate-800 text-slate-500 text-xs">
+            <span>Set 5: 100&nbsp;kg &times; 5 reps</span>
+            <span class="font-mono text-[11px]">Queued</span>
+          </div>
+        </div>
+
+        <!-- Prominent 180s Rest Timer Ring Countdown -->
+        <div id="restTimerContainer" class="bg-gradient-to-b from-[#0F172A] to-slate-950 border border-slate-800 rounded-2xl p-3.5 flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <div class="relative w-12 h-12 flex items-center justify-center">
+              <svg class="w-12 h-12 transform -rotate-90">
+                <circle cx="24" cy="24" r="20" stroke="#1E293B" stroke-width="4" fill="transparent"/>
+                <circle id="timerRing" cx="24" cy="24" r="20" stroke="#8B5CF6" stroke-width="4" stroke-dasharray="125.6" stroke-dashoffset="30" stroke-linecap="round" fill="transparent" class="transition-all duration-1000"/>
+              </svg>
+              <span id="restTimerDisplay" class="absolute font-mono text-xs font-extrabold text-white">2:18</span>
+            </div>
+            <div>
+              <span class="text-xs font-bold text-slate-200 block">Prescribed Rest Period</span>
+              <span class="text-[10px] text-slate-400 font-mono">180s Target &bull; Enode Recovery</span>
+            </div>
+          </div>
+          <div class="flex items-center gap-1.5">
+            <button onclick="addRestTime(30)" class="px-2 py-1 rounded bg-[#1E293B] border border-slate-700 text-[10px] font-mono font-bold text-purple-300 active:bg-purple-900">+30s</button>
+            <button onclick="toggleTimer()" id="timerControlBtn" class="p-2 rounded-lg bg-purple-600 text-white border border-black shadow-sm">
+              <i id="timerIcon" data-lucide="pause" class="w-3.5 h-3.5"></i>
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- TAB 2: BIOMECHANICAL LEVERAGE & COACH PROFILE (Joel's Eye Diagnostic) -->
+    <!-- ========================================================================= -->
+    <section id="tab-leverage" class="tab-content hidden transition-all duration-200">
+      
+      <!-- Top Title & Coach Identity Header -->
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 pb-4 border-b border-slate-800">
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="px-2.5 py-0.5 rounded-full bg-purple-950 border border-purple-800 text-purple-300 font-mono text-xs font-bold uppercase tracking-wider">
+              Objective Anthropometric Diagnostics
+            </span>
+            <span class="text-slate-400 text-xs font-mono">Algorithm: Joel Mullen v2.4</span>
+          </div>
+          <h2 class="text-2xl font-black tracking-tight text-white mt-1 text-balance">
+            Biomechanical Leverage Engine & Stance Prescription
+          </h2>
+          <p class="text-sm text-slate-400 text-pretty">
+            Digitizing the head coach's structural evaluation. Live femur-to-torso moment arm calculation with automated stance width, bar placement, and Holly Hunt clinical triage routing.
+          </p>
+        </div>
+
+        <div class="flex items-center gap-3 bg-[#0F172A] p-2.5 rounded-2xl border border-slate-800 shadow-md">
+          <div class="w-11 h-11 rounded-xl bg-purple-900/60 border border-purple-700 flex items-center justify-center font-bold text-white font-mono">
+            JM
+          </div>
+          <div>
+            <span class="text-xs font-bold text-white block">Joel Mullen</span>
+            <span class="text-[11px] text-purple-400 block font-mono">Head Powerlifting Coach</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Main Two-Column Layout -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+
+        <!-- Left: Interactive Anthropometry Sliders & Mathematical Computation (7 Cols) -->
+        <div class="lg:col-span-7 space-y-6">
+          
+          <!-- Anthropometry Sliders Card -->
+          <div class="bg-[#0F172A] border border-slate-800 rounded-2xl p-5 shadow-brutal">
+            <h3 class="text-base font-bold text-white flex items-center gap-2 mb-4">
+              <i data-lucide="sliders" class="w-5 h-5 text-purple-400"></i>
+              Athlete Skeletal Measurements (Centimeters)
+            </h3>
+
+            <!-- Femur Length Slider -->
+            <div class="mb-5 bg-[#090D16] p-4 rounded-xl border border-slate-800/80">
+              <div class="flex items-center justify-between mb-2">
+                <div>
+                  <label for="femurSlider" class="text-sm font-bold text-slate-200">Femur Length (Greater Trochanter to Lateral Epicondyle)</label>
+                  <p class="text-xs text-slate-400">Average male: 48–51&nbsp;cm &bull; Female: 44–47&nbsp;cm</p>
+                </div>
+                <div class="text-right">
+                  <span id="femurValueDisplay" class="text-xl font-mono font-extrabold text-purple-400">53.5</span>
+                  <span class="text-xs font-mono text-slate-400">&nbsp;cm</span>
+                </div>
+              </div>
+              <input type="range" id="femurSlider" min="40" max="60" step="0.5" value="53.5" oninput="calculateLeverage()" class="w-full">
+              <div class="flex justify-between text-[10px] font-mono text-slate-500 mt-1">
+                <span>40.0 cm (Short)</span>
+                <span>50.0 cm (Median)</span>
+                <span>60.0 cm (Extreme Long)</span>
+              </div>
+            </div>
+
+            <!-- Torso Length Slider -->
+            <div class="bg-[#090D16] p-4 rounded-xl border border-slate-800/80">
+              <div class="flex items-center justify-between mb-2">
+                <div>
+                  <label for="torsoSlider" class="text-sm font-bold text-slate-200">Torso Segment Length (C7 Vertebra to ASIS Hip Crest)</label>
+                  <p class="text-xs text-slate-400">Structural trunk height & pelvic depth</p>
+                </div>
+                <div class="text-right">
+                  <span id="torsoValueDisplay" class="text-xl font-mono font-extrabold text-indigo-400">48.0</span>
+                  <span class="text-xs font-mono text-slate-400">&nbsp;cm</span>
+                </div>
+              </div>
+              <input type="range" id="torsoSlider" min="35" max="65" step="0.5" value="48.0" oninput="calculateLeverage()" class="w-full">
+              <div class="flex justify-between text-[10px] font-mono text-slate-500 mt-1">
+                <span>35.0 cm (Short Torso)</span>
+                <span>50.0 cm (Median)</span>
+                <span>65.0 cm (Long Torso)</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Live Leverage Ratio & Real-Time Biomechanical Classification -->
+          <div class="bg-[#0F172A] border border-slate-800 rounded-2xl p-5 shadow-brutal">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-slate-800">
+              <div>
+                <span class="text-xs font-mono uppercase text-slate-400 font-semibold tracking-wider">Computed Kinetic Diagnostic</span>
+                <h4 class="text-lg font-bold text-white">Femur-to-Torso Proportion Ratio</h4>
+              </div>
+              <div class="flex items-baseline gap-2 bg-[#090D16] px-4 py-2 rounded-xl border border-purple-500/50">
+                <span id="ratioDisplay" class="text-3xl font-mono font-black text-purple-300">1.11</span>
+                <span id="ratioClassification" class="text-xs font-mono text-purple-400 font-semibold">Long Femur Archetype</span>
+              </div>
+            </div>
+
+            <!-- Dynamic Biomechanical Badges -->
+            <div class="mt-4">
+              <span class="text-xs font-mono text-slate-400 block mb-2 font-medium">AUTOMATED MECHANICAL PROFILE TAGS:</span>
+              <div id="dynamicBadgesContainer" class="flex flex-wrap gap-2">
+                <!-- Dynamically injected via calculateLeverage() -->
+                <span class="px-3 py-1 rounded-full text-xs font-mono font-bold bg-purple-950 text-purple-300 border border-purple-700 shadow-sm">#LongFemurs</span>
+                <span class="px-3 py-1 rounded-full text-xs font-mono font-bold bg-amber-950 text-amber-300 border border-amber-700 shadow-sm">#HighHipAngle</span>
+                <span class="px-3 py-1 rounded-full text-xs font-mono font-bold bg-emerald-950 text-emerald-300 border border-emerald-700 shadow-sm">#WideStanceIndicated</span>
+                <span class="px-3 py-1 rounded-full text-xs font-mono font-bold bg-indigo-950 text-indigo-300 border border-indigo-700 shadow-sm">#LowBarOptimized</span>
+              </div>
+            </div>
+
+            <!-- Interactive Visual Vector Diagram -->
+            <div class="mt-5 p-4 rounded-xl bg-[#090D16] border border-slate-800 flex flex-col sm:flex-row items-center justify-around gap-4">
+              <div class="text-center sm:text-left">
+                <span class="text-xs font-mono text-slate-400">Hip Moment Arm</span>
+                <p id="momentArmText" class="text-base font-bold text-amber-400 font-mono">Severe (+28% vs median)</p>
+                <p class="text-[11px] text-slate-400">Forward trunk inclination needed to maintain balance over mid-foot.</p>
+              </div>
+              <div class="h-16 w-px bg-slate-800 hidden sm:block"></div>
+              <div class="text-center sm:text-left">
+                <span class="text-xs font-mono text-slate-400">Knee Angle at Depth</span>
+                <p id="kneeAngleText" class="text-base font-bold text-purple-400 font-mono">112° (Acute)</p>
+                <p class="text-[11px] text-slate-400">Patellar shear reduced via hip hinge recruitment.</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Right: AI Directives Card & Holly Hunt Clinical Gateway (5 Cols) -->
+        <div class="lg:col-span-5 space-y-6">
+
+          <!-- AI Coaching Directives Card (Contextual setup cues) -->
+          <div class="bg-gradient-to-br from-[#0F172A] to-slate-900 border-2 border-purple-800/80 rounded-2xl p-5 shadow-brutal relative overflow-hidden">
+            <div class="flex items-center justify-between mb-3">
+              <div class="flex items-center gap-2">
+                <div class="w-2.5 h-2.5 rounded-full bg-purple-500 animate-pulse"></div>
+                <h4 class="text-sm font-mono font-bold text-purple-300 uppercase tracking-wide">Joel's Directives Engine</h4>
+              </div>
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-purple-900/60 text-purple-200 border border-purple-700">Algorithmic</span>
+            </div>
+
+            <div id="aiDirectivesContent" class="space-y-3">
+              <div class="p-3 rounded-xl bg-purple-950/40 border border-purple-800/40">
+                <span class="text-xs font-bold text-yellow-300 block mb-1">CUE 1: BAR PLACEMENT</span>
+                <p class="text-xs text-slate-200 leading-relaxed text-pretty">
+                  Low-bar placement recommended below spine of scapula. Shortens the effective spinal lever arm by ~4.2&nbsp;cm, dramatically reducing low back shear.
+                </p>
+              </div>
+
+              <div class="p-3 rounded-xl bg-purple-950/40 border border-purple-800/40">
+                <span class="text-xs font-bold text-emerald-400 block mb-1">CUE 2: FOOT POSITION & ABDUCTION</span>
+                <p class="text-xs text-slate-200 leading-relaxed text-pretty">
+                  Flare toes 28°–32° with a 1.25&times; shoulder-width stance. Allows pelvis to drop between femurs rather than behind them, keeping center of mass over midfoot.
+                </p>
+              </div>
+
+              <div class="p-3 rounded-xl bg-purple-950/40 border border-purple-800/40">
+                <span class="text-xs font-bold text-purple-300 block mb-1">CUE 3: EYE GAZE ANCHOR</span>
+                <p class="text-xs text-slate-200 leading-relaxed text-pretty">
+                  Fix eye gaze 2.5 meters ahead on the platform floor. Avoid cervical hyperextension during ascent.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Holly Hunt Clinical Review Gateway (Physiotherapy Triage) -->
+          <div class="bg-[#0F172A] border-2 border-rose-900/60 rounded-2xl p-5 shadow-brutal relative">
+            <div class="flex items-center justify-between mb-3">
+              <div class="flex items-center gap-2">
+                <div class="w-8 h-8 rounded-lg bg-rose-950 border border-rose-800 flex items-center justify-center text-rose-400">
+                  <i data-lucide="stethoscope" class="w-4 h-4"></i>
+                </div>
+                <div>
+                  <h4 class="text-sm font-bold text-white">Holly Hunt Clinical Gateway</h4>
+                  <span class="text-[10px] text-rose-400 font-mono">Titled APA Sports & Exercise Physiotherapist</span>
+                </div>
+              </div>
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-rose-900/50 text-rose-200 border border-rose-700">Triage Active</span>
+            </div>
+
+            <p class="text-xs text-slate-300 mb-3 text-pretty">
+              If an athlete logs joint discomfort, form breakdown, or neurological symptoms during high RPE sets, route directly into Holly's clinical triage queue with full biomechanical context.
+            </p>
+
+            <!-- Active Pain / Symptom Flag Card -->
+            <div class="bg-rose-950/30 border border-rose-800/50 rounded-xl p-3 mb-4">
+              <div class="flex items-center justify-between text-xs mb-1">
+                <span class="font-bold text-rose-300 flex items-center gap-1.5">
+                  <i data-lucide="alert-circle" class="w-3.5 h-3.5 text-rose-400"></i>
+                  Flagged Symptom Entry:
+                </span>
+                <span class="font-mono text-[10px] text-slate-400">Logged Set 3 @ RPE 8.5</span>
+              </div>
+              <p class="text-xs font-mono text-slate-200 bg-black/40 p-2 rounded border border-rose-900/40">
+                &ldquo;Right lumbar tenderness & posterior SIJ pinching @ RPE 8.5 on lockout&rdquo;
+              </p>
+              <div class="mt-2 text-[11px] text-slate-400 flex items-center gap-2">
+                <span>Attached: Femur Ratio 1.11</span>
+                <span>&bull;</span>
+                <span>Enode VBT Velocity 0.64&nbsp;m/s</span>
+              </div>
+            </div>
+
+            <!-- 1-Tap Triage Action Button -->
+            <button id="triageActionBtn" onclick="routeToHollyTriage()" class="w-full py-3 px-4 rounded-xl bg-rose-600 hover:bg-rose-500 text-white font-bold text-xs tracking-wide shadow-brutal border-2 border-black flex items-center justify-center gap-2 transition-all">
+              <i data-lucide="send" class="w-4 h-4"></i>
+              <span>ROUTE TO HOLLY'S TRIAGE QUEUE (WITH ANTHROPOMETRICS)</span>
+            </button>
+            <div id="triageSuccessMessage" class="hidden mt-2 p-2 rounded-lg bg-emerald-950/80 border border-emerald-600 text-emerald-300 text-xs text-center font-mono">
+              ✓ Clinical referral dispatched to Holly Hunt. SMS notification sent with limb leverage report.
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- TAB 3: PLATFORM SESSION RSVP & WAITLIST HUB (Morley Community Platform) -->
+    <!-- ========================================================================= -->
+    <section id="tab-platform" class="tab-content hidden transition-all duration-200">
+      
+      <!-- Header with Offline Dead-Zone Sync Guarantee -->
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 pb-4 border-b border-slate-800">
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="px-2.5 py-0.5 rounded-full bg-indigo-950 border border-indigo-800 text-indigo-300 font-mono text-xs font-bold uppercase tracking-wider">
+              Morley Lifting Roster Engine
+            </span>
+            <span class="text-slate-400 text-xs font-mono">No More WhatsApp Chaos</span>
+          </div>
+          <h2 class="text-2xl font-black tracking-tight text-white mt-1 text-balance">
+            Platform Session RSVP & Auto-Promoted Waitlist
+          </h2>
+          <p class="text-sm text-slate-400 text-pretty">
+            Live hardware capacity management for Small Goods Morley platforms. Offline-first local sync ensures zero lost bookings inside concrete dead zones.
+          </p>
+        </div>
+
+        <!-- Offline Dead-Zone Sync Indicator Chip -->
+        <div class="flex items-center gap-3 bg-emerald-950/60 border border-emerald-600/60 px-4 py-2 rounded-xl shadow-brutal">
+          <div class="w-3 h-3 rounded-full bg-emerald-400 animate-pulse"></div>
+          <div>
+            <span class="text-xs font-bold text-emerald-300 block">Gym Floor Offline Sync</span>
+            <span class="text-[10px] text-emerald-400/80 font-mono">IndexedDB Local Buffer Active &bull; 0 Conflict</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Main Platform Grid -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+
+        <!-- Left: Featured Session Card with 12-Slot Gauge (7 Cols) -->
+        <div class="lg:col-span-7 space-y-6">
+          
+          <div class="bg-[#0F172A] border-2 border-slate-800 rounded-2xl p-6 shadow-brutal relative overflow-hidden">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
+              <div>
+                <span class="px-2.5 py-1 rounded bg-purple-950 border border-purple-800 text-purple-300 font-mono text-xs font-semibold">
+                  NEXT ELEIKO PLATFORM SESSIONS
+                </span>
+                <h3 class="text-xl font-bold text-white mt-1">Saturday Open Platform & Team Bench</h3>
+                <p class="text-xs text-slate-400 font-mono mt-0.5 flex items-center gap-2">
+                  <i data-lucide="clock" class="w-3.5 h-3.5 text-purple-400"></i>
+                  9:00 AM &ndash; 11:30 AM AWST &bull; Platforms 1 to 6
+                </p>
+              </div>
+
+              <!-- Status Badge: 12/12 Capacity Full -->
+              <div id="capacityBadge" class="bg-rose-950 border border-rose-700/80 px-3.5 py-2 rounded-xl text-center">
+                <span class="text-xs font-mono font-bold text-rose-300 block">12 / 12 CAPPED</span>
+                <span class="text-[10px] text-rose-400 font-mono">Platform Full</span>
+              </div>
+            </div>
+
+            <!-- Visual 12-Slot Capacity Gauge -->
+            <div class="mb-5 bg-[#090D16] p-4 rounded-xl border border-slate-800">
+              <div class="flex items-center justify-between text-xs font-mono mb-2">
+                <span class="text-slate-300 font-bold">Eleiko Platform Allocation</span>
+                <span id="capacityGaugeLabel" class="text-rose-400 font-bold">100% Utilized (12 Athletes)</span>
+              </div>
+
+              <!-- 12 Slot Visual Boxes -->
+              <div id="slotGrid" class="grid grid-cols-4 sm:grid-cols-6 gap-2">
+                <!-- Slot 1 to 12 representations -->
+                <div class="slot-box p-2 rounded-lg bg-purple-950/80 border border-purple-700 text-center">
+                  <span class="block text-[10px] font-mono text-purple-300">P1.1</span>
+                  <span class="text-xs font-bold text-white truncate block">Alex C.</span>
+                </div>
+                <div class="slot-box p-2 rounded-lg bg-purple-950/80 border border-purple-700 text-center">
+                  <span class="block text-[10px] font-mono text-purple-300">P1.2</span>
+                  <span class="text-xs font-bold text-white truncate block">Tyson K.</span>
+                </div>
+                <div class="slot-box p-2 rounded-lg bg-purple-950/80 border border-purple-700 text-center">
+                  <span class="block text-[10px] font-mono text-purple-300">P2.1</span>
+                  <span class="text-xs font-bold text-white truncate block">Sam D.</span>
+                </div>
+                <div class="slot-box p-2 rounded-lg bg-purple-950/80 border border-purple-700 text-center">
+                  <span class="block text-[10px] font-mono text-purple-300">P2.2</span>
+                  <span class="text-xs font-bold text-white truncate block">Liam V.</span>
+                </div>
+                <div class="slot-box p-2 rounded-lg bg-purple-950/80 border border-purple-700 text-center">
+                  <span class="block text-[10px] font-mono text-purple-300">P3.1</span>
+                  <span id="p31Athlete" class="text-xs font-bold text-amber-300 truncate block">Chris M.</span>
+                </div>
+                <div class="slot-box p-2 rounded-lg bg-purple-950/80 border border-purple-700 text-center">
+                  <span class="block text-[10px] font-mono text-purple-300">P3.2</span>
+                  <span class="text-xs font-bold text-white truncate block">&apos;P&apos; (NDIS)</span>
+                </div>
+                <div class="slot-box p-2 rounded-lg bg-purple-950/80 border border-purple-700 text-center">
+                  <span class="block text-[10px] font-mono text-purple-300">P4.1</span>
+                  <span class="text-xs font-bold text-white truncate block">Danielle</span>
+                </div>
+                <div class="slot-box p-2 rounded-lg bg-purple-950/80 border border-purple-700 text-center">
+                  <span class="block text-[10px] font-mono text-purple-300">P4.2</span>
+                  <span class="text-xs font-bold text-white truncate block">Marcus W.</span>
+                </div>
+                <div class="slot-box p-2 rounded-lg bg-purple-950/80 border border-purple-700 text-center">
+                  <span class="block text-[10px] font-mono text-purple-300">P5.1</span>
+                  <span class="text-xs font-bold text-white truncate block">Jess L.</span>
+                </div>
+                <div class="slot-box p-2 rounded-lg bg-purple-950/80 border border-purple-700 text-center">
+                  <span class="block text-[10px] font-mono text-purple-300">P5.2</span>
+                  <span class="text-xs font-bold text-white truncate block">Chloe T.</span>
+                </div>
+                <div class="slot-box p-2 rounded-lg bg-purple-950/80 border border-purple-700 text-center">
+                  <span class="block text-[10px] font-mono text-purple-300">P6.1</span>
+                  <span class="text-xs font-bold text-white truncate block">Brody H.</span>
+                </div>
+                <div class="slot-box p-2 rounded-lg bg-purple-950/80 border border-purple-700 text-center">
+                  <span class="block text-[10px] font-mono text-purple-300">P6.2</span>
+                  <span class="text-xs font-bold text-white truncate block">Elena R.</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Interactive Cancellation & Auto-Promotion Trigger (Demo Action) -->
+            <div class="p-3.5 rounded-xl bg-[#090D16] border border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-3">
+              <div>
+                <span class="text-xs font-bold text-slate-200">Coach / Athlete Simulation Tool</span>
+                <p class="text-[11px] text-slate-400">Simulate a late cancellation from Chris M. (Platform 3.1) to test auto-promotion.</p>
+              </div>
+              <button onclick="simulateCancellation()" id="cancelSimBtn" class="px-3.5 py-2 rounded-lg bg-rose-900/60 hover:bg-rose-800 text-rose-200 font-mono text-xs font-bold border border-rose-700 active:scale-95 transition-all">
+                Simulate Spot Cancellation
+              </button>
+            </div>
+          </div>
+
+          <!-- Coach Head Roster Notes -->
+          <div class="bg-[#0F172A] border border-slate-800 rounded-2xl p-4 flex items-start gap-3">
+            <span class="font-hand text-2xl text-purple-400 mt-1">Note:</span>
+            <p class="text-xs text-slate-300 text-pretty">
+              &ldquo;All platforms reserved for squat/bench openers testing. Holly Hunt on deck from 10:00 AM for warm-up hip mobility triage. Calibrated Eleiko discs only.&rdquo; &mdash; Joel
+            </p>
+          </div>
+        </div>
+
+        <!-- Right: Active Waitlist Queue with Live Timer & Promotion Badge (5 Cols) -->
+        <div class="lg:col-span-5 space-y-6">
+
+          <div class="bg-[#0F172A] border-2 border-indigo-900/60 rounded-2xl p-5 shadow-brutal">
+            <div class="flex items-center justify-between mb-4">
+              <div>
+                <h4 class="text-base font-bold text-white flex items-center gap-2">
+                  <i data-lucide="list-ordered" class="w-4 h-4 text-indigo-400"></i>
+                  Active Waitlist Priority Queue
+                </h4>
+                <span class="text-xs text-slate-400 font-mono">Real-time SMS & Push Dispatch</span>
+              </div>
+              <span class="px-2.5 py-1 rounded bg-indigo-950 border border-indigo-700 text-indigo-300 font-mono text-xs font-bold">
+                3 Waiting
+              </span>
+            </div>
+
+            <!-- Waitlist Items -->
+            <div class="space-y-3" id="waitlistContainer">
+
+              <!-- Waitlist #1 (Target for auto-promotion) -->
+              <div id="waitlistCard1" class="p-3.5 rounded-xl bg-[#090D16] border border-slate-800 flex items-center justify-between transition-all">
+                <div class="flex items-center gap-3">
+                  <span class="w-7 h-7 rounded-full bg-purple-900/80 border border-purple-600 text-purple-200 font-mono font-bold text-xs flex items-center justify-center">
+                    #1
+                  </span>
+                  <div>
+                    <h5 class="text-xs font-bold text-white">Mitch &apos;Bones&apos; Kelly</h5>
+                    <span class="text-[10px] font-mono text-slate-400">Joined waitlist at 7:12 AM</span>
+                  </div>
+                </div>
+                <div class="text-right">
+                  <span class="text-[11px] font-mono text-amber-400 block font-semibold">Priority 1</span>
+                  <span class="text-[10px] font-mono text-slate-500">Hold 04:58s</span>
+                </div>
+              </div>
+
+              <!-- Auto-Promotion Toast (Hidden initially) -->
+              <div id="promotedBanner" class="hidden p-3.5 rounded-xl bg-emerald-950 border-2 border-emerald-500 shadow-glow-emerald animate-pulse">
+                <div class="flex items-center gap-2 mb-1">
+                  <i data-lucide="check-circle" class="w-4 h-4 text-emerald-400"></i>
+                  <span class="text-xs font-bold text-emerald-300 font-mono">SPOT OPENED & PROMOTED!</span>
+                </div>
+                <p class="text-xs text-slate-200">
+                  <span class="font-bold text-white">Mitch Kelly</span> was auto-promoted to <span class="text-emerald-400 font-bold">Platform 3.1</span>! Instant SMS confirmation sent.
+                </p>
+                <div class="mt-2 inline-block px-2 py-0.5 rounded bg-emerald-900 text-emerald-200 text-[10px] font-mono font-bold">
+                  Auto-Promoted to Platform 3
+                </div>
+              </div>
+
+              <!-- Waitlist #2 -->
+              <div class="p-3.5 rounded-xl bg-[#090D16] border border-slate-800 flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                  <span class="w-7 h-7 rounded-full bg-slate-800 border border-slate-700 text-slate-300 font-mono font-bold text-xs flex items-center justify-center">
+                    #2
+                  </span>
+                  <div>
+                    <h5 class="text-xs font-bold text-white">Sarah Jenkins</h5>
+                    <span class="text-[10px] font-mono text-slate-400">Joined waitlist at 8:02 AM</span>
+                  </div>
+                </div>
+                <div class="text-right">
+                  <span class="text-[11px] font-mono text-slate-400 block">Next in Line</span>
+                </div>
+              </div>
+
+              <!-- Waitlist #3 -->
+              <div class="p-3.5 rounded-xl bg-[#090D16] border border-slate-800 flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                  <span class="w-7 h-7 rounded-full bg-slate-800 border border-slate-700 text-slate-300 font-mono font-bold text-xs flex items-center justify-center">
+                    #3
+                  </span>
+                  <div>
+                    <h5 class="text-xs font-bold text-white">David O&apos;Connor</h5>
+                    <span class="text-[10px] font-mono text-slate-400">Joined waitlist at 8:44 AM</span>
+                  </div>
+                </div>
+                <div class="text-right">
+                  <span class="text-[11px] font-mono text-slate-400 block">Queued</span>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Join Waitlist Action Button -->
+            <button onclick="alert('Added to waitlist queue at position #4. You will receive an automated SMS if a platform clears.')" class="w-full mt-4 py-3 rounded-xl bg-[#1E293B] hover:bg-slate-700 text-slate-200 border border-slate-700 font-bold text-xs font-mono tracking-wide flex items-center justify-center gap-2 transition-all">
+              <i data-lucide="user-plus" class="w-4 h-4 text-purple-400"></i>
+              <span>JOIN PLATFORM WAITLIST (CELL VERIFIED)</span>
+            </button>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- TAB 4: NDIS CAPACITY BUILDING & CLINICAL EVIDENCE PORTAL -->
+    <!-- ========================================================================= -->
+    <section id="tab-ndis" class="tab-content hidden transition-all duration-200">
+      
+      <!-- Top Title & Accreditation Header -->
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 pb-4 border-b border-slate-800">
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="px-2.5 py-0.5 rounded-full bg-rose-950 border border-rose-800 text-rose-300 font-mono text-xs font-bold uppercase tracking-wider">
+              NDIS Capacity Building Support Category: 15_055_0128_1_3
+            </span>
+            <span class="text-slate-400 text-xs font-mono">Registered Healthcare Provider Standards</span>
+          </div>
+          <h2 class="text-2xl font-black tracking-tight text-white mt-1 text-balance">
+            NDIS Capacity Building & Clinical Evidence Portal
+          </h2>
+          <p class="text-sm text-slate-400 text-pretty">
+            Transforming subjective workout logs into auditable, objective sports science metrics (Activforce 2 dynamometry and Enode accelerometry) for Plan Managers and NDIA audits.
+          </p>
+        </div>
+
+        <!-- 1-Click Plan Manager PDF Export Action Button -->
+        <button onclick="triggerPdfExport()" id="exportPdfBtn" class="flex items-center gap-2 px-5 py-3 rounded-xl bg-purple-600 hover:bg-purple-500 active:scale-95 text-white font-bold text-xs font-mono tracking-wider shadow-brutal border-2 border-black transition-all">
+          <i data-lucide="file-down" class="w-4 h-4"></i>
+          <span>GENERATE AUDIT-READY NDIA PROGRESS REPORT (PDF)</span>
+        </button>
+      </div>
+
+      <!-- Participant Overview & Plan Manager Status Banner -->
+      <div class="bg-[#0F172A] border border-slate-800 rounded-2xl p-5 mb-6 shadow-md flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div class="flex items-center gap-4">
+          <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-rose-600 to-purple-700 flex items-center justify-center font-bold text-white text-lg font-mono shadow-md">
+            P
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <h3 class="font-bold text-base text-white">Participant: &apos;P&apos; (NDIS Capacity Champion)</h3>
+              <span class="px-2 py-0.5 rounded bg-emerald-950 border border-emerald-700 text-emerald-300 text-[10px] font-mono font-bold">Plan Managed</span>
+            </div>
+            <p class="text-xs text-slate-400 mt-0.5">
+              NDIS Goal: Increase lower-limb independence, sit-to-stand velocity, and Community Access endurance in Morley.
+            </p>
+          </div>
+        </div>
+
+        <!-- Toggle Read-Only Carer / Support Coordinator Portal Preview -->
+        <div class="flex items-center gap-3 bg-[#090D16] p-2.5 rounded-xl border border-slate-800">
+          <span class="text-xs font-mono text-slate-300">Plan Manager Read-Only View:</span>
+          <button id="carerToggleBtn" onclick="toggleCarerMode()" class="px-3 py-1 rounded-lg bg-[#1E293B] border border-slate-700 text-xs font-mono text-purple-300 font-bold hover:bg-purple-900/40">
+            OFF
+          </button>
+        </div>
+      </div>
+
+      <!-- Two Hardware Metrics Cards (Activforce 2 Dynamometer + Enode Accelerometer) -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+
+        <!-- 1. Activforce 2 Dynamometer Card -->
+        <div class="bg-[#0F172A] border border-slate-800 rounded-2xl p-5 shadow-brutal">
+          <div class="flex items-center justify-between mb-3">
+            <div class="flex items-center gap-2">
+              <div class="w-8 h-8 rounded-lg bg-purple-950 border border-purple-800 flex items-center justify-center text-purple-400">
+                <i data-lucide="target" class="w-4 h-4"></i>
+              </div>
+              <div>
+                <h4 class="text-sm font-bold text-white">Activforce 2 Digital Dynamometry</h4>
+                <span class="text-[10px] text-purple-400 font-mono">Isometric Peak Force (Newtons)</span>
+              </div>
+            </div>
+            <!-- +18.4% improvement badge -->
+            <span class="px-2.5 py-1 rounded-full bg-emerald-950 border border-emerald-600 text-emerald-300 font-mono text-xs font-bold">
+              +18.4% Over 8 Weeks
+            </span>
+          </div>
+
+          <p class="text-xs text-slate-300 mb-4 text-pretty">
+            Objective bilateral knee extension testing conducted by Holly Hunt (Physio). Verifies continuous neuromuscular recruitment without relying on subjective pain scales.
+          </p>
+
+          <!-- Metric Breakdown & Custom Graphic Bar Chart -->
+          <div class="bg-[#090D16] p-4 rounded-xl border border-slate-800 space-y-3">
+            <div>
+              <div class="flex justify-between text-xs font-mono mb-1">
+                <span class="text-slate-400">Week 1 Baseline (Initial Assessment)</span>
+                <span class="text-slate-300 font-bold">212.0&nbsp;N</span>
+              </div>
+              <div class="w-full h-3 bg-slate-800 rounded-full overflow-hidden">
+                <div class="h-full bg-slate-500 rounded-full" style="width: 58%"></div>
+              </div>
+            </div>
+
+            <div>
+              <div class="flex justify-between text-xs font-mono mb-1">
+                <span class="text-slate-400">Week 4 Mid-Term Review</span>
+                <span class="text-slate-300 font-bold">234.5&nbsp;N (+10.6%)</span>
+              </div>
+              <div class="w-full h-3 bg-slate-800 rounded-full overflow-hidden">
+                <div class="h-full bg-indigo-500 rounded-full" style="width: 70%"></div>
+              </div>
+            </div>
+
+            <div>
+              <div class="flex justify-between text-xs font-mono mb-1">
+                <span class="text-slate-400">Week 8 Current Test (NDIA Review)</span>
+                <span class="text-emerald-400 font-bold">251.0&nbsp;N (+18.4%)</span>
+              </div>
+              <div class="w-full h-3 bg-slate-800 rounded-full overflow-hidden">
+                <div class="h-full bg-gradient-to-r from-emerald-500 to-emerald-400 rounded-full" style="width: 86%"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-3 flex items-center justify-between text-[11px] font-mono text-slate-400 px-1">
+            <span>Clinical Standard: &gt;15% clinically meaningful difference</span>
+            <span class="text-emerald-400 font-semibold">Goal Exceeded ✓</span>
+          </div>
+        </div>
+
+        <!-- 2. Enode Accelerometer: Sit-to-Stand Concentric Velocity Curve -->
+        <div class="bg-[#0F172A] border border-slate-800 rounded-2xl p-5 shadow-brutal">
+          <div class="flex items-center justify-between mb-3">
+            <div class="flex items-center gap-2">
+              <div class="w-8 h-8 rounded-lg bg-indigo-950 border border-indigo-800 flex items-center justify-center text-indigo-400">
+                <i data-lucide="zap" class="w-4 h-4"></i>
+              </div>
+              <div>
+                <h4 class="text-sm font-bold text-white">Enode VBT Concentric Velocity</h4>
+                <span class="text-[10px] text-indigo-400 font-mono">Functional Sit-to-Stand Acceleration</span>
+              </div>
+            </div>
+            <span class="px-2.5 py-1 rounded-full bg-purple-950 border border-purple-600 text-purple-300 font-mono text-xs font-bold">
+              0.41 &rarr; 0.62&nbsp;m/s
+            </span>
+          </div>
+
+          <p class="text-xs text-slate-300 mb-4 text-pretty">
+            Quantifies transfer of gym strength to functional daily independence: getting off low chairs, getting into passenger cars, and stair climbing in Morley community.
+          </p>
+
+          <!-- SVG Visual Velocity Curve -->
+          <div class="bg-[#090D16] p-4 rounded-xl border border-slate-800">
+            <div class="h-32 w-full flex items-end justify-between gap-2 px-2 pt-2 border-b border-l border-slate-700">
+              <!-- Rep 1 -->
+              <div class="flex-1 flex flex-col items-center h-full justify-end group">
+                <span class="text-[10px] font-mono text-slate-400 mb-1 opacity-0 group-hover:opacity-100">0.58 m/s</span>
+                <div class="w-full bg-purple-900/60 hover:bg-purple-600 rounded-t transition-all" style="height: 65%"></div>
+                <span class="text-[10px] font-mono text-slate-500 mt-1">R1</span>
+              </div>
+              <!-- Rep 2 -->
+              <div class="flex-1 flex flex-col items-center h-full justify-end group">
+                <span class="text-[10px] font-mono text-slate-400 mb-1 opacity-0 group-hover:opacity-100">0.61 m/s</span>
+                <div class="w-full bg-purple-900/60 hover:bg-purple-600 rounded-t transition-all" style="height: 72%"></div>
+                <span class="text-[10px] font-mono text-slate-500 mt-1">R2</span>
+              </div>
+              <!-- Rep 3 (Peak) -->
+              <div class="flex-1 flex flex-col items-center h-full justify-end group">
+                <span class="text-[10px] font-mono text-emerald-400 font-bold mb-1 opacity-100">0.64 m/s</span>
+                <div class="w-full bg-emerald-500 rounded-t shadow-glow-emerald transition-all" style="height: 82%"></div>
+                <span class="text-[10px] font-mono text-emerald-400 font-bold mt-1">R3</span>
+              </div>
+              <!-- Rep 4 -->
+              <div class="flex-1 flex flex-col items-center h-full justify-end group">
+                <span class="text-[10px] font-mono text-slate-400 mb-1 opacity-0 group-hover:opacity-100">0.60 m/s</span>
+                <div class="w-full bg-purple-900/60 hover:bg-purple-600 rounded-t transition-all" style="height: 70%"></div>
+                <span class="text-[10px] font-mono text-slate-500 mt-1">R4</span>
+              </div>
+              <!-- Rep 5 -->
+              <div class="flex-1 flex flex-col items-center h-full justify-end group">
+                <span class="text-[10px] font-mono text-slate-400 mb-1 opacity-0 group-hover:opacity-100">0.59 m/s</span>
+                <div class="w-full bg-purple-900/60 hover:bg-purple-600 rounded-t transition-all" style="height: 68%"></div>
+                <span class="text-[10px] font-mono text-slate-500 mt-1">R5</span>
+              </div>
+            </div>
+            <div class="flex justify-between text-[10px] font-mono text-slate-400 mt-2">
+              <span>Sit-to-Stand 5 Rep Test</span>
+              <span>Mean Velocity: <strong class="text-white">0.62 m/s</strong> (Zero Fatigue Dropout)</span>
+            </div>
+          </div>
+
+          <div class="mt-3 flex items-center justify-between text-[11px] font-mono text-slate-400 px-1">
+            <span>Target for Community Independence: 0.50 m/s</span>
+            <span class="text-emerald-400 font-semibold">124% of Benchmark ✓</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Clinical Governance Statement by Holly Hunt -->
+      <div class="bg-[#0F172A] border border-slate-800 rounded-2xl p-5 shadow-sm">
+        <div class="flex items-start gap-3">
+          <div class="w-10 h-10 rounded-xl bg-purple-900/40 border border-purple-700 flex items-center justify-center text-purple-300 font-bold flex-shrink-0">
+            HH
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <h4 class="text-sm font-bold text-white">Physiotherapist Sign-Off & Capacity Statement</h4>
+              <span class="text-[10px] font-mono text-slate-400">AHPRA Reg #PHY00021481</span>
+            </div>
+            <p class="text-xs text-slate-300 mt-1 leading-relaxed text-pretty">
+              &ldquo;Participant &apos;P&apos; demonstrates measurable, objective physical progression over the current 8-week funding period. The combination of isometric dynamometry force (+18.4%) and bar velocity maintenance directly correlates with their ability to safely transfer from seated positions without physical carer assistance. Continued 1:1 sports science capacity building is clinically justified to maintain autonomy and prevent physical regression.&rdquo;
+            </p>
+            <span class="inline-block mt-2 text-[11px] font-mono text-purple-400 font-semibold">
+              Holly Hunt &bull; B.Phty, M.Sports Physio &bull; Small Goods Gym Morley
+            </span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- TAB 5: JAVIER DEVELOPER HANDSHAKE (Backend Architecture View) -->
+    <!-- ========================================================================= -->
+    <section id="tab-architecture" class="tab-content hidden transition-all duration-200">
+      
+      <!-- Architectural Intent Header -->
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 pb-4 border-b border-slate-800">
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="px-2.5 py-0.5 rounded-full bg-cyan-950 border border-cyan-800 text-cyan-300 font-mono text-xs font-bold uppercase tracking-wider">
+              Backend Contract & Decoupled Integration Spec
+            </span>
+            <span class="text-slate-400 text-xs font-mono">Prepared for Lead Architect Javier</span>
+          </div>
+          <h2 class="text-2xl font-black tracking-tight text-white mt-1 text-balance">
+            Decoupled JWT Flow & Authoritative Database Contract
+          </h2>
+          <p class="text-sm text-slate-400 text-pretty">
+            Clean architectural boundary reassuring Javier: his existing PostgreSQL schema & authentication services remain 100% authoritative and untouched.
+          </p>
+        </div>
+
+        <div class="flex items-center gap-3 bg-[#0F172A] px-4 py-2 rounded-xl border border-cyan-900/60 shadow-md">
+          <div class="w-3 h-3 rounded-full bg-cyan-400 animate-pulse"></div>
+          <div>
+            <span class="text-xs font-bold text-white block">PostgreSQL Integrity</span>
+            <span class="text-[10px] text-cyan-300 font-mono">Zero Invasive Schema Mutations</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Architectural Flow Diagram (3 Step Pipeline) -->
+      <div class="bg-[#0F172A] border-2 border-slate-800 rounded-2xl p-6 shadow-brutal mb-6">
+        <h3 class="text-base font-bold text-white flex items-center gap-2 mb-4">
+          <i data-lucide="workflow" class="w-5 h-5 text-cyan-400"></i>
+          Decoupled JWT Authentication & Telemetry Pipeline
+        </h3>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 relative">
+          
+          <!-- Step 1: Client to Javier Auth -->
+          <div class="bg-[#090D16] p-4 rounded-xl border border-slate-800 relative">
+            <div class="flex items-center justify-between mb-2">
+              <span class="w-6 h-6 rounded-full bg-cyan-900 text-cyan-200 flex items-center justify-center font-mono font-bold text-xs">1</span>
+              <span class="text-[10px] font-mono text-cyan-400">HTTPS POST /auth/token</span>
+            </div>
+            <h4 class="text-xs font-bold text-white">Frontend Client &bull; Javier Auth</h4>
+            <p class="text-[11px] text-slate-400 mt-1 text-pretty">
+              Athlete or coach logs in. Authenticates against Javier's existing FastAPI auth endpoint. Generates signed RSA256 JWT Bearer token with claims (`athlete_id`, `role: coach|physio|lifter`).
+            </p>
+            <div class="mt-3 p-2 rounded bg-black/50 border border-slate-800 text-[10px] font-mono text-slate-300">
+              Authorization: Bearer eyJhbGciOi...
+            </div>
+          </div>
+
+          <!-- Step 2: Sports Science Telemetry Pipeline -->
+          <div class="bg-[#090D16] p-4 rounded-xl border border-purple-900/60 relative">
+            <div class="flex items-center justify-between mb-2">
+              <span class="w-6 h-6 rounded-full bg-purple-900 text-purple-200 flex items-center justify-center font-mono font-bold text-xs">2</span>
+              <span class="text-[10px] font-mono text-purple-400">gRPC / Fast Stream</span>
+            </div>
+            <h4 class="text-xs font-bold text-white">Enode / Activforce Engine</h4>
+            <p class="text-[11px] text-slate-400 mt-1 text-pretty">
+              Frontend streams hardware accelerometer payloads with the same Bearer token. Velocity loss algorithms and leverage indices compute in an isolated microservice.
+            </p>
+            <div class="mt-3 p-2 rounded bg-black/50 border border-slate-800 text-[10px] font-mono text-purple-300">
+              Payload: { v_mean: 0.64, fatigue: true }
+            </div>
+          </div>
+
+          <!-- Step 3: Authoritative Database Schema -->
+          <div class="bg-[#090D16] p-4 rounded-xl border border-emerald-900/60 relative">
+            <div class="flex items-center justify-between mb-2">
+              <span class="w-6 h-6 rounded-full bg-emerald-900 text-emerald-200 flex items-center justify-center font-mono font-bold text-xs">3</span>
+              <span class="text-[10px] font-mono text-emerald-400">PostgreSQL Authoritative</span>
+            </div>
+            <h4 class="text-xs font-bold text-white">Javier PostgreSQL Cluster</h4>
+            <p class="text-[11px] text-slate-400 mt-1 text-pretty">
+              Validated sets and session summaries are persisted via strict SQL transactions into Javier's primary relational tables. Full ACID consistency preserved.
+            </p>
+            <div class="mt-3 p-2 rounded bg-black/50 border border-slate-800 text-[10px] font-mono text-emerald-400">
+              SQL: INSERT INTO exercise_logs...
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- 5 Authoritative Table Schemas Reassurance Card -->
+      <div class="bg-[#0F172A] border border-slate-800 rounded-2xl p-6 shadow-brutal">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4 pb-3 border-b border-slate-800">
+          <div>
+            <h3 class="text-base font-bold text-white flex items-center gap-2">
+              <i data-lucide="database" class="w-5 h-5 text-cyan-400"></i>
+              Javier's 5 Authoritative Core Table Schemas
+            </h3>
+            <span class="text-xs text-slate-400 font-mono">Strict Foreign Key Constraints & Index Alignment</span>
+          </div>
+          <span class="px-2.5 py-1 rounded bg-cyan-950 border border-cyan-700 text-cyan-300 font-mono text-xs font-bold">
+            Schema Version: 3.4.1 (Clean)
+          </span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          
+          <!-- Table 1: athlete_profiles -->
+          <div class="p-3.5 rounded-xl bg-[#090D16] border border-slate-800">
+            <div class="flex items-center justify-between text-xs font-mono font-bold text-cyan-400 mb-1.5">
+              <span>athlete_profiles</span>
+              <span class="text-[10px] text-slate-500">TABLE</span>
+            </div>
+            <ul class="text-[11px] font-mono text-slate-300 space-y-1">
+              <li>&bull; <span class="text-purple-400">id:</span> uuid PRIMARY KEY</li>
+              <li>&bull; <span class="text-slate-400">full_name:</span> text NOT NULL</li>
+              <li>&bull; <span class="text-slate-400">weight_class:</span> varchar(10)</li>
+              <li>&bull; <span class="text-slate-400">femur_length_cm:</span> numeric(4,1)</li>
+              <li>&bull; <span class="text-slate-400">torso_length_cm:</span> numeric(4,1)</li>
+              <li>&bull; <span class="text-slate-400">is_ndis_participant:</span> bool</li>
+            </ul>
+          </div>
+
+          <!-- Table 2: exercises -->
+          <div class="p-3.5 rounded-xl bg-[#090D16] border border-slate-800">
+            <div class="flex items-center justify-between text-xs font-mono font-bold text-cyan-400 mb-1.5">
+              <span>exercises</span>
+              <span class="text-[10px] text-slate-500">TABLE</span>
+            </div>
+            <ul class="text-[11px] font-mono text-slate-300 space-y-1">
+              <li>&bull; <span class="text-purple-400">id:</span> uuid PRIMARY KEY</li>
+              <li>&bull; <span class="text-slate-400">name:</span> text (&apos;Squat&apos;, &apos;Bench&apos;)</li>
+              <li>&bull; <span class="text-slate-400">category:</span> powerlifting|rehab</li>
+              <li>&bull; <span class="text-slate-400">movement_plane:</span> sagittal|frontal</li>
+              <li>&bull; <span class="text-slate-400">vbt_target_min_ms:</span> numeric(3,2)</li>
+            </ul>
+          </div>
+
+          <!-- Table 3: workout_sessions -->
+          <div class="p-3.5 rounded-xl bg-[#090D16] border border-slate-800">
+            <div class="flex items-center justify-between text-xs font-mono font-bold text-cyan-400 mb-1.5">
+              <span>workout_sessions</span>
+              <span class="text-[10px] text-slate-500">TABLE</span>
+            </div>
+            <ul class="text-[11px] font-mono text-slate-300 space-y-1">
+              <li>&bull; <span class="text-purple-400">id:</span> uuid PRIMARY KEY</li>
+              <li>&bull; <span class="text-slate-400">athlete_id:</span> uuid FK</li>
+              <li>&bull; <span class="text-slate-400">coach_id:</span> uuid FK (Joel/Holly)</li>
+              <li>&bull; <span class="text-slate-400">platform_number:</span> smallint (1-6)</li>
+              <li>&bull; <span class="text-slate-400">session_timestamp:</span> timestamptz</li>
+              <li>&bull; <span class="text-slate-400">synced_offline:</span> bool DEFAULT false</li>
+            </ul>
+          </div>
+
+          <!-- Table 4: exercise_logs -->
+          <div class="p-3.5 rounded-xl bg-[#090D16] border border-slate-800">
+            <div class="flex items-center justify-between text-xs font-mono font-bold text-cyan-400 mb-1.5">
+              <span>exercise_logs</span>
+              <span class="text-[10px] text-slate-500">TABLE</span>
+            </div>
+            <ul class="text-[11px] font-mono text-slate-300 space-y-1">
+              <li>&bull; <span class="text-purple-400">id:</span> uuid PRIMARY KEY</li>
+              <li>&bull; <span class="text-slate-400">session_id:</span> uuid FK</li>
+              <li>&bull; <span class="text-slate-400">set_number:</span> smallint (1-5)</li>
+              <li>&bull; <span class="text-slate-400">load_kg:</span> numeric(5,2)</li>
+              <li>&bull; <span class="text-slate-400">reps_completed:</span> smallint</li>
+              <li>&bull; <span class="text-slate-400">actual_rpe:</span> numeric(3,1)</li>
+              <li>&bull; <span class="text-slate-400">mean_concentric_v_ms:</span> numeric(3,2)</li>
+            </ul>
+          </div>
+
+          <!-- Table 5: personal_bests -->
+          <div class="p-3.5 rounded-xl bg-[#090D16] border border-slate-800">
+            <div class="flex items-center justify-between text-xs font-mono font-bold text-cyan-400 mb-1.5">
+              <span>personal_bests</span>
+              <span class="text-[10px] text-slate-500">TABLE</span>
+            </div>
+            <ul class="text-[11px] font-mono text-slate-300 space-y-1">
+              <li>&bull; <span class="text-purple-400">id:</span> uuid PRIMARY KEY</li>
+              <li>&bull; <span class="text-slate-400">athlete_id:</span> uuid FK</li>
+              <li>&bull; <span class="text-slate-400">exercise_id:</span> uuid FK</li>
+              <li>&bull; <span class="text-slate-400">one_rep_max_kg:</span> numeric(5,2)</li>
+              <li>&bull; <span class="text-slate-400">dynamometer_peak_n:</span> numeric(5,1)</li>
+              <li>&bull; <span class="text-slate-400">verified_by_coach:</span> bool</li>
+            </ul>
+          </div>
+
+          <!-- Summary Guarantee Box -->
+          <div class="p-3.5 rounded-xl bg-cyan-950/30 border border-cyan-800/50 flex flex-col justify-between">
+            <div>
+              <span class="text-xs font-mono font-bold text-cyan-300 block mb-1">Architecture Guarantee</span>
+              <p class="text-[11px] text-slate-300">
+                REST and WebSockets communicate via standard JSON contracts. No direct table DDL mutations or stored procedures are required.
+              </p>
+            </div>
+            <span class="text-[10px] font-mono text-emerald-400 mt-2 block">
+              ✓ Ready for FastAPI deployment
+            </span>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ================= FOOTER / MORLEY GYM CONTEXT ================= -->
+  <footer class="border-t border-slate-800/80 bg-[#090D16] py-4 px-4 text-center text-xs text-slate-500 font-mono">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
+      <div>
+        Small Goods Gym &bull; Morley, Perth WA &bull; Joel Mullen (Head Coach) & Holly Hunt (Sports Physio)
+      </div>
+      <div class="flex items-center gap-3">
+        <span>Eleiko Calibrated Discs</span>
+        <span>&bull;</span>
+        <span>Enode VBT Sensors</span>
+        <span>&bull;</span>
+        <span>Activforce 2 Dynamometry</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ================= INTERACTIVE APPLICATION JAVASCRIPT ================= -->
+  <script>
+    // Initialize Lucide Icons
+    document.addEventListener('DOMContentLoaded', () => {
+      if (window.lucide) {
+        lucide.createIcons();
+      }
+      calculateLeverage();
+    });
+
+    // 1. Tab Navigation Logic
+    function switchTab(tabId) {
+      // Hide all contents
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+      // Remove active states from buttons
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('bg-purple-600', 'text-white', 'shadow-brutal', 'border-black');
+        btn.classList.add('bg-[#0F172A]', 'text-slate-400', 'border-slate-800');
+      });
+
+      // Show targeted tab
+      const targetContent = document.getElementById(tabId);
+      if (targetContent) targetContent.classList.remove('hidden');
+
+      // Style active button
+      const activeBtn = document.getElementById('nav-' + tabId);
+      if (activeBtn) {
+        activeBtn.classList.remove('bg-[#0F172A]', 'text-slate-400', 'border-slate-800');
+        activeBtn.classList.add('bg-purple-600', 'text-white', 'shadow-brutal', 'border-black');
+      }
+
+      if (window.lucide) lucide.createIcons();
+    }
+
+    // 2. Persona Selector Handling
+    function changePersona(personaKey) {
+      if (personaKey === 'p_ndis') {
+        switchTab('tab-ndis');
+      } else if (personaKey === 'joel') {
+        switchTab('tab-leverage');
+      } else if (personaKey === 'alex') {
+        switchTab('tab-logger');
+      } else if (personaKey === 'holly') {
+        switchTab('tab-leverage');
+      }
+    }
+
+    // 3. Tab 1: Micro-loading weight adjuster
+    let currentWeight = 100.0;
+    function adjustWeight(delta) {
+      currentWeight = Math.max(20, currentWeight + delta);
+      document.getElementById('currentWeightDisplay').innerText = currentWeight.toFixed(1);
+    }
+
+    // 4. Tab 1: RPE Selector
+    function selectRPE(val, label) {
+      document.getElementById('selectedRpeLabel').innerText = label;
+      document.querySelectorAll('.rpe-btn').forEach(btn => {
+        btn.classList.remove('bg-purple-600', 'text-white', 'shadow-brutal', 'border-black');
+        btn.classList.add('bg-[#1E293B]', 'text-slate-300', 'border-slate-700');
+      });
+      event.currentTarget.classList.remove('bg-[#1E293B]', 'text-slate-300', 'border-slate-700');
+      event.currentTarget.classList.add('bg-purple-600', 'text-white', 'shadow-brutal', 'border-black');
+    }
+
+    // 5. Tab 1: Set Completion (Instant Emerald State & Rest Timer Initiation)
+    let completedSetsCount = 2;
+    function triggerCompleteSet() {
+      const btn = document.getElementById('completeSetBtn');
+      const activeCard = document.getElementById('activeSetCard');
+      const counterTracker = document.getElementById('setCounterTracker');
+      
+      // Turn button emerald
+      btn.classList.remove('bg-purple-600', 'hover:bg-purple-500');
+      btn.classList.add('bg-emerald-600', 'hover:bg-emerald-500');
+      btn.innerHTML = '<i data-lucide="check" class="w-4 h-4"></i><span>SET 3 RECORDED (0.64 m/s)</span>';
+      
+      activeCard.classList.remove('border-purple-500', 'shadow-glow-purple');
+      activeCard.classList.add('border-emerald-500', 'shadow-glow-emerald');
+      
+      completedSetsCount = 3;
+      counterTracker.innerText = `${completedSetsCount} of 5 Completed`;
+
+      // Start 180s countdown reset
+      startTimer(180);
+
+      if (window.lucide) lucide.createIcons();
+    }
+
+    // 6. Tab 1: Video Playback Toggle
+    let isPlaying = false;
+    function toggleVideoPlayback() {
+      isPlaying = !isPlaying;
+      const statusText = document.getElementById('videoStatusText');
+      const playIcon = document.getElementById('playIcon');
+      if (isPlaying) {
+        statusText.innerText = 'Playing: 45° Hip Crease Depth Standard (0:18s)';
+        statusText.classList.add('text-emerald-400');
+        playIcon.setAttribute('data-lucide', 'pause');
+      } else {
+        statusText.innerText = 'Movement Standard Demo (0:18s)';
+        statusText.classList.remove('text-emerald-400');
+        playIcon.setAttribute('data-lucide', 'play');
+      }
+      if (window.lucide) lucide.createIcons();
+    }
+
+    // 7. Tab 1: Rest Timer Controller
+    let timerSeconds = 138;
+    let timerInterval = null;
+    let isTimerRunning = true;
+
+    function formatTime(s) {
+      const mins = Math.floor(s / 60);
+      const secs = s % 60;
+      return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+    }
+
+    function runTimerTick() {
+      if (timerSeconds > 0) {
+        timerSeconds--;
+        document.getElementById('restTimerDisplay').innerText = formatTime(timerSeconds);
+        // Update SVG circle stroke
+        const ring = document.getElementById('timerRing');
+        if (ring) {
+          const progress = (timerSeconds / 180) * 125.6;
+          ring.style.strokeDashoffset = (125.6 - progress).toString();
+        }
+      }
+    }
+
+    function toggleTimer() {
+      const icon = document.getElementById('timerIcon');
+      if (isTimerRunning) {
+        clearInterval(timerInterval);
+        isTimerRunning = false;
+        icon.setAttribute('data-lucide', 'play');
+      } else {
+        timerInterval = setInterval(runTimerTick, 1000);
+        isTimerRunning = true;
+        icon.setAttribute('data-lucide', 'pause');
+      }
+      if (window.lucide) lucide.createIcons();
+    }
+
+    function addRestTime(sec) {
+      timerSeconds += sec;
+      document.getElementById('restTimerDisplay').innerText = formatTime(timerSeconds);
+    }
+
+    function startTimer(duration) {
+      clearInterval(timerInterval);
+      timerSeconds = duration;
+      isTimerRunning = true;
+      document.getElementById('restTimerDisplay').innerText = formatTime(timerSeconds);
+      timerInterval = setInterval(runTimerTick, 1000);
+    }
+
+    // Start timer on load
+    timerInterval = setInterval(runTimerTick, 1000);
+
+    // 8. Tab 2: Live Leverage Ratio Computation
+    function calculateLeverage() {
+      const femur = parseFloat(document.getElementById('femurSlider').value);
+      const torso = parseFloat(document.getElementById('torsoSlider').value);
+      
+      document.getElementById('femurValueDisplay').innerText = femur.toFixed(1);
+      document.getElementById('torsoValueDisplay').innerText = torso.toFixed(1);
+
+      const ratio = femur / torso;
+      document.getElementById('ratioDisplay').innerText = ratio.toFixed(2);
+
+      const badgesContainer = document.getElementById('dynamicBadgesContainer');
+      const classification = document.getElementById('ratioClassification');
+      const directives = document.getElementById('aiDirectivesContent');
+      const momentArm = document.getElementById('momentArmText');
+      const kneeAngle = document.getElementById('kneeAngleText');
+
+      if (ratio > 1.10) {
+        classification.innerText = 'Long Femur / Short Torso Archetype';
+        classification.className = 'text-xs font-mono text-purple-400 font-semibold';
+        momentArm.innerText = 'Severe (+28% vs median)';
+        momentArm.className = 'text-base font-bold text-amber-400 font-mono';
+        kneeAngle.innerText = '112° (Acute)';
+
+        badgesContainer.innerHTML = `
+          <span class="px-3 py-1 rounded-full text-xs font-mono font-bold bg-purple-950 text-purple-300 border border-purple-700 shadow-sm">#LongFemurs</span>
+          <span class="px-3 py-1 rounded-full text-xs font-mono font-bold bg-amber-950 text-amber-300 border border-amber-700 shadow-sm">#HighHipAngle</span>
+          <span class="px-3 py-1 rounded-full text-xs font-mono font-bold bg-emerald-950 text-emerald-300 border border-emerald-700 shadow-sm">#WideStanceIndicated</span>
+          <span class="px-3 py-1 rounded-full text-xs font-mono font-bold bg-indigo-950 text-indigo-300 border border-indigo-700 shadow-sm">#LowBarRecommended</span>
+        `;
+
+        directives.innerHTML = `
+          <div class="p-3 rounded-xl bg-purple-950/40 border border-purple-800/40">
+            <span class="text-xs font-bold text-yellow-300 block mb-1">CUE 1: LOW-BAR SEAT</span>
+            <p class="text-xs text-slate-200 leading-relaxed text-pretty">
+              Low-bar placement recommended below spine of scapula. Shortens lumbar moment arm by ~4.2 cm to protect vertebrae under maximum load.
+            </p>
+          </div>
+          <div class="p-3 rounded-xl bg-purple-950/40 border border-purple-800/40">
+            <span class="text-xs font-bold text-emerald-400 block mb-1">CUE 2: TOE ANGLE & STANCE WIDTH</span>
+            <p class="text-xs text-slate-200 leading-relaxed text-pretty">
+              Flare toes 28°–32° with a 1.25× shoulder-width stance. Accommodates long femur traversal without early pelvic tuck (butt wink).
+            </p>
+          </div>
+          <div class="p-3 rounded-xl bg-purple-950/40 border border-purple-800/40">
+            <span class="text-xs font-bold text-purple-300 block mb-1">CUE 3: FORWARD TRUNK INCLINATION</span>
+            <p class="text-xs text-slate-200 leading-relaxed text-pretty">
+              Do not force an artificial upright chest; lean into the natural hinge to keep barbell centered over midfoot laces.
+            </p>
+          </div>
+        `;
+      } else if (ratio < 0.95) {
+        classification.innerText = 'Short Femur / Long Torso Archetype';
+        classification.className = 'text-xs font-mono text-cyan-400 font-semibold';
+        momentArm.innerText = 'Minimal (-15% lumbar shear)';
+        momentArm.className = 'text-base font-bold text-emerald-400 font-mono';
+        kneeAngle.innerText = '78° (Deep Knee Flexion)';
+
+        badgesContainer.innerHTML = `
+          <span class="px-3 py-1 rounded-full text-xs font-mono font-bold bg-cyan-950 text-cyan-300 border border-cyan-700 shadow-sm">#ShortFemurs</span>
+          <span class="px-3 py-1 rounded-full text-xs font-mono font-bold bg-emerald-950 text-emerald-300 border border-emerald-700 shadow-sm">#UprightTorso</span>
+          <span class="px-3 py-1 rounded-full text-xs font-mono font-bold bg-purple-950 text-purple-300 border border-purple-700 shadow-sm">#QuadDominant</span>
+          <span class="px-3 py-1 rounded-full text-xs font-mono font-bold bg-indigo-950 text-indigo-300 border border-indigo-700 shadow-sm">#HighBarOlympic</span>
+        `;
+
+        directives.innerHTML = `
+          <div class="p-3 rounded-xl bg-cyan-950/40 border border-cyan-800/40">
+            <span class="text-xs font-bold text-cyan-300 block mb-1">CUE 1: HIGH-BAR OLYMPIC PLACEMENT</span>
+            <p class="text-xs text-slate-200 leading-relaxed text-pretty">
+              Trap-shelf placement allows completely upright torso. Maximizes knee flexion moment arm for superior quad hypertrophy.
+            </p>
+          </div>
+          <div class="p-3 rounded-xl bg-cyan-950/40 border border-cyan-800/40">
+            <span class="text-xs font-bold text-emerald-400 block mb-1">CUE 2: NARROW STANCE TOLERANCE</span>
+            <p class="text-xs text-slate-200 leading-relaxed text-pretty">
+              Narrow hip-width stance with 15° toe flare works comfortably. Knees can track comfortably forward over toes without excessive shear.
+            </p>
+          </div>
+          <div class="p-3 rounded-xl bg-cyan-950/40 border border-cyan-800/40">
+            <span class="text-xs font-bold text-purple-300 block mb-1">CUE 3: ANKLE MOBILITY EMPHASIS</span>
+            <p class="text-xs text-slate-200 leading-relaxed text-pretty">
+              Utilize raised heel lifting shoes (e.g. 20mm drop) to achieve deep competition depth with zero loss of lumbar rigidity.
+            </p>
+          </div>
+        `;
+      } else {
+        classification.innerText = 'Balanced Proportion Archetype';
+        classification.className = 'text-xs font-mono text-emerald-400 font-semibold';
+        momentArm.innerText = 'Balanced (Standard Distribution)';
+        momentArm.className = 'text-base font-bold text-slate-200 font-mono';
+        kneeAngle.innerText = '94° (Standard)';
+
+        badgesContainer.innerHTML = `
+          <span class="px-3 py-1 rounded-full text-xs font-mono font-bold bg-slate-800 text-slate-200 border border-slate-700 shadow-sm">#BalancedProportions</span>
+          <span class="px-3 py-1 rounded-full text-xs font-mono font-bold bg-purple-950 text-purple-300 border border-purple-700 shadow-sm">#ModerateStance</span>
+          <span class="px-3 py-1 rounded-full text-xs font-mono font-bold bg-indigo-950 text-indigo-300 border border-indigo-700 shadow-sm">#FlexibleBarPlacement</span>
+        `;
+
+        directives.innerHTML = `
+          <div class="p-3 rounded-xl bg-purple-950/40 border border-purple-800/40">
+            <span class="text-xs font-bold text-yellow-300 block mb-1">CUE: STANDARD POWER STANCE</span>
+            <p class="text-xs text-slate-200 leading-relaxed text-pretty">
+              Shoulder-width stance, moderate 20° toe flare. Athlete can seamlessly alternate between high-bar hypertrophy waves and low-bar competition peaking.
+            </p>
+          </div>
+        `;
+      }
+    }
+
+    // 9. Tab 2: Holly Hunt Triage Action
+    function routeToHollyTriage() {
+      const btn = document.getElementById('triageActionBtn');
+      const msg = document.getElementById('triageSuccessMessage');
+      btn.innerText = 'REFERRAL SENT TO HOLLY HUNT ✓';
+      btn.classList.remove('bg-rose-600', 'hover:bg-rose-500');
+      btn.classList.add('bg-emerald-700');
+      msg.classList.remove('hidden');
+    }
+
+    // 10. Tab 3: Simulate Cancellation & Auto-Promotion
+    function simulateCancellation() {
+      const targetSlot = document.getElementById('p31Athlete');
+      const banner = document.getElementById('promotedBanner');
+      const waitlistCard1 = document.getElementById('waitlistCard1');
+      const simBtn = document.getElementById('cancelSimBtn');
+      const capacityBadge = document.getElementById('capacityBadge');
+
+      targetSlot.innerText = "Mitch K. (Auto)";
+      targetSlot.classList.remove('text-amber-300');
+      targetSlot.classList.add('text-emerald-400');
+
+      banner.classList.remove('hidden');
+      waitlistCard1.classList.add('opacity-40', 'line-through');
+
+      simBtn.innerText = "Cancellation Processed & Filled";
+      simBtn.disabled = true;
+
+      capacityBadge.innerHTML = '<span class="text-xs font-mono font-bold text-emerald-300 block">12 / 12 FILLED</span><span class="text-[10px] text-emerald-400 font-mono">Auto-Resolved</span>';
+      capacityBadge.classList.remove('bg-rose-950', 'border-rose-700/80');
+      capacityBadge.classList.add('bg-emerald-950', 'border-emerald-700');
+
+      if (window.lucide) lucide.createIcons();
+    }
+
+    // 11. Tab 4: 1-Click Plan Manager PDF Export Simulation
+    function triggerPdfExport() {
+      const btn = document.getElementById('exportPdfBtn');
+      btn.innerHTML = '<i data-lucide="loader" class="w-4 h-4 animate-spin"></i><span>GENERATING AUDIT REPORT...</span>';
+      if (window.lucide) lucide.createIcons();
+
+      setTimeout(() => {
+        btn.innerHTML = '<i data-lucide="check" class="w-4 h-4 text-emerald-400"></i><span>NDIA REPORT DOWNLOADED (PDF)</span>';
+        alert("Generated Audit-Ready NDIA Progress Report:\n\n• Participant: 'P' (NDIS)\n• Activforce 2 Dynamometer: +18.4% Peak Force (251.0 N)\n• Enode Concentric Velocity: 0.62 m/s Sit-to-Stand\n• Signed by: Holly Hunt (AHPRA #PHY00021481)\n• Format: Audit-compliant NDIA Capacity Building");
+        if (window.lucide) lucide.createIcons();
+      }, 900);
+    }
+
+    // 12. Tab 4: Carer / Support Coordinator Read-Only Toggle
+    let isCarerMode = false;
+    function toggleCarerMode() {
+      isCarerMode = !isCarerMode;
+      const toggle = document.getElementById('carerToggleBtn');
+      if (isCarerMode) {
+        toggle.innerText = 'READ-ONLY ON';
+        toggle.classList.remove('bg-[#1E293B]', 'text-purple-300');
+        toggle.classList.add('bg-emerald-700', 'text-white');
+        alert("Carer & Support Coordinator Mode Activated: UI displays plain-English functional mobility summaries with hardware proof badges for funding justification.");
+      } else {
+        toggle.innerText = 'OFF';
+        toggle.classList.remove('bg-emerald-700', 'text-white');
+        toggle.classList.add('bg-[#1E293B]', 'text-purple-300');
+      }
+    }
+  </script>
+</body>
+</html>

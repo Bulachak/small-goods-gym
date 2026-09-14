@@ -1,0 +1,1454 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Small Goods Gym • Elite Sports Science & Live System Demo</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Google Fonts: Poppins, Roboto Mono, Reenie Beanie -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Reenie+Beanie&family=Roboto+Mono:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  
+  <!-- React 18 & Babel CDN -->
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              purple: '#4724ba',       // Signature Royal Purple
+              violet: '#6a3cf4',       // Electric Violet Action
+              lime: '#9aef0f',         // Acid / Neon Lime
+              lemon: '#ecfd28',        // Golden Fizz Lemon
+              yellow: '#f8ef8d',       // Sweet Corn Pastel
+              coral: '#e95766',        // Mandy Coral Red
+              sage: '#e7ebd3',         // Kidnapper Pale Sage
+              cream: '#faf2ce',        // Champagne Cream
+              mint: '#d1e6e4',         // Edgewater Soft Mint
+              charcoal: '#48444e',     // Ship Gray
+              offwhite: '#f6f4f6',     // Bon Jour Off-White
+              darkbg: '#090d16',       // High-Performance Floor Canvas
+              darkcard: '#0f172a',     // Deep Slate Card
+              darksurface: '#1e293b',  // Elevated Dark Surface
+              darkborder: '#334155'    // Dark Border
+            }
+          },
+          fontFamily: {
+            sans: ['Poppins', 'sans-serif'],
+            mono: ['"Roboto Mono"', 'monospace'],
+            script: ['"Reenie Beanie"', 'cursive']
+          }
+        }
+      }
+    };
+  </script>
+
+  <style>
+    :root {
+      --purple-heart: #4724ba;
+      --electric-violet: #6a3cf4;
+      --inch-worm: #9aef0f;
+      --sweet-corn: #f8ef8d;
+      --mandy: #e95766;
+      --golden-fizz: #ecfd28;
+      --kidnapper: #e7ebd3;
+      --champagne: #faf2ce;
+      --edgewater: #d1e6e4;
+      --bon-jour: #f6f4f6;
+      --black: #000000;
+      --white: #ffffff;
+    }
+
+    /* Zero-orphan typography standards */
+    h1, h2, h3, h4, h5, h6 {
+      text-wrap: balance;
+    }
+    p, .card-desc {
+      text-wrap: pretty;
+    }
+
+    /* Neo-Brutalist Core Styles */
+    .neo-border {
+      border: 2px solid #000000;
+    }
+    .neo-shadow {
+      box-shadow: 4px 4px 0 0 #000000;
+    }
+    .neo-shadow-lg {
+      box-shadow: 8px 8px 0 0 #000000;
+    }
+    .neo-shadow-sm {
+      box-shadow: 2px 2px 0 0 #000000;
+    }
+    .neo-btn {
+      border: 2px solid #000000;
+      box-shadow: 3px 3px 0 0 #000000;
+      transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .neo-btn:hover {
+      transform: translate(-1px, -1px);
+      box-shadow: 5px 5px 0 0 #000000;
+    }
+    .neo-btn:active {
+      transform: translate(2px, 2px);
+      box-shadow: 1px 1px 0 0 #000000;
+    }
+
+    /* Dark Mode specific shadows & glow */
+    html.dark .neo-border {
+      border-color: #000000;
+    }
+    html.dark .neo-shadow {
+      box-shadow: 4px 4px 0 0 #000000;
+    }
+    html.dark .neo-shadow-lg {
+      box-shadow: 8px 8px 0 0 #000000;
+    }
+    html.dark .neo-btn {
+      border-color: #000000;
+      box-shadow: 3px 3px 0 0 #000000;
+    }
+    html.dark .neo-btn:hover {
+      box-shadow: 5px 5px 0 0 #000000;
+    }
+
+    /* Brand Gradient */
+    .bg-brand-gradient {
+      background: linear-gradient(135deg, #ffb800 0%, #e95766 50%, #4724ba 100%);
+    }
+
+    /* Scrollbar styling */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: rgba(0, 0, 0, 0.05);
+    }
+    html.dark ::-webkit-scrollbar-track {
+      background: rgba(0, 0, 0, 0.4);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #4724ba;
+      border: 1px solid #000;
+    }
+  
+    /* Kamilla Zero-Orphan Standard */
+    h1, h2, h3, h4, h5, h6 {
+      text-wrap: balance !important;
+    }
+    p, .card-desc, label {
+      text-wrap: pretty !important;
+    }
+    .no-orphan {
+      text-wrap: balance !important;
+      white-space: nowrap !important;
+    }
+  
+</style>
+</head>
+<body class="min-h-screen font-sans antialiased transition-colors duration-200 bg-[#f6f4f6] text-slate-900 dark:bg-[#090d16] dark:text-slate-100">
+  <div id="root"></div>
+
+  <script type="text/babel">
+    const { useState, useEffect, useMemo, useRef } = React;
+
+    // --- STITCH SCREENS CATALOG ---
+    const STITCH_SCREENS = [
+      {
+        num: '04',
+        id: '24afc3761bcd4a6caeacd4f8220bea1f',
+        title: 'Small Goods Gym - Interactive Web Application',
+        category: 'Desktop Hub',
+        theme: 'Dark Mode',
+        desc: 'Comprehensive coach & athlete dashboard featuring real-time barbell velocity HUD, biometric diagnostics, and active athlete cards.',
+        htmlFile: 'stitch-export/04_small_goods_gym_interactive_web_application.html',
+        pngFile: 'stitch-export/04_small_goods_gym_interactive_web_application.png'
+      },
+      {
+        num: '05',
+        id: 'a2609c0acbdc4ae99e47b08b1abd8cce',
+        title: 'Small Goods Mobile PWA - Tactile Industrial HUD',
+        category: 'Mobile PWA',
+        theme: 'Dark Mode',
+        desc: 'Chalk-dusted gym-floor mobile logger with oversized touch targets, instant velocity loss tracker, and quick weight stepper.',
+        htmlFile: 'stitch-export/05_small_goods_mobile_pwa_tactile_industrial_hud.html',
+        pngFile: 'stitch-export/05_small_goods_mobile_pwa_tactile_industrial_hud.png'
+      },
+      {
+        num: '06',
+        id: '239b75b902cc4a84ae276ab49b9ff434',
+        title: 'Small Goods Mobile PWA - Sports-Science Lab Flow',
+        category: 'Mobile PWA',
+        theme: 'Dark Mode',
+        desc: 'Step-by-step readiness intake, joint range-of-motion scan, and personalized velocity warm-up ramps for athletes.',
+        htmlFile: 'stitch-export/06_small_goods_mobile_pwa_sports_science_lab_flow.html',
+        pngFile: 'stitch-export/06_small_goods_mobile_pwa_sports_science_lab_flow.png'
+      },
+      {
+        num: '07',
+        id: '8bc11d2f24be4c348b6dec6e73eb7b69',
+        title: 'Small Goods Mobile PWA - Kinetic Ergonomic HUD',
+        category: 'Mobile PWA',
+        theme: 'Dark Mode',
+        desc: 'Rapid tap anthropometry recorder and immediate mechanical ratio calculations optimized for single-hand mobile use.',
+        htmlFile: 'stitch-export/07_small_goods_mobile_pwa_kinetic_ergonomic_hud.html',
+        pngFile: 'stitch-export/07_small_goods_mobile_pwa_kinetic_ergonomic_hud.png'
+      },
+      {
+        num: '08',
+        id: '8ce84d508ce4462ea9d9c4406feb6130',
+        title: 'Tactile Anthropometry Terminal & Kinematic HUD',
+        category: 'Station Terminal',
+        theme: 'Dark Mode',
+        desc: 'Dedicated gym station tablet kiosk showing 3D skeletal vectors, joint angle envelopes, and lever breakdown.',
+        htmlFile: 'stitch-export/08_tactile_anthropometry_terminal_kinematic_hud.html',
+        pngFile: 'stitch-export/08_tactile_anthropometry_terminal_kinematic_hud.png'
+      },
+      {
+        num: '09',
+        id: 'bc5e24ea96464774b9c1ddcf1330053f',
+        title: 'Sports Science Anthropometry & Lever Matrix',
+        category: 'Biomechanics Lab',
+        theme: 'Dark Mode',
+        desc: 'Deep comparative matrix matching femur length, ape index, and torso dimensions against squat and deadlift mechanics.',
+        htmlFile: 'stitch-export/09_sports_science_anthropometry_lever_matrix.html',
+        pngFile: 'stitch-export/09_sports_science_anthropometry_lever_matrix.png'
+      },
+      {
+        num: '10',
+        id: '4efec6d9b35540949ca18efeae6facb7',
+        title: 'Small Goods Gym - Accessible Neo-Brutalist Light Mode',
+        category: 'Desktop Hub',
+        theme: 'Light Mode',
+        desc: 'High-contrast accessible daytime theme with off-white/bon-jour surfaces, heavy 2px black borders, and electric violet accents.',
+        htmlFile: 'stitch-export/10_small_goods_gym_accessible_neo_brutalist_light_mode.html',
+        pngFile: 'stitch-export/10_small_goods_gym_accessible_neo_brutalist_light_mode.png'
+      },
+      {
+        num: '11',
+        id: 'ff01a6bb37ec4c55b4f90d2838be06d9',
+        title: 'Biomechanical Leverage Diagnostic HUD - Sports Science Lab',
+        category: 'Biomechanics Lab',
+        theme: 'Dark Mode',
+        desc: 'High-density kinematic lab terminal featuring vector moment arms, lumbar shear coefficients, and bar-path drift telemetry.',
+        htmlFile: 'stitch-export/11_biomechanical_leverage_diagnostic_hud_sports_science_lab.html',
+        pngFile: 'stitch-export/11_biomechanical_leverage_diagnostic_hud_sports_science_lab.png'
+      },
+      {
+        num: '12',
+        id: '10dbe385730b474a9e3ae1bf3c0d8887',
+        title: 'Accessible Neo-Brutalist NDIS Clinical Portal & Plan Manager Hub',
+        category: 'NDIS Clinical',
+        theme: 'Light Mode',
+        desc: 'Light-mode clinical portal designed specifically for NDIS Support Coordinators, Plan Managers, and Allied Health teams.',
+        htmlFile: 'stitch-export/12_accessible_neo_brutalist_ndis_clinical_portal_plan_manager_hub.html',
+        pngFile: 'stitch-export/12_accessible_neo_brutalist_ndis_clinical_portal_plan_manager_hub.png'
+      },
+      {
+        num: '13',
+        id: '726871122e2b46bc8b896672a69afde6',
+        title: 'Small Goods NDIS Hub - Clinical Audit & Telemetry Suite',
+        category: 'NDIS Clinical',
+        theme: 'Dark Mode',
+        desc: 'Telemetry tracking suite pairing objective load-cell force data with medical justification notes for insurance compliance.',
+        htmlFile: 'stitch-export/13_small_goods_ndis_hub_clinical_audit_telemetry_suite.html',
+        pngFile: 'stitch-export/13_small_goods_ndis_hub_clinical_audit_telemetry_suite.png'
+      },
+      {
+        num: '14',
+        id: '8394399ae28d4b5ab1e5a681264b7ad6',
+        title: 'NDIS Evidence Engine - Objective Hardware Biometrics HUD',
+        category: 'NDIS Clinical',
+        theme: 'Dark Mode',
+        desc: 'Automated evidence generator linking Activforce 2 dynamometer readouts with rate-of-force-development progress graphs.',
+        htmlFile: 'stitch-export/14_ndis_evidence_engine_objective_hardware_biometrics_hud.html',
+        pngFile: 'stitch-export/14_ndis_evidence_engine_objective_hardware_biometrics_hud.png'
+      }
+    ];
+
+    // --- ATHLETE DATABASE MOCK ---
+    const ATHLETES = [
+      {
+        id: 'SGG-042',
+        name: 'Marcus Vance',
+        category: 'Powerlifting / Open',
+        ratio: '1.02 (Long Femur)',
+        apeIndex: '+6 cm',
+        squatStance: 'Wide (Low Bar)',
+        deadliftStance: 'Semi-Sumo',
+        vbtBaseline: '0.64 m/s @ 140kg',
+        tags: ['#longfemurs', '#lumbar-care', '#vbt-tier1'],
+        coachCue: 'Push knees out hard into the band on the ascent. Torso must not collapse forward past 45°!',
+        history: [
+          { set: 1, reps: 5, load: 140, vel: 0.72, rpe: 7.0, loss: '0.0%' },
+          { set: 2, reps: 5, load: 140, vel: 0.69, rpe: 7.5, loss: '4.2%' },
+          { set: 3, reps: 5, load: 140, vel: 0.65, rpe: 8.0, loss: '9.7%' },
+          { set: 4, reps: 5, load: 140, vel: 0.58, rpe: 9.0, loss: '19.4%' }
+        ]
+      },
+      {
+        id: 'SGG-089',
+        name: 'Elena Rostova',
+        category: 'NDIS Neurological Rehab',
+        ratio: '0.84 (Average)',
+        apeIndex: '-2 cm',
+        squatStance: 'Shoulder Width (Box)',
+        deadliftStance: 'Trap Bar Neutral',
+        vbtBaseline: '0.48 m/s @ 60kg',
+        tags: ['#ndis-active', '#left-hemiparesis', '#activforce'],
+        coachCue: 'Focus on left foot heel pressure. Keep bar level via Enode accelerometer visual feedback.',
+        history: [
+          { set: 1, reps: 8, load: 50, vel: 0.56, rpe: 6.5, loss: '0.0%' },
+          { set: 2, reps: 8, load: 50, vel: 0.52, rpe: 7.0, loss: '7.1%' },
+          { set: 3, reps: 8, load: 50, vel: 0.49, rpe: 7.5, loss: '12.5%' }
+        ]
+      },
+      {
+        id: 'SGG-115',
+        name: 'Sam Thornton',
+        category: 'Weightlifting / Youth',
+        ratio: '0.78 (Short Femur)',
+        apeIndex: '+8 cm',
+        squatStance: 'Narrow (High Bar Olympic)',
+        deadliftStance: 'Clean Pull / Conventional',
+        vbtBaseline: '0.92 m/s @ 100kg',
+        tags: ['#hyper-mobile', '#snatch-speed', '#high-rate-force'],
+        coachCue: 'Fast bounce out of the hole, do not pause at the bottom. Maintain strict upright thoracic posture.',
+        history: [
+          { set: 1, reps: 3, load: 100, vel: 0.94, rpe: 6.0, loss: '0.0%' },
+          { set: 2, reps: 3, load: 105, vel: 0.91, rpe: 6.5, loss: '3.2%' },
+          { set: 3, reps: 3, load: 110, vel: 0.88, rpe: 7.0, loss: '6.4%' }
+        ]
+      }
+    ];
+
+    // --- MAIN APPLICATION COMPONENT ---
+    function App() {
+      // Global Theme State: defaults to dark, checks localStorage
+      const [isDark, setIsDark] = useState(() => {
+        const saved = localStorage.getItem('smallgoods_theme');
+        return saved ? saved === 'dark' : true;
+      });
+
+      // Navigation: 'interactive' | 'stitch-studio' | 'design-system'
+      const [mainMode, setMainMode] = useState('interactive');
+
+      // Sync theme with HTML class & localStorage
+      useEffect(() => {
+        const root = document.documentElement;
+        if (isDark) {
+          root.classList.add('dark');
+          localStorage.setItem('smallgoods_theme', 'dark');
+        } else {
+          root.classList.remove('dark');
+          localStorage.setItem('smallgoods_theme', 'light');
+        }
+      }, [isDark]);
+
+      return (
+        <div className="flex flex-col min-h-screen">
+          {/* TOP ANNOUNCEMENT / STITCH BANNER */}
+          <div className="bg-brand-purple border-b-2 border-black px-4 py-1.5 text-white flex flex-wrap items-center justify-between text-xs font-mono">
+            <div className="flex items-center gap-2">
+              <span className="bg-brand-lime text-black px-1.5 py-0.5 font-bold uppercase rounded-sm text-[10px] neo-border">LIVE DEMO</span>
+              <span>Small Goods Gym • Interactive Systems Architecture Hub</span>
+            </div>
+            <div className="flex items-center gap-4">
+              <a href="https://github.com/Bulachak/small-goods-gym" target="_blank" rel="noreferrer" className="hover:underline flex items-center gap-1 font-bold text-brand-yellow">
+                <svg className="w-3.5 h-3.5 inline fill-current" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg> GitHub: Bulachak/small-goods-gym
+              </a>
+              <span className="hidden md:inline text-white/60">•</span>
+              <span className="hidden md:inline text-white/80">Stitch Project ID: 6480908177671535164</span>
+            </div>
+          </div>
+
+          {/* MAIN BRAND HEADER & CONTROLS */}
+          <header className="sticky top-0 z-50 bg-white/95 dark:bg-[#0f172a]/95 backdrop-blur border-b-2 border-black px-4 py-3 shadow-sm transition-colors">
+            <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3">
+              {/* Logo & Title */}
+              <div className="flex items-center gap-3">
+                <img 
+                  src="images/small-goods-logo_sticker@2x-p-500.png" 
+                  alt="Small Goods Gym Logo" 
+                  className="w-10 h-10 object-contain drop-shadow-[2px_2px_0px_#000000]"
+                />
+                <div>
+                  <h1 className="font-extrabold text-xl tracking-tight leading-none text-slate-900 dark:text-white flex items-center gap-2">
+                    SMALL GOODS <span className="bg-brand-purple text-white px-2 py-0.5 rounded text-sm neo-border">GYM</span>
+                  </h1>
+                  <p className="text-[11px] font-mono font-semibold tracking-wider text-slate-600 dark:text-slate-400 mt-0.5 uppercase">
+                    Sports Science • NDIS Clinical • Velocity Telemetry
+                  </p>
+                </div>
+              </div>
+
+              {/* Main Mode Navigation Tabs */}
+              <nav className="flex items-center gap-1.5 bg-slate-100 dark:bg-slate-900/80 p-1 rounded-lg neo-border">
+                <button
+                  onClick={() => setMainMode('interactive')}
+                  className={`px-3.5 py-1.5 text-xs font-bold rounded flex items-center gap-2 transition-all ${
+                    mainMode === 'interactive'
+                      ? 'bg-brand-violet text-white neo-shadow-sm neo-border font-extrabold'
+                      : 'text-slate-700 dark:text-slate-300 hover:text-black dark:hover:text-white'
+                  }`}
+                >
+                  <i data-lucide="activity" className="w-4 h-4"></i>
+                  <span>Live App Suite</span>
+                </button>
+
+                <button
+                  onClick={() => setMainMode('stitch-studio')}
+                  className={`px-3.5 py-1.5 text-xs font-bold rounded flex items-center gap-2 transition-all ${
+                    mainMode === 'stitch-studio'
+                      ? 'bg-brand-lime text-black neo-shadow-sm neo-border font-extrabold'
+                      : 'text-slate-700 dark:text-slate-300 hover:text-black dark:hover:text-white'
+                  }`}
+                >
+                  <i data-lucide="layers" className="w-4 h-4"></i>
+                  <span>Stitch Wireframe Studio</span>
+                  <span className="bg-black text-white text-[10px] px-1 rounded-sm font-mono font-bold">11</span>
+                </button>
+
+                <button
+                  onClick={() => setMainMode('design-system')}
+                  className={`px-3.5 py-1.5 text-xs font-bold rounded flex items-center gap-2 transition-all ${
+                    mainMode === 'design-system'
+                      ? 'bg-brand-yellow text-black neo-shadow-sm neo-border font-extrabold'
+                      : 'text-slate-700 dark:text-slate-300 hover:text-black dark:hover:text-white'
+                  }`}
+                >
+                  <i data-lucide="palette" className="w-4 h-4"></i>
+                  <span>Design System</span>
+                </button>
+              </nav>
+
+              {/* Theme Toggle & External Actions */}
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() => setIsDark(!isDark)}
+                  className="neo-btn flex items-center gap-2 px-3 py-1.5 bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-white font-mono text-xs font-bold rounded"
+                  title="Toggle Light / Dark Mode"
+                >
+                  {isDark ? (
+                    <>
+                      <i data-lucide="sun" className="w-4 h-4 text-brand-yellow"></i>
+                      <span>LIGHT</span>
+                    </>
+                  ) : (
+                    <>
+                      <i data-lucide="moon" className="w-4 h-4 text-brand-purple"></i>
+                      <span>DARK</span>
+                    </>
+                  )}
+                </button>
+              </div>
+            </div>
+          </header>
+
+          {/* MAIN CONTENT AREA */}
+          <main className="flex-1 max-w-7xl mx-auto w-full p-4 md:p-6">
+            {mainMode === 'interactive' && <InteractiveAppSuite isDark={isDark} />}
+            {mainMode === 'stitch-studio' && <StitchStudioView isDark={isDark} />}
+            {mainMode === 'design-system' && <DesignSystemView isDark={isDark} />}
+          </main>
+
+          {/* FOOTER */}
+          <footer className="bg-white dark:bg-[#090d16] border-t-2 border-black py-6 px-4 mt-auto">
+            <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4 text-xs font-mono text-slate-600 dark:text-slate-400">
+              <div className="flex items-center gap-3">
+                <img src="images/small-goods-logo_sticker@2x-p-500.png" alt="Small Goods" className="w-6 h-6 object-contain" />
+                <span>Small Goods Gym • Neo-Brutalist Sports Science Architecture</span>
+              </div>
+              <div className="flex items-center gap-6">
+                <span>Repository: <strong className="text-brand-purple dark:text-brand-lime">Bulachak/small-goods-gym</strong></span>
+                <span>Fonts: <strong>Poppins + Roboto Mono + Reenie Beanie</strong></span>
+                <span>Baza Systems Spec: <strong>SGG-SPEC-DESIGN-001</strong></span>
+              </div>
+            </div>
+          </footer>
+        </div>
+      );
+    }
+
+    // =========================================================================
+    // MODE 1: INTERACTIVE APP SUITE (Joel Mullen's Gym Floor & NDIS Suite)
+    // =========================================================================
+    function InteractiveAppSuite({ isDark }) {
+      const [activeTab, setActiveTab] = useState('vbt');
+      const [selectedAthlete, setSelectedAthlete] = useState(ATHLETES[0]);
+
+      // VBT Interactive state
+      const [currentLoad, setCurrentLoad] = useState(140);
+      const [reps, setReps] = useState(5);
+      const [rpe, setRpe] = useState(8.5);
+      const [recordedSets, setRecordedSets] = useState(ATHLETES[0].history);
+      const [meanVel, setMeanVel] = useState(0.68);
+
+      // Biomechanics slider state
+      const [femurRatio, setFemurRatio] = useState(1.02);
+      const [apeIndex, setApeIndex] = useState(6);
+
+      // Refresh icons on tab change
+      useEffect(() => {
+        if (window.lucide) lucide.createIcons();
+      }, [activeTab, selectedAthlete]);
+
+      // Add a live set
+      const logSet = () => {
+        const baseline = 0.72;
+        const newVel = Math.max(0.35, +(meanVel - 0.04).toFixed(2));
+        setMeanVel(newVel);
+        const loss = (((baseline - newVel) / baseline) * 100).toFixed(1) + '%';
+        const newEntry = {
+          set: recordedSets.length + 1,
+          reps: reps,
+          load: currentLoad,
+          vel: newVel,
+          rpe: rpe,
+          loss: loss
+        };
+        setRecordedSets([...recordedSets, newEntry]);
+      };
+
+      return (
+        <div className="space-y-6">
+          {/* SUITE SUB-NAV BAR */}
+          <div className="flex flex-wrap items-center justify-between gap-3 bg-white dark:bg-[#0f172a] p-3 rounded-lg neo-border neo-shadow">
+            <div className="flex flex-wrap items-center gap-2">
+              <button
+                onClick={() => setActiveTab('vbt')}
+                className={`px-4 py-2 rounded text-xs font-bold flex items-center gap-2 transition-all ${
+                  activeTab === 'vbt'
+                    ? 'bg-brand-violet text-white neo-btn font-extrabold'
+                    : 'bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200'
+                }`}
+              >
+                <i data-lucide="gauge" className="w-4 h-4"></i>
+                <span>Gym Floor VBT Telemetry</span>
+              </button>
+
+              <button
+                onClick={() => setActiveTab('biomech')}
+                className={`px-4 py-2 rounded text-xs font-bold flex items-center gap-2 transition-all ${
+                  activeTab === 'biomech'
+                    ? 'bg-brand-lime text-black neo-btn font-extrabold'
+                    : 'bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200'
+                }`}
+              >
+                <i data-lucide="bone" className="w-4 h-4"></i>
+                <span>Biomechanical Lever Lab</span>
+              </button>
+
+              <button
+                onClick={() => setActiveTab('ndis')}
+                className={`px-4 py-2 rounded text-xs font-bold flex items-center gap-2 transition-all ${
+                  activeTab === 'ndis'
+                    ? 'bg-brand-mint text-black neo-btn font-extrabold'
+                    : 'bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200'
+                }`}
+              >
+                <i data-lucide="file-check-2" className="w-4 h-4"></i>
+                <span>NDIS Clinical Telemetry</span>
+              </button>
+
+              <button
+                onClick={() => setActiveTab('roster')}
+                className={`px-4 py-2 rounded text-xs font-bold flex items-center gap-2 transition-all ${
+                  activeTab === 'roster'
+                    ? 'bg-brand-yellow text-black neo-btn font-extrabold'
+                    : 'bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200'
+                }`}
+              >
+                <i data-lucide="users" className="w-4 h-4"></i>
+                <span>Athlete Profiles & Cues</span>
+              </button>
+            </div>
+
+            {/* Athlete Quick Switcher */}
+            <div className="flex items-center gap-2 text-xs font-mono">
+              <span className="text-slate-600 dark:text-slate-400 font-bold uppercase">Active Athlete:</span>
+              <select
+                value={selectedAthlete.id}
+                onChange={(e) => {
+                  const ath = ATHLETES.find(a => a.id === e.target.value);
+                  setSelectedAthlete(ath);
+                  setRecordedSets(ath.history);
+                  setMeanVel(ath.history[ath.history.length - 1]?.vel || 0.68);
+                }}
+                className="bg-brand-sage dark:bg-slate-800 text-black dark:text-white px-2.5 py-1.5 rounded neo-border font-bold text-xs"
+              >
+                {ATHLETES.map(a => (
+                  <option key={a.id} value={a.id}>{a.name} ({a.category})</option>
+                ))}
+              </select>
+            </div>
+          </div>
+
+          {/* TAB 1: VBT TELEMETRY & WORKOUT LOGGER */}
+          {activeTab === 'vbt' && (
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+              {/* Left 2 Cols: Real-Time HUD & Logger */}
+              <div className="lg:col-span-2 space-y-6">
+                {/* Barbell Velocity Telemetry HUD Card */}
+                <div className="bg-white dark:bg-[#0f172a] p-6 rounded-lg neo-border neo-shadow space-y-4">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <span className="text-xs font-mono font-bold uppercase px-2 py-0.5 bg-brand-purple text-white rounded neo-border">ENODE HARDWARE STREAM</span>
+                      <h2 className="text-xl font-extrabold mt-1">Real-Time Barbell Velocity Curve</h2>
+                    </div>
+                    <div className="text-right font-mono">
+                      <span className="text-xs text-slate-600 dark:text-slate-400">Auto-Cutoff Threshold:</span>
+                      <div className="text-sm font-extrabold text-brand-coral">20% VELOCITY LOSS</div>
+                    </div>
+                  </div>
+
+                  {/* Velocity Graph (SVG) */}
+                  <div className="bg-slate-950 p-4 rounded-lg neo-border text-white space-y-2">
+                    <div className="flex justify-between text-xs font-mono text-slate-400">
+                      <span>0.0s (Unrack)</span>
+                      <span>CONCENTRIC VELOCITY PROFILE (m/s)</span>
+                      <span>3.2s (Lockout)</span>
+                    </div>
+                    <svg viewBox="0 0 500 120" className="w-full h-28 stroke-current">
+                      {/* Grid lines */}
+                      <line x1="0" y1="30" x2="500" y2="30" stroke="#334155" strokeDasharray="4" />
+                      <line x1="0" y1="60" x2="500" y2="60" stroke="#334155" strokeDasharray="4" />
+                      <line x1="0" y1="90" x2="500" y2="90" stroke="#334155" strokeDasharray="4" />
+                      
+                      {/* 20% fatigue boundary line */}
+                      <line x1="0" y1="78" x2="500" y2="78" stroke="#e95766" strokeWidth="1.5" strokeDasharray="6" />
+                      <text x="10" y="74" fill="#e95766" fontSize="9" fontFamily="monospace">FATIGUE CUTOFF (0.58 m/s)</text>
+
+                      {/* Rep curves */}
+                      <path d="M 10 100 Q 80 10, 160 50 T 260 40 T 380 45 T 490 60" fill="none" stroke="#9aef0f" strokeWidth="3" />
+                      <path d="M 10 100 Q 80 25, 160 65 T 260 58 T 380 72 T 490 85" fill="none" stroke="#6a3cf4" strokeWidth="2.5" strokeDasharray="2" />
+                    </svg>
+                    <div className="flex items-center justify-between text-xs font-mono pt-1">
+                      <div className="flex items-center gap-4">
+                        <span className="flex items-center gap-1 text-brand-lime">
+                          <span className="w-2.5 h-2.5 bg-brand-lime rounded-full inline-block"></span> Rep 1 Peak: 0.76 m/s
+                        </span>
+                        <span className="flex items-center gap-1 text-brand-violet">
+                          <span className="w-2.5 h-2.5 bg-brand-violet rounded-full inline-block"></span> Rep 5 Peak: 0.59 m/s
+                        </span>
+                      </div>
+                      <span className="text-brand-lime font-bold">STRENGTH ACCELERATION ZONE</span>
+                    </div>
+                  </div>
+
+                  {/* High Frequency Logger Controls */}
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-3 pt-2">
+                    <div className="bg-slate-50 dark:bg-slate-800 p-3 rounded neo-border">
+                      <span className="text-[10px] font-mono text-slate-600 dark:text-slate-400 uppercase font-bold">Bar Load (kg)</span>
+                      <div className="flex items-center justify-between mt-1">
+                        <button onClick={() => setCurrentLoad(l => Math.max(20, l - 5))} className="w-7 h-7 bg-slate-200 dark:bg-slate-700 rounded font-bold neo-border">-</button>
+                        <span className="font-mono text-xl font-extrabold">{currentLoad}</span>
+                        <button onClick={() => setCurrentLoad(l => l + 5)} className="w-7 h-7 bg-slate-200 dark:bg-slate-700 rounded font-bold neo-border">+</button>
+                      </div>
+                    </div>
+
+                    <div className="bg-slate-50 dark:bg-slate-800 p-3 rounded neo-border">
+                      <span className="text-[10px] font-mono text-slate-600 dark:text-slate-400 uppercase font-bold">Reps Target</span>
+                      <div className="flex items-center justify-between mt-1">
+                        <button onClick={() => setReps(r => Math.max(1, r - 1))} className="w-7 h-7 bg-slate-200 dark:bg-slate-700 rounded font-bold neo-border">-</button>
+                        <span className="font-mono text-xl font-extrabold">{reps}</span>
+                        <button onClick={() => setReps(r => r + 1)} className="w-7 h-7 bg-slate-200 dark:bg-slate-700 rounded font-bold neo-border">+</button>
+                      </div>
+                    </div>
+
+                    <div className="bg-slate-50 dark:bg-slate-800 p-3 rounded neo-border">
+                      <span className="text-[10px] font-mono text-slate-600 dark:text-slate-400 uppercase font-bold">Current RPE</span>
+                      <div className="flex items-center justify-between mt-1">
+                        <button onClick={() => setRpe(r => Math.max(6, +(r - 0.5).toFixed(1)))} className="w-7 h-7 bg-slate-200 dark:bg-slate-700 rounded font-bold neo-border">-</button>
+                        <span className="font-mono text-xl font-extrabold text-brand-purple dark:text-brand-lime">{rpe}</span>
+                        <button onClick={() => setRpe(r => Math.min(10, +(r + 0.5).toFixed(1)))} className="w-7 h-7 bg-slate-200 dark:bg-slate-700 rounded font-bold neo-border">+</button>
+                      </div>
+                    </div>
+
+                    <div className="flex flex-col justify-end">
+                      <button
+                        onClick={logSet}
+                        className="neo-btn bg-brand-lime text-black font-extrabold text-sm py-3 px-4 rounded flex items-center justify-center gap-2 uppercase tracking-wide"
+                      >
+                        <i data-lucide="check-circle-2" className="w-5 h-5"></i>
+                        <span>LOG SET</span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Recorded Sets Table */}
+                <div className="bg-white dark:bg-[#0f172a] p-6 rounded-lg neo-border neo-shadow">
+                  <h3 className="font-extrabold text-lg mb-3 flex items-center justify-between">
+                    <span>Live Session Telemetry Log</span>
+                    <span className="text-xs font-mono bg-brand-cream text-black px-2 py-0.5 rounded neo-border font-bold">
+                      {recordedSets.length} Sets Completed
+                    </span>
+                  </h3>
+                  <div className="overflow-x-auto">
+                    <table className="w-full text-left font-mono text-xs border-collapse">
+                      <thead>
+                        <tr className="border-b-2 border-black bg-slate-100 dark:bg-slate-800">
+                          <th className="py-2.5 px-3">SET</th>
+                          <th className="py-2.5 px-3">LOAD</th>
+                          <th className="py-2.5 px-3">REPS</th>
+                          <th className="py-2.5 px-3">MEAN VELOCITY</th>
+                          <th className="py-2.5 px-3">VELOCITY LOSS</th>
+                          <th className="py-2.5 px-3">RPE</th>
+                          <th className="py-2.5 px-3">STATUS</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {recordedSets.map((s, idx) => (
+                          <tr key={idx} className="border-b border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800/50">
+                            <td className="py-2.5 px-3 font-bold">#{s.set}</td>
+                            <td className="py-2.5 px-3">{s.load} kg</td>
+                            <td className="py-2.5 px-3">{s.reps}</td>
+                            <td className="py-2.5 px-3 font-bold text-brand-purple dark:text-brand-lime">{s.vel} m/s</td>
+                            <td className="py-2.5 px-3">
+                              <span className={`px-1.5 py-0.5 rounded font-bold ${
+                                parseFloat(s.loss) > 15 ? 'bg-brand-coral/20 text-brand-coral' : 'text-slate-600 dark:text-slate-300'
+                              }`}>
+                                {s.loss}
+                              </span>
+                            </td>
+                            <td className="py-2.5 px-3 font-bold">{s.rpe}</td>
+                            <td className="py-2.5 px-3">
+                              {parseFloat(s.loss) >= 19 ? (
+                                <span className="bg-brand-coral text-white px-2 py-0.5 rounded-sm text-[10px] font-bold">FATIGUE CEILING</span>
+                              ) : (
+                                <span className="bg-brand-lime text-black px-2 py-0.5 rounded-sm text-[10px] font-bold">OPTIMAL</span>
+                              )}
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+
+              {/* Right Col: Coach Cues & Biomechanics Snapshot */}
+              <div className="space-y-6">
+                {/* Handwritten Coach Tip Card */}
+                <div className="bg-brand-yellow text-black p-5 rounded-lg neo-border neo-shadow relative overflow-hidden">
+                  <div className="absolute top-2 right-2 bg-black text-white px-1.5 py-0.5 text-[9px] font-mono font-bold uppercase rounded-sm">
+                    STICKER CUE
+                  </div>
+                  <span className="text-xs font-mono font-bold text-slate-800 uppercase tracking-wide">Coach Joel Mullen's Live Floor Directive:</span>
+                  <p className="font-script text-3xl leading-snug mt-2 text-slate-900">
+                    "{selectedAthlete.coachCue}"
+                  </p>
+                  <div className="mt-4 pt-3 border-t border-black/20 flex items-center justify-between text-xs font-mono">
+                    <span>Target Stance: <strong>{selectedAthlete.squatStance}</strong></span>
+                    <span>Ape Index: <strong>{selectedAthlete.apeIndex}</strong></span>
+                  </div>
+                </div>
+
+                {/* Anthropometry Quick Summary */}
+                <div className="bg-white dark:bg-[#0f172a] p-5 rounded-lg neo-border neo-shadow space-y-3">
+                  <h3 className="font-extrabold text-base flex items-center gap-2">
+                    <i data-lucide="scan" className="w-4 h-4 text-brand-purple"></i>
+                    <span>Kinematic Profile Summary</span>
+                  </h3>
+                  <div className="space-y-2 text-xs font-mono">
+                    <div className="flex justify-between py-1 border-b border-slate-200 dark:border-slate-800">
+                      <span className="text-slate-600 dark:text-slate-400">Femur/Torso Ratio:</span>
+                      <strong className="text-red-700 dark:text-red-400">{selectedAthlete.ratio}</strong>
+                    </div>
+                    <div className="flex justify-between py-1 border-b border-slate-200 dark:border-slate-800">
+                      <span className="text-slate-500">Deadlift Stance:</span>
+                      <strong>{selectedAthlete.deadliftStance}</strong>
+                    </div>
+                    <div className="flex justify-between py-1 border-b border-slate-200 dark:border-slate-800">
+                      <span className="text-slate-600 dark:text-slate-400">VBT Baseline:</span>
+                      <strong className="text-emerald-800 dark:text-brand-lime">{selectedAthlete.vbtBaseline}</strong>
+                    </div>
+                  </div>
+                  <div className="pt-2 flex flex-wrap gap-1">
+                    {selectedAthlete.tags.map(t => (
+                      <span key={t} className="bg-brand-sage dark:bg-slate-800 text-black dark:text-white px-2 py-0.5 text-[10px] font-mono font-bold rounded neo-border">
+                        {t}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Quick Weight Steppers (Fitts's Law 64dp) */}
+                <div className="bg-white dark:bg-[#0f172a] p-4 rounded-lg neo-border neo-shadow">
+                  <span className="text-xs font-mono font-bold text-slate-500 uppercase">One-Tap Barbell Increments (+kg)</span>
+                  <div className="grid grid-cols-3 gap-2 mt-2">
+                    <button onClick={() => setCurrentLoad(l => l + 2.5)} className="neo-btn bg-brand-cream text-black py-3 rounded font-mono font-bold text-sm">+2.5</button>
+                    <button onClick={() => setCurrentLoad(l => l + 5)} className="neo-btn bg-brand-yellow text-black py-3 rounded font-mono font-bold text-sm">+5.0</button>
+                    <button onClick={() => setCurrentLoad(l => l + 10)} className="neo-btn bg-brand-lime text-black py-3 rounded font-mono font-bold text-sm">+10.0</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* TAB 2: BIOMECHANICAL LEVER LAB */}
+          {activeTab === 'biomech' && (
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+              {/* Interactive Sliders */}
+              <div className="bg-white dark:bg-[#0f172a] p-6 rounded-lg neo-border neo-shadow space-y-6">
+                <div>
+                  <span className="text-xs font-mono font-bold uppercase px-2 py-0.5 bg-brand-lime text-black rounded neo-border">BIOMECHANICAL ENGINE</span>
+                  <h2 className="text-xl font-extrabold mt-1">Anatomical Lever Calibration</h2>
+                  <p className="text-xs text-slate-600 dark:text-slate-400 mt-1">
+                    Drag the sliders to test how limb segment lengths alter joint torque and bar path requirements.
+                  </p>
+                </div>
+
+                {/* Femur-to-Torso Ratio Slider */}
+                <div className="space-y-2">
+                  <div className="flex justify-between font-mono text-xs">
+                    <span className="font-bold">Femur / Torso Ratio:</span>
+                    <span className="bg-brand-purple text-white px-2 py-0.5 rounded font-extrabold">{femurRatio}</span>
+                  </div>
+                  <input
+                    id="femur-ratio-slider"
+                    aria-label="Femur to Torso Ratio"
+                    type="range"
+                    min="0.75"
+                    max="1.15"
+                    step="0.01"
+                    value={femurRatio}
+                    onChange={(e) => setFemurRatio(parseFloat(e.target.value))}
+                    className="w-full h-2 bg-slate-200 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-brand-purple"
+                  />
+                  <div className="flex justify-between text-[10px] font-mono text-slate-600 dark:text-slate-400">
+                    <span>Short (&lt; 0.85)</span>
+                    <span>Average (0.85 - 0.95)</span>
+                    <span>Long (&gt; 0.98)</span>
+                  </div>
+                </div>
+
+                {/* Ape Index Slider */}
+                <div className="space-y-2">
+                  <div className="flex justify-between font-mono text-xs">
+                    <span className="font-bold">Ape Index (Arm Span - Height):</span>
+                    <span className="bg-brand-coral text-white px-2 py-0.5 rounded font-extrabold">
+                      {apeIndex >= 0 ? `+${apeIndex} cm` : `${apeIndex} cm`}
+                    </span>
+                  </div>
+                  <input
+                    id="ape-index-slider"
+                    aria-label="Ape Index in centimeters"
+                    type="range"
+                    min="-8"
+                    max="14"
+                    step="1"
+                    value={apeIndex}
+                    onChange={(e) => setApeIndex(parseInt(e.target.value))}
+                    className="w-full h-2 bg-slate-200 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-brand-coral"
+                  />
+                  <div className="flex justify-between text-[10px] font-mono text-slate-600 dark:text-slate-400">
+                    <span>-8 cm (Short Arms)</span>
+                    <span>0 cm (Proportional)</span>
+                    <span>+14 cm (Long Wingspan)</span>
+                  </div>
+                </div>
+
+                {/* Automated Prescriptions */}
+                <div className="bg-slate-50 dark:bg-slate-800/80 p-4 rounded neo-border space-y-3">
+                  <span className="text-xs font-mono font-bold text-slate-500 uppercase">Prescribed Technical Adjustments</span>
+                  
+                  <div className="text-xs space-y-2">
+                    <div className="p-2.5 rounded bg-white dark:bg-slate-900 neo-border">
+                      <span className="font-bold text-brand-purple dark:text-brand-lime block">Squat Kinematics:</span>
+                      {femurRatio > 0.98 ? (
+                        <p className="text-slate-700 dark:text-slate-300 mt-0.5">
+                          Wide stance (1.3x shoulder width), 25° toe flare, Low-Bar bar placement required to shorten the lumbar moment arm.
+                        </p>
+                      ) : (
+                        <p className="text-slate-700 dark:text-slate-300 mt-0.5">
+                          Upright High-Bar or Front Squat viable with minimal forward lean; quad-dominant mechanical leverage.
+                        </p>
+                      )}
+                    </div>
+
+                    <div className="p-2.5 rounded bg-white dark:bg-slate-900 neo-border">
+                      <span className="font-bold text-brand-coral block">Deadlift Setup:</span>
+                      {apeIndex > 4 ? (
+                        <p className="text-slate-700 dark:text-slate-300 mt-0.5">
+                          Conventional deadlift favored due to superior starting hip height and reduced horizontal distance to the barbell.
+                        </p>
+                      ) : (
+                        <p className="text-slate-700 dark:text-slate-300 mt-0.5">
+                          Semi-Sumo or Sumo stance strongly recommended to shorten torso travel and preserve lumbar spine under heavy load.
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Dynamic Kinetic Vector SVG */}
+              <div className="lg:col-span-2 bg-white dark:bg-[#0f172a] p-6 rounded-lg neo-border neo-shadow flex flex-col justify-between">
+                <div>
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <span className="text-xs font-mono font-bold uppercase px-2 py-0.5 bg-brand-yellow text-black rounded neo-border">VECTOR SIMULATION</span>
+                      <h3 className="text-lg font-extrabold mt-1">Joint Moment Arm & Torque Diagram</h3>
+                    </div>
+                    <span className="font-mono text-xs bg-slate-100 dark:bg-slate-800 px-2.5 py-1 rounded neo-border font-bold">
+                      Calculated Lean: {Math.round(25 + (femurRatio - 0.75) * 65)}°
+                    </span>
+                  </div>
+
+                  {/* Kinetic Diagram */}
+                  <div className="my-6 flex justify-center items-center bg-slate-950 p-6 rounded-lg neo-border">
+                    <svg viewBox="0 0 400 240" className="w-full max-w-lg h-56 stroke-current">
+                      {/* Floor line */}
+                      <line x1="20" y1="210" x2="380" y2="210" stroke="#64748b" strokeWidth="3" />
+                      
+                      {/* Foot */}
+                      <line x1="160" y1="210" x2="220" y2="210" stroke="#94a3b8" strokeWidth="6" strokeLinecap="round" />
+                      
+                      {/* Ankle -> Knee */}
+                      <line x1="180" y1="210" x2="220" y2="150" stroke="#9aef0f" strokeWidth="5" strokeLinecap="round" />
+                      
+                      {/* Knee -> Hip (adjusted by femurRatio) */}
+                      {(() => {
+                        const hipX = 220 - (femurRatio * 110);
+                        const hipY = 150 - (femurRatio * 15);
+                        const torsoLean = 25 + (femurRatio - 0.75) * 65;
+                        const shoulderX = hipX + (100 * Math.sin((torsoLean * Math.PI) / 180));
+                        const shoulderY = hipY - (100 * Math.cos((torsoLean * Math.PI) / 180));
+                        return (
+                          <g>
+                            {/* Femur */}
+                            <line x1="220" y1="150" x2={hipX} y2={hipY} stroke="#e95766" strokeWidth="6" strokeLinecap="round" />
+                            {/* Torso */}
+                            <line x1={hipX} y1={hipY} x2={shoulderX} y2={shoulderY} stroke="#6a3cf4" strokeWidth="6" strokeLinecap="round" />
+                            {/* Barbell load path vector */}
+                            <line x1={shoulderX} y1="30" x2={shoulderX} y2="210" stroke="#f8ef8d" strokeWidth="2" strokeDasharray="4" />
+                            <circle cx={shoulderX} cy={shoulderY} r="8" fill="#f8ef8d" stroke="#000" strokeWidth="2" />
+                            {/* Lumbar moment arm dimension */}
+                            <line x1={hipX} y1={hipY} x2={shoulderX} y2={hipY} stroke="#ecfd28" strokeWidth="2" strokeDasharray="3" />
+                            <text x={(hipX + shoulderX) / 2 - 25} y={hipY - 8} fill="#ecfd28" fontSize="10" fontFamily="monospace">
+                              {Math.round(Math.abs(shoulderX - hipX) * 0.4)}cm Moment
+                            </text>
+                            {/* Joints */}
+                            <circle cx="180" cy="210" r="4" fill="#fff" />
+                            <circle cx="220" cy="150" r="5" fill="#9aef0f" />
+                            <circle cx={hipX} cy={hipY} r="6" fill="#e95766" />
+                          </g>
+                        );
+                      })()}
+                    </svg>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-3 gap-3 text-xs font-mono pt-2">
+                  <div className="bg-slate-50 dark:bg-slate-800 p-3 rounded neo-border">
+                    <span className="text-[10px] text-slate-600 dark:text-slate-400 uppercase font-bold">Knee Extensor Moment</span>
+                    <div className="font-extrabold text-sm text-emerald-800 dark:text-brand-lime mt-0.5">
+                      {femurRatio > 0.95 ? 'Moderate' : 'High Quadriceps'}
+                    </div>
+                  </div>
+                  <div className="bg-slate-50 dark:bg-slate-800 p-3 rounded neo-border">
+                    <span className="text-[10px] text-slate-600 dark:text-slate-400 uppercase font-bold">Hip Extensor Torque</span>
+                    <div className="font-extrabold text-sm text-red-700 dark:text-red-400 mt-0.5">
+                      {femurRatio > 0.95 ? 'High (Posterior)' : 'Balanced'}
+                    </div>
+                  </div>
+                  <div className="bg-slate-50 dark:bg-slate-800 p-3 rounded neo-border">
+                    <span className="text-[10px] text-slate-600 dark:text-slate-400 uppercase font-bold">Spinal Shear Stress</span>
+                    <div className="font-extrabold text-sm text-amber-900 dark:text-amber-300 mt-0.5">
+                      {femurRatio > 1.0 ? 'Elevated (Guard)' : 'Low Nominal'}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* TAB 3: NDIS CLINICAL TELEMETRY & REPORT GENERATOR */}
+          {activeTab === 'ndis' && (
+            <div className="space-y-6">
+              <div className="bg-white dark:bg-[#0f172a] p-6 rounded-lg neo-border neo-shadow">
+                <div className="flex flex-wrap items-center justify-between gap-3 border-b-2 border-black pb-4">
+                  <div>
+                    <span className="text-xs font-mono font-bold uppercase px-2 py-0.5 bg-brand-mint text-black rounded neo-border">ALLIED HEALTH SUITE</span>
+                    <h2 className="text-xl font-extrabold mt-1">NDIS Objective Hardware Evidence & Telemetry</h2>
+                    <p className="text-xs text-slate-600 dark:text-slate-400 mt-1">
+                      Continuous sensor logs from Activforce 2 digital dynamometer and dual force plate ground reaction telemetry.
+                    </p>
+                  </div>
+                  <button 
+                    onClick={() => alert('NDIS Comprehensive Audit Report Generated: Ready for Plan Manager & Support Coordinator submission.')}
+                    className="neo-btn bg-brand-lime text-black font-extrabold text-xs px-4 py-2.5 rounded flex items-center gap-2"
+                  >
+                    <i data-lucide="download" className="w-4 h-4"></i>
+                    <span>EXPORT NDIS EVIDENCE PACK (PDF)</span>
+                  </button>
+                </div>
+
+                {/* Metrics Cards */}
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mt-6">
+                  <div className="bg-slate-50 dark:bg-slate-800 p-4 rounded neo-border">
+                    <span className="text-[10px] font-mono text-slate-600 dark:text-slate-400 uppercase font-bold">Peak Isometric Force</span>
+                    <div className="text-2xl font-mono font-extrabold text-brand-purple dark:text-emerald-400 mt-1">428 N</div>
+                    <span className="text-[11px] text-emerald-800 dark:text-emerald-400 font-bold">▲ +14.2% vs 8-wk baseline</span>
+                  </div>
+
+                  <div className="bg-slate-50 dark:bg-slate-800 p-4 rounded neo-border">
+                    <span className="text-[10px] font-mono text-slate-600 dark:text-slate-400 uppercase font-bold">Rate of Force Development</span>
+                    <div className="text-2xl font-mono font-extrabold text-red-700 dark:text-red-400 mt-1">1,840 N/s</div>
+                    <span className="text-[11px] text-emerald-800 dark:text-emerald-400 font-bold">▲ +210 N/s explosive threshold</span>
+                  </div>
+
+                  <div className="bg-slate-50 dark:bg-slate-800 p-4 rounded neo-border">
+                    <span className="text-[10px] font-mono text-slate-600 dark:text-slate-400 uppercase font-bold">Bilateral Asymmetry</span>
+                    <div className="text-2xl font-mono font-extrabold text-amber-800 dark:text-amber-300 mt-1">6.2%</div>
+                    <span className="text-[11px] text-emerald-800 dark:text-emerald-400 font-bold">▼ Reduced from 18.5% initial deficit</span>
+                  </div>
+
+                  <div className="bg-slate-50 dark:bg-slate-800 p-4 rounded neo-border">
+                    <span className="text-[10px] font-mono text-slate-600 dark:text-slate-400 uppercase font-bold">Clinical Compliance Score</span>
+                    <div className="text-2xl font-mono font-extrabold text-teal-900 dark:text-teal-300 mt-1">98.5%</div>
+                    <span className="text-[11px] text-slate-700 dark:text-slate-400 font-bold">Holly Hunt, PT Sign-off</span>
+                  </div>
+                </div>
+
+                {/* Clinical Audit Trail Table */}
+                <div className="mt-6">
+                  <h3 className="font-extrabold text-sm font-mono uppercase mb-3">Allied Health Action & Sign-Off Log</h3>
+                  <div className="overflow-x-auto">
+                    <table className="w-full text-left font-mono text-xs border-collapse">
+                      <thead>
+                        <tr className="border-b-2 border-black bg-slate-100 dark:bg-slate-800">
+                          <th className="py-2 px-3">DATE</th>
+                          <th className="py-2 px-3">CLINICIAN</th>
+                          <th className="py-2 px-3">HARDWARE TOOL</th>
+                          <th className="py-2 px-3">CLINICAL OBSERVATION & OUTCOME</th>
+                          <th className="py-2 px-3">STATUS</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr className="border-b border-slate-200 dark:border-slate-800">
+                          <td className="py-2.5 px-3 font-bold">2026-09-12</td>
+                          <td className="py-2.5 px-3">Holly Hunt (Physio)</td>
+                          <td className="py-2.5 px-3">Activforce 2</td>
+                          <td className="py-2.5 px-3 font-sans">Left quadricep peak force increased to 390N. Bilateral deficit down to 6.2%. Cleared for trap bar loading.</td>
+                          <td className="py-2.5 px-3"><span className="bg-brand-lime text-black px-2 py-0.5 rounded font-bold text-[10px]">APPROVED</span></td>
+                        </tr>
+                        <tr className="border-b border-slate-200 dark:border-slate-800">
+                          <td className="py-2.5 px-3 font-bold">2026-09-08</td>
+                          <td className="py-2.5 px-3">Joel Mullen (Head Coach)</td>
+                          <td className="py-2.5 px-3">Enode Linear Transducer</td>
+                          <td className="py-2.5 px-3 font-sans">Velocity loss maintained under 15% across 4 working sets. Zero compensations noted in lumbar spine.</td>
+                          <td className="py-2.5 px-3"><span className="bg-brand-lime text-black px-2 py-0.5 rounded font-bold text-[10px]">COMPLETED</span></td>
+                        </tr>
+                        <tr>
+                          <td className="py-2.5 px-3 font-bold">2026-09-01</td>
+                          <td className="py-2.5 px-3">Plan Manager Review</td>
+                          <td className="py-2.5 px-3">NDIS Telemetry Pack</td>
+                          <td className="py-2.5 px-3 font-sans">Quarterly outcome justification filed with evidence graphs. Goal achieved: Independent transfers under load.</td>
+                          <td className="py-2.5 px-3"><span className="bg-brand-purple text-white px-2 py-0.5 rounded font-bold text-[10px]">FILED</span></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* TAB 4: ATHLETE ROSTER & COACH NOTES */}
+          {activeTab === 'roster' && (
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {ATHLETES.map(a => (
+                <div 
+                  key={a.id} 
+                  className={`bg-white dark:bg-[#0f172a] p-5 rounded-lg neo-border neo-shadow cursor-pointer transition-all ${
+                    selectedAthlete.id === a.id ? 'ring-2 ring-brand-purple' : ''
+                  }`}
+                  onClick={() => setSelectedAthlete(a)}
+                >
+                  <div className="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 pb-3">
+                    <div>
+                      <span className="text-[10px] font-mono font-bold text-slate-500 uppercase">{a.id}</span>
+                      <h3 className="font-extrabold text-lg leading-tight">{a.name}</h3>
+                    </div>
+                    <span className="text-xs font-mono bg-brand-cream text-black px-2 py-1 rounded neo-border font-bold">
+                      {a.category.split('/')[0]}
+                    </span>
+                  </div>
+
+                  <div className="py-3 space-y-1.5 text-xs font-mono">
+                    <div className="flex justify-between">
+                      <span className="text-slate-600 dark:text-slate-400">Femur Ratio:</span>
+                      <strong className="text-red-700 dark:text-red-400">{a.ratio}</strong>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-slate-500">Ape Index:</span>
+                      <strong>{a.apeIndex}</strong>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-slate-500">Squat Stance:</span>
+                      <strong className="text-brand-purple dark:text-brand-lime">{a.squatStance}</strong>
+                    </div>
+                  </div>
+
+                  {/* Coach Note in Reenie Beanie */}
+                  <div className="bg-brand-yellow/80 text-black p-3 rounded neo-border mt-2">
+                    <span className="text-[10px] font-mono uppercase font-bold text-slate-700 block">Coach Note:</span>
+                    <p className="font-script text-xl leading-tight mt-1">
+                      "{a.coachCue}"
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      );
+    }
+
+    // =========================================================================
+    // MODE 2: STITCH WIREFRAME & SCREEN VARIATIONS STUDIO
+    // =========================================================================
+    function StitchStudioView({ isDark }) {
+      const [selectedScreen, setSelectedScreen] = useState(STITCH_SCREENS[0]);
+      const [viewport, setViewport] = useState('desktop'); // 'desktop' | 'tablet' | 'mobile'
+      const [renderMode, setRenderMode] = useState('interactive'); // 'interactive' | 'screenshot' | 'split'
+      const iframeRef = useRef(null);
+
+      // Re-create icons when selection changes
+      useEffect(() => {
+        if (window.lucide) lucide.createIcons();
+      }, [selectedScreen, viewport, renderMode]);
+
+      // Inject theme into iframe when loaded
+      const handleIframeLoad = () => {
+        try {
+          if (iframeRef.current && iframeRef.current.contentDocument) {
+            const doc = iframeRef.current.contentDocument;
+            if (isDark) {
+              doc.documentElement.classList.add('dark');
+            } else {
+              doc.documentElement.classList.remove('dark');
+            }
+          }
+        } catch (e) {
+          console.warn('Iframe theme injection blocked by origin:', e);
+        }
+      };
+
+      // Also trigger theme sync on theme toggle
+      useEffect(() => {
+        handleIframeLoad();
+      }, [isDark]);
+
+      return (
+        <div className="space-y-6">
+          {/* STUDIO CONTROL BAR */}
+          <div className="bg-white dark:bg-[#0f172a] p-4 rounded-lg neo-border neo-shadow flex flex-wrap items-center justify-between gap-4">
+            <div>
+              <div className="flex items-center gap-2">
+                <span className="text-xs font-mono font-bold uppercase px-2 py-0.5 bg-brand-lime text-black rounded neo-border">
+                  STITCH STUDIO
+                </span>
+                <span className="text-xs font-mono text-slate-600 dark:text-slate-400">Screen #{selectedScreen.num}</span>
+              </div>
+              <h2 className="text-lg font-extrabold mt-0.5">{selectedScreen.title}</h2>
+            </div>
+
+            {/* Viewport & Render Mode Switchers */}
+            <div className="flex flex-wrap items-center gap-3 text-xs font-mono">
+              {/* Viewport switch */}
+              <div className="flex items-center bg-slate-100 dark:bg-slate-800 p-1 rounded neo-border">
+                <button
+                  onClick={() => setViewport('desktop')}
+                  className={`px-3 py-1 rounded font-bold flex items-center gap-1.5 ${
+                    viewport === 'desktop' ? 'bg-brand-violet text-white neo-shadow-sm' : 'text-slate-600 dark:text-slate-300'
+                  }`}
+                >
+                  <i data-lucide="monitor" className="w-3.5 h-3.5"></i>
+                  <span>Desktop</span>
+                </button>
+                <button
+                  onClick={() => setViewport('tablet')}
+                  className={`px-3 py-1 rounded font-bold flex items-center gap-1.5 ${
+                    viewport === 'tablet' ? 'bg-brand-violet text-white neo-shadow-sm' : 'text-slate-600 dark:text-slate-300'
+                  }`}
+                >
+                  <i data-lucide="tablet" className="w-3.5 h-3.5"></i>
+                  <span>Tablet (768)</span>
+                </button>
+                <button
+                  onClick={() => setViewport('mobile')}
+                  className={`px-3 py-1 rounded font-bold flex items-center gap-1.5 ${
+                    viewport === 'mobile' ? 'bg-brand-violet text-white neo-shadow-sm' : 'text-slate-600 dark:text-slate-300'
+                  }`}
+                >
+                  <i data-lucide="smartphone" className="w-3.5 h-3.5"></i>
+                  <span>Mobile PWA</span>
+                </button>
+              </div>
+
+              {/* Render mode switch */}
+              <div className="flex items-center bg-slate-100 dark:bg-slate-800 p-1 rounded neo-border">
+                <button
+                  onClick={() => setRenderMode('interactive')}
+                  className={`px-3 py-1 rounded font-bold ${
+                    renderMode === 'interactive' ? 'bg-brand-lime text-black neo-shadow-sm' : 'text-slate-600 dark:text-slate-300'
+                  }`}
+                >
+                  Live Code
+                </button>
+                <button
+                  onClick={() => setRenderMode('screenshot')}
+                  className={`px-3 py-1 rounded font-bold ${
+                    renderMode === 'screenshot' ? 'bg-brand-lime text-black neo-shadow-sm' : 'text-slate-600 dark:text-slate-300'
+                  }`}
+                >
+                  Screenshot
+                </button>
+                <button
+                  onClick={() => setRenderMode('split')}
+                  className={`px-3 py-1 rounded font-bold ${
+                    renderMode === 'split' ? 'bg-brand-lime text-black neo-shadow-sm' : 'text-slate-600 dark:text-slate-300'
+                  }`}
+                >
+                  Side-by-Side
+                </button>
+              </div>
+
+              {/* Open in new window */}
+              <a
+                href={selectedScreen.htmlFile}
+                target="_blank"
+                rel="noreferrer"
+                className="neo-btn bg-brand-yellow text-black px-3 py-1.5 rounded font-bold flex items-center gap-1 text-xs"
+              >
+                <i data-lucide="external-link" className="w-3.5 h-3.5"></i>
+                <span>Open Raw</span>
+              </a>
+            </div>
+          </div>
+
+          {/* MAIN PREVIEW CONTAINER & SCREEN SELECTOR SIDEBAR */}
+          <div className="grid grid-cols-1 xl:grid-cols-4 gap-6">
+            {/* Screen Selector Sidebar */}
+            <div className="space-y-2 max-h-[850px] overflow-y-auto pr-1">
+              <span className="text-xs font-mono font-bold text-slate-500 uppercase tracking-wider block mb-1">
+                Select Wireframe Screen ({STITCH_SCREENS.length})
+              </span>
+              {STITCH_SCREENS.map(sc => (
+                <div
+                  key={sc.num}
+                  onClick={() => setSelectedScreen(sc)}
+                  className={`p-3 rounded neo-border cursor-pointer transition-all ${
+                    selectedScreen.num === sc.num
+                      ? 'bg-brand-purple text-white neo-shadow font-bold'
+                      : 'bg-white dark:bg-[#0f172a] hover:bg-slate-100 dark:hover:bg-slate-800'
+                  }`}
+                >
+                  <div className="flex items-center justify-between text-xs font-mono mb-1">
+                    <span className="bg-black text-white px-1.5 py-0.2 rounded-sm text-[10px]">#{sc.num}</span>
+                    <span className="text-[10px] opacity-80">{sc.category}</span>
+                  </div>
+                  <h4 className="font-bold text-xs line-clamp-1">{sc.title}</h4>
+                  <p className="text-[11px] opacity-75 line-clamp-2 mt-1 leading-snug">{sc.desc}</p>
+                </div>
+              ))}
+            </div>
+
+            {/* Viewport Frame Container */}
+            <div className="xl:col-span-3 bg-slate-200 dark:bg-slate-950 p-4 md:p-6 rounded-lg neo-border neo-shadow flex justify-center items-start min-h-[750px] overflow-x-auto">
+              <div
+                className={`transition-all duration-300 w-full flex justify-center ${
+                  viewport === 'mobile'
+                    ? 'max-w-[420px]'
+                    : viewport === 'tablet'
+                    ? 'max-w-[780px]'
+                    : 'max-w-full'
+                }`}
+              >
+                {/* Mobile Device Bezel if in Mobile Mode */}
+                <div className={`w-full bg-white dark:bg-slate-900 rounded-xl overflow-hidden neo-border neo-shadow-lg ${
+                  viewport === 'mobile' ? 'p-2 pt-4 bg-slate-900 dark:bg-black rounded-[40px] border-[4px] border-black' : ''
+                }`}>
+                  {viewport === 'mobile' && (
+                    <div className="w-24 h-4 bg-black rounded-full mx-auto mb-2"></div>
+                  )}
+
+                  {/* Render Mode: Interactive Iframe */}
+                  {renderMode === 'interactive' && (
+                    <iframe
+                      ref={iframeRef}
+                      src={selectedScreen.htmlFile}
+                      onLoad={handleIframeLoad}
+                      className="w-full h-[780px] border-0 rounded bg-white dark:bg-[#090d16]"
+                      title={selectedScreen.title}
+                    />
+                  )}
+
+                  {/* Render Mode: Static High-Res Screenshot */}
+                  {renderMode === 'screenshot' && (
+                    <div className="h-[780px] overflow-y-auto bg-slate-100 dark:bg-slate-950 p-2">
+                      <img
+                        src={selectedScreen.pngFile}
+                        alt={selectedScreen.title}
+                        className="w-full h-auto object-contain rounded neo-border"
+                      />
+                    </div>
+                  )}
+
+                  {/* Render Mode: Split View */}
+                  {renderMode === 'split' && (
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3 h-[780px]">
+                      <div className="flex flex-col h-full">
+                        <div className="bg-black text-white text-[10px] font-mono px-2 py-1 font-bold">
+                          LIVE SANDBOX IFRAME
+                        </div>
+                        <iframe
+                          ref={iframeRef}
+                          src={selectedScreen.htmlFile}
+                          onLoad={handleIframeLoad}
+                          className="w-full flex-1 border-0 bg-white dark:bg-[#090d16]"
+                          title={`Live - ${selectedScreen.title}`}
+                        />
+                      </div>
+                      <div className="flex flex-col h-full overflow-hidden">
+                        <div className="bg-black text-white text-[10px] font-mono px-2 py-1 font-bold">
+                          HIGH-RES DESIGN SCREENSHOT
+                        </div>
+                        <div className="flex-1 overflow-y-auto bg-slate-950 p-2">
+                          <img
+                            src={selectedScreen.pngFile}
+                            alt={selectedScreen.title}
+                            className="w-full h-auto object-contain"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    // =========================================================================
+    // MODE 3: SMALL GOODS DESIGN SYSTEM & TOKEN SPEC
+    // =========================================================================
+    function DesignSystemView({ isDark }) {
+      const colors = [
+        { name: 'Royal Purple', token: '--purple-heart', hex: '#4724ba', desc: 'Core brand identity & primary headings' },
+        { name: 'Electric Violet', token: '--electric-violet', hex: '#6a3cf4', desc: 'Interactive primary buttons & active navigation' },
+        { name: 'Acid Lime', token: '--inch-worm', hex: '#9aef0f', desc: 'Success confirmation, finished reps, VBT zone' },
+        { name: 'Mandy Coral', token: '--mandy', hex: '#e95766', desc: 'Fatigue warning, acute injury alerts, triage flags' },
+        { name: 'Sweet Corn', token: '--sweet-corn', hex: '#f8ef8d', desc: 'Coach tip callout cards & marginalia' },
+        { name: 'Golden Fizz', token: '--golden-fizz', hex: '#ecfd28', desc: 'High-voltage highlights & live sensor markers' },
+        { name: 'Pale Sage', token: '--kidnapper', hex: '#e7ebd3', desc: 'Neutral light card backgrounds & tag chips' },
+        { name: 'Champagne Cream', token: '--champagne', hex: '#faf2ce', desc: 'Warm paper texture & metric surfaces' },
+        { name: 'Edgewater Mint', token: '--edgewater', hex: '#d1e6e4', desc: 'Clinical Allied Health & NDIS audit headers' },
+        { name: 'Bon Jour Offwhite', token: '--bon-jour', hex: '#f6f4f6', desc: 'Light mode primary background canvas' }
+      ];
+
+      return (
+        <div className="space-y-8">
+          {/* Hero Spec Card */}
+          <div className="bg-white dark:bg-[#0f172a] p-6 rounded-lg neo-border neo-shadow">
+            <div className="flex items-center gap-3 mb-2">
+              <span className="text-xs font-mono font-bold uppercase px-2 py-0.5 bg-brand-purple text-white rounded neo-border">
+                CANONICAL DESIGN SPEC
+              </span>
+              <span className="text-xs font-mono text-slate-600 dark:text-slate-400">Document ID: SGG-SPEC-DESIGN-001</span>
+            </div>
+            <h2 className="text-2xl font-extrabold tracking-tight">Neo-Brutalist High-Performance Standard</h2>
+            <p className="text-sm text-slate-600 dark:text-slate-400 mt-2 max-w-3xl leading-relaxed">
+              Small Goods Gym completely repudiates generic corporate health trackers. The visual system marries the tactile raw physicality of powerlifting vinyl decals with high-density monospaced velocity data and warm coach marginalia.
+            </p>
+          </div>
+
+          {/* Webflow Color Tokens Swatch Wall */}
+          <div className="bg-white dark:bg-[#0f172a] p-6 rounded-lg neo-border neo-shadow space-y-4">
+            <h3 className="text-lg font-extrabold flex items-center justify-between">
+              <span>The Official Webflow Color Tokens</span>
+              <span className="text-xs font-mono text-slate-600 dark:text-slate-400">Click to copy HEX</span>
+            </h3>
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
+              {colors.map(c => (
+                <div
+                  key={c.hex}
+                  onClick={() => {
+                    navigator.clipboard.writeText(c.hex);
+                    alert(`Copied ${c.hex} (${c.name}) to clipboard!`);
+                  }}
+                  className="neo-btn p-3 rounded cursor-pointer bg-white dark:bg-slate-800 text-left transition-transform"
+                >
+                  <div className="w-full h-12 rounded neo-border mb-2" style={{ backgroundColor: c.hex }}></div>
+                  <div className="font-bold text-xs truncate">{c.name}</div>
+                  <div className="font-mono text-[11px] text-slate-500">{c.hex}</div>
+                  <div className="text-[10px] text-slate-400 truncate mt-1">{c.desc}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* The Typography Trio */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="bg-white dark:bg-[#0f172a] p-6 rounded-lg neo-border neo-shadow space-y-3">
+              <span className="text-xs font-mono font-bold uppercase px-2 py-0.5 bg-brand-purple text-white rounded neo-border">FONT 01</span>
+              <h4 className="text-xl font-extrabold font-sans">Poppins (Sans-Serif)</h4>
+              <p className="text-xs text-slate-600 dark:text-slate-400">
+                Primary geometric sans-serif used for bold page titles, navigation bars, and heavyweight high-visibility buttons.
+              </p>
+              <div className="p-3 bg-slate-100 dark:bg-slate-800 rounded font-sans font-bold text-lg">
+                ELITE BARBELL VELOCITY
+              </div>
+            </div>
+
+            <div className="bg-white dark:bg-[#0f172a] p-6 rounded-lg neo-border neo-shadow space-y-3">
+              <span className="text-xs font-mono font-bold uppercase px-2 py-0.5 bg-brand-lime text-black rounded neo-border">FONT 02</span>
+              <h4 className="text-xl font-extrabold font-mono">Roboto Mono (Monospace)</h4>
+              <p className="text-xs text-slate-600 dark:text-slate-400">
+                Monospaced technical font for Enode transducer readouts, set numbers, barbell loads (140.0 kg), and audit timestamps.
+              </p>
+              <div className="p-3 bg-slate-100 dark:bg-slate-800 rounded font-mono font-bold text-lg text-brand-purple dark:text-brand-lime">
+                0.68 m/s • 140.0 kg
+              </div>
+            </div>
+
+            <div className="bg-white dark:bg-[#0f172a] p-6 rounded-lg neo-border neo-shadow space-y-3">
+              <span className="text-xs font-mono font-bold uppercase px-2 py-0.5 bg-brand-yellow text-black rounded neo-border">FONT 03</span>
+              <h4 className="text-xl font-extrabold font-script text-2xl">Reenie Beanie (Handwritten)</h4>
+              <p className="text-xs text-slate-600 dark:text-slate-400">
+                Expressive casual script for Joel Mullen's handwritten coaching cues, stance tweaks, and Holly's physio marginalia.
+              </p>
+              <div className="p-3 bg-brand-yellow text-black rounded font-script text-2xl">
+                drive knees outward into the band!
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    // Render the React application
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<App />);
+  </script>
+</body>
+</html>

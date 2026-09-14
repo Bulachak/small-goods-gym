@@ -1,0 +1,966 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Small Goods Gym • Kinematics Terminal &amp; Leverage Diagnostic (Variant 2)</title>
+<!-- Tailwind CSS CDN -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Google Fonts: Poppins, JetBrains Mono, Reenie Beanie -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&amp;family=Poppins:wght@400;500;600;700;800;900&amp;family=Reenie+Beanie&amp;display=swap" rel="stylesheet"/>
+<!-- Lucide Icons CDN -->
+<script src="https://unpkg.com/lucide@latest"></script>
+<script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "terminal-bg": "#0B0F19",
+            "terminal-card": "#111827",
+            "terminal-surface": "#1F2937",
+            "terminal-border": "#374151",
+            "electric-violet": "#6A3CF4",
+            "purple-heart": "#4724BA",
+            "inch-worm": "#9AEF0F",
+            "golden-fizz": "#ECFD28",
+            "sticker-coral": "#FF4500",
+            "mandy": "#E95766",
+            "slate-hud": "#141C2E"
+          },
+          fontFamily: {
+            sans: ['"Poppins"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+            hand: ['"Reenie Beanie"', 'cursive'],
+          },
+          boxShadow: {
+            'brutal': '4px 4px 0 0 #000000',
+            'brutal-lg': '6px 6px 0 0 #000000',
+            'brutal-sm': '2px 2px 0 0 #000000',
+            'brutal-lime': '4px 4px 0 0 #9AEF0F',
+            'brutal-yellow': '4px 4px 0 0 #ECFD28',
+            'glow-lime': '0 0 20px -3px rgba(154, 239, 15, 0.4)',
+            'glow-purple': '0 0 25px -4px rgba(106, 60, 244, 0.45)',
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    body {
+      background-color: #0B0F19;
+      color: #F8FAFC;
+      font-family: 'Poppins', sans-serif;
+      overflow-x: hidden;
+    }
+    .font-mono-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-feature-settings: "tnum" 1, "zero" 1;
+    }
+    /* Tactical grid background overlay */
+    .terminal-grid {
+      background-image: radial-gradient(rgba(106, 60, 244, 0.15) 1px, transparent 1px),
+                        radial-gradient(rgba(154, 239, 15, 0.08) 1px, transparent 1px);
+      background-size: 24px 24px, 72px 72px;
+      background-position: 0 0, 12px 12px;
+    }
+    /* Brutalist tactile slider styling */
+    input[type=range].terminal-range {
+      -webkit-appearance: none;
+      background: #111827;
+      height: 12px;
+      border-radius: 4px;
+      border: 2px solid #000000;
+      box-shadow: inset 2px 2px 0 0 #000000;
+    }
+    input[type=range].terminal-range::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      height: 28px;
+      width: 28px;
+      border-radius: 4px;
+      background: #9AEF0F;
+      cursor: pointer;
+      border: 3px solid #000000;
+      box-shadow: 2px 2px 0 0 #000000;
+      transition: transform 0.08s ease, background-color 0.15s;
+    }
+    input[type=range].terminal-range::-webkit-slider-thumb:hover {
+      transform: scale(1.1);
+      background: #ECFD28;
+    }
+    input[type=range].terminal-range::-webkit-slider-thumb:active {
+      transform: scale(0.95);
+    }
+    /* Red Range slider for Holly Hunt Pain Scale */
+    input[type=range].pain-range {
+      -webkit-appearance: none;
+      background: #1F171A;
+      height: 10px;
+      border-radius: 4px;
+      border: 2px solid #000000;
+      box-shadow: inset 2px 2px 0 0 #000000;
+    }
+    input[type=range].pain-range::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      height: 24px;
+      width: 24px;
+      border-radius: 4px;
+      background: #E95766;
+      cursor: pointer;
+      border: 2px solid #000000;
+      box-shadow: 2px 2px 0 0 #000000;
+    }
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0B0F19;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #374151;
+      border: 1px solid #000;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #6A3CF4;
+    }
+  
+    /* Kamilla Zero-Orphan Standard */
+    h1, h2, h3, h4, h5, h6 {
+      text-wrap: balance !important;
+    }
+    p, .card-desc, label {
+      text-wrap: pretty !important;
+    }
+    .no-orphan {
+      text-wrap: balance !important;
+      white-space: nowrap !important;
+    }
+  
+</style>
+</head>
+<body class="min-h-screen bg-[#0B0F19] text-slate-100 selection:bg-[#9AEF0F] selection:text-black terminal-grid flex flex-col">
+<!-- ================= TACTICAL HEADER / TOP NAV ================= -->
+<header class="sticky top-0 z-50 bg-[#0B0F19]/95 backdrop-blur-md border-b-2 border-black px-4 lg:px-8 py-3 transition-all shadow-brutal">
+<div class="max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-3">
+<!-- Brand & Terminal ID -->
+<div class="flex items-center gap-3.5 w-full lg:w-auto justify-between lg:justify-start">
+<div class="flex items-center gap-3">
+<!-- Sticker Logo from DataStore -->
+<div class="relative group cursor-pointer">
+<div class="w-12 h-12 rounded-xl bg-black p-0.5 shadow-brutal border-2 border-black flex items-center justify-center overflow-hidden hover:rotate-3 transition-transform">
+<img alt="Small Goods Gym Logo" class="w-full h-full object-contain filter drop-shadow" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCNuE3MKe0Q9H38i-vWQX1lTIfrGIEmQ6AjXv-jwuEsqmAZcZSDYtRtCYBWr2P4noMloT8ynFmkSLZstIV6M4FOQV3njAU-nR6-Ssi_-lG9jAOzpgDLAaij726GcSV2F39E23WaFQyA6OzqPRE5NLLEtHwY9pBr5L-_hmKkqqg5d1-2uzqW_VekIgXVrrct2Cye8z3LtG-ohguX0IY2sJfu69dCcTx-j5QSZuL-wjyUZmKVnbL5mEH3vQb2rnjxhbmwEg"/>
+</div>
+<!-- Live Status LED -->
+<span class="absolute -bottom-1 -right-1 flex h-4 w-4">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#9AEF0F] opacity-75"></span>
+<span class="relative inline-flex rounded-full h-4 w-4 bg-[#9AEF0F] border-2 border-black"></span>
+</span>
+</div>
+<div>
+<div class="flex items-center gap-2">
+<span class="font-mono text-[10px] font-extrabold uppercase px-1.5 py-0.5 rounded bg-[#9AEF0F] text-black border border-black shadow-brutal-sm">
+                TERMINAL v2.4
+              </span>
+<h1 class="font-extrabold text-base md:text-lg tracking-tight text-white flex items-center gap-1.5">
+                COACH CONSOLE: JOEL'S EYE
+              </h1>
+</div>
+<p class="text-xs font-mono text-slate-400 flex items-center gap-2 mt-0.5">
+<span class="text-[#ECFD28] font-bold">Small Goods Gym Morley</span>
+<span>•</span>
+<span class="text-purple-300">Kinematics &amp; Stance Peaking Workspace</span>
+</p>
+</div>
+</div>
+<!-- Terminal Status Pill (Mobile) -->
+<div class="lg:hidden px-2.5 py-1 rounded bg-[#111827] border-2 border-black shadow-brutal-sm text-[10px] font-mono text-[#9AEF0F] font-bold">
+          ONLINE • 0ms
+        </div>
+</div>
+<!-- Center / Right: Session Mode & Athlete Roster Dropdown -->
+<div class="flex flex-wrap items-center gap-2.5 w-full lg:w-auto justify-between lg:justify-end">
+<!-- Diagnostic Session Mode Pill -->
+<div class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-[#111827] border-2 border-black shadow-brutal text-xs font-mono">
+<span class="w-2.5 h-2.5 rounded-full bg-[#ECFD28] border border-black animate-pulse"></span>
+<span class="text-slate-400">Mode:</span>
+<span class="text-white font-bold tracking-wide">Comp Platform Diagnostic</span>
+<span class="text-[10px] px-1.5 py-0.2 bg-[#4724BA] text-purple-200 rounded border border-black font-semibold">120kg Peaking</span>
+</div>
+<!-- Active Athlete Measurements Dropdown -->
+<div class="flex items-center gap-1.5 bg-[#111827] p-1 rounded-xl border-2 border-black shadow-brutal">
+<span class="text-slate-400 text-xs font-mono px-2 flex items-center gap-1">
+<i class="w-3.5 h-3.5 text-[#9AEF0F]" data-lucide="user"></i>
+<span class="hidden sm:inline">Athlete:</span>
+</span>
+<select class="bg-[#1F2937] text-white font-mono text-xs font-bold rounded-lg px-2.5 py-1.5 border border-black focus:outline-none focus:ring-2 focus:ring-[#9AEF0F] cursor-pointer" id="athleteSelector" onchange="loadPresetAthlete(this.value)">
+<option selected="" value="alex">Alex Carter (U93kg • 53.5cm Femur / 48.0cm Torso)</option>
+<option value="tyson">Tyson King (Open Heavy • 57.0cm Femur / 46.0cm Torso)</option>
+<option value="danielle">Danielle Wu (U63kg • 43.5cm Femur / 47.0cm Torso)</option>
+<option value="p_ndis">'P' NDIS (Sit-to-Stand • 49.0cm Femur / 49.0cm Torso)</option>
+</select>
+</div>
+<!-- Top Telemetry Stream Toggle -->
+<button class="px-3 py-1.5 rounded-lg bg-[#9AEF0F] text-black font-mono text-xs font-extrabold border-2 border-black shadow-brutal hover:bg-[#ECFD28] active:translate-x-0.5 active:translate-y-0.5 transition-all flex items-center gap-1.5" id="telemetryPillBtn" onclick="toggleTelemetryStream()">
+<i class="w-3.5 h-3.5" data-lucide="activity"></i>
+<span id="telemetryStreamLabel">TELEMETRY LIVE</span>
+</button>
+</div>
+</div>
+</header>
+<!-- ================= SUB-NAV SYSTEM CHROME ================= -->
+<div class="bg-[#111827] border-b-2 border-black px-4 lg:px-8 py-2 text-xs font-mono">
+<div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3">
+<div class="flex items-center gap-4 text-slate-300">
+<span class="flex items-center gap-1 text-[#9AEF0F]">
+<i class="w-3.5 h-3.5" data-lucide="check-circle-2"></i> Enode Accelerometer Synced (Platform #2)
+        </span>
+<span class="hidden md:inline text-slate-500">•</span>
+<span class="hidden md:flex items-center gap-1 text-[#ECFD28]">
+<i class="w-3.5 h-3.5" data-lucide="gauge"></i> Bar Load: <strong id="topBarLoadReadout">120.0 kg Eleiko</strong>
+</span>
+<span class="hidden md:inline text-slate-500">•</span>
+<span class="hidden lg:inline text-slate-400">Sampling Rate: <strong>200 Hz Tri-Axial</strong></span>
+</div>
+<div class="flex items-center gap-2">
+<span class="text-slate-400">Titled Physio:</span>
+<span class="px-2 py-0.5 rounded bg-rose-950/70 border border-rose-600/60 text-rose-300 font-bold flex items-center gap-1">
+<i class="w-3 h-3 text-rose-400" data-lucide="heart-handshake"></i> Holly Hunt Online
+        </span>
+</div>
+</div>
+</div>
+<!-- ================= MAIN WORKSPACE (TWO-COLUMN POWER LAYOUT) ================= -->
+<main class="flex-1 max-w-7xl w-full mx-auto p-4 md:p-6 lg:p-8">
+<!-- Top Headline & Coach Subtext Banner -->
+<div class="mb-6 p-4 rounded-2xl bg-[#111827] border-2 border-black shadow-brutal flex flex-col md:flex-row md:items-center justify-between gap-4">
+<div>
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 rounded bg-[#4724BA] text-purple-200 font-mono text-[11px] font-bold border border-black shadow-brutal-sm uppercase">
+            VARIANT 2 • TACTICAL NEO-BRUTALIST TERMINAL
+          </span>
+<span class="text-xs font-mono text-slate-400">Real-Time Joint Shear &amp; Moment Arm Engine</span>
+</div>
+<h2 class="text-xl md:text-2xl font-black text-white mt-1 tracking-tight">
+          3D Kinematics Workspace &amp; Anthropometric Stance Solver
+        </h2>
+<p class="text-xs md:text-sm text-slate-400 mt-0.5">
+          Manipulate skeletal proportions to instantly compute hip vs. knee moment arms, bar path stability, and automated powerlifting coaching directives.
+        </p>
+</div>
+<!-- Quick Reset & Calibration Action -->
+<div class="flex items-center gap-2">
+<button class="px-3 py-2 rounded-xl bg-[#1F2937] hover:bg-[#374151] border-2 border-black shadow-brutal text-xs font-mono font-bold text-slate-200 transition-all flex items-center gap-1.5 active:scale-95" onclick="resetToAlexDefault()">
+<i class="w-3.5 h-3.5 text-[#ECFD28]" data-lucide="rotate-ccw"></i>
+          Reset Alex Baseline
+        </button>
+</div>
+</div>
+<!-- The 2-Column Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+<!-- ================================================================= -->
+<!-- LEFT COLUMN: ANTHROPOMETRIC CONTROLS & LIVE KINEMATICS (7 COLS)  -->
+<!-- ================================================================= -->
+<div class="lg:col-span-7 space-y-6">
+<!-- 1. Skeletal Tactile Sliders Card -->
+<div class="bg-[#111827] border-2 border-black rounded-2xl p-5 shadow-brutal">
+<div class="flex items-center justify-between pb-3 mb-4 border-b-2 border-slate-800">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-lg bg-[#6A3CF4] border-2 border-black text-white flex items-center justify-center font-bold shadow-brutal-sm">
+<i class="w-4 h-4" data-lucide="ruler"></i>
+</div>
+<div>
+<h3 class="text-base font-extrabold text-white tracking-tight uppercase">Segment Length Dialers</h3>
+<span class="text-[11px] font-mono text-slate-400">Calibrated via Digital Anthro-Caliper</span>
+</div>
+</div>
+<span class="text-[11px] font-mono px-2 py-1 rounded bg-[#0B0F19] text-[#9AEF0F] border border-black">
+              ±0.5 cm Step
+            </span>
+</div>
+<!-- Femur Length Control Block -->
+<div class="mb-5 p-4 rounded-xl bg-[#0B0F19] border-2 border-black shadow-inner">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2.5">
+<div>
+<div class="flex items-center gap-2">
+<span class="w-2.5 h-2.5 rounded-sm bg-[#9AEF0F] border border-black"></span>
+<label class="text-sm font-bold text-white font-mono uppercase tracking-wide" for="femurSlider">
+                    Femur Segment (Trochanter → Lateral Epicondyle)
+                  </label>
+</div>
+<p class="text-[11px] text-slate-400 font-mono">Primary upper-leg lever impacting sagittal hip hinge</p>
+</div>
+<!-- Value + Steppers -->
+<div class="flex items-center gap-1.5 self-end sm:self-auto">
+<button class="w-8 h-8 rounded bg-[#1F2937] hover:bg-[#374151] border-2 border-black text-white font-mono font-bold text-base flex items-center justify-center shadow-brutal-sm active:translate-y-0.5 active:translate-x-0.5 transition-all" onclick="stepSlider('femurSlider', -0.5)">
+                  -
+                </button>
+<div class="bg-[#111827] border-2 border-black px-3 py-1 rounded min-w-[90px] text-center shadow-brutal-sm">
+<span class="text-xl font-mono font-black text-[#9AEF0F]" id="femurValueDisplay">53.5</span>
+<span class="text-xs font-mono text-slate-400">cm</span>
+</div>
+<button class="w-8 h-8 rounded bg-[#1F2937] hover:bg-[#374151] border-2 border-black text-white font-mono font-bold text-base flex items-center justify-center shadow-brutal-sm active:translate-y-0.5 active:translate-x-0.5 transition-all" onclick="stepSlider('femurSlider', 0.5)">
+                  +
+                </button>
+</div>
+</div>
+<input class="w-full terminal-range cursor-pointer" id="femurSlider" max="60" min="40" oninput="recomputeKinematics()" step="0.5" type="range" value="53.5"/>
+<div class="flex justify-between text-[10px] font-mono text-slate-500 mt-1.5">
+<span>40.0 cm (Short)</span>
+<span class="text-slate-400 font-bold">50.0 cm (Median Population)</span>
+<span>60.0 cm (Extreme Long)</span>
+</div>
+</div>
+<!-- Torso Length Control Block -->
+<div class="p-4 rounded-xl bg-[#0B0F19] border-2 border-black shadow-inner">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2.5">
+<div>
+<div class="flex items-center gap-2">
+<span class="w-2.5 h-2.5 rounded-sm bg-[#6A3CF4] border border-black"></span>
+<label class="text-sm font-bold text-white font-mono uppercase tracking-wide" for="torsoSlider">
+                    Torso Segment (C7 Vertebra → ASIS Iliac Crest)
+                  </label>
+</div>
+<p class="text-[11px] text-slate-400 font-mono">Effective spinal counter-lever affecting torso inclination</p>
+</div>
+<!-- Value + Steppers -->
+<div class="flex items-center gap-1.5 self-end sm:self-auto">
+<button class="w-8 h-8 rounded bg-[#1F2937] hover:bg-[#374151] border-2 border-black text-white font-mono font-bold text-base flex items-center justify-center shadow-brutal-sm active:translate-y-0.5 active:translate-x-0.5 transition-all" onclick="stepSlider('torsoSlider', -0.5)">
+                  -
+                </button>
+<div class="bg-[#111827] border-2 border-black px-3 py-1 rounded min-w-[90px] text-center shadow-brutal-sm">
+<span class="text-xl font-mono font-black text-[#ECFD28]" id="torsoValueDisplay">48.0</span>
+<span class="text-xs font-mono text-slate-400">cm</span>
+</div>
+<button class="w-8 h-8 rounded bg-[#1F2937] hover:bg-[#374151] border-2 border-black text-white font-mono font-bold text-base flex items-center justify-center shadow-brutal-sm active:translate-y-0.5 active:translate-x-0.5 transition-all" onclick="stepSlider('torsoSlider', 0.5)">
+                  +
+                </button>
+</div>
+</div>
+<input class="w-full terminal-range cursor-pointer" id="torsoSlider" max="65" min="35" oninput="recomputeKinematics()" step="0.5" type="range" value="48.0"/>
+<div class="flex justify-between text-[10px] font-mono text-slate-500 mt-1.5">
+<span>35.0 cm (Short Spine)</span>
+<span class="text-slate-400 font-bold">50.0 cm (Standard)</span>
+<span>65.0 cm (Long Trunk)</span>
+</div>
+</div>
+</div>
+<!-- 2. Huge Digital HUD Readout & Dynamic Tags Container -->
+<div class="bg-[#111827] border-2 border-black rounded-2xl p-5 shadow-brutal relative overflow-hidden">
+<!-- Top Classification Bar -->
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b-2 border-slate-800">
+<div>
+<span class="text-[11px] font-mono font-extrabold uppercase text-[#9AEF0F] tracking-wider block">
+                COMPUTED KINEMATIC COEFFICIENT
+              </span>
+<h4 class="text-base font-bold text-white">Femur-to-Torso Proportion Quotient</h4>
+</div>
+<div class="flex items-center gap-2">
+<span class="text-xs font-mono text-slate-400">Archetype:</span>
+<div class="px-3 py-1 rounded bg-[#4724BA] text-white border-2 border-black font-mono text-xs font-extrabold shadow-brutal-sm" id="classificationPill">
+                SEVERE FEMUR DOMINANCE / LONG LEVER
+              </div>
+</div>
+</div>
+<!-- Big HUD Metric Display -->
+<div class="my-5 p-5 rounded-2xl bg-[#0B0F19] border-2 border-black shadow-inner flex flex-col md:flex-row items-center justify-between gap-6">
+<div class="flex items-baseline gap-3">
+<div class="relative">
+<span class="text-5xl md:text-6xl font-mono font-black text-white tracking-tighter drop-shadow-md" id="ratioDisplay">
+                  1.11<span class="text-2xl md:text-3xl text-[#9AEF0F]">x</span>
+</span>
+</div>
+<div class="flex flex-col">
+<span class="text-[10px] font-mono text-slate-400 uppercase tracking-widest font-bold">Index Value</span>
+<span class="text-xs font-mono text-[#9AEF0F] font-bold" id="subIndexDescription">+22% Above Powerlifting Median</span>
+</div>
+</div>
+<!-- Mini Visual Proportion Gauge Bar -->
+<div class="w-full md:w-56 space-y-1.5 bg-[#111827] p-3 rounded-xl border border-slate-800">
+<div class="flex justify-between text-[10px] font-mono text-slate-400">
+<span>0.80 (Squat God)</span>
+<span class="text-[#ECFD28] font-bold">1.00</span>
+<span>1.30 (Long Lever)</span>
+</div>
+<div class="w-full h-3 bg-[#0B0F19] rounded-full overflow-hidden border border-black relative">
+<!-- Median Marker line -->
+<div class="absolute left-1/2 top-0 bottom-0 w-0.5 bg-white/40 z-10"></div>
+<!-- Dynamic fill indicator -->
+<div class="h-full bg-gradient-to-r from-[#6A3CF4] via-[#ECFD28] to-[#9AEF0F] transition-all duration-200" id="ratioGaugeFill" style="width: 62%;"></div>
+</div>
+<div class="text-[10px] font-mono text-right text-slate-400">
+                Moment Arm Penalty: <span class="text-[#ECFD28] font-bold" id="penaltyRatioDisplay">+28%</span>
+</div>
+</div>
+</div>
+<!-- Real-Time Dynamic Tags Container (Requested) -->
+<div>
+<div class="flex items-center justify-between mb-2">
+<span class="text-xs font-mono font-extrabold text-slate-300 uppercase tracking-wide flex items-center gap-1.5">
+<i class="w-3.5 h-3.5 text-[#9AEF0F]" data-lucide="tag"></i>
+                Real-Time Kinematic Profile Tags:
+              </span>
+<span class="text-[10px] font-mono text-slate-400">Auto-Derived</span>
+</div>
+<div class="flex flex-wrap gap-2" id="dynamicTagsContainer">
+<!-- Dynamically populated via JS recomputeKinematics() -->
+<span class="px-3 py-1 rounded-lg text-xs font-mono font-extrabold bg-[#6A3CF4] text-white border-2 border-black shadow-brutal-sm">
+                #LongFemurs
+              </span>
+<span class="px-3 py-1 rounded-lg text-xs font-mono font-extrabold bg-[#ECFD28] text-black border-2 border-black shadow-brutal-sm">
+                #HighHipSquat
+              </span>
+<span class="px-3 py-1 rounded-lg text-xs font-mono font-extrabold bg-[#9AEF0F] text-black border-2 border-black shadow-brutal-sm">
+                #LowBarRecommended
+              </span>
+<span class="px-3 py-1 rounded-lg text-xs font-mono font-extrabold bg-[#FF4500] text-white border-2 border-black shadow-brutal-sm">
+                #ForwardLeanComp
+              </span>
+<span class="px-3 py-1 rounded-lg text-xs font-mono font-extrabold bg-[#1F2937] text-purple-300 border-2 border-black shadow-brutal-sm">
+                #AnkleDorsiflexionReq
+              </span>
+</div>
+</div>
+</div>
+<!-- 3. Interactive Moment-Arm Telemetry Graph (Nm calculation) -->
+<div class="bg-[#111827] border-2 border-black rounded-2xl p-5 shadow-brutal">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 mb-4 border-b-2 border-slate-800">
+<div>
+<div class="flex items-center gap-2">
+<i class="w-4 h-4 text-[#9AEF0F]" data-lucide="line-chart"></i>
+<h4 class="text-base font-extrabold text-white tracking-tight uppercase">Moment-Arm Torque Telemetry</h4>
+</div>
+<span class="text-[11px] font-mono text-slate-400">Load: 120 kg bar • Calculated at Parallel Depth (90° Knee Flexion)</span>
+</div>
+<div class="flex items-center gap-2 text-xs font-mono">
+<span class="flex items-center gap-1"><span class="w-3 h-3 rounded-sm bg-[#9AEF0F] border border-black"></span> Femur Torque</span>
+<span class="flex items-center gap-1"><span class="w-3 h-3 rounded-sm bg-[#ECFD28] border border-black"></span> Lumbar Shear</span>
+</div>
+</div>
+<!-- Dual Telemetry Visual Bars & Numbers -->
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+<!-- Femur / Hip Joint Moment Arm -->
+<div class="p-4 rounded-xl bg-[#0B0F19] border-2 border-black shadow-inner">
+<div class="flex items-center justify-between text-xs font-mono mb-1">
+<span class="text-slate-400 font-bold">Femur Hip Extensor Torque:</span>
+<span class="text-base font-mono font-black text-[#9AEF0F]" id="femurTorqueDisplay">372 Nm</span>
+</div>
+<div class="w-full h-4 bg-[#111827] rounded border border-black overflow-hidden relative">
+<div class="h-full bg-[#9AEF0F] transition-all duration-200" id="femurBarFill" style="width: 74%;"></div>
+</div>
+<div class="flex justify-between text-[10px] font-mono text-slate-400 mt-1.5">
+<span>Moment Arm: <strong class="text-white" id="femurMomentLength">31.6 cm</strong></span>
+<span class="text-emerald-400">Glute/Adductor Bias</span>
+</div>
+</div>
+<!-- Lumbar Spinal Moment Arm -->
+<div class="p-4 rounded-xl bg-[#0B0F19] border-2 border-black shadow-inner">
+<div class="flex items-center justify-between text-xs font-mono mb-1">
+<span class="text-slate-400 font-bold">Lumbar L4/L5 Torque:</span>
+<span class="text-base font-mono font-black text-[#ECFD28]" id="lumbarTorqueDisplay">442 Nm</span>
+</div>
+<div class="w-full h-4 bg-[#111827] rounded border border-black overflow-hidden relative">
+<div class="h-full bg-[#ECFD28] transition-all duration-200" id="lumbarBarFill" style="width: 84%;"></div>
+</div>
+<div class="flex justify-between text-[10px] font-mono text-slate-400 mt-1.5">
+<span>Moment Arm: <strong class="text-white" id="lumbarMomentLength">37.5 cm</strong></span>
+<span class="text-[#FF4500] font-bold" id="lumbarShearWarning">High Shear Vector</span>
+</div>
+</div>
+</div>
+<!-- Tactical Diagram Vector Sketch (Dynamic SVG Barbell Center of Mass) -->
+<div class="p-4 rounded-xl bg-[#0B0F19] border-2 border-black flex flex-col md:flex-row items-center justify-between gap-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-[#4724BA] border-2 border-black flex items-center justify-center text-white">
+<i class="w-5 h-5 text-[#9AEF0F]" data-lucide="scale"></i>
+</div>
+<div>
+<span class="text-xs font-mono font-bold text-white block">Mid-Foot Center of Mass (CoM) Projection</span>
+<p class="text-[11px] text-slate-300 font-mono" id="vectorRecommendationText">
+                  Barbell stays 2.1cm forward of midfoot laces without 28° toe abduction.
+                </p>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<span class="text-[10px] font-mono px-2.5 py-1 rounded bg-[#111827] border border-slate-700 text-[#9AEF0F] font-bold">
+                Balance Index: 96.4%
+              </span>
+</div>
+</div>
+</div>
+</div>
+<!-- ================================================================= -->
+<!-- RIGHT COLUMN: COACH DIRECTIVE + HOLLY HUNT CLINICAL GATEWAY (5 COLS) -->
+<!-- ================================================================= -->
+<div class="lg:col-span-5 space-y-6">
+<!-- 1. 'AI Biomechanical Directive' Box (High-Contrast Purple Tactical Card) -->
+<div class="bg-gradient-to-b from-[#4724BA] to-[#300099] border-2 border-black rounded-2xl p-5 shadow-brutal relative overflow-hidden text-white">
+<!-- Tactical Badge Header -->
+<div class="flex items-center justify-between pb-3 mb-4 border-b border-purple-400/40">
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 rounded-full bg-[#ECFD28] border-2 border-black animate-pulse"></span>
+<h3 class="text-sm font-mono font-extrabold uppercase tracking-wider text-[#ECFD28]">
+                AI BIOMECHANICAL DIRECTIVE
+              </h3>
+</div>
+<span class="text-[10px] font-mono px-2 py-0.5 rounded bg-black/50 text-purple-200 border border-purple-400/50">
+              Joel Mullen Motor Model
+            </span>
+</div>
+<!-- Tactical Breakdown Grid (Stance, Bar, Grip, Gaze) -->
+<div class="grid grid-cols-2 gap-2.5 mb-4" id="tacticalDirectivesGrid">
+<div class="p-3 rounded-xl bg-black/40 border border-purple-400/40 shadow-inner">
+<span class="text-[10px] font-mono uppercase text-purple-300 font-bold block mb-1">1. Stance Width</span>
+<p class="text-xs font-bold text-white" id="directiveStance">1.25× Shoulder Width</p>
+<span class="text-[10px] font-mono text-[#9AEF0F] block mt-0.5" id="directiveStanceSub">30° Toe Abduction</span>
+</div>
+<div class="p-3 rounded-xl bg-black/40 border border-purple-400/40 shadow-inner">
+<span class="text-[10px] font-mono uppercase text-purple-300 font-bold block mb-1">2. Bar Placement</span>
+<p class="text-xs font-bold text-white" id="directiveBar">Low-Bar (Scapular Spine)</p>
+<span class="text-[10px] font-mono text-[#ECFD28] block mt-0.5" id="directiveBarSub">-4.2 cm Lever Arm</span>
+</div>
+<div class="p-3 rounded-xl bg-black/40 border border-purple-400/40 shadow-inner">
+<span class="text-[10px] font-mono uppercase text-purple-300 font-bold block mb-1">3. Grip Width</span>
+<p class="text-xs font-bold text-white" id="directiveGrip">Talon / 1 Finger Outside Ring</p>
+<span class="text-[10px] font-mono text-slate-300 block mt-0.5" id="directiveGripSub">Latissimus Tension</span>
+</div>
+<div class="p-3 rounded-xl bg-black/40 border border-purple-400/40 shadow-inner">
+<span class="text-[10px] font-mono uppercase text-purple-300 font-bold block mb-1">4. Gaze Angle</span>
+<p class="text-xs font-bold text-white" id="directiveGaze">2.5m Forward on Floor</p>
+<span class="text-[10px] font-mono text-[#9AEF0F] block mt-0.5" id="directiveGazeSub">Neutral Cervical Anchor</span>
+</div>
+</div>
+<!-- Joel's Handwritten Form Cue (Cursive Font Reenie Beanie) -->
+<div class="mb-4 p-3.5 rounded-xl bg-[#0B0F19]/90 border-2 border-black shadow-inner">
+<div class="flex items-center justify-between mb-1">
+<span class="text-[10px] font-mono font-bold uppercase text-[#ECFD28]">Head Coach Chalkboard Cue:</span>
+<span class="text-[10px] font-mono text-slate-400">Joel Mullen</span>
+</div>
+<p class="font-hand text-2xl md:text-3xl text-yellow-200 leading-tight" id="joelCursiveCue">
+              "Screw your big toe into Morley's platform, break at hips and knees together, drive upper back straight into the bar out of the hole."
+            </p>
+</div>
+<!-- Coach Audio Note Voice Preview / Play Button -->
+<div class="p-3 rounded-xl bg-black/60 border border-purple-400/40 flex items-center justify-between gap-3">
+<div class="flex items-center gap-2.5">
+<button class="w-9 h-9 rounded-lg bg-[#9AEF0F] hover:bg-[#ECFD28] text-black border-2 border-black flex items-center justify-center font-bold shadow-brutal-sm active:translate-y-0.5 transition-all" id="coachAudioBtn" onclick="toggleCoachAudio()">
+<i class="w-4 h-4 ml-0.5 fill-current" data-lucide="play" id="audioPlayIcon"></i>
+</button>
+<div>
+<span class="text-xs font-mono font-bold text-white block">Joel's Voice Note (0:14s)</span>
+<span class="text-[10px] font-mono text-purple-300" id="audioTrackStatus">Ready to play • "Lock the lats before unrack"</span>
+</div>
+</div>
+<!-- Dynamic Audio Visualizer waveform bars -->
+<div class="flex items-center gap-1 h-5">
+<span class="w-1 h-2 bg-[#9AEF0F] rounded-full transition-all" id="audioWave1"></span>
+<span class="w-1 h-4 bg-[#9AEF0F] rounded-full transition-all" id="audioWave2"></span>
+<span class="w-1 h-3 bg-[#ECFD28] rounded-full transition-all" id="audioWave3"></span>
+<span class="w-1 h-5 bg-[#9AEF0F] rounded-full transition-all" id="audioWave4"></span>
+</div>
+</div>
+</div>
+<!-- 2. 'Holly Hunt Physio Gateway' Card (Neo-Brutalist Coral Card) -->
+<div class="bg-[#111827] border-2 border-[#FF4500] rounded-2xl p-5 shadow-brutal relative">
+<!-- Header with Red Accent -->
+<div class="flex items-center justify-between pb-3 mb-4 border-b-2 border-slate-800">
+<div class="flex items-center gap-2.5">
+<div class="w-9 h-9 rounded-xl bg-[#E95766] border-2 border-black text-white flex items-center justify-center font-bold shadow-brutal-sm">
+<i class="w-4 h-4" data-lucide="stethoscope"></i>
+</div>
+<div>
+<div class="flex items-center gap-1.5">
+<h3 class="text-sm font-black text-white uppercase tracking-tight">Holly Hunt Physio Gateway</h3>
+<span class="px-1.5 py-0.2 bg-rose-950 text-rose-300 text-[9px] font-mono font-bold rounded border border-rose-800">APA Titled</span>
+</div>
+<span class="text-[11px] font-mono text-slate-400">Clinical Triage &amp; Rapid Consultation Trigger</span>
+</div>
+</div>
+<span class="w-3 h-3 rounded-full bg-rose-500 border border-black animate-pulse"></span>
+</div>
+<p class="text-xs text-slate-300 mb-3 text-pretty">
+            Identify symptom zones during heavy loading. Telemetry vectors and joint moment indices will be packaged with this dispatch.
+          </p>
+<!-- Interactive Pain Mapping Checkboxes (Lumbar, SI Joint, Femoroacetabular, Patella) -->
+<div class="mb-4">
+<span class="text-[11px] font-mono font-bold uppercase text-slate-300 block mb-2">
+              1. Flagged Discomfort Locations:
+            </span>
+<div class="grid grid-cols-2 gap-2">
+<label class="flex items-center gap-2 p-2 rounded-lg bg-[#0B0F19] border-2 border-black cursor-pointer hover:border-rose-500 transition-colors">
+<input checked="" class="w-4 h-4 rounded bg-[#1F2937] text-rose-600 focus:ring-0 border-black cursor-pointer" id="painLumbar" type="checkbox"/>
+<span class="text-xs font-mono text-slate-200">Lumbar Spine (L4-S1)</span>
+</label>
+<label class="flex items-center gap-2 p-2 rounded-lg bg-[#0B0F19] border-2 border-black cursor-pointer hover:border-rose-500 transition-colors">
+<input checked="" class="w-4 h-4 rounded bg-[#1F2937] text-rose-600 focus:ring-0 border-black cursor-pointer" id="painSIJ" type="checkbox"/>
+<span class="text-xs font-mono text-slate-200">SI Joint / Sacral</span>
+</label>
+<label class="flex items-center gap-2 p-2 rounded-lg bg-[#0B0F19] border-2 border-black cursor-pointer hover:border-rose-500 transition-colors">
+<input class="w-4 h-4 rounded bg-[#1F2937] text-rose-600 focus:ring-0 border-black cursor-pointer" id="painFAI" type="checkbox"/>
+<span class="text-xs font-mono text-slate-200">Femoroacetabular Hip</span>
+</label>
+<label class="flex items-center gap-2 p-2 rounded-lg bg-[#0B0F19] border-2 border-black cursor-pointer hover:border-rose-500 transition-colors">
+<input class="w-4 h-4 rounded bg-[#1F2937] text-rose-600 focus:ring-0 border-black cursor-pointer" id="painPatella" type="checkbox"/>
+<span class="text-xs font-mono text-slate-200">Patellar Tendon</span>
+</label>
+</div>
+</div>
+<!-- Pain Scale Rating (0-10 Slider) -->
+<div class="p-3.5 rounded-xl bg-[#0B0F19] border-2 border-black shadow-inner mb-4">
+<div class="flex items-center justify-between mb-2">
+<span class="text-xs font-mono font-bold text-slate-300">2. Subjective Pain / Irritability (NPRS 0-10):</span>
+<div class="bg-rose-950/80 px-2.5 py-0.5 rounded border border-rose-600 text-rose-300 font-mono font-bold text-sm">
+<span id="painRatingDisplay">5</span> / 10
+              </div>
+</div>
+<input class="w-full pain-range cursor-pointer" id="painScaleSlider" max="10" min="0" oninput="updatePainScale(this.value)" step="1" type="range" value="5"/>
+<div class="flex justify-between text-[10px] font-mono text-slate-500 mt-1">
+<span>0 (Zero Discomfort)</span>
+<span class="text-yellow-400">5 (Moderate Tension)</span>
+<span class="text-rose-500 font-bold">10 (Acute Inability)</span>
+</div>
+</div>
+<!-- Coach Symptom Notes Input -->
+<div class="mb-4">
+<div class="flex justify-between text-[11px] font-mono text-slate-400 mb-1">
+<span>Coach / Athlete Observed Behavior:</span>
+<span class="text-purple-400">Auto-appended telemetry</span>
+</div>
+<textarea class="w-full bg-[#0B0F19] text-xs font-mono text-slate-200 rounded-xl border-2 border-black p-2.5 focus:ring-2 focus:ring-rose-500 focus:outline-none" id="coachSymptomNote" placeholder="E.g. Right pelvic shift at ascending sticking point; posterior pinching." rows="2">Right lumbar tenderness &amp; posterior SIJ pinching @ RPE 8.5 on lockout. Sticking point 3cm above parallel.</textarea>
+</div>
+<!-- Dispatch Clinical Referral Action Button -->
+<button class="w-full py-3.5 px-4 rounded-xl bg-[#FF4500] hover:bg-[#e03d00] active:scale-98 text-white font-mono font-extrabold text-xs tracking-wider border-2 border-black shadow-brutal flex items-center justify-center gap-2 transition-all cursor-pointer" id="dispatchReferralBtn" onclick="dispatchClinicalReferral()">
+<i class="w-4 h-4" data-lucide="send"></i>
+<span id="dispatchBtnText">DISPATCH CLINICAL REHAB REFERRAL</span>
+</button>
+<!-- Animated Confirmation Toast -->
+<div class="hidden mt-3 p-3 rounded-xl bg-emerald-950 border-2 border-emerald-500 text-emerald-300 font-mono text-xs shadow-brutal flex items-start gap-2.5" id="dispatchSuccessBanner">
+<div class="w-5 h-5 rounded-full bg-emerald-500 text-black flex items-center justify-center flex-shrink-0 font-bold mt-0.5">
+              ✓
+            </div>
+<div>
+<span class="font-bold block text-white">REFERRAL DISPATCHED TO HOLLY HUNT</span>
+<p class="text-[11px] text-emerald-300 mt-0.5">
+                Full 3D Kinematic packet, 1.11x lever ratio, and 442Nm lumbar torque sent to Holly's clinical triage phone via SMS &amp; Cliniko portal.
+              </p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Interactive Footnote Bar (Morley Eleiko Setup) -->
+<div class="mt-8 p-4 rounded-xl bg-[#111827] border-2 border-black shadow-brutal flex flex-col sm:flex-row items-center justify-between gap-3 text-xs font-mono text-slate-400">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-[#9AEF0F]"></span>
+<span>Small Goods Gym Morley • Eleiko Competition Platforms 1-6 • Activforce 2 Dynamometry Ready</span>
+</div>
+<div class="flex items-center gap-4 text-purple-300">
+<span>Head Coach: Joel Mullen</span>
+<span>Physio: Holly Hunt (AHPRA Reg)</span>
+</div>
+</div>
+</main>
+<!-- ================= WORKING JAVASCRIPT ================= -->
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+      if (window.lucide) {
+        lucide.createIcons();
+      }
+      recomputeKinematics();
+    });
+
+    // 1. Slider Step Controls
+    function stepSlider(sliderId, step) {
+      const slider = document.getElementById(sliderId);
+      let val = parseFloat(slider.value) + step;
+      val = Math.max(parseFloat(slider.min), Math.min(parseFloat(slider.max), val));
+      slider.value = val.toFixed(1);
+      recomputeKinematics();
+    }
+
+    // 2. Preset Athlete Selection
+    function loadPresetAthlete(athleteKey) {
+      const femurSlider = document.getElementById('femurSlider');
+      const torsoSlider = document.getElementById('torsoSlider');
+
+      if (athleteKey === 'alex') {
+        femurSlider.value = 53.5;
+        torsoSlider.value = 48.0;
+      } else if (athleteKey === 'tyson') {
+        femurSlider.value = 57.0;
+        torsoSlider.value = 46.0;
+      } else if (athleteKey === 'danielle') {
+        femurSlider.value = 43.5;
+        torsoSlider.value = 47.0;
+      } else if (athleteKey === 'p_ndis') {
+        femurSlider.value = 49.0;
+        torsoSlider.value = 49.0;
+      }
+      recomputeKinematics();
+    }
+
+    function resetToAlexDefault() {
+      document.getElementById('athleteSelector').value = 'alex';
+      loadPresetAthlete('alex');
+    }
+
+    // 3. Central Kinematics & Ratio Recomputation Engine
+    function recomputeKinematics() {
+      const femur = parseFloat(document.getElementById('femurSlider').value);
+      const torso = parseFloat(document.getElementById('torsoSlider').value);
+
+      document.getElementById('femurValueDisplay').innerText = femur.toFixed(1);
+      document.getElementById('torsoValueDisplay').innerText = torso.toFixed(1);
+
+      const ratio = femur / torso;
+      document.getElementById('ratioDisplay').innerHTML = `${ratio.toFixed(2)}<span class="text-2xl md:text-3xl text-[#9AEF0F]">x</span>`;
+
+      // Update Gauge Bar (0.80 = 0%, 1.30 = 100%)
+      const gaugePercent = Math.min(100, Math.max(0, ((ratio - 0.80) / 0.50) * 100));
+      document.getElementById('ratioGaugeFill').style.width = `${gaugePercent}%`;
+
+      const classificationPill = document.getElementById('classificationPill');
+      const subIndexDesc = document.getElementById('subIndexDescription');
+      const tagsContainer = document.getElementById('dynamicTagsContainer');
+      const penaltyRatioDisplay = document.getElementById('penaltyRatioDisplay');
+
+      // Moment Arm Elements
+      const femurTorqueDisplay = document.getElementById('femurTorqueDisplay');
+      const lumbarTorqueDisplay = document.getElementById('lumbarTorqueDisplay');
+      const femurBarFill = document.getElementById('femurBarFill');
+      const lumbarBarFill = document.getElementById('lumbarBarFill');
+      const femurMomentLength = document.getElementById('femurMomentLength');
+      const lumbarMomentLength = document.getElementById('lumbarMomentLength');
+      const lumbarShearWarning = document.getElementById('lumbarShearWarning');
+      const vectorRec = document.getElementById('vectorRecommendationText');
+
+      // Directives Elements
+      const directiveStance = document.getElementById('directiveStance');
+      const directiveStanceSub = document.getElementById('directiveStanceSub');
+      const directiveBar = document.getElementById('directiveBar');
+      const directiveBarSub = document.getElementById('directiveBarSub');
+      const directiveGrip = document.getElementById('directiveGrip');
+      const directiveGripSub = document.getElementById('directiveGripSub');
+      const directiveGaze = document.getElementById('directiveGaze');
+      const joelCue = document.getElementById('joelCursiveCue');
+
+      // Base load in kg (120kg Eleiko bar)
+      const barLoad = 120;
+      const gravity = 9.81;
+      const loadNewtons = barLoad * gravity; // ~1177 N
+
+      if (ratio > 1.08) {
+        // Severe Long Femur Archetype
+        classificationPill.innerText = "SEVERE FEMUR DOMINANCE / LONG LEVER";
+        classificationPill.className = "px-3 py-1 rounded bg-[#FF4500] text-white border-2 border-black font-mono text-xs font-extrabold shadow-brutal-sm";
+        subIndexDesc.innerText = `+${Math.round((ratio - 1.0) * 100)}% Above Population Median`;
+        penaltyRatioDisplay.innerText = "+28%";
+
+        tagsContainer.innerHTML = `
+          <span class="px-3 py-1 rounded-lg text-xs font-mono font-extrabold bg-[#6A3CF4] text-white border-2 border-black shadow-brutal-sm">#LongFemurs</span>
+          <span class="px-3 py-1 rounded-lg text-xs font-mono font-extrabold bg-[#ECFD28] text-black border-2 border-black shadow-brutal-sm">#HighHipSquat</span>
+          <span class="px-3 py-1 rounded-lg text-xs font-mono font-extrabold bg-[#9AEF0F] text-black border-2 border-black shadow-brutal-sm">#LowBarRecommended</span>
+          <span class="px-3 py-1 rounded-lg text-xs font-mono font-extrabold bg-[#FF4500] text-white border-2 border-black shadow-brutal-sm">#ForwardLeanComp</span>
+          <span class="px-3 py-1 rounded-lg text-xs font-mono font-extrabold bg-[#1F2937] text-purple-300 border-2 border-black shadow-brutal-sm">#AnkleDorsiflexionReq</span>
+        `;
+
+        // Moment arm calculations for severe long femur
+        const femMomCm = (femur * 0.59).toFixed(1);
+        const lumMomCm = (torso * 0.78).toFixed(1);
+        const femTorque = Math.round((loadNewtons * (femMomCm / 100)) * 0.5);
+        const lumTorque = Math.round((loadNewtons * (lumMomCm / 100)) * 0.5);
+
+        femurMomentLength.innerText = `${femMomCm} cm`;
+        lumbarMomentLength.innerText = `${lumMomCm} cm`;
+        femurTorqueDisplay.innerText = `${femTorque} Nm`;
+        lumbarTorqueDisplay.innerText = `${lumTorque} Nm`;
+        femurBarFill.style.width = '75%';
+        lumbarBarFill.style.width = '88%';
+        lumbarShearWarning.innerText = "High Shear Vector (Low-bar mandatory)";
+        lumbarShearWarning.className = "text-[#FF4500] font-bold";
+        vectorRec.innerText = "Barbell stays 2.1cm forward of midfoot laces without 28° toe abduction.";
+
+        // AI Directives
+        directiveStance.innerText = "1.25× Shoulder Width";
+        directiveStanceSub.innerText = "30° Toe Abduction";
+        directiveBar.innerText = "Low-Bar (Scapular Spine)";
+        directiveBarSub.innerText = "-4.2 cm Spinal Moment Arm";
+        directiveGrip.innerText = "Talon / 1 Finger Outside Ring";
+        directiveGripSub.innerText = "Heavy Latissimus Wedging";
+        directiveGaze.innerText = "2.5m Forward on Platform Floor";
+        joelCue.innerText = '"Screw your big toe into Morley\'s platform, break at hips and knees together, drive upper back straight into the bar out of the hole."';
+
+      } else if (ratio < 0.98) {
+        // Short Femur / Long Torso Archetype (Squat God)
+        classificationPill.innerText = "SHORT FEMUR / UPRIGHT SQUAT ARCHE-TYPE";
+        classificationPill.className = "px-3 py-1 rounded bg-[#9AEF0F] text-black border-2 border-black font-mono text-xs font-extrabold shadow-brutal-sm";
+        subIndexDesc.innerText = `-${Math.round((1.0 - ratio) * 100)}% Below Median (Quad Leverage)`;
+        penaltyRatioDisplay.innerText = "-18%";
+
+        tagsContainer.innerHTML = `
+          <span class="px-3 py-1 rounded-lg text-xs font-mono font-extrabold bg-[#9AEF0F] text-black border-2 border-black shadow-brutal-sm">#ShortFemurs</span>
+          <span class="px-3 py-1 rounded-lg text-xs font-mono font-extrabold bg-[#ECFD28] text-black border-2 border-black shadow-brutal-sm">#UprightTorso</span>
+          <span class="px-3 py-1 rounded-lg text-xs font-mono font-extrabold bg-[#6A3CF4] text-white border-2 border-black shadow-brutal-sm">#HighBarOlympic</span>
+          <span class="px-3 py-1 rounded-lg text-xs font-mono font-extrabold bg-[#1F2937] text-slate-200 border-2 border-black shadow-brutal-sm">#QuadHypertrophy</span>
+          <span class="px-3 py-1 rounded-lg text-xs font-mono font-extrabold bg-emerald-950 text-emerald-300 border-2 border-black shadow-brutal-sm">#MinimalLumbarShear</span>
+        `;
+
+        const femMomCm = (femur * 0.48).toFixed(1);
+        const lumMomCm = (torso * 0.45).toFixed(1);
+        const femTorque = Math.round((loadNewtons * (femMomCm / 100)) * 0.5);
+        const lumTorque = Math.round((loadNewtons * (lumMomCm / 100)) * 0.5);
+
+        femurMomentLength.innerText = `${femMomCm} cm`;
+        lumbarMomentLength.innerText = `${lumMomCm} cm`;
+        femurTorqueDisplay.innerText = `${femTorque} Nm`;
+        lumbarTorqueDisplay.innerText = `${lumTorque} Nm`;
+        femurBarFill.style.width = '55%';
+        lumbarBarFill.style.width = '42%';
+        lumbarShearWarning.innerText = "Minimal Shear (Safe for High-Bar)";
+        lumbarShearWarning.className = "text-emerald-400 font-bold";
+        vectorRec.innerText = "Knees track freely forward past toes with zero center-of-mass shift.";
+
+        // AI Directives
+        directiveStance.innerText = "1.0× Hip-Width Stance";
+        directiveStanceSub.innerText = "15° Natural Flare";
+        directiveBar.innerText = "High-Bar (Upper Traps Shelf)";
+        directiveBarSub.innerText = "Maximum Vertical Trunk";
+        directiveGrip.innerText = "Close Thumbless Grip";
+        directiveGripSub.innerText = "Upper Back Rigidity";
+        directiveGaze.innerText = "Straight Ahead at Horizon";
+        joelCue.innerText = '"Drop straight down like an elevator shaft. Let the quads load up and bounce hard off the stretch reflex."';
+
+      } else {
+        // Balanced Proportions
+        classificationPill.innerText = "BALANCED KINEMATIC PROPORTION";
+        classificationPill.className = "px-3 py-1 rounded bg-[#ECFD28] text-black border-2 border-black font-mono text-xs font-extrabold shadow-brutal-sm";
+        subIndexDesc.innerText = "Standard Powerlifting Distribution";
+        penaltyRatioDisplay.innerText = "±0%";
+
+        tagsContainer.innerHTML = `
+          <span class="px-3 py-1 rounded-lg text-xs font-mono font-extrabold bg-[#ECFD28] text-black border-2 border-black shadow-brutal-sm">#BalancedProportions</span>
+          <span class="px-3 py-1 rounded-lg text-xs font-mono font-extrabold bg-[#6A3CF4] text-white border-2 border-black shadow-brutal-sm">#VersatileBarPlacement</span>
+          <span class="px-3 py-1 rounded-lg text-xs font-mono font-extrabold bg-[#9AEF0F] text-black border-2 border-black shadow-brutal-sm">#ModerateStance</span>
+          <span class="px-3 py-1 rounded-lg text-xs font-mono font-extrabold bg-[#1F2937] text-slate-200 border-2 border-black shadow-brutal-sm">#CompetitionReady</span>
+        `;
+
+        const femMomCm = (femur * 0.52).toFixed(1);
+        const lumMomCm = (torso * 0.58).toFixed(1);
+        const femTorque = Math.round((loadNewtons * (femMomCm / 100)) * 0.5);
+        const lumTorque = Math.round((loadNewtons * (lumMomCm / 100)) * 0.5);
+
+        femurMomentLength.innerText = `${femMomCm} cm`;
+        lumbarMomentLength.innerText = `${lumMomCm} cm`;
+        femurTorqueDisplay.innerText = `${femTorque} Nm`;
+        lumbarTorqueDisplay.innerText = `${lumTorque} Nm`;
+        femurBarFill.style.width = '62%';
+        lumbarBarFill.style.width = '64%';
+        lumbarShearWarning.innerText = "Even Torque Distribution";
+        lumbarShearWarning.className = "text-slate-300 font-bold";
+        vectorRec.innerText = "Optimal mechanical balance. Flexible bar position based on fatigue state.";
+
+        directiveStance.innerText = "1.15× Shoulder Width";
+        directiveStanceSub.innerText = "20° Toe Abduction";
+        directiveBar.innerText = "Mid-to-Low Bar Placement";
+        directiveBarSub.innerText = "Balanced Lever Arm";
+        directiveGrip.innerText = "Standard Competition Knurl";
+        directiveGripSub.innerText = "Elbows Under Bar";
+        directiveGaze.innerText = "3.0m Forward Angle";
+        joelCue.innerText = '"Maintain tripod foot pressure, expand belly 360 degrees into your belt, drive straight up."';
+      }
+
+      if (window.lucide) lucide.createIcons();
+    }
+
+    // 4. Pain Scale Slider Handler
+    function updatePainScale(val) {
+      document.getElementById('painRatingDisplay').innerText = val;
+    }
+
+    // 5. Holly Hunt Clinical Referral Dispatch Action
+    function dispatchClinicalReferral() {
+      const btn = document.getElementById('dispatchReferralBtn');
+      const btnText = document.getElementById('dispatchBtnText');
+      const banner = document.getElementById('dispatchSuccessBanner');
+      
+      // Loading State
+      btnText.innerText = "PACKAGING TELEMETRY & SENDING...";
+      btn.classList.add('opacity-90');
+
+      setTimeout(() => {
+        btn.classList.remove('bg-[#FF4500]', 'hover:bg-[#e03d00]');
+        btn.classList.add('bg-emerald-600', 'hover:bg-emerald-500');
+        btnText.innerText = "✓ DISPATCHED TO HOLLY HUNT (ACTIVE CASE)";
+        banner.classList.remove('hidden');
+
+        // Play subtle confirmation sound/vibe feedback
+        if (navigator.vibrate) navigator.vibrate([100, 50, 100]);
+        if (window.lucide) lucide.createIcons();
+      }, 700);
+    }
+
+    // 6. Coach Audio Play / Pause Simulation
+    let isAudioPlaying = false;
+    let audioInterval = null;
+
+    function toggleCoachAudio() {
+      isAudioPlaying = !isAudioPlaying;
+      const icon = document.getElementById('audioPlayIcon');
+      const status = document.getElementById('audioTrackStatus');
+      const waves = [
+        document.getElementById('audioWave1'),
+        document.getElementById('audioWave2'),
+        document.getElementById('audioWave3'),
+        document.getElementById('audioWave4')
+      ];
+
+      if (isAudioPlaying) {
+        icon.setAttribute('data-lucide', 'pause');
+        status.innerText = "Playing Joel's Audio Cue (0:08 / 0:14s)...";
+        status.classList.add('text-[#ECFD28]');
+
+        audioInterval = setInterval(() => {
+          waves.forEach(w => {
+            const h = Math.floor(Math.random() * 18) + 6;
+            w.style.height = `${h}px`;
+          });
+        }, 120);
+
+        setTimeout(() => {
+          if (isAudioPlaying) toggleCoachAudio();
+        }, 6000);
+
+      } else {
+        clearInterval(audioInterval);
+        icon.setAttribute('data-lucide', 'play');
+        status.innerText = 'Ready to play • "Lock the lats before unrack"';
+        status.classList.remove('text-[#ECFD28]');
+        waves[0].style.height = '8px';
+        waves[1].style.height = '16px';
+        waves[2].style.height = '12px';
+        waves[3].style.height = '20px';
+      }
+      if (window.lucide) lucide.createIcons();
+    }
+
+    // 7. Telemetry Live Stream Toggle
+    let isStreamActive = true;
+    function toggleTelemetryStream() {
+      isStreamActive = !isStreamActive;
+      const btn = document.getElementById('telemetryPillBtn');
+      const label = document.getElementById('telemetryStreamLabel');
+      if (isStreamActive) {
+        btn.classList.remove('bg-slate-700', 'text-white');
+        btn.classList.add('bg-[#9AEF0F]', 'text-black');
+        label.innerText = "TELEMETRY LIVE";
+      } else {
+        btn.classList.remove('bg-[#9AEF0F]', 'text-black');
+        btn.classList.add('bg-slate-700', 'text-white');
+        label.innerText = "STREAM PAUSED";
+      }
+    }
+  </script>
+</body></html>
