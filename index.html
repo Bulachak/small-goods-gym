@@ -641,7 +641,7 @@
                         <span className="flex items-center gap-1 text-brand-lime">
                           <span className="w-2.5 h-2.5 bg-brand-lime rounded-full inline-block"></span> Rep 1 Peak: 0.76 m/s
                         </span>
-                        <span className="flex items-center gap-1 text-brand-violet">
+                        <span className="flex items-center gap-1 text-violet-300">
                           <span className="w-2.5 h-2.5 bg-brand-violet rounded-full inline-block"></span> Rep 5 Peak: 0.59 m/s
                         </span>
                       </div>
@@ -720,7 +720,7 @@
                             <td className="py-2.5 px-3 font-bold text-brand-purple dark:text-brand-lime">{s.vel} m/s</td>
                             <td className="py-2.5 px-3">
                               <span className={`px-1.5 py-0.5 rounded font-bold ${
-                                parseFloat(s.loss) > 15 ? 'bg-brand-coral/20 text-brand-coral' : 'text-slate-600 dark:text-slate-300'
+                                parseFloat(s.loss) > 15 ? 'bg-red-100 text-red-900 dark:bg-red-950/80 dark:text-red-300 px-1 rounded' : 'text-slate-700 dark:text-slate-300'
                               }`}>
                                 {s.loss}
                               </span>
@@ -728,7 +728,7 @@
                             <td className="py-2.5 px-3 font-bold">{s.rpe}</td>
                             <td className="py-2.5 px-3">
                               {parseFloat(s.loss) >= 19 ? (
-                                <span className="bg-brand-coral text-white px-2 py-0.5 rounded-sm text-[10px] font-bold">FATIGUE CEILING</span>
+                                <span className="bg-brand-coral text-black neo-border px-2 py-0.5 rounded-sm text-[10px] font-extrabold">FATIGUE CEILING</span>
                               ) : (
                                 <span className="bg-brand-lime text-black px-2 py-0.5 rounded-sm text-[10px] font-bold">OPTIMAL</span>
                               )}
