@@ -841,7 +841,7 @@
                 <div className="space-y-2">
                   <div className="flex justify-between font-mono text-xs">
                     <span className="font-bold">Ape Index (Arm Span - Height):</span>
-                    <span className="bg-brand-coral text-white px-2 py-0.5 rounded font-extrabold">
+                    <span className="bg-brand-coral text-black px-2 py-0.5 rounded font-extrabold neo-border">
                       {apeIndex >= 0 ? `+${apeIndex} cm` : `${apeIndex} cm`}
                     </span>
                   </div>
@@ -882,7 +882,7 @@
                     </div>
 
                     <div className="p-2.5 rounded bg-white dark:bg-slate-900 neo-border">
-                      <span className="font-bold text-brand-coral block">Deadlift Setup:</span>
+                      <span className="font-bold text-red-700 dark:text-red-400 block">Deadlift Setup:</span>
                       {apeIndex > 4 ? (
                         <p className="text-slate-700 dark:text-slate-300 mt-0.5">
                           Conventional deadlift favored due to superior starting hip height and reduced horizontal distance to the barbell.
@@ -940,7 +940,7 @@
                             <circle cx={shoulderX} cy={shoulderY} r="8" fill="#f8ef8d" stroke="#000" strokeWidth="2" />
                             {/* Lumbar moment arm dimension */}
                             <line x1={hipX} y1={hipY} x2={shoulderX} y2={hipY} stroke="#ecfd28" strokeWidth="2" strokeDasharray="3" />
-                            <text x={(hipX + shoulderX) / 2 - 25} y={hipY - 8} fill="#ecfd28" fontSize="10" fontFamily="monospace">
+                            <text x={(hipX + shoulderX) / 2 - 25} y={hipY - 8} fill="#ffffff" fontSize="11" fontWeight="bold" fontFamily="monospace">
                               {Math.round(Math.abs(shoulderX - hipX) * 0.4)}cm Moment
                             </text>
                             {/* Joints */}
