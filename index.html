@@ -501,6 +501,49 @@
       const [femurRatio, setFemurRatio] = useState(1.02);
       const [apeIndex, setApeIndex] = useState(6);
 
+      // Events & RSVP state (Joel Mullen Goal #1: 12-platform cap & WhatsApp replacement)
+      const [attendeesCount, setAttendeesCount] = useState(11);
+      const [waitlistCount, setWaitlistCount] = useState(2);
+      const [userRsvpStatus, setUserRsvpStatus] = useState('none'); // 'none' | 'attending' | 'waitlisted'
+      const [isDeadZone, setIsDeadZone] = useState(false);
+      const [offlineQueueCount, setOfflineQueueCount] = useState(0);
+
+      const handleRsvpToggle = () => {
+        if (isDeadZone) {
+          setOfflineQueueCount(prev => prev + 1);
+          if (userRsvpStatus === 'none') {
+            if (attendeesCount < 12) {
+              setUserRsvpStatus('attending');
+              setAttendeesCount(c => c + 1);
+            } else {
+              setUserRsvpStatus('waitlisted');
+              setWaitlistCount(w => w + 1);
+            }
+          } else {
+            if (userRsvpStatus === 'attending') setAttendeesCount(c => Math.max(0, c - 1));
+            else setWaitlistCount(w => Math.max(0, w - 1));
+            setUserRsvpStatus('none');
+          }
+          return;
+        }
+
+        if (userRsvpStatus === 'attending') {
+          setUserRsvpStatus('none');
+          setAttendeesCount(c => Math.max(0, c - 1));
+        } else if (userRsvpStatus === 'waitlisted') {
+          setUserRsvpStatus('none');
+          setWaitlistCount(w => Math.max(0, w - 1));
+        } else {
+          if (attendeesCount < 12) {
+            setUserRsvpStatus('attending');
+            setAttendeesCount(c => c + 1);
+          } else {
+            setUserRsvpStatus('waitlisted');
+            setWaitlistCount(w => w + 1);
+          }
+        }
+      };
+
       // Refresh icons on tab change
       useEffect(() => {
         if (window.lucide) lucide.createIcons();
@@ -574,6 +617,18 @@
               >
                 <i data-lucide="users" className="w-4 h-4"></i>
                 <span>Athlete Profiles & Cues</span>
+              </button>
+
+              <button
+                onClick={() => setActiveTab('rsvp')}
+                className={`px-4 py-2 rounded text-xs font-bold flex items-center gap-2 transition-all ${
+                  activeTab === 'rsvp'
+                    ? 'bg-brand-purple text-white neo-btn font-extrabold'
+                    : 'bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200'
+                }`}
+              >
+                <i data-lucide="calendar-check-2" className="w-4 h-4"></i>
+                <span>Events &amp; Community RSVP</span>
               </button>
             </div>
 
@@ -1115,6 +1170,242 @@
                   </div>
                 </div>
               ))}
+            </div>
+          )}
+
+          {/* TAB 5: EVENTS & COMMUNITY RSVP (JOEL MULLEN GOAL #1) */}
+          {activeTab === 'rsvp' && (
+            <div className="space-y-6">
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+                
+                {/* Left Column: Interactive Platform Booking Card */}
+                <div className="lg:col-span-7 bg-white dark:bg-[#0f172a] p-6 rounded-lg neo-border neo-shadow space-y-6">
+                  <div className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-200 dark:border-slate-800 pb-4">
+                    <div>
+                      <div className="flex items-center gap-2">
+                        <span className="text-[10px] font-mono font-bold bg-brand-purple text-white px-2 py-0.5 rounded uppercase tracking-wider">
+                          Goal&nbsp;1:&nbsp;Community&nbsp;&amp;&nbsp;Events
+                        </span>
+                        <span className="text-xs font-mono text-slate-700 dark:text-slate-300 font-bold">Small Goods Morley Floor</span>
+                      </div>
+                      <h2 className="text-xl font-extrabold mt-1 text-black dark:text-white" style={{ textWrap: 'balance' }}>
+                        Olympic Weightlifting: Clean &amp; Jerk Technique Lab
+                      </h2>
+                      <p className="text-xs text-slate-700 dark:text-slate-300 mt-0.5 font-sans" style={{ textWrap: 'pretty' }}>
+                        Saturday 10:00&nbsp;AM&nbsp;AWST • 90&nbsp;min coached session with Joel Mullen &amp; Holly Hunt
+                      </p>
+                    </div>
+                    <div className="text-right">
+                      <span className="bg-brand-violet text-white text-xs font-mono px-2.5 py-1 rounded neo-border font-bold">
+                        12-SPOT&nbsp;CAP
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* 12-Platform Capacity Progress Bar */}
+                  <div className="bg-slate-50 dark:bg-slate-900/80 p-4 rounded-lg neo-border space-y-2">
+                    <div className="flex justify-between items-center text-xs">
+                      <span className="font-bold text-slate-800 dark:text-slate-200 uppercase tracking-wide font-mono">
+                        Platform Utilization:
+                      </span>
+                      <span className="font-mono text-xs font-bold text-brand-purple dark:text-brand-lime">
+                        {attendeesCount} / 12 Platforms Claimed
+                      </span>
+                    </div>
+
+                    <div className="w-full bg-slate-200 dark:bg-slate-800 rounded-full h-4 neo-border overflow-hidden p-0.5">
+                      <div
+                        className={`h-full rounded-full transition-all duration-500 ${
+                          attendeesCount >= 12
+                            ? 'bg-rose-600'
+                            : attendeesCount >= 10
+                            ? 'bg-amber-500'
+                            : 'bg-emerald-600'
+                        }`}
+                        style={{ width: `${Math.min(100, Math.round((attendeesCount / 12) * 100))}%` }}
+                      ></div>
+                    </div>
+
+                    <div className="flex justify-between items-center text-[11px] font-mono text-slate-700 dark:text-slate-300 pt-1">
+                      <span>
+                        {attendeesCount >= 12 ? (
+                          <strong className="text-rose-700 dark:text-rose-400">PLATFORMS FULL • WAITLIST ACTIVE</strong>
+                        ) : (
+                          <span>{12 - attendeesCount} platforms remaining for lifters</span>
+                        )}
+                      </span>
+                      <span>FIFO Waitlist Queue: <strong>{waitlistCount} athletes</strong></span>
+                    </div>
+                  </div>
+
+                  {/* Holly Hunt Physio Care Gate Alert */}
+                  {selectedAthlete.id === 'ATH-003' || selectedAthlete.id === 'ATH-001' ? (
+                    <div className="bg-amber-50 dark:bg-amber-950/40 border-2 border-amber-500 p-3.5 rounded-lg flex items-start gap-3">
+                      <i data-lucide="shield-alert" className="w-5 h-5 text-amber-700 dark:text-amber-400 shrink-0 mt-0.5"></i>
+                      <div className="text-xs">
+                        <strong className="text-amber-900 dark:text-amber-200 font-bold block">
+                          Holly Hunt Clinical Injury Gateway:
+                        </strong>
+                        <p className="text-amber-800 dark:text-amber-300 mt-0.5 font-sans" style={{ textWrap: 'pretty' }}>
+                          Active clearance note detected on <strong>{selectedAthlete.name}</strong> ({selectedAthlete.tags.join(', ')}). Overhead jerk load will be capped at 65% 1RM with Holly pre-notified on the floor.
+                        </p>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="bg-emerald-50 dark:bg-emerald-950/30 border-2 border-emerald-500 p-3 rounded-lg flex items-center gap-3">
+                      <i data-lucide="check-circle-2" className="w-4 h-4 text-emerald-700 dark:text-emerald-400 shrink-0"></i>
+                      <span className="text-xs text-emerald-900 dark:text-emerald-200 font-sans" style={{ textWrap: 'pretty' }}>
+                        Biomechanical profile active for <strong>{selectedAthlete.name}</strong> • Lever stance cues will auto-populate on Platform #{attendeesCount}.
+                      </span>
+                    </div>
+                  )}
+
+                  {/* 1-Tap Action Button */}
+                  <div className="space-y-3">
+                    <button
+                      onClick={handleRsvpToggle}
+                      className={`w-full py-3.5 px-4 rounded-lg font-mono font-bold text-sm transition-all neo-btn flex items-center justify-center gap-2 ${
+                        userRsvpStatus === 'attending'
+                          ? 'bg-rose-600 text-white'
+                          : userRsvpStatus === 'waitlisted'
+                          ? 'bg-amber-600 text-white'
+                          : attendeesCount < 12
+                          ? 'bg-brand-purple text-white'
+                          : 'bg-amber-600 text-white'
+                      }`}
+                    >
+                      {userRsvpStatus === 'attending' && (
+                        <>
+                          <i data-lucide="x-circle" className="w-4 h-4"></i>
+                          <span>✕ CANCEL MY PLATFORM RESERVATION</span>
+                        </>
+                      )}
+                      {userRsvpStatus === 'waitlisted' && (
+                        <>
+                          <i data-lucide="user-minus" className="w-4 h-4"></i>
+                          <span>✕ LEAVE WAITLIST (POSITION #1)</span>
+                        </>
+                      )}
+                      {userRsvpStatus === 'none' && attendeesCount < 12 && (
+                        <>
+                          <i data-lucide="ticket" className="w-4 h-4"></i>
+                          <span>🎟️ 1-TAP RSVP FOR PLATFORM</span>
+                        </>
+                      )}
+                      {userRsvpStatus === 'none' && attendeesCount >= 12 && (
+                        <>
+                          <i data-lucide="clock" className="w-4 h-4"></i>
+                          <span>⏳ JOIN AUTO-PROMOTION WAITLIST</span>
+                        </>
+                      )}
+                    </button>
+
+                    {userRsvpStatus === 'attending' && (
+                      <div className="bg-emerald-100 dark:bg-emerald-950/60 border-2 border-emerald-600 p-3 rounded-lg text-xs text-emerald-950 dark:text-emerald-200 flex items-center gap-2 font-mono">
+                        <i data-lucide="check-check" className="w-4 h-4 text-emerald-700 dark:text-emerald-400"></i>
+                        <span>
+                          <strong>Platform Reserved:</strong> Spot booked for {selectedAthlete.name}. Floor tablet loaded with cue: "{selectedAthlete.coachCue}".
+                        </span>
+                      </div>
+                    )}
+
+                    {userRsvpStatus === 'waitlisted' && (
+                      <div className="bg-amber-100 dark:bg-amber-950/60 border-2 border-amber-600 p-3 rounded-lg text-xs text-amber-950 dark:text-amber-200 flex items-center gap-2 font-mono">
+                        <i data-lucide="hourglass" className="w-4 h-4 text-amber-700 dark:text-amber-400"></i>
+                        <span>
+                          <strong>Waitlist Active (Pos #1):</strong> If another lifter withdraws &gt;2h before the session, your booking is automatically promoted and confirmed.
+                        </span>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Concrete Gym Floor Dead-Zone Simulator */}
+                  <div className="bg-slate-50 dark:bg-slate-900/60 p-4 rounded-lg neo-border flex items-center justify-between gap-4">
+                    <div>
+                      <div className="text-xs font-bold text-slate-800 dark:text-slate-200 font-mono">
+                        Gym Floor Dead-Zone Offline Simulator
+                      </div>
+                      <div className="text-[11px] text-slate-700 dark:text-slate-300 font-sans" style={{ textWrap: 'pretty' }}>
+                        Simulates concrete gym basement cellular drop-out during peak training hours.
+                      </div>
+                    </div>
+                    <button
+                      onClick={() => setIsDeadZone(!isDeadZone)}
+                      className={`px-3 py-1.5 rounded text-xs font-mono font-bold transition-all neo-btn ${
+                        isDeadZone ? 'bg-rose-600 text-white' : 'bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200'
+                      }`}
+                    >
+                      {isDeadZone ? 'DEAD-ZONE (OFFLINE)' : 'ONLINE'}
+                    </button>
+                  </div>
+
+                  {isDeadZone && (
+                    <div className="bg-rose-50 dark:bg-rose-950/40 border-2 border-rose-600 p-3 rounded-lg text-xs text-rose-950 dark:text-rose-200 font-mono">
+                      Cellular link severed. 1-Tap actions execute instantly against IndexedDB local storage with haptic feedback. Pending background sync queue: <strong>{offlineQueueCount} mutations</strong>.
+                    </div>
+                  )}
+                </div>
+
+                {/* Right Column: Architectural Solution to Joel's WhatsApp Problem */}
+                <div className="lg:col-span-5 bg-white dark:bg-[#0f172a] p-6 rounded-lg neo-border neo-shadow space-y-4">
+                  <div className="flex items-center gap-2">
+                    <span className="text-[10px] font-mono font-bold bg-brand-violet text-white px-2 py-0.5 rounded uppercase">
+                      Architecture Insight
+                    </span>
+                  </div>
+                  <h3 className="text-lg font-extrabold text-black dark:text-white" style={{ textWrap: 'balance' }}>
+                    Why This Replaces WhatsApp Group Chaos
+                  </h3>
+                  <p className="text-xs text-slate-700 dark:text-slate-300 font-sans leading-relaxed" style={{ textWrap: 'pretty' }}>
+                    In Joel Mullen's original voice memo (September&nbsp;6,&nbsp;2026), his primary operational headache was using WhatsApp group chats for community events:
+                  </p>
+                  
+                  <blockquote className="border-l-4 border-brand-purple pl-3 py-1 text-xs italic text-slate-800 dark:text-slate-200 bg-slate-50 dark:bg-slate-900/50 rounded font-sans" style={{ textWrap: 'pretty' }}>
+                    "Goal number one is that it needs to house some sort of events and community infrastructure, not dissimilar to kind of what we already do on WhatsApp, but we're trying to find a place where there's less noise so that the signal is clearer..."
+                  </blockquote>
+
+                  <div className="space-y-3 pt-2 text-xs font-sans">
+                    <div className="flex items-start gap-2.5">
+                      <span className="w-5 h-5 rounded-full bg-brand-purple text-white flex items-center justify-center text-[10px] font-mono font-bold shrink-0 mt-0.5">1</span>
+                      <div>
+                        <strong className="text-black dark:text-white block">Noise-Free Push Notifications</strong>
+                        <span className="text-slate-700 dark:text-slate-300" style={{ textWrap: 'pretty' }}>Replaces 400 unread banter messages with targeted, single-purpose event alerts and start-time reminders.</span>
+                      </div>
+                    </div>
+
+                    <div className="flex items-start gap-2.5">
+                      <span className="w-5 h-5 rounded-full bg-brand-lime text-black flex items-center justify-center text-[10px] font-mono font-bold shrink-0 mt-0.5">2</span>
+                      <div>
+                        <strong className="text-black dark:text-white block">Strict 12-Platform Capacity Limits</strong>
+                        <span className="text-slate-700 dark:text-slate-300" style={{ textWrap: 'pretty' }}>Eliminates manual headcounts. Once 12 spots fill, subsequent clicks auto-divert into the FIFO waitlist.</span>
+                      </div>
+                    </div>
+
+                    <div className="flex items-start gap-2.5">
+                      <span className="w-5 h-5 rounded-full bg-brand-purple text-white flex items-center justify-center text-[10px] font-mono font-bold shrink-0 mt-0.5">3</span>
+                      <div>
+                        <strong className="text-black dark:text-white block">Autonomous Waitlist Promotion</strong>
+                        <span className="text-slate-700 dark:text-slate-300" style={{ textWrap: 'pretty' }}>When a lifter cancels, Postgres trigger functions immediately promote the top waitlisted lifter with zero coach intervention.</span>
+                      </div>
+                    </div>
+
+                    <div className="flex items-start gap-2.5">
+                      <span className="w-5 h-5 rounded-full bg-brand-mint text-black flex items-center justify-center text-[10px] font-mono font-bold shrink-0 mt-0.5">4</span>
+                      <div>
+                        <strong className="text-black dark:text-white block">Integrated Physio Screening</strong>
+                        <span className="text-slate-700 dark:text-slate-300" style={{ textWrap: 'pretty' }}>Ties RSVP directly to Holly Hunt's rehabilitation tags so injured lifters are flagged before loading on the platform.</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="pt-3 border-t border-slate-200 dark:border-slate-800">
+                    <div className="text-[11px] font-mono text-slate-600 dark:text-slate-400">
+                      Code files in repo: <code className="text-brand-purple dark:text-brand-lime font-bold">rsvp-system/refined-rsvp-backend.py</code> and <code className="text-brand-purple dark:text-brand-lime font-bold">refined-rsvp-system.tsx</code>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
             </div>
           )}
         </div>
