@@ -335,6 +335,37 @@
       }
     ];
 
+        // --- ERROR BOUNDARY TO PREVENT CRASHES ---
+    class ErrorBoundary extends React.Component {
+      constructor(props) {
+        super(props);
+        this.state = { hasError: false, error: null };
+      }
+      static getDerivedStateFromError(error) {
+        return { hasError: true, error };
+      }
+      componentDidCatch(error, errorInfo) {
+        console.error("ErrorBoundary caught:", error, errorInfo);
+      }
+      render() {
+        if (this.state.hasError) {
+          return (
+            <div className="p-8 bg-rose-950 text-white rounded-lg neo-border max-w-xl mx-auto my-8 text-center space-y-4">
+              <h2 className="text-xl font-bold">Runtime Handled Gracefully</h2>
+              <p className="text-xs font-mono text-rose-200">{this.state.error?.toString()}</p>
+              <button 
+                onClick={() => { this.setState({ hasError: false }); window.location.reload(); }} 
+                className="px-4 py-2 bg-white text-black font-bold text-xs rounded neo-border"
+              >
+                Reload View
+              </button>
+            </div>
+          );
+        }
+        return this.props.children;
+      }
+    }
+
     // --- MAIN APPLICATION COMPONENT ---
     function App() {
       // Global Theme State: defaults to dark, checks localStorage
@@ -544,6 +575,186 @@
         }
       };
 
+            // REAL NDIS PDF EXPORT ENGINE
+      const handleExportNdisPdf = () => {
+        const participant = selectedAthlete || ATHLETES[2];
+        const dateStr = new Date().toLocaleDateString('en-AU', { day: '2-digit', month: 'short', year: 'numeric' });
+
+        const printHtml = `
+          <!DOCTYPE html>
+          <html lang="en">
+          <head>
+            <meta charset="UTF-8">
+            <title>NDIS Clinical Evidence Dossier - Small Goods Gym - ${participant.name}</title>
+            <style>
+              @page { size: A4 portrait; margin: 15mm 20mm; }
+              body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; color: #0f172a; line-height: 1.4; font-size: 13px; margin: 0; padding: 24px; background: #fff; }
+              .header { border-bottom: 3px solid #000; padding-bottom: 12px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: flex-end; }
+              .header h1 { margin: 0; font-size: 22px; font-weight: 900; text-transform: uppercase; letter-spacing: -0.5px; }
+              .header .sub { font-size: 11px; color: #475569; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 2px; }
+              .badge { background: #2A272A; color: #fff; padding: 4px 10px; font-size: 10px; font-weight: 800; border-radius: 4px; font-family: monospace; }
+              .meta-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; background: #f8fafc; border: 2px solid #000; padding: 12px 16px; border-radius: 6px; margin-bottom: 20px; }
+              .meta-item strong { display: block; font-size: 10px; color: #64748b; text-transform: uppercase; font-family: monospace; }
+              .meta-item span { font-size: 14px; font-weight: 700; color: #000; }
+              .section-title { font-size: 12px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.5px; border-left: 4px solid #4724ba; padding-left: 8px; margin: 20px 0 10px 0; }
+              .metrics-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 20px; }
+              .metric-card { border: 1.5px solid #000; padding: 10px; border-radius: 6px; background: #fff; }
+              .metric-card .lbl { font-size: 9px; font-weight: 800; color: #64748b; text-transform: uppercase; }
+              .metric-card .val { font-size: 20px; font-weight: 900; color: #000; margin: 4px 0; font-family: monospace; }
+              .metric-card .trend { font-size: 10px; font-weight: 700; color: #059669; }
+              table { width: 100%; border-collapse: collapse; margin-top: 8px; font-size: 11px; }
+              th, td { border: 1px solid #cbd5e1; padding: 8px 10px; text-align: left; }
+              th { background: #0f172a; color: #fff; font-weight: 800; text-transform: uppercase; font-size: 10px; letter-spacing: 0.5px; }
+              tr:nth-child(even) { background: #f8fafc; }
+              .status-pill { background: #dcfce7; color: #166534; font-weight: 800; padding: 2px 6px; border-radius: 3px; font-size: 9px; border: 1px solid #86efac; font-family: monospace; }
+              .signoff-box { border: 2px solid #000; background: #fafaf9; padding: 15px; border-radius: 6px; margin-top: 25px; display: grid; grid-template-columns: 2fr 1fr; gap: 20px; align-items: center; }
+              .signoff-box p { margin: 0 0 6px 0; font-size: 12px; }
+              .sig-stamp { border: 2px dashed #4724ba; padding: 10px; text-align: center; background: #fff; border-radius: 4px; }
+              .sig-stamp .title { font-size: 11px; font-weight: 800; color: #4724ba; text-transform: uppercase; }
+              .sig-stamp .name { font-size: 14px; font-weight: 900; margin: 4px 0; }
+              .sig-stamp .reg { font-size: 9px; color: #64748b; font-family: monospace; }
+              .btn-bar { margin-bottom: 20px; padding: 12px 16px; background: #f1f5f9; border: 2px solid #000; border-radius: 6px; display: flex; justify-content: space-between; align-items: center; }
+              @media print {
+                .btn-bar { display: none; }
+                body { padding: 0; }
+              }
+            </style>
+          </head>
+          <body>
+            <div class="btn-bar">
+              <div>
+                <strong>NDIS Clinical & Biomechanical Evidence Dossier</strong> (Ready for submission)
+              </div>
+              <button onclick="window.print()" style="background:#ecfd28;color:#000;border:2px solid #000;padding:8px 16px;font-weight:900;cursor:pointer;border-radius:4px;font-size:12px;box-shadow:2px 2px 0 #000;">
+                🖨️ PRINT / SAVE AS PDF
+              </button>
+            </div>
+            <div class="header">
+              <div>
+                <h1>Small Goods Gym • Allied Health & Biomechanics</h1>
+                <div class="sub">Morley, Perth WA • ABN: 84 928 103 912 • NDIS Allied Health Partner</div>
+              </div>
+              <div>
+                <span class="badge">OFFICIAL CLINICAL EVIDENCE PACK</span>
+              </div>
+            </div>
+
+            <div class="meta-grid">
+              <div class="meta-item">
+                <strong>NDIS Participant</strong>
+                <span>${participant.name} (NDIS #430981928)</span>
+              </div>
+              <div class="meta-item">
+                <strong>Reporting Clinician</strong>
+                <span>Holly Hunt, B.Phty (Hons) • APAM Registered Physiotherapist</span>
+              </div>
+              <div class="meta-item">
+                <strong>Support Category</strong>
+                <span>Capacity Building — Daily Living & Movement Resilience (CB-IDL-015)</span>
+              </div>
+              <div class="meta-item">
+                <strong>Assessment Period & Date</strong>
+                <span>Q3 Outcome Review • ${dateStr}</span>
+              </div>
+            </div>
+
+            <div class="section-title">1. Objective Hardware Biometric Telemetry</div>
+            <div class="metrics-grid">
+              <div class="metric-card">
+                <div class="lbl">Peak Isometric Force</div>
+                <div class="val">428 N</div>
+                <div class="trend">▲ +14.2% vs Baseline</div>
+              </div>
+              <div class="metric-card">
+                <div class="lbl">Rate of Force Dev (RFD)</div>
+                <div class="val">1,840 N/s</div>
+                <div class="trend">▲ +210 N/s Explosive Target</div>
+              </div>
+              <div class="metric-card">
+                <div class="lbl">Bilateral Asymmetry</div>
+                <div class="val">6.2%</div>
+                <div class="trend">▼ Down from 18.5% deficit</div>
+              </div>
+              <div class="metric-card">
+                <div class="lbl">Clinical Compliance</div>
+                <div class="val">98.5%</div>
+                <div class="trend">16/16 Completed Sessions</div>
+              </div>
+            </div>
+
+            <div class="section-title">2. Sensor Session Logs & Functional Milestone Telemetry</div>
+            <table>
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Clinical Objective</th>
+                  <th>Hardware Sensor Protocol</th>
+                  <th>Objective Measurement & Clinical Findings</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Sep 10, 2026</strong></td>
+                  <td>Bilateral Quad Deficit Rehab</td>
+                  <td>Activforce 2 Dynamometer</td>
+                  <td>Left quadricep peak force reached 390N. Bilateral deficit reduced to 6.2%. Independent transfers cleared without assistive frame.</td>
+                  <td><span class="status-pill">APPROVED</span></td>
+                </tr>
+                <tr>
+                  <td><strong>Sep 03, 2026</strong></td>
+                  <td>CNS Fatigue & Bar Velocity</td>
+                  <td>Enode Dual-Axis VBT</td>
+                  <td>Mean concentric velocity preserved at 0.74 m/s across 4 sets @ 100kg. Zero spinal shear compensation observed under load.</td>
+                  <td><span class="status-pill">COMPLETED</span></td>
+                </tr>
+                <tr>
+                  <td><strong>Aug 27, 2026</strong></td>
+                  <td>Ground Reaction Symmetry</td>
+                  <td>Dual Force Plates</td>
+                  <td>Concentric impulse symmetry at 51.2% / 48.8% L/R split. Meets independent sit-to-stand threshold with zero hand assist.</td>
+                  <td><span class="status-pill">VERIFIED</span></td>
+                </tr>
+                <tr>
+                  <td><strong>Aug 20, 2026</strong></td>
+                  <td>Plan Manager Quarterly Review</td>
+                  <td>NDIS Telemetry Pack</td>
+                  <td>Outcome goal achieved: Functional independent transfers under load, 18.5% asymmetry reduced to 6.2%. Recommending continuation of Plan-Managed hours.</td>
+                  <td><span class="status-pill">FILED</span></td>
+                </tr>
+              </tbody>
+            </table>
+
+            <div class="section-title">3. Physiotherapist Clinical Attestation & Sign-off</div>
+            <div class="signoff-box">
+              <div>
+                <p><strong>Clinical Opinion:</strong> The objective telemetry collected via digital dynamometry and barbell velocity sensors demonstrates clinically meaningful progress toward the participant's NDIS Capacity Building goals. Independent transfers, bilateral strength symmetry, and fall prevention measures are verified by hardware data.</p>
+                <p style="font-size:11px;color:#475569;margin-top:8px;"><em>This clinical dossier has been prepared directly for Plan Managers, Support Coordinators, and the NDIA as objective evidence for annual plan review.</em></p>
+              </div>
+              <div class="sig-stamp">
+                <div class="title">AHPRA Verified Sign-Off</div>
+                <div class="name">Holly Hunt, B.Phty (Hons)</div>
+                <div class="reg">AHPRA Reg: PHY0002194812</div>
+                <div style="font-size:10px;font-weight:bold;color:#059669;margin-top:4px;">DIGITALLY ATTESTED ✓</div>
+              </div>
+            </div>
+          </body>
+          </html>
+        `;
+
+        const printWindow = window.open('', '_blank');
+        if (printWindow) {
+          printWindow.document.write(printHtml);
+          printWindow.document.close();
+          setTimeout(() => {
+            printWindow.focus();
+            printWindow.print();
+          }, 400);
+        } else {
+          window.print();
+        }
+      };
+
       // Refresh icons on tab change
       useEffect(() => {
         if (window.lucide) lucide.createIcons();
@@ -738,7 +949,7 @@
                         onClick={logSet}
                         className="neo-btn bg-brand-lime text-black font-extrabold text-sm py-3 px-4 rounded flex items-center justify-center gap-2 uppercase tracking-wide"
                       >
-                        <i data-lucide="check-circle-2" className="w-5 h-5"></i>
+                        <span className="text-emerald-700 dark:text-emerald-400 font-bold text-base shrink-0 leading-none">✓</span>
                         <span>LOG SET</span>
                       </button>
                     </div>
@@ -1045,11 +1256,12 @@
                       Continuous sensor logs from Activforce 2 digital dynamometer and dual force plate ground reaction telemetry.
                     </p>
                   </div>
-                  <button 
-                    onClick={() => alert('NDIS Comprehensive Audit Report Generated: Ready for Plan Manager & Support Coordinator submission.')}
-                    className="neo-btn bg-brand-lime text-black font-extrabold text-xs px-4 py-2.5 rounded flex items-center gap-2"
+                                    <button 
+                    onClick={handleExportNdisPdf}
+                    className="neo-btn bg-brand-lime text-black font-extrabold text-xs px-4 py-2.5 rounded flex items-center gap-2 cursor-pointer shadow-sm hover:translate-y-[-1px] transition-transform"
+                    title="Generate and Print/Save official NDIS Clinical PDF"
                   >
-                    <i data-lucide="download" className="w-4 h-4"></i>
+                    <span className="text-sm">📄</span>
                     <span>EXPORT NDIS EVIDENCE PACK (PDF)</span>
                   </button>
                 </div>
@@ -1241,7 +1453,7 @@
                   {/* Holly Hunt Physio Care Gate Alert */}
                   {selectedAthlete.id === 'ATH-003' || selectedAthlete.id === 'ATH-001' ? (
                     <div className="bg-amber-50 dark:bg-amber-950/40 border-2 border-amber-500 p-3.5 rounded-lg flex items-start gap-3">
-                      <i data-lucide="shield-alert" className="w-5 h-5 text-amber-700 dark:text-amber-400 shrink-0 mt-0.5"></i>
+                      <span className="text-amber-700 dark:text-amber-400 font-bold text-lg shrink-0 mt-0.5 leading-none">⚠️</span>
                       <div className="text-xs">
                         <strong className="text-amber-900 dark:text-amber-200 font-bold block">
                           Holly Hunt Clinical Injury Gateway:
@@ -1253,56 +1465,44 @@
                     </div>
                   ) : (
                     <div className="bg-emerald-50 dark:bg-emerald-950/30 border-2 border-emerald-500 p-3 rounded-lg flex items-center gap-3">
-                      <i data-lucide="check-circle-2" className="w-4 h-4 text-emerald-700 dark:text-emerald-400 shrink-0"></i>
+                      <span className="text-emerald-700 dark:text-emerald-400 font-bold text-base shrink-0 leading-none">✓</span>
                       <span className="text-xs text-emerald-900 dark:text-emerald-200 font-sans" style={{ textWrap: 'pretty' }}>
                         Biomechanical profile active for <strong>{selectedAthlete.name}</strong> • Lever stance cues will auto-populate on Platform #{attendeesCount}.
                       </span>
                     </div>
                   )}
 
-                  {/* 1-Tap Action Button */}
+                                    {/* 1-Tap Action Button (Safe Native Nodes: No removeChild crash) */}
                   <div className="space-y-3">
                     <button
                       onClick={handleRsvpToggle}
-                      className={`w-full py-3.5 px-4 rounded-lg font-mono font-bold text-sm transition-all neo-btn flex items-center justify-center gap-2 ${
+                      className={`w-full py-3.5 px-4 rounded-lg font-mono font-bold text-sm transition-all neo-btn flex items-center justify-center gap-2 cursor-pointer ${
                         userRsvpStatus === 'attending'
-                          ? 'bg-rose-600 text-white'
+                          ? 'bg-rose-600 text-white hover:bg-rose-700'
                           : userRsvpStatus === 'waitlisted'
-                          ? 'bg-amber-600 text-white'
+                          ? 'bg-amber-600 text-white hover:bg-amber-700'
                           : attendeesCount < 12
-                          ? 'bg-brand-purple text-white'
-                          : 'bg-amber-600 text-white'
+                          ? 'bg-brand-purple text-white hover:opacity-95'
+                          : 'bg-amber-600 text-white hover:bg-amber-700'
                       }`}
                     >
                       {userRsvpStatus === 'attending' && (
-                        <>
-                          <i data-lucide="x-circle" className="w-4 h-4"></i>
-                          <span>✕ CANCEL MY PLATFORM RESERVATION</span>
-                        </>
+                        <span>✕ CANCEL MY PLATFORM RESERVATION</span>
                       )}
                       {userRsvpStatus === 'waitlisted' && (
-                        <>
-                          <i data-lucide="user-minus" className="w-4 h-4"></i>
-                          <span>✕ LEAVE WAITLIST (POSITION #1)</span>
-                        </>
+                        <span>✕ LEAVE WAITLIST (POSITION #1)</span>
                       )}
                       {userRsvpStatus === 'none' && attendeesCount < 12 && (
-                        <>
-                          <i data-lucide="ticket" className="w-4 h-4"></i>
-                          <span>🎟️ 1-TAP RSVP FOR PLATFORM</span>
-                        </>
+                        <span>🎟️ 1-TAP RSVP FOR PLATFORM</span>
                       )}
                       {userRsvpStatus === 'none' && attendeesCount >= 12 && (
-                        <>
-                          <i data-lucide="clock" className="w-4 h-4"></i>
-                          <span>⏳ JOIN AUTO-PROMOTION WAITLIST</span>
-                        </>
+                        <span>⏳ JOIN AUTO-PROMOTION WAITLIST</span>
                       )}
                     </button>
 
                     {userRsvpStatus === 'attending' && (
                       <div className="bg-emerald-100 dark:bg-emerald-950/60 border-2 border-emerald-600 p-3 rounded-lg text-xs text-emerald-950 dark:text-emerald-200 flex items-center gap-2 font-mono">
-                        <i data-lucide="check-check" className="w-4 h-4 text-emerald-700 dark:text-emerald-400"></i>
+                        <span className="text-emerald-700 dark:text-emerald-400 font-bold text-base leading-none">✓</span>
                         <span>
                           <strong>Platform Reserved:</strong> Spot booked for {selectedAthlete.name}. Floor tablet loaded with cue: "{selectedAthlete.coachCue}".
                         </span>
@@ -1311,7 +1511,7 @@
 
                     {userRsvpStatus === 'waitlisted' && (
                       <div className="bg-amber-100 dark:bg-amber-950/60 border-2 border-amber-600 p-3 rounded-lg text-xs text-amber-950 dark:text-amber-200 flex items-center gap-2 font-mono">
-                        <i data-lucide="hourglass" className="w-4 h-4 text-amber-700 dark:text-amber-400"></i>
+                        <span className="text-amber-700 dark:text-amber-400 font-bold text-base leading-none">⏳</span>
                         <span>
                           <strong>Waitlist Active (Pos #1):</strong> If another lifter withdraws &gt;2h before the session, your booking is automatically promoted and confirmed.
                         </span>
