@@ -393,6 +393,206 @@
       }
     }
 
+    // =========================================================================
+    // FLOATING GOAT AI WIDGET (Neo-Brutalist Gym-Floor Overlay)
+    // =========================================================================
+    function FloatingGoatWidget() {
+      const [isOpen, setIsOpen] = useState(false);
+      const [input, setInput] = useState("");
+      const [isSending, setIsSending] = useState(false);
+      const [messages, setMessages] = useState([
+        {
+          sender: "bot",
+          text: "G'day! I'm the Small Goods Goat AI Assistant. Grounded in Yuri Verkhoshansky's Dynamic Correspondence, Vladimir Zatsiorsky's three-method strength theory, and real-time barbell VBT. How can I help your training or gym operations?"
+        }
+      ]);
+      const endRef = useRef(null);
+
+      useEffect(() => {
+        if (isOpen && endRef.current) {
+          endRef.current.scrollIntoView({ behavior: "smooth" });
+        }
+      }, [messages, isOpen]);
+
+      const sendMessage = async (textToSend) => {
+        const query = (textToSend || input).trim();
+        if (!query) return;
+        if (!textToSend) setInput("");
+
+        const newMsgs = [...messages, { sender: "user", text: query }];
+        setMessages(newMsgs);
+        setIsSending(true);
+
+        let botReply = null;
+        try {
+          const apiBase = (window.location.port === "8000" || window.location.pathname.includes("/web/")) ? "" : "http://localhost:8000";
+          const res = await fetch(`${apiBase}/api/chat`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              message: query,
+              profile_id: "small_goods_gym",
+              conversation_history: newMsgs.map(m => ({
+                role: m.sender === "user" ? "user" : "assistant",
+                content: m.text
+              }))
+            })
+          });
+          if (res.ok) {
+            const data = await res.json();
+            if (data && data.reply_text) botReply = data.reply_text;
+          }
+        } catch (e) {}
+
+        if (!botReply) {
+          await new Promise(r => setTimeout(r, 400));
+          const lowerQ = query.toLowerCase();
+          if (lowerQ.includes("miss") || lowerQ.includes("fail") || lowerQ.includes("85")) {
+            botReply = "🚨 90-Sec Triage: Bar speed dropped 18% (severe velocity decay). Per Zatsiorsky, this is systemic CNS fatigue, not technical drift. Drop load by 5-7.5% immediately (take 80kg for 2 singles) or terminate the lift. Power starts in the legs — do not pull early with arms!";
+          } else if (lowerQ.includes("femur") || lowerQ.includes("squat") || lowerQ.includes("leverage")) {
+            botReply = "📐 Long Femur Squat Optimization: Per Dr. Dan Cleather's torque physics, athletes with high femur-to-torso ratios experience amplified hip moment arms at parallel. Widen stance to 1.3x shoulder width, point toes out 30°, cue external hip rotation, and use low-bar placement to minimize lumbar shear.";
+          } else if (lowerQ.includes("shock") || lowerQ.includes("verkhoshansky") || lowerQ.includes("depth")) {
+            botReply = "⚡ Yuri Verkhoshansky's Shock Method: Amortization phase must remain strictly under 150 milliseconds. Drop height should not exceed 0.75m for speed-strength or 1.10m for maximal RFD. Transition immediately into reactive concentric drive.";
+          } else if (lowerQ.includes("wl") || lowerQ.includes("450") || lowerQ.includes("plate")) {
+            botReply = "📹 Computer Vision Kinematics (WL Analysis): Calibrated against the standard 450mm IWF bumper plate outer diameter. Filming perpendicular at 90° converts pixels to metric displacement, mapping barbell trajectory, horizontal loop drift, and peak acceleration.";
+          } else if (lowerQ.includes("jump") || lowerQ.includes("flight") || lowerQ.includes("my jump")) {
+            botReply = "⏱️ My Jump 2 Flight Time Mechanics: Using high-speed 240 fps camera sampling, flight time (t) determines jump height via h = 1/8 * g * t² ≈ 1.22625 * t². Validated across 15+ peer-reviewed studies (r=0.995 vs Kistler force plates).";
+          } else if (lowerQ.includes("whatsapp") || lowerQ.includes("phone") || lowerQ.includes("booking")) {
+            botReply = "📱 WhatsApp Booking & Waitlist Bot: Joel Mullen's community operates seamlessly on WhatsApp. You can text our bot to check live platform availability (12-lifter cap), reserve training slots, or log velocity data directly from your phone!";
+          } else {
+            botReply = `Analyzing "${query}" through Soviet sports science and barbell VBT: Ensure rate of force development (RFD) matches the competition movement velocity envelope. If you are experiencing joint pain or discomfort, Holly Hunt has been flagged for clinical consultation.`;
+          }
+        }
+
+        setMessages(prev => [...prev, { sender: "bot", text: botReply }]);
+        setIsSending(false);
+      };
+
+      return (
+        <div className="fixed bottom-6 right-6 z-50">
+          {!isOpen ? (
+            <button
+              onClick={() => setIsOpen(true)}
+              className="bg-brand-lime hover:bg-[#aef82a] text-black font-extrabold text-xs px-4 py-3 rounded-xl border-2 border-black shadow-[4px_4px_0px_#000000] flex items-center gap-2.5 transition-all hover:-translate-y-1 hover:shadow-[6px_6px_0px_#000000] active:translate-y-0 active:shadow-[2px_2px_0px_#000000]"
+            >
+              <span className="text-xl">🐐</span>
+              <span className="font-sans font-black tracking-wide">ASK GOAT AI</span>
+              <span className="w-2 h-2 rounded-full bg-black animate-ping"></span>
+            </button>
+          ) : (
+            <div className="w-[360px] sm:w-[410px] h-[540px] bg-white dark:bg-[#0f172a] border-2 border-black rounded-xl shadow-[8px_8px_0px_#000000] flex flex-col overflow-hidden text-xs">
+              {/* Widget Header */}
+              <div className="p-3.5 bg-brand-purple text-white border-b-2 border-black flex items-center justify-between">
+                <div className="flex items-center gap-2.5">
+                  <div className="w-8 h-8 rounded-lg bg-brand-lime flex items-center justify-center text-lg border border-black shadow-[2px_2px_0px_#000]">
+                    🐐
+                  </div>
+                  <div>
+                    <div className="font-extrabold text-xs flex items-center gap-2">
+                      <span>Goat AI Concierge</span>
+                      <span className="bg-brand-lime text-black text-[9px] font-black px-1.5 py-0.2 rounded font-mono neo-border">ONLINE</span>
+                    </div>
+                    <div className="text-[10px] text-purple-200 font-mono">Small Goods Gym • Sports Science Engine</div>
+                  </div>
+                </div>
+                <div className="flex items-center gap-2">
+                  <a
+                    href="small-goods-coach-demo.html"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="text-white hover:text-brand-lime text-xs font-mono underline"
+                    title="Open Fullscreen"
+                  >
+                    ↗ Full
+                  </a>
+                  <button
+                    onClick={() => setIsOpen(false)}
+                    className="text-white hover:text-brand-lime font-mono font-bold text-sm px-1.5 py-0.5 rounded border border-transparent hover:border-black hover:bg-black/30 transition-colors"
+                  >
+                    ✕
+                  </button>
+                </div>
+              </div>
+
+              {/* Chat Message List */}
+              <div className="flex-1 overflow-y-auto p-3.5 space-y-3 bg-slate-50 dark:bg-[#090d16]">
+                {messages.map((m, i) => (
+                  <div key={i} className={`flex ${m.sender === 'user' ? 'justify-end' : 'justify-start'}`}>
+                    <div className={`max-w-[85%] rounded-lg p-3 text-xs leading-relaxed border-2 border-black ${
+                      m.sender === 'user'
+                        ? 'bg-brand-violet text-white shadow-[2px_2px_0px_#000]'
+                        : 'bg-white dark:bg-[#1e293b] text-slate-900 dark:text-slate-100 shadow-[2px_2px_0px_#000]'
+                    }`}>
+                      <div className="font-mono text-[9px] font-bold mb-1 opacity-75 uppercase">
+                        {m.sender === 'user' ? 'Athlete' : 'Goat AI Coach'}
+                      </div>
+                      <div className="whitespace-pre-wrap">{m.text}</div>
+                    </div>
+                  </div>
+                ))}
+                {isSending && (
+                  <div className="flex justify-start">
+                    <div className="bg-white dark:bg-[#1e293b] border-2 border-black rounded-lg p-2.5 text-[11px] font-mono flex items-center gap-2 text-slate-600 dark:text-slate-300 shadow-[2px_2px_0px_#000]">
+                      <span className="w-2 h-2 rounded-full bg-brand-purple dark:bg-brand-lime animate-ping"></span>
+                      <span>Consulting sports science library...</span>
+                    </div>
+                  </div>
+                )}
+                <div ref={endRef} />
+              </div>
+
+              {/* Quick Chips */}
+              <div className="px-3 py-2 bg-slate-100 dark:bg-[#0f172a] border-t-2 border-black flex gap-1.5 overflow-x-auto text-[10px]">
+                <button
+                  onClick={() => sendMessage("I missed 2 snatches at 85%")}
+                  className="neo-btn bg-white dark:bg-slate-800 text-brand-purple dark:text-brand-lime px-2 py-1 rounded border border-black shrink-0 font-bold"
+                >
+                  🏋️ 2 Misses Triage
+                </button>
+                <button
+                  onClick={() => sendMessage("Long femurs squat fix")}
+                  className="neo-btn bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-200 px-2 py-1 rounded border border-black shrink-0 font-bold"
+                >
+                  📐 Long Femurs
+                </button>
+                <button
+                  onClick={() => sendMessage("Shock method amortization")}
+                  className="neo-btn bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-200 px-2 py-1 rounded border border-black shrink-0 font-bold"
+                >
+                  ⚡ Shock Method
+                </button>
+                <button
+                  onClick={() => sendMessage("WhatsApp bot reservation")}
+                  className="neo-btn bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-200 px-2 py-1 rounded border border-black shrink-0 font-bold"
+                >
+                  📱 WhatsApp Bot
+                </button>
+              </div>
+
+              {/* Input Area */}
+              <div className="p-3 bg-white dark:bg-[#0f172a] border-t-2 border-black flex items-center gap-2">
+                <input
+                  type="text"
+                  value={input}
+                  onChange={(e) => setInput(e.target.value)}
+                  onKeyDown={(e) => e.key === 'Enter' && sendMessage()}
+                  placeholder="Ask Goat AI (e.g. VBT, levers, RSVP)..."
+                  className="flex-1 bg-slate-50 dark:bg-slate-900 border-2 border-black rounded-lg px-3 py-2 text-xs text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-purple"
+                />
+                <button
+                  onClick={() => sendMessage()}
+                  disabled={isSending}
+                  className="bg-brand-lime hover:bg-[#aef82a] disabled:opacity-50 text-black font-extrabold px-3.5 py-2 rounded-lg border-2 border-black shadow-[2px_2px_0px_#000] active:translate-y-0.5 active:shadow-none transition-transform"
+                >
+                  ➤
+                </button>
+              </div>
+            </div>
+          )}
+        </div>
+      );
+    }
+
     // --- MAIN APPLICATION COMPONENT ---
     function App() {
       // Global Theme State: defaults to dark, checks localStorage
@@ -537,6 +737,9 @@
               </div>
             </div>
           </footer>
+
+          {/* FLOATING GOAT AI WIDGET */}
+          <FloatingGoatWidget />
         </div>
       );
     }

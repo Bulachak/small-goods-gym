@@ -3,3 +3,7 @@ node_modules/
 Thumbs.db
 *.log
 scratch/
+docs/books/
+docs/markdown_books/
+docs/Joel_Mila_Meeting_Transcript*
+docs/Joel_Mila_Meeting_Debrief*
