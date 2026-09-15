@@ -1585,7 +1585,7 @@
                   {renderMode === 'interactive' && (
                     <iframe
                       ref={iframeRef}
-                      src={selectedScreen.htmlFile}
+                      src={`${selectedScreen.htmlFile}?v=20260914-v3`}
                       onLoad={handleIframeLoad}
                       className="w-full h-[780px] border-0 rounded bg-white dark:bg-[#090d16]"
                       title={selectedScreen.title}
@@ -1596,7 +1596,7 @@
                   {renderMode === 'screenshot' && (
                     <div className="h-[780px] overflow-y-auto bg-slate-100 dark:bg-slate-950 p-2">
                       <img
-                        src={selectedScreen.pngFile}
+                        src={`${selectedScreen.pngFile}?v=20260914-v3`}
                         alt={selectedScreen.title}
                         className="w-full h-auto object-contain rounded neo-border"
                       />
@@ -1612,7 +1612,7 @@
                         </div>
                         <iframe
                           ref={iframeRef}
-                          src={selectedScreen.htmlFile}
+                          src={`${selectedScreen.htmlFile}?v=20260914-v3`}
                           onLoad={handleIframeLoad}
                           className="w-full flex-1 border-0 bg-white dark:bg-[#090d16]"
                           title={`Live - ${selectedScreen.title}`}
@@ -1624,7 +1624,7 @@
                         </div>
                         <div className="flex-1 overflow-y-auto bg-slate-950 p-2">
                           <img
-                            src={selectedScreen.pngFile}
+                            src={`${selectedScreen.pngFile}?v=20260914-v3`}
                             alt={selectedScreen.title}
                             className="w-full h-auto object-contain"
                           />
