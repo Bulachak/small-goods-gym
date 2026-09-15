@@ -140,7 +140,30 @@
       white-space: nowrap !important;
     }
   
+
+    /* ZERO-ORPHAN GLOBAL ENFORCEMENT */
+    .whitespace-nowrap, th, td.whitespace-nowrap, .font-mono {
+      white-space: nowrap !important;
+    }
+    span[class*="rounded"], .badge, button, select {
+      white-space: nowrap !important;
+      text-wrap: nowrap !important;
+    }
+    h1, h2, h3 {
+      text-wrap: balance !important;
+    }
+    p, label {
+      text-wrap: pretty !important;
+    }
+  
 </style>
+
+  <style>
+    /* Anti-orphan universal glue */
+    .whitespace-nowrap { white-space: nowrap !important; }
+    h1, h2, h3, h4, h5, h6 { text-wrap: balance !important; }
+    p, .card-desc { text-wrap: pretty !important; }
+  </style>
 </head>
 <body class="min-h-screen bg-[#0B0F19] text-slate-100 selection:bg-[#9AEF0F] selection:text-black terminal-grid flex flex-col">
 <!-- ================= TACTICAL HEADER / TOP NAV ================= -->
@@ -156,13 +179,13 @@
 </div>
 <!-- Live Status LED -->
 <span class="absolute -bottom-1 -right-1 flex h-4 w-4">
-<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#9AEF0F] opacity-75"></span>
-<span class="relative inline-flex rounded-full h-4 w-4 bg-[#9AEF0F] border-2 border-black"></span>
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#9AEF0F] opacity-75 whitespace-nowrap"></span>
+<span class="relative inline-flex rounded-full h-4 w-4 bg-[#9AEF0F] border-2 border-black whitespace-nowrap"></span>
 </span>
 </div>
 <div>
 <div class="flex items-center gap-2">
-<span class="font-mono text-[10px] font-extrabold uppercase px-1.5 py-0.5 rounded bg-[#9AEF0F] text-black border border-black shadow-brutal-sm">
+<span class="font-mono text-[10px] font-extrabold uppercase px-1.5 py-0.5 rounded bg-[#9AEF0F] text-black border border-black shadow-brutal-sm whitespace-nowrap inline-block">
                 TERMINAL v2.4
               </span>
 <h1 class="font-extrabold text-base md:text-lg tracking-tight text-white flex items-center gap-1.5">
@@ -185,10 +208,10 @@
 <div class="flex flex-wrap items-center gap-2.5 w-full lg:w-auto justify-between lg:justify-end">
 <!-- Diagnostic Session Mode Pill -->
 <div class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-[#111827] border-2 border-black shadow-brutal text-xs font-mono">
-<span class="w-2.5 h-2.5 rounded-full bg-[#ECFD28] border border-black animate-pulse"></span>
+<span class="w-2.5 h-2.5 rounded-full bg-[#ECFD28] border border-black animate-pulse whitespace-nowrap"></span>
 <span class="text-slate-400">Mode:</span>
 <span class="text-white font-bold tracking-wide">Comp Platform Diagnostic</span>
-<span class="text-[10px] px-1.5 py-0.2 bg-[#4724BA] text-purple-200 rounded border border-black font-semibold">120kg Peaking</span>
+<span class="text-[10px] px-1.5 py-0.2 bg-[#4724BA] text-purple-200 rounded border border-black font-semibold whitespace-nowrap">120kg Peaking</span>
 </div>
 <!-- Active Athlete Measurements Dropdown -->
 <div class="flex items-center gap-1.5 bg-[#111827] p-1 rounded-xl border-2 border-black shadow-brutal">
@@ -227,7 +250,7 @@
 </div>
 <div class="flex items-center gap-2">
 <span class="text-slate-400">Titled Physio:</span>
-<span class="px-2 py-0.5 rounded bg-rose-950/70 border border-rose-600/60 text-rose-300 font-bold flex items-center gap-1">
+<span class="px-2 py-0.5 rounded bg-rose-950/70 border border-rose-600/60 text-rose-300 font-bold flex items-center gap-1 whitespace-nowrap">
 <i class="w-3 h-3 text-rose-400" data-lucide="heart-handshake"></i> Holly Hunt Online
         </span>
 </div>
@@ -239,7 +262,7 @@
 <div class="mb-6 p-4 rounded-2xl bg-[#111827] border-2 border-black shadow-brutal flex flex-col md:flex-row md:items-center justify-between gap-4">
 <div>
 <div class="flex items-center gap-2">
-<span class="px-2 py-0.5 rounded bg-[#4724BA] text-purple-200 font-mono text-[11px] font-bold border border-black shadow-brutal-sm uppercase">
+<span class="px-2 py-0.5 rounded bg-[#4724BA] text-purple-200 font-mono text-[11px] font-bold border border-black shadow-brutal-sm uppercase whitespace-nowrap inline-block">
             VARIANT 2 • TACTICAL NEO-BRUTALIST TERMINAL
           </span>
 <span class="text-xs font-mono text-slate-400">Real-Time Joint Shear &amp; Moment Arm Engine</span>
@@ -277,7 +300,7 @@
 <span class="text-[11px] font-mono text-slate-400">Calibrated via Digital Anthro-Caliper</span>
 </div>
 </div>
-<span class="text-[11px] font-mono px-2 py-1 rounded bg-[#0B0F19] text-[#9AEF0F] border border-black">
+<span class="text-[11px] font-mono px-2 py-1 rounded bg-[#0B0F19] text-[#9AEF0F] border border-black whitespace-nowrap">
               ±0.5 cm Step
             </span>
 </div>
@@ -286,7 +309,7 @@
 <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2.5">
 <div>
 <div class="flex items-center gap-2">
-<span class="w-2.5 h-2.5 rounded-sm bg-[#9AEF0F] border border-black"></span>
+<span class="w-2.5 h-2.5 rounded-sm bg-[#9AEF0F] border border-black whitespace-nowrap"></span>
 <label class="text-sm font-bold text-white font-mono uppercase tracking-wide" for="femurSlider">
                     Femur Segment (Trochanter → Lateral Epicondyle)
                   </label>
@@ -295,14 +318,14 @@
 </div>
 <!-- Value + Steppers -->
 <div class="flex items-center gap-1.5 self-end sm:self-auto">
-<button class="w-8 h-8 rounded bg-[#1F2937] hover:bg-[#374151] border-2 border-black text-white font-mono font-bold text-base flex items-center justify-center shadow-brutal-sm active:translate-y-0.5 active:translate-x-0.5 transition-all" onclick="stepSlider('femurSlider', -0.5)">
+<button class="w-8 h-8 rounded bg-[#1F2937] hover:bg-[#374151] border-2 border-black text-white font-mono font-bold text-base flex items-center justify-center shadow-brutal-sm active:translate-y-0.5 active:translate-x-0.5 transition-all whitespace-nowrap inline-block" onclick="stepSlider('femurSlider', -0.5)">
                   -
                 </button>
 <div class="bg-[#111827] border-2 border-black px-3 py-1 rounded min-w-[90px] text-center shadow-brutal-sm">
 <span class="text-xl font-mono font-black text-[#9AEF0F]" id="femurValueDisplay">53.5</span>
 <span class="text-xs font-mono text-slate-400">cm</span>
 </div>
-<button class="w-8 h-8 rounded bg-[#1F2937] hover:bg-[#374151] border-2 border-black text-white font-mono font-bold text-base flex items-center justify-center shadow-brutal-sm active:translate-y-0.5 active:translate-x-0.5 transition-all" onclick="stepSlider('femurSlider', 0.5)">
+<button class="w-8 h-8 rounded bg-[#1F2937] hover:bg-[#374151] border-2 border-black text-white font-mono font-bold text-base flex items-center justify-center shadow-brutal-sm active:translate-y-0.5 active:translate-x-0.5 transition-all whitespace-nowrap inline-block" onclick="stepSlider('femurSlider', 0.5)">
                   +
                 </button>
 </div>
@@ -319,7 +342,7 @@
 <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2.5">
 <div>
 <div class="flex items-center gap-2">
-<span class="w-2.5 h-2.5 rounded-sm bg-[#6A3CF4] border border-black"></span>
+<span class="w-2.5 h-2.5 rounded-sm bg-[#6A3CF4] border border-black whitespace-nowrap"></span>
 <label class="text-sm font-bold text-white font-mono uppercase tracking-wide" for="torsoSlider">
                     Torso Segment (C7 Vertebra → ASIS Iliac Crest)
                   </label>
@@ -328,14 +351,14 @@
 </div>
 <!-- Value + Steppers -->
 <div class="flex items-center gap-1.5 self-end sm:self-auto">
-<button class="w-8 h-8 rounded bg-[#1F2937] hover:bg-[#374151] border-2 border-black text-white font-mono font-bold text-base flex items-center justify-center shadow-brutal-sm active:translate-y-0.5 active:translate-x-0.5 transition-all" onclick="stepSlider('torsoSlider', -0.5)">
+<button class="w-8 h-8 rounded bg-[#1F2937] hover:bg-[#374151] border-2 border-black text-white font-mono font-bold text-base flex items-center justify-center shadow-brutal-sm active:translate-y-0.5 active:translate-x-0.5 transition-all whitespace-nowrap inline-block" onclick="stepSlider('torsoSlider', -0.5)">
                   -
                 </button>
 <div class="bg-[#111827] border-2 border-black px-3 py-1 rounded min-w-[90px] text-center shadow-brutal-sm">
 <span class="text-xl font-mono font-black text-[#ECFD28]" id="torsoValueDisplay">48.0</span>
 <span class="text-xs font-mono text-slate-400">cm</span>
 </div>
-<button class="w-8 h-8 rounded bg-[#1F2937] hover:bg-[#374151] border-2 border-black text-white font-mono font-bold text-base flex items-center justify-center shadow-brutal-sm active:translate-y-0.5 active:translate-x-0.5 transition-all" onclick="stepSlider('torsoSlider', 0.5)">
+<button class="w-8 h-8 rounded bg-[#1F2937] hover:bg-[#374151] border-2 border-black text-white font-mono font-bold text-base flex items-center justify-center shadow-brutal-sm active:translate-y-0.5 active:translate-x-0.5 transition-all whitespace-nowrap inline-block" onclick="stepSlider('torsoSlider', 0.5)">
                   +
                 </button>
 </div>
@@ -353,7 +376,7 @@
 <!-- Top Classification Bar -->
 <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b-2 border-slate-800">
 <div>
-<span class="text-[11px] font-mono font-extrabold uppercase text-[#9AEF0F] tracking-wider block">
+<span class="text-[11px] font-mono font-extrabold uppercase text-[#9AEF0F] tracking-wider block whitespace-nowrap">
                 COMPUTED KINEMATIC COEFFICIENT
               </span>
 <h4 class="text-base font-bold text-white">Femur-to-Torso Proportion Quotient</h4>
@@ -374,7 +397,7 @@
 </span>
 </div>
 <div class="flex flex-col">
-<span class="text-[10px] font-mono text-slate-400 uppercase tracking-widest font-bold">Index Value</span>
+<span class="text-[10px] font-mono text-slate-400 uppercase tracking-widest font-bold whitespace-nowrap">Index Value</span>
 <span class="text-xs font-mono text-[#9AEF0F] font-bold" id="subIndexDescription">+22% Above Powerlifting Median</span>
 </div>
 </div>
@@ -399,7 +422,7 @@
 <!-- Real-Time Dynamic Tags Container (Requested) -->
 <div>
 <div class="flex items-center justify-between mb-2">
-<span class="text-xs font-mono font-extrabold text-slate-300 uppercase tracking-wide flex items-center gap-1.5">
+<span class="text-xs font-mono font-extrabold text-slate-300 uppercase tracking-wide flex items-center gap-1.5 whitespace-nowrap">
 <i class="w-3.5 h-3.5 text-[#9AEF0F]" data-lucide="tag"></i>
                 Real-Time Kinematic Profile Tags:
               </span>
@@ -407,19 +430,19 @@
 </div>
 <div class="flex flex-wrap gap-2" id="dynamicTagsContainer">
 <!-- Dynamically populated via JS recomputeKinematics() -->
-<span class="px-3 py-1 rounded-lg text-xs font-mono font-extrabold bg-[#6A3CF4] text-white border-2 border-black shadow-brutal-sm">
+<span class="px-3 py-1 rounded-lg text-xs font-mono font-extrabold bg-[#6A3CF4] text-white border-2 border-black shadow-brutal-sm whitespace-nowrap inline-block">
                 #LongFemurs
               </span>
-<span class="px-3 py-1 rounded-lg text-xs font-mono font-extrabold bg-[#ECFD28] text-black border-2 border-black shadow-brutal-sm">
+<span class="px-3 py-1 rounded-lg text-xs font-mono font-extrabold bg-[#ECFD28] text-black border-2 border-black shadow-brutal-sm whitespace-nowrap inline-block">
                 #HighHipSquat
               </span>
-<span class="px-3 py-1 rounded-lg text-xs font-mono font-extrabold bg-[#9AEF0F] text-black border-2 border-black shadow-brutal-sm">
+<span class="px-3 py-1 rounded-lg text-xs font-mono font-extrabold bg-[#9AEF0F] text-black border-2 border-black shadow-brutal-sm whitespace-nowrap inline-block">
                 #LowBarRecommended
               </span>
-<span class="px-3 py-1 rounded-lg text-xs font-mono font-extrabold bg-[#FF4500] text-white border-2 border-black shadow-brutal-sm">
+<span class="px-3 py-1 rounded-lg text-xs font-mono font-extrabold bg-[#FF4500] text-white border-2 border-black shadow-brutal-sm whitespace-nowrap inline-block">
                 #ForwardLeanComp
               </span>
-<span class="px-3 py-1 rounded-lg text-xs font-mono font-extrabold bg-[#1F2937] text-purple-300 border-2 border-black shadow-brutal-sm">
+<span class="px-3 py-1 rounded-lg text-xs font-mono font-extrabold bg-[#1F2937] text-purple-300 border-2 border-black shadow-brutal-sm whitespace-nowrap inline-block">
                 #AnkleDorsiflexionReq
               </span>
 </div>
@@ -436,8 +459,8 @@
 <span class="text-[11px] font-mono text-slate-400">Load: 120 kg bar • Calculated at Parallel Depth (90° Knee Flexion)</span>
 </div>
 <div class="flex items-center gap-2 text-xs font-mono">
-<span class="flex items-center gap-1"><span class="w-3 h-3 rounded-sm bg-[#9AEF0F] border border-black"></span> Femur Torque</span>
-<span class="flex items-center gap-1"><span class="w-3 h-3 rounded-sm bg-[#ECFD28] border border-black"></span> Lumbar Shear</span>
+<span class="flex items-center gap-1"><span class="w-3 h-3 rounded-sm bg-[#9AEF0F] border border-black whitespace-nowrap"></span> Femur Torque</span>
+<span class="flex items-center gap-1"><span class="w-3 h-3 rounded-sm bg-[#ECFD28] border border-black whitespace-nowrap"></span> Lumbar Shear</span>
 </div>
 </div>
 <!-- Dual Telemetry Visual Bars & Numbers -->
@@ -485,7 +508,7 @@
 </div>
 </div>
 <div class="flex items-center gap-2">
-<span class="text-[10px] font-mono px-2.5 py-1 rounded bg-[#111827] border border-slate-700 text-[#9AEF0F] font-bold">
+<span class="text-[10px] font-mono px-2.5 py-1 rounded bg-[#111827] border border-slate-700 text-[#9AEF0F] font-bold whitespace-nowrap">
                 Balance Index: 96.4%
               </span>
 </div>
@@ -501,34 +524,34 @@
 <!-- Tactical Badge Header -->
 <div class="flex items-center justify-between pb-3 mb-4 border-b border-purple-400/40">
 <div class="flex items-center gap-2">
-<span class="w-3 h-3 rounded-full bg-[#ECFD28] border-2 border-black animate-pulse"></span>
+<span class="w-3 h-3 rounded-full bg-[#ECFD28] border-2 border-black animate-pulse whitespace-nowrap"></span>
 <h3 class="text-sm font-mono font-extrabold uppercase tracking-wider text-[#ECFD28]">
                 AI BIOMECHANICAL DIRECTIVE
               </h3>
 </div>
-<span class="text-[10px] font-mono px-2 py-0.5 rounded bg-black/50 text-purple-200 border border-purple-400/50">
+<span class="text-[10px] font-mono px-2 py-0.5 rounded bg-black/50 text-purple-200 border border-purple-400/50 whitespace-nowrap">
               Joel Mullen Motor Model
             </span>
 </div>
 <!-- Tactical Breakdown Grid (Stance, Bar, Grip, Gaze) -->
 <div class="grid grid-cols-2 gap-2.5 mb-4" id="tacticalDirectivesGrid">
 <div class="p-3 rounded-xl bg-black/40 border border-purple-400/40 shadow-inner">
-<span class="text-[10px] font-mono uppercase text-purple-300 font-bold block mb-1">1. Stance Width</span>
+<span class="text-[10px] font-mono uppercase text-purple-300 font-bold block mb-1 whitespace-nowrap">1. Stance Width</span>
 <p class="text-xs font-bold text-white" id="directiveStance">1.25× Shoulder Width</p>
 <span class="text-[10px] font-mono text-[#9AEF0F] block mt-0.5" id="directiveStanceSub">30° Toe Abduction</span>
 </div>
 <div class="p-3 rounded-xl bg-black/40 border border-purple-400/40 shadow-inner">
-<span class="text-[10px] font-mono uppercase text-purple-300 font-bold block mb-1">2. Bar Placement</span>
+<span class="text-[10px] font-mono uppercase text-purple-300 font-bold block mb-1 whitespace-nowrap">2. Bar Placement</span>
 <p class="text-xs font-bold text-white" id="directiveBar">Low-Bar (Scapular Spine)</p>
 <span class="text-[10px] font-mono text-[#ECFD28] block mt-0.5" id="directiveBarSub">-4.2 cm Lever Arm</span>
 </div>
 <div class="p-3 rounded-xl bg-black/40 border border-purple-400/40 shadow-inner">
-<span class="text-[10px] font-mono uppercase text-purple-300 font-bold block mb-1">3. Grip Width</span>
+<span class="text-[10px] font-mono uppercase text-purple-300 font-bold block mb-1 whitespace-nowrap">3. Grip Width</span>
 <p class="text-xs font-bold text-white" id="directiveGrip">Talon / 1 Finger Outside Ring</p>
 <span class="text-[10px] font-mono text-slate-300 block mt-0.5" id="directiveGripSub">Latissimus Tension</span>
 </div>
 <div class="p-3 rounded-xl bg-black/40 border border-purple-400/40 shadow-inner">
-<span class="text-[10px] font-mono uppercase text-purple-300 font-bold block mb-1">4. Gaze Angle</span>
+<span class="text-[10px] font-mono uppercase text-purple-300 font-bold block mb-1 whitespace-nowrap">4. Gaze Angle</span>
 <p class="text-xs font-bold text-white" id="directiveGaze">2.5m Forward on Floor</p>
 <span class="text-[10px] font-mono text-[#9AEF0F] block mt-0.5" id="directiveGazeSub">Neutral Cervical Anchor</span>
 </div>
@@ -536,7 +559,7 @@
 <!-- Joel's Handwritten Form Cue (Cursive Font Reenie Beanie) -->
 <div class="mb-4 p-3.5 rounded-xl bg-[#0B0F19]/90 border-2 border-black shadow-inner">
 <div class="flex items-center justify-between mb-1">
-<span class="text-[10px] font-mono font-bold uppercase text-[#ECFD28]">Head Coach Chalkboard Cue:</span>
+<span class="text-[10px] font-mono font-bold uppercase text-[#ECFD28] whitespace-nowrap">Head Coach Chalkboard Cue:</span>
 <span class="text-[10px] font-mono text-slate-400">Joel Mullen</span>
 </div>
 <p class="font-hand text-2xl md:text-3xl text-yellow-200 leading-tight" id="joelCursiveCue">
@@ -546,7 +569,7 @@
 <!-- Coach Audio Note Voice Preview / Play Button -->
 <div class="p-3 rounded-xl bg-black/60 border border-purple-400/40 flex items-center justify-between gap-3">
 <div class="flex items-center gap-2.5">
-<button class="w-9 h-9 rounded-lg bg-[#9AEF0F] hover:bg-[#ECFD28] text-black border-2 border-black flex items-center justify-center font-bold shadow-brutal-sm active:translate-y-0.5 transition-all" id="coachAudioBtn" onclick="toggleCoachAudio()">
+<button class="w-9 h-9 rounded-lg bg-[#9AEF0F] hover:bg-[#ECFD28] text-black border-2 border-black flex items-center justify-center font-bold shadow-brutal-sm active:translate-y-0.5 transition-all whitespace-nowrap inline-block" id="coachAudioBtn" onclick="toggleCoachAudio()">
 <i class="w-4 h-4 ml-0.5 fill-current" data-lucide="play" id="audioPlayIcon"></i>
 </button>
 <div>
@@ -556,10 +579,10 @@
 </div>
 <!-- Dynamic Audio Visualizer waveform bars -->
 <div class="flex items-center gap-1 h-5">
-<span class="w-1 h-2 bg-[#9AEF0F] rounded-full transition-all" id="audioWave1"></span>
-<span class="w-1 h-4 bg-[#9AEF0F] rounded-full transition-all" id="audioWave2"></span>
-<span class="w-1 h-3 bg-[#ECFD28] rounded-full transition-all" id="audioWave3"></span>
-<span class="w-1 h-5 bg-[#9AEF0F] rounded-full transition-all" id="audioWave4"></span>
+<span class="w-1 h-2 bg-[#9AEF0F] rounded-full transition-all whitespace-nowrap" id="audioWave1"></span>
+<span class="w-1 h-4 bg-[#9AEF0F] rounded-full transition-all whitespace-nowrap" id="audioWave2"></span>
+<span class="w-1 h-3 bg-[#ECFD28] rounded-full transition-all whitespace-nowrap" id="audioWave3"></span>
+<span class="w-1 h-5 bg-[#9AEF0F] rounded-full transition-all whitespace-nowrap" id="audioWave4"></span>
 </div>
 </div>
 </div>
@@ -574,19 +597,19 @@
 <div>
 <div class="flex items-center gap-1.5">
 <h3 class="text-sm font-black text-white uppercase tracking-tight">Holly Hunt Physio Gateway</h3>
-<span class="px-1.5 py-0.2 bg-rose-950 text-rose-300 text-[9px] font-mono font-bold rounded border border-rose-800">APA Titled</span>
+<span class="px-1.5 py-0.2 bg-rose-950 text-rose-300 text-[9px] font-mono font-bold rounded border border-rose-800 whitespace-nowrap">APA Titled</span>
 </div>
 <span class="text-[11px] font-mono text-slate-400">Clinical Triage &amp; Rapid Consultation Trigger</span>
 </div>
 </div>
-<span class="w-3 h-3 rounded-full bg-rose-500 border border-black animate-pulse"></span>
+<span class="w-3 h-3 rounded-full bg-rose-500 border border-black animate-pulse whitespace-nowrap"></span>
 </div>
 <p class="text-xs text-slate-300 mb-3 text-pretty">
             Identify symptom zones during heavy loading. Telemetry vectors and joint moment indices will be packaged with this dispatch.
           </p>
 <!-- Interactive Pain Mapping Checkboxes (Lumbar, SI Joint, Femoroacetabular, Patella) -->
 <div class="mb-4">
-<span class="text-[11px] font-mono font-bold uppercase text-slate-300 block mb-2">
+<span class="text-[11px] font-mono font-bold uppercase text-slate-300 block mb-2 whitespace-nowrap">
               1. Flagged Discomfort Locations:
             </span>
 <div class="grid grid-cols-2 gap-2">
@@ -654,7 +677,7 @@
 <!-- Interactive Footnote Bar (Morley Eleiko Setup) -->
 <div class="mt-8 p-4 rounded-xl bg-[#111827] border-2 border-black shadow-brutal flex flex-col sm:flex-row items-center justify-between gap-3 text-xs font-mono text-slate-400">
 <div class="flex items-center gap-2">
-<span class="w-2 h-2 rounded-full bg-[#9AEF0F]"></span>
+<span class="w-2 h-2 rounded-full bg-[#9AEF0F] whitespace-nowrap"></span>
 <span>Small Goods Gym Morley • Eleiko Competition Platforms 1-6 • Activforce 2 Dynamometry Ready</span>
 </div>
 <div class="flex items-center gap-4 text-purple-300">
@@ -750,7 +773,7 @@
       // Base load in kg (120kg Eleiko bar)
       const barLoad = 120;
       const gravity = 9.81;
-      const loadNewtons = barLoad * gravity; // ~1177 N
+      const loadNewtons = barLoad * gravity; // ~<span class="whitespace-nowrap inline-block">1177&nbsp;N</span>
 
       if (ratio > 1.08) {
         // Severe Long Femur Archetype
@@ -760,11 +783,11 @@
         penaltyRatioDisplay.innerText = "+28%";
 
         tagsContainer.innerHTML = `
-          <span class="px-3 py-1 rounded-lg text-xs font-mono font-extrabold bg-[#6A3CF4] text-white border-2 border-black shadow-brutal-sm">#LongFemurs</span>
-          <span class="px-3 py-1 rounded-lg text-xs font-mono font-extrabold bg-[#ECFD28] text-black border-2 border-black shadow-brutal-sm">#HighHipSquat</span>
-          <span class="px-3 py-1 rounded-lg text-xs font-mono font-extrabold bg-[#9AEF0F] text-black border-2 border-black shadow-brutal-sm">#LowBarRecommended</span>
-          <span class="px-3 py-1 rounded-lg text-xs font-mono font-extrabold bg-[#FF4500] text-white border-2 border-black shadow-brutal-sm">#ForwardLeanComp</span>
-          <span class="px-3 py-1 rounded-lg text-xs font-mono font-extrabold bg-[#1F2937] text-purple-300 border-2 border-black shadow-brutal-sm">#AnkleDorsiflexionReq</span>
+          <span class="px-3 py-1 rounded-lg text-xs font-mono font-extrabold bg-[#6A3CF4] text-white border-2 border-black shadow-brutal-sm whitespace-nowrap inline-block">#LongFemurs</span>
+          <span class="px-3 py-1 rounded-lg text-xs font-mono font-extrabold bg-[#ECFD28] text-black border-2 border-black shadow-brutal-sm whitespace-nowrap inline-block">#HighHipSquat</span>
+          <span class="px-3 py-1 rounded-lg text-xs font-mono font-extrabold bg-[#9AEF0F] text-black border-2 border-black shadow-brutal-sm whitespace-nowrap inline-block">#LowBarRecommended</span>
+          <span class="px-3 py-1 rounded-lg text-xs font-mono font-extrabold bg-[#FF4500] text-white border-2 border-black shadow-brutal-sm whitespace-nowrap inline-block">#ForwardLeanComp</span>
+          <span class="px-3 py-1 rounded-lg text-xs font-mono font-extrabold bg-[#1F2937] text-purple-300 border-2 border-black shadow-brutal-sm whitespace-nowrap inline-block">#AnkleDorsiflexionReq</span>
         `;
 
         // Moment arm calculations for severe long femur
@@ -801,11 +824,11 @@
         penaltyRatioDisplay.innerText = "-18%";
 
         tagsContainer.innerHTML = `
-          <span class="px-3 py-1 rounded-lg text-xs font-mono font-extrabold bg-[#9AEF0F] text-black border-2 border-black shadow-brutal-sm">#ShortFemurs</span>
-          <span class="px-3 py-1 rounded-lg text-xs font-mono font-extrabold bg-[#ECFD28] text-black border-2 border-black shadow-brutal-sm">#UprightTorso</span>
-          <span class="px-3 py-1 rounded-lg text-xs font-mono font-extrabold bg-[#6A3CF4] text-white border-2 border-black shadow-brutal-sm">#HighBarOlympic</span>
-          <span class="px-3 py-1 rounded-lg text-xs font-mono font-extrabold bg-[#1F2937] text-slate-200 border-2 border-black shadow-brutal-sm">#QuadHypertrophy</span>
-          <span class="px-3 py-1 rounded-lg text-xs font-mono font-extrabold bg-emerald-950 text-emerald-300 border-2 border-black shadow-brutal-sm">#MinimalLumbarShear</span>
+          <span class="px-3 py-1 rounded-lg text-xs font-mono font-extrabold bg-[#9AEF0F] text-black border-2 border-black shadow-brutal-sm whitespace-nowrap inline-block">#ShortFemurs</span>
+          <span class="px-3 py-1 rounded-lg text-xs font-mono font-extrabold bg-[#ECFD28] text-black border-2 border-black shadow-brutal-sm whitespace-nowrap inline-block">#UprightTorso</span>
+          <span class="px-3 py-1 rounded-lg text-xs font-mono font-extrabold bg-[#6A3CF4] text-white border-2 border-black shadow-brutal-sm whitespace-nowrap inline-block">#HighBarOlympic</span>
+          <span class="px-3 py-1 rounded-lg text-xs font-mono font-extrabold bg-[#1F2937] text-slate-200 border-2 border-black shadow-brutal-sm whitespace-nowrap inline-block">#QuadHypertrophy</span>
+          <span class="px-3 py-1 rounded-lg text-xs font-mono font-extrabold bg-emerald-950 text-emerald-300 border-2 border-black shadow-brutal-sm whitespace-nowrap inline-block">#MinimalLumbarShear</span>
         `;
 
         const femMomCm = (femur * 0.48).toFixed(1);
@@ -841,10 +864,10 @@
         penaltyRatioDisplay.innerText = "±0%";
 
         tagsContainer.innerHTML = `
-          <span class="px-3 py-1 rounded-lg text-xs font-mono font-extrabold bg-[#ECFD28] text-black border-2 border-black shadow-brutal-sm">#BalancedProportions</span>
-          <span class="px-3 py-1 rounded-lg text-xs font-mono font-extrabold bg-[#6A3CF4] text-white border-2 border-black shadow-brutal-sm">#VersatileBarPlacement</span>
-          <span class="px-3 py-1 rounded-lg text-xs font-mono font-extrabold bg-[#9AEF0F] text-black border-2 border-black shadow-brutal-sm">#ModerateStance</span>
-          <span class="px-3 py-1 rounded-lg text-xs font-mono font-extrabold bg-[#1F2937] text-slate-200 border-2 border-black shadow-brutal-sm">#CompetitionReady</span>
+          <span class="px-3 py-1 rounded-lg text-xs font-mono font-extrabold bg-[#ECFD28] text-black border-2 border-black shadow-brutal-sm whitespace-nowrap inline-block">#BalancedProportions</span>
+          <span class="px-3 py-1 rounded-lg text-xs font-mono font-extrabold bg-[#6A3CF4] text-white border-2 border-black shadow-brutal-sm whitespace-nowrap inline-block">#VersatileBarPlacement</span>
+          <span class="px-3 py-1 rounded-lg text-xs font-mono font-extrabold bg-[#9AEF0F] text-black border-2 border-black shadow-brutal-sm whitespace-nowrap inline-block">#ModerateStance</span>
+          <span class="px-3 py-1 rounded-lg text-xs font-mono font-extrabold bg-[#1F2937] text-slate-200 border-2 border-black shadow-brutal-sm whitespace-nowrap inline-block">#CompetitionReady</span>
         `;
 
         const femMomCm = (femur * 0.52).toFixed(1);

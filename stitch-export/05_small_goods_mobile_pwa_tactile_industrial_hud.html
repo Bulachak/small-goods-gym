@@ -86,7 +86,30 @@
       white-space: nowrap !important;
     }
   
+
+    /* ZERO-ORPHAN GLOBAL ENFORCEMENT */
+    .whitespace-nowrap, th, td.whitespace-nowrap, .font-mono {
+      white-space: nowrap !important;
+    }
+    span[class*="rounded"], .badge, button, select {
+      white-space: nowrap !important;
+      text-wrap: nowrap !important;
+    }
+    h1, h2, h3 {
+      text-wrap: balance !important;
+    }
+    p, label {
+      text-wrap: pretty !important;
+    }
+  
 </style>
+
+  <style>
+    /* Anti-orphan universal glue */
+    .whitespace-nowrap { white-space: nowrap !important; }
+    h1, h2, h3, h4, h5, h6 { text-wrap: balance !important; }
+    p, .card-desc { text-wrap: pretty !important; }
+  </style>
 </head>
 <body class="min-h-screen flex items-center justify-center p-0 sm:p-4 text-slate-100 antialiased selection:bg-purple-600 selection:text-white">
 <!-- ================= 390px NATIVE MOBILE PWA VIEWPORT CONTAINER ================= -->
@@ -118,7 +141,7 @@
 <span class="text-[10px] font-black text-amber-400 font-mono">• MORLEY</span>
 </div>
 <div class="flex items-center gap-1 text-[10px] text-slate-400 font-mono">
-<span class="inline-block w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+<span class="inline-block w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse whitespace-nowrap"></span>
 <span class="text-emerald-400 font-bold">Offline Sync: Active</span>
 <span class="text-slate-600">|</span>
 <span class="text-slate-400">Platform 3</span>
@@ -128,8 +151,8 @@
 <!-- Enode VBT Hardware Telemetry Live Indicator -->
 <div class="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#0F172A] border-2 border-black shadow-brutal-sm">
 <span class="relative flex h-2 w-2">
-<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-<span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-400"></span>
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75 whitespace-nowrap"></span>
+<span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-400 whitespace-nowrap"></span>
 </span>
 <span class="text-[10px] font-mono font-bold text-slate-200 tracking-wider">ENODE LIVE</span>
 </div>
@@ -142,25 +165,25 @@
 <!-- Neo-brutalist corner tag -->
 <div class="flex items-center justify-between mb-1.5">
 <div class="flex items-center gap-1.5">
-<span class="px-2 py-0.5 rounded-md bg-purple-950/90 text-purple-300 font-mono font-extrabold text-[10px] border border-purple-800 tracking-wider">
+<span class="px-2 py-0.5 rounded-md bg-purple-950/90 text-purple-300 font-mono font-extrabold text-[10px] border border-purple-800 tracking-wider whitespace-nowrap">
               BLOCK 4 • WEEK 2
             </span>
 <span class="text-[10px] font-mono text-slate-400">PLATFORM OPENER</span>
 </div>
-<span class="bg-[#8B5CF6] text-black font-mono font-black text-[9px] px-2 py-0.5 rounded uppercase tracking-widest border border-black shadow-brutal-sm">
+<span class="bg-[#8B5CF6] text-black font-mono font-black text-[9px] px-2 py-0.5 rounded uppercase tracking-widest border border-black shadow-brutal-sm whitespace-nowrap inline-block">
             Primary Lift
           </span>
 </div>
-<h2 class="text-[20px] font-black text-white tracking-tight leading-tight">Competition Back Squat</h2>
-<div class="flex items-center gap-2 mt-1 font-mono text-xs">
-<span class="text-purple-400 font-black">PRESCRIPTION:</span>
-<span class="text-white font-bold bg-black/40 px-2 py-0.5 rounded border border-slate-800">5×5 @ 100 kg</span>
-<span class="text-amber-400 font-bold">• Target RPE 7.5</span>
+<h2 class="text-[20px] font-black text-white tracking-tight leading-tight whitespace-nowrap">Competition Back Squat</h2>
+<div class="flex flex-wrap items-center gap-x-2 gap-y-1 mt-1 font-mono text-xs">
+<span class="text-purple-400 font-black whitespace-nowrap inline-block">PRESCRIPTION:</span>
+<span class="text-white font-bold bg-black/40 px-2 py-0.5 rounded border border-slate-800 whitespace-nowrap inline-block">5&times;5&nbsp;@&nbsp;100&nbsp;kg</span>
+<span class="text-amber-400 font-bold whitespace-nowrap inline-block">&bull;&nbsp;Target&nbsp;RPE&nbsp;7.5</span>
 </div>
 <!-- Joel Mullen Handwritten Coaching Cue in Reenie Beanie -->
 <div class="mt-2.5 p-2.5 rounded-xl bg-purple-950/30 border-2 border-purple-800/40 relative">
 <div class="flex items-center justify-between text-[10px] font-mono text-purple-300 mb-0.5">
-<span class="font-bold uppercase flex items-center gap-1">
+<span class="font-bold uppercase flex items-center gap-1 whitespace-nowrap">
 <i class="w-3 h-3 text-yellow-300" data-lucide="sparkles"></i>
               Joel's Cue (Head Coach):
             </span>
@@ -188,18 +211,18 @@
 <!-- ================= 2. TACTILE WORKING BAR LOAD (Giant 48px + 64px Targets) ================= -->
 <div class="bg-[#0F172A] border-2 border-black rounded-2xl p-3 shadow-brutal">
 <div class="flex items-center justify-between mb-2">
-<span class="text-[11px] font-mono font-extrabold text-slate-300 uppercase tracking-wide">WORKING BAR LOAD</span>
-<span class="text-[10px] font-mono text-purple-400 font-bold bg-purple-950/60 px-2 py-0.5 rounded border border-purple-800/40">Eleiko Calibrated Discs</span>
+<span class="text-[11px] font-mono font-extrabold text-slate-300 uppercase tracking-wide whitespace-nowrap">WORKING BAR LOAD</span>
+<span class="text-[10px] font-mono text-purple-400 font-bold bg-purple-950/60 px-2 py-0.5 rounded border border-purple-800/40 whitespace-nowrap">Eleiko Calibrated Discs</span>
 </div>
 <!-- 64px Tall Segments Layout -->
 <div class="grid grid-cols-5 gap-1.5 items-stretch">
 <!-- -5 kg tactile button -->
-<button class="h-16 rounded-xl bg-[#172239] hover:bg-slate-700 active:bg-black active:translate-y-0.5 border-2 border-black shadow-brutal-sm flex flex-col items-center justify-center transition-all" onclick="adjustBarWeight(-5)">
+<button class="h-16 rounded-xl bg-[#172239] hover:bg-slate-700 active:bg-black active:translate-y-0.5 border-2 border-black shadow-brutal-sm flex flex-col items-center justify-center transition-all whitespace-nowrap inline-block" onclick="adjustBarWeight(-5)">
 <span class="font-mono font-black text-base text-slate-200">-5</span>
 <span class="font-mono text-[9px] text-slate-400 -mt-1">kg</span>
 </button>
 <!-- -2.5 kg tactile button -->
-<button class="h-16 rounded-xl bg-[#172239] hover:bg-slate-700 active:bg-black active:translate-y-0.5 border-2 border-black shadow-brutal-sm flex flex-col items-center justify-center transition-all" onclick="adjustBarWeight(-2.5)">
+<button class="h-16 rounded-xl bg-[#172239] hover:bg-slate-700 active:bg-black active:translate-y-0.5 border-2 border-black shadow-brutal-sm flex flex-col items-center justify-center transition-all whitespace-nowrap inline-block" onclick="adjustBarWeight(-2.5)">
 <span class="font-mono font-black text-base text-slate-200">-2.5</span>
 <span class="font-mono text-[9px] text-slate-400 -mt-1">kg</span>
 </button>
@@ -208,15 +231,15 @@
 <div class="flex items-baseline justify-center">
 <span class="font-mono font-black text-[30px] leading-none text-white tracking-tight" id="loadReadout">100.0</span>
 </div>
-<span class="font-mono text-[8px] font-extrabold text-purple-400 uppercase tracking-wider mt-0.5">KG LOAD</span>
+<span class="font-mono text-[8px] font-extrabold text-purple-400 uppercase tracking-wider mt-0.5 whitespace-nowrap">KG LOAD</span>
 </div>
 <!-- +2.5 kg tactile button -->
-<button class="h-16 rounded-xl bg-[#172239] hover:bg-slate-700 active:bg-black active:translate-y-0.5 border-2 border-black shadow-brutal-sm flex flex-col items-center justify-center transition-all" onclick="adjustBarWeight(2.5)">
+<button class="h-16 rounded-xl bg-[#172239] hover:bg-slate-700 active:bg-black active:translate-y-0.5 border-2 border-black shadow-brutal-sm flex flex-col items-center justify-center transition-all whitespace-nowrap inline-block" onclick="adjustBarWeight(2.5)">
 <span class="font-mono font-black text-base text-slate-200">+2.5</span>
 <span class="font-mono text-[9px] text-slate-400 -mt-1">kg</span>
 </button>
 <!-- +5 kg tactile button -->
-<button class="h-16 rounded-xl bg-[#172239] hover:bg-slate-700 active:bg-black active:translate-y-0.5 border-2 border-black shadow-brutal-sm flex flex-col items-center justify-center transition-all" onclick="adjustBarWeight(5)">
+<button class="h-16 rounded-xl bg-[#172239] hover:bg-slate-700 active:bg-black active:translate-y-0.5 border-2 border-black shadow-brutal-sm flex flex-col items-center justify-center transition-all whitespace-nowrap inline-block" onclick="adjustBarWeight(5)">
 <span class="font-mono font-black text-base text-slate-200">+5</span>
 <span class="font-mono text-[9px] text-slate-400 -mt-1">kg</span>
 </button>
@@ -230,17 +253,17 @@
 <!-- ================= 3. 1-TAP CHUNKY RPE SELECTOR ================= -->
 <div class="bg-[#0F172A] border-2 border-black rounded-2xl p-3 shadow-brutal">
 <div class="flex items-center justify-between text-[11px] font-mono mb-1.5">
-<span class="text-slate-300 font-bold uppercase">EFFORT RATING (RPE/RIR)</span>
-<span class="text-yellow-300 font-extrabold" id="rpeEffortDescriptor">RPE 7.5 = 2-3 reps in reserve</span>
+<span class="text-slate-300 font-bold uppercase whitespace-nowrap">EFFORT RATING (RPE/RIR)</span>
+<span class="text-yellow-300 font-extrabold" id="rpeEffortDescriptor">RPE&nbsp;7.5&nbsp;=&nbsp;2-3&nbsp;reps in reserve</span>
 </div>
 <!-- Chunky Segmented Touch Bar (RPE 6 to 10) -->
 <div class="grid grid-cols-9 gap-1" id="rpeSegmentContainer">
-<button class="rpe-btn h-11 rounded-lg bg-[#172239] border border-black font-mono font-black text-xs text-slate-300 active:scale-95 transition-all" onclick="selectRPEBtn(6, 'RPE 6.0 = 4 reps in reserve')">6</button>
-<button class="rpe-btn h-11 rounded-lg bg-[#172239] border border-black font-mono font-black text-xs text-slate-300 active:scale-95 transition-all" onclick="selectRPEBtn(6.5, 'RPE 6.5 = 3-4 reps in reserve')">6.5</button>
-<button class="rpe-btn h-11 rounded-lg bg-[#172239] border border-black font-mono font-black text-xs text-slate-300 active:scale-95 transition-all" onclick="selectRPEBtn(7, 'RPE 7.0 = 3 reps in reserve')">7</button>
-<button class="rpe-btn active-rpe h-11 rounded-lg bg-purple-600 border-2 border-black font-mono font-black text-xs text-white shadow-brutal-sm scale-[1.03]" onclick="selectRPEBtn(7.5, 'RPE 7.5 = 2-3 reps in reserve')">7.5</button>
-<button class="rpe-btn h-11 rounded-lg bg-[#172239] border border-black font-mono font-black text-xs text-slate-300 active:scale-95 transition-all" onclick="selectRPEBtn(8, 'RPE 8.0 = 2 reps in reserve')">8</button>
-<button class="rpe-btn h-11 rounded-lg bg-[#172239] border border-black font-mono font-black text-xs text-slate-300 active:scale-95 transition-all" onclick="selectRPEBtn(8.5, 'RPE 8.5 = 1-2 reps in reserve')">8.5</button>
+<button class="rpe-btn h-11 rounded-lg bg-[#172239] border border-black font-mono font-black text-xs text-slate-300 active:scale-95 transition-all" onclick="selectRPEBtn(6, 'RPE&nbsp;6.0&nbsp;=&nbsp;4&nbsp;reps in reserve')">6</button>
+<button class="rpe-btn h-11 rounded-lg bg-[#172239] border border-black font-mono font-black text-xs text-slate-300 active:scale-95 transition-all" onclick="selectRPEBtn(6.5, 'RPE&nbsp;6.5&nbsp;=&nbsp;3-4&nbsp;reps in reserve')">6.5</button>
+<button class="rpe-btn h-11 rounded-lg bg-[#172239] border border-black font-mono font-black text-xs text-slate-300 active:scale-95 transition-all" onclick="selectRPEBtn(7, 'RPE&nbsp;7.0&nbsp;=&nbsp;3&nbsp;reps in reserve')">7</button>
+<button class="rpe-btn active-rpe h-11 rounded-lg bg-purple-600 border-2 border-black font-mono font-black text-xs text-white shadow-brutal-sm scale-[1.03] whitespace-nowrap inline-block" onclick="selectRPEBtn(7.5, 'RPE&nbsp;7.5&nbsp;=&nbsp;2-3&nbsp;reps in reserve')">7.5</button>
+<button class="rpe-btn h-11 rounded-lg bg-[#172239] border border-black font-mono font-black text-xs text-slate-300 active:scale-95 transition-all" onclick="selectRPEBtn(8, 'RPE&nbsp;8.0&nbsp;=&nbsp;2&nbsp;reps in reserve')">8</button>
+<button class="rpe-btn h-11 rounded-lg bg-[#172239] border border-black font-mono font-black text-xs text-slate-300 active:scale-95 transition-all" onclick="selectRPEBtn(8.5, 'RPE&nbsp;8.5&nbsp;=&nbsp;1-2&nbsp;reps in reserve')">8.5</button>
 <button class="rpe-btn h-11 rounded-lg bg-[#172239] border border-black font-mono font-black text-xs text-slate-300 active:scale-95 transition-all" onclick="selectRPEBtn(9, 'RPE 9.0 = 1 rep in tank')">9</button>
 <button class="rpe-btn h-11 rounded-lg bg-[#172239] border border-black font-mono font-black text-xs text-slate-300 active:scale-95 transition-all" onclick="selectRPEBtn(9.5, 'RPE 9.5 = Maybe 1 rep')">9.5</button>
 <button class="rpe-btn h-11 rounded-lg bg-[#172239] border border-black font-mono font-black text-xs text-rose-400 active:scale-95 transition-all" onclick="selectRPEBtn(10, 'RPE 10.0 = Absolute 0 RIR')">10</button>
@@ -250,13 +273,13 @@
 <div class="bg-[#0F172A] border-2 border-black rounded-2xl p-3 shadow-brutal">
 <div class="flex items-center justify-between mb-2">
 <div class="flex items-center gap-2">
-<span class="w-2.5 h-2.5 rounded-full bg-purple-400 animate-pulse"></span>
-<span class="text-[11px] font-mono font-black uppercase text-slate-300">ENODE VBT TELEMETRY</span>
+<span class="w-2.5 h-2.5 rounded-full bg-purple-400 animate-pulse whitespace-nowrap"></span>
+<span class="text-[11px] font-mono font-black uppercase text-slate-300 whitespace-nowrap">ENODE VBT TELEMETRY</span>
 </div>
 <!-- Real-time Concentric Velocity Pill -->
 <div class="px-2.5 py-1 rounded-full bg-purple-950 border border-purple-500 flex items-center gap-1.5 shadow-sm">
 <i class="w-3.5 h-3.5 text-purple-400" data-lucide="gauge"></i>
-<span class="text-xs font-mono font-black text-purple-300">0.64 m/s</span>
+<span class="text-xs font-mono font-black text-purple-300"><span class="whitespace-nowrap inline-block">0.64&nbsp;m/s</span></span>
 <span class="text-[9px] font-mono text-purple-400 font-bold">MEAN CONCENTRIC</span>
 </div>
 </div>
@@ -264,7 +287,7 @@
 <div class="p-2.5 rounded-xl bg-amber-950/80 border-2 border-amber-500 flex items-start gap-2 shadow-inner">
 <i class="w-4 h-4 text-amber-400 shrink-0 mt-0.5" data-lucide="alert-triangle"></i>
 <div class="text-[11px] leading-tight text-amber-200">
-<span class="font-mono font-bold text-amber-300 uppercase block">Velocity Loss: -18% vs Set 1 (0.78 m/s)</span>
+<span class="font-mono font-bold text-amber-300 uppercase block whitespace-nowrap">Velocity Loss: -18% vs Set 1 (<span class="whitespace-nowrap inline-block">0.78&nbsp;m/s</span>)</span>
 <p class="mt-0.5 text-amber-100">CNS Fatigue detected — full 180s rest prescribed before Set 4 attempt.</p>
 </div>
 </div>
@@ -272,28 +295,28 @@
 <!-- ================= 5. SET PROGRESSION (ACTIVE SET 3/5) & 64px CTA ================= -->
 <div class="bg-[#0F172A] border-2 border-black rounded-2xl p-3 shadow-brutal space-y-2">
 <div class="flex items-center justify-between text-[11px] font-mono text-slate-400">
-<span class="font-bold uppercase tracking-wider text-slate-300">SET LOG ARCHITECTURE</span>
+<span class="font-bold uppercase tracking-wider text-slate-300 whitespace-nowrap">SET LOG ARCHITECTURE</span>
 <span class="font-bold text-purple-400" id="setHeaderStatus">Active Set 3 of 5</span>
 </div>
 <!-- Previous Set 1 (Completed) -->
 <div class="flex items-center justify-between p-2 rounded-xl bg-slate-900/80 border border-emerald-500/30 text-xs font-mono">
 <div class="flex items-center gap-2">
-<span class="w-5 h-5 rounded-full bg-emerald-500 text-black flex items-center justify-center font-bold text-[10px]">✓</span>
-<span class="font-bold text-slate-200">Set 1: 100 kg × 5 reps</span>
+<span class="w-5 h-5 rounded-full bg-emerald-500 text-black flex items-center justify-center font-bold text-[10px] whitespace-nowrap">✓</span>
+<span class="font-bold text-slate-200"><span class="whitespace-nowrap inline-block">Set&nbsp;1:&nbsp;100&nbsp;kg&nbsp;&times;&nbsp;5&nbsp;reps</span></span>
 </div>
 <div class="text-right">
-<span class="text-emerald-400 font-bold">0.78 m/s</span>
+<span class="text-emerald-400 font-bold"><span class="whitespace-nowrap inline-block">0.78&nbsp;m/s</span></span>
 <span class="text-[9px] text-slate-500 ml-1">RPE 7.0</span>
 </div>
 </div>
 <!-- Previous Set 2 (Completed) -->
 <div class="flex items-center justify-between p-2 rounded-xl bg-slate-900/80 border border-emerald-500/30 text-xs font-mono">
 <div class="flex items-center gap-2">
-<span class="w-5 h-5 rounded-full bg-emerald-500 text-black flex items-center justify-center font-bold text-[10px]">✓</span>
-<span class="font-bold text-slate-200">Set 2: 100 kg × 5 reps</span>
+<span class="w-5 h-5 rounded-full bg-emerald-500 text-black flex items-center justify-center font-bold text-[10px] whitespace-nowrap">✓</span>
+<span class="font-bold text-slate-200"><span class="whitespace-nowrap inline-block">Set&nbsp;2:&nbsp;100&nbsp;kg&nbsp;&times;&nbsp;5&nbsp;reps</span></span>
 </div>
 <div class="text-right">
-<span class="text-emerald-400 font-bold">0.74 m/s</span>
+<span class="text-emerald-400 font-bold"><span class="whitespace-nowrap inline-block">0.74&nbsp;m/s</span></span>
 <span class="text-[9px] text-slate-500 ml-1">RPE 7.5</span>
 </div>
 </div>
@@ -301,10 +324,10 @@
 <div class="p-2.5 rounded-xl bg-[#172239] border-2 border-purple-500 shadow-glow-purple space-y-2.5 transition-all" id="activeSetContainer">
 <div class="flex items-center justify-between text-xs font-mono">
 <div class="flex items-center gap-2">
-<span class="w-6 h-6 rounded-lg bg-purple-600 text-white flex items-center justify-center font-black text-xs border border-black" id="setBadgeIcon">3</span>
-<span class="font-black text-white" id="activeSetTitle">Set 3: 100.0 kg × 5 (CURRENT)</span>
+<span class="w-6 h-6 rounded-lg bg-purple-600 text-white flex items-center justify-center font-black text-xs border border-black whitespace-nowrap" id="setBadgeIcon">3</span>
+<span class="font-black text-white" id="activeSetTitle"><span class="whitespace-nowrap inline-block">Set&nbsp;3:&nbsp;100.0&nbsp;kg&nbsp;&times;&nbsp;5&nbsp;reps&nbsp;(CURRENT)</span></span>
 </div>
-<span class="text-[10px] font-mono text-purple-300 font-bold uppercase tracking-wider">ON PLATFORM</span>
+<span class="text-[10px] font-mono text-purple-300 font-bold uppercase tracking-wider whitespace-nowrap">ON PLATFORM</span>
 </div>
 <!-- GIANT 64px TACTILE CTA: COMPLETE SET 3 -->
 <button class="w-full h-16 rounded-xl bg-purple-600 hover:bg-purple-500 active:translate-y-1 active:shadow-tactile-pressed border-2 border-black text-white font-mono font-black text-base uppercase tracking-wider shadow-brutal flex items-center justify-center gap-2.5 transition-all" id="completeSetCta" onclick="completeActiveSet()">
@@ -314,11 +337,11 @@
 </div>
 <!-- Set 4 & 5 Queued -->
 <div class="flex items-center justify-between p-2 rounded-xl bg-slate-900/40 border border-slate-800 text-[11px] font-mono text-slate-500">
-<span>Set 4: 100 kg × 5 reps</span>
+<span><span class="whitespace-nowrap inline-block">Set&nbsp;4:&nbsp;100&nbsp;kg&nbsp;&times;&nbsp;5&nbsp;reps</span></span>
 <span class="text-[10px]">QUEUED</span>
 </div>
 <div class="flex items-center justify-between p-2 rounded-xl bg-slate-900/40 border border-slate-800 text-[11px] font-mono text-slate-500">
-<span>Set 5: 100 kg × 5 reps</span>
+<span><span class="whitespace-nowrap inline-block">Set&nbsp;5:&nbsp;100&nbsp;kg&nbsp;&times;&nbsp;5&nbsp;reps</span></span>
 <span class="text-[10px]">QUEUED</span>
 </div>
 </div>
@@ -336,16 +359,16 @@
 </div>
 </div>
 <div>
-<span class="text-xs font-mono font-black text-slate-200 uppercase block">180s Prescribed Rest</span>
+<span class="text-xs font-mono font-black text-slate-200 uppercase block whitespace-nowrap">180s Prescribed Rest</span>
 <span class="text-[10px] font-mono text-purple-400 block" id="timerStatusNotice">Enode CNS Recovery Running</span>
 </div>
 </div>
 <!-- Timer Controls: +30s and Pause/Resume -->
 <div class="flex items-center gap-2">
-<button class="h-10 px-2.5 rounded-xl bg-[#172239] hover:bg-slate-700 active:bg-black border-2 border-black font-mono font-black text-xs text-purple-300 shadow-brutal-sm flex items-center justify-center" onclick="extendTimer(30)">
+<button class="h-10 px-2.5 rounded-xl bg-[#172239] hover:bg-slate-700 active:bg-black border-2 border-black font-mono font-black text-xs text-purple-300 shadow-brutal-sm flex items-center justify-center whitespace-nowrap inline-block" onclick="extendTimer(30)">
             +30s
           </button>
-<button class="w-10 h-10 rounded-xl bg-purple-600 hover:bg-purple-500 active:bg-purple-800 border-2 border-black text-white font-mono shadow-brutal-sm flex items-center justify-center" id="pauseToggleBtn" onclick="toggleTimerState()">
+<button class="w-10 h-10 rounded-xl bg-purple-600 hover:bg-purple-500 active:bg-purple-800 border-2 border-black text-white font-mono shadow-brutal-sm flex items-center justify-center whitespace-nowrap inline-block" id="pauseToggleBtn" onclick="toggleTimerState()">
 <i class="w-4 h-4 fill-current" data-lucide="pause" id="pausePlayIcon"></i>
 </button>
 </div>

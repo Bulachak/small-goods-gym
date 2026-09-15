@@ -3,6 +3,26 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Favicon -->
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="apple-touch-icon" href="images/small-goods-logo_sticker@2x-p-500.png">
+
+  <!-- OpenGraph / Social Sharing Card -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://bulachak.github.io/small-goods-gym/">
+  <meta property="og:title" content="Small Goods Gym • Elite Sports Science & Live System Demo">
+  <meta property="og:description" content="Tactile sports-science gym-floor logging, real-time barbell velocity HUD, biomechanical lever analysis, and NDIS clinical telemetry for Joel Mullen & Holly Hunt.">
+  <meta property="og:image" content="https://bulachak.github.io/small-goods-gym/images/og-small-goods-social-card.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Small Goods Gym Systems Architecture & Live Suite Preview">
+
+  <!-- Twitter Cards -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://bulachak.github.io/small-goods-gym/">
+  <meta name="twitter:title" content="Small Goods Gym • Elite Sports Science & Live System Demo">
+  <meta name="twitter:description" content="Tactile sports-science gym-floor logging, real-time barbell velocity HUD, biomechanical lever analysis, and NDIS clinical telemetry for Joel Mullen & Holly Hunt.">
+  <meta name="twitter:image" content="https://bulachak.github.io/small-goods-gym/images/og-small-goods-social-card.png">
   <title>Small Goods Gym • Elite Sports Science & Live System Demo</title>
   
   <!-- Tailwind CSS CDN -->
@@ -158,6 +178,13 @@
     }
   
 </style>
+
+  <style>
+    /* Anti-orphan universal glue */
+    .whitespace-nowrap { white-space: nowrap !important; }
+    h1, h2, h3, h4, h5, h6 { text-wrap: balance !important; }
+    p, .card-desc { text-wrap: pretty !important; }
+  </style>
 </head>
 <body class="min-h-screen font-sans antialiased transition-colors duration-200 bg-[#f6f4f6] text-slate-900 dark:bg-[#090d16] dark:text-slate-100">
   <div id="root"></div>
@@ -289,7 +316,7 @@
         apeIndex: '+6 cm',
         squatStance: 'Wide (Low Bar)',
         deadliftStance: 'Semi-Sumo',
-        vbtBaseline: '0.64 m/s @ 140kg',
+        vbtBaseline: '<span class="whitespace-nowrap inline-block">0.64&nbsp;m/s</span> @ 140kg',
         tags: ['#longfemurs', '#lumbar-care', '#vbt-tier1'],
         coachCue: 'Push knees out hard into the band on the ascent. Torso must not collapse forward past 45°!',
         history: [
@@ -662,13 +689,13 @@
             <div class="metrics-grid">
               <div class="metric-card">
                 <div class="lbl">Peak Isometric Force</div>
-                <div class="val">428 N</div>
+                <div class="val"><span class="whitespace-nowrap inline-block">428&nbsp;N</span></div>
                 <div class="trend">▲ +14.2% vs Baseline</div>
               </div>
               <div class="metric-card">
                 <div class="lbl">Rate of Force Dev (RFD)</div>
-                <div class="val">1,840 N/s</div>
-                <div class="trend">▲ +210 N/s Explosive Target</div>
+                <div class="val">1,<span class="whitespace-nowrap inline-block">840&nbsp;N</span>/s</div>
+                <div class="trend">▲ +<span class="whitespace-nowrap inline-block">210&nbsp;N</span>/s Explosive Target</div>
               </div>
               <div class="metric-card">
                 <div class="lbl">Bilateral Asymmetry</div>
@@ -705,7 +732,7 @@
                   <td><strong>Sep 03, 2026</strong></td>
                   <td>CNS Fatigue & Bar Velocity</td>
                   <td>Enode Dual-Axis VBT</td>
-                  <td>Mean concentric velocity preserved at 0.74 m/s across 4 sets @ 100kg. Zero spinal shear compensation observed under load.</td>
+                  <td>Mean concentric velocity preserved at <span class="whitespace-nowrap inline-block">0.74&nbsp;m/s</span> across 4 sets @ 100kg. Zero spinal shear compensation observed under load.</td>
                   <td><span class="status-pill">COMPLETED</span></td>
                 </tr>
                 <tr>
@@ -896,7 +923,7 @@
                       
                       {/* 20% fatigue boundary line */}
                       <line x1="0" y1="78" x2="500" y2="78" stroke="#e95766" strokeWidth="1.5" strokeDasharray="6" />
-                      <text x="10" y="74" fill="#e95766" fontSize="9" fontFamily="monospace">FATIGUE CUTOFF (0.58 m/s)</text>
+                      <text x="10" y="74" fill="#e95766" fontSize="9" fontFamily="monospace">FATIGUE CUTOFF (<span class="whitespace-nowrap inline-block">0.58&nbsp;m/s</span>)</text>
 
                       {/* Rep curves */}
                       <path d="M 10 100 Q 80 10, 160 50 T 260 40 T 380 45 T 490 60" fill="none" stroke="#9aef0f" strokeWidth="3" />
@@ -905,10 +932,10 @@
                     <div className="flex items-center justify-between text-xs font-mono pt-1">
                       <div className="flex items-center gap-4">
                         <span className="flex items-center gap-1 text-brand-lime">
-                          <span className="w-2.5 h-2.5 bg-brand-lime rounded-full inline-block"></span> Rep 1 Peak: 0.76 m/s
+                          <span className="w-2.5 h-2.5 bg-brand-lime rounded-full inline-block"></span> Rep 1 Peak: <span class="whitespace-nowrap inline-block">0.76&nbsp;m/s</span>
                         </span>
                         <span className="flex items-center gap-1 text-violet-300">
-                          <span className="w-2.5 h-2.5 bg-brand-violet rounded-full inline-block"></span> Rep 5 Peak: 0.59 m/s
+                          <span className="w-2.5 h-2.5 bg-brand-violet rounded-full inline-block"></span> Rep 5 Peak: <span class="whitespace-nowrap inline-block">0.59&nbsp;m/s</span>
                         </span>
                       </div>
                       <span className="text-brand-lime font-bold">STRENGTH ACCELERATION ZONE</span>
@@ -1018,9 +1045,9 @@
                   <p className="font-script text-3xl leading-snug mt-2 text-slate-900">
                     "{selectedAthlete.coachCue}"
                   </p>
-                  <div className="mt-4 pt-3 border-t border-black/20 flex items-center justify-between text-xs font-mono">
-                    <span>Target Stance: <strong>{selectedAthlete.squatStance}</strong></span>
-                    <span>Ape Index: <strong>{selectedAthlete.apeIndex}</strong></span>
+                  <div className="mt-4 pt-3 border-t border-black/20 flex flex-wrap items-center justify-between gap-2 text-xs font-mono">
+                    <span className="whitespace-nowrap">Target Stance: <strong>{selectedAthlete.squatStance}</strong></span>
+                    <span className="whitespace-nowrap">Ape Index: <strong>{selectedAthlete.apeIndex}</strong></span>
                   </div>
                 </div>
 
@@ -1031,17 +1058,17 @@
                     <span>Kinematic Profile Summary</span>
                   </h3>
                   <div className="space-y-2 text-xs font-mono">
-                    <div className="flex justify-between py-1 border-b border-slate-200 dark:border-slate-800">
-                      <span className="text-slate-600 dark:text-slate-400">Femur/Torso Ratio:</span>
-                      <strong className="text-red-700 dark:text-red-400">{selectedAthlete.ratio}</strong>
+                    <div className="flex justify-between items-center py-1 border-b border-slate-200 dark:border-slate-800">
+                      <span className="text-slate-600 dark:text-slate-400 whitespace-nowrap">Femur/Torso Ratio:</span>
+                      <strong className="text-red-700 dark:text-red-400 whitespace-nowrap">{selectedAthlete.ratio}</strong>
                     </div>
-                    <div className="flex justify-between py-1 border-b border-slate-200 dark:border-slate-800">
-                      <span className="text-slate-500">Deadlift Stance:</span>
-                      <strong>{selectedAthlete.deadliftStance}</strong>
+                    <div className="flex justify-between items-center py-1 border-b border-slate-200 dark:border-slate-800">
+                      <span className="text-slate-500 whitespace-nowrap">Deadlift Stance:</span>
+                      <strong className="whitespace-nowrap">{selectedAthlete.deadliftStance}</strong>
                     </div>
-                    <div className="flex justify-between py-1 border-b border-slate-200 dark:border-slate-800">
-                      <span className="text-slate-600 dark:text-slate-400">VBT Baseline:</span>
-                      <strong className="text-emerald-800 dark:text-brand-lime">{selectedAthlete.vbtBaseline}</strong>
+                    <div className="flex justify-between items-center py-1 border-b border-slate-200 dark:border-slate-800">
+                      <span className="text-slate-600 dark:text-slate-400 whitespace-nowrap">VBT Baseline:</span>
+                      <strong className="text-emerald-800 dark:text-brand-lime whitespace-nowrap">{selectedAthlete.vbtBaseline}</strong>
                     </div>
                   </div>
                   <div className="pt-2 flex flex-wrap gap-1">
@@ -1270,14 +1297,14 @@
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mt-6">
                   <div className="bg-slate-50 dark:bg-slate-800 p-4 rounded neo-border">
                     <span className="text-[10px] font-mono text-slate-600 dark:text-slate-400 uppercase font-bold">Peak Isometric Force</span>
-                    <div className="text-2xl font-mono font-extrabold text-brand-purple dark:text-emerald-400 mt-1">428 N</div>
+                    <div className="text-2xl font-mono font-extrabold text-brand-purple dark:text-emerald-400 mt-1"><span class="whitespace-nowrap inline-block">428&nbsp;N</span></div>
                     <span className="text-[11px] text-emerald-800 dark:text-emerald-400 font-bold">▲ +14.2% vs 8-wk baseline</span>
                   </div>
 
                   <div className="bg-slate-50 dark:bg-slate-800 p-4 rounded neo-border">
                     <span className="text-[10px] font-mono text-slate-600 dark:text-slate-400 uppercase font-bold">Rate of Force Development</span>
-                    <div className="text-2xl font-mono font-extrabold text-red-700 dark:text-red-400 mt-1">1,840 N/s</div>
-                    <span className="text-[11px] text-emerald-800 dark:text-emerald-400 font-bold">▲ +210 N/s explosive threshold</span>
+                    <div className="text-2xl font-mono font-extrabold text-red-700 dark:text-red-400 mt-1">1,<span class="whitespace-nowrap inline-block">840&nbsp;N</span>/s</div>
+                    <span className="text-[11px] text-emerald-800 dark:text-emerald-400 font-bold">▲ +<span class="whitespace-nowrap inline-block">210&nbsp;N</span>/s explosive threshold</span>
                   </div>
 
                   <div className="bg-slate-50 dark:bg-slate-800 p-4 rounded neo-border">
@@ -1918,7 +1945,7 @@
                 Monospaced technical font for Enode transducer readouts, set numbers, barbell loads (140.0 kg), and audit timestamps.
               </p>
               <div className="p-3 bg-slate-100 dark:bg-slate-800 rounded font-mono font-bold text-lg text-brand-purple dark:text-brand-lime">
-                0.68 m/s • 140.0 kg
+                <span class="whitespace-nowrap inline-block">0.68&nbsp;m/s</span> • 140.0 kg
               </div>
             </div>
 

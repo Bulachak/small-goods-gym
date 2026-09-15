@@ -96,7 +96,30 @@
       white-space: nowrap !important;
     }
   
+
+    /* ZERO-ORPHAN GLOBAL ENFORCEMENT */
+    .whitespace-nowrap, th, td.whitespace-nowrap, .font-mono {
+      white-space: nowrap !important;
+    }
+    span[class*="rounded"], .badge, button, select {
+      white-space: nowrap !important;
+      text-wrap: nowrap !important;
+    }
+    h1, h2, h3 {
+      text-wrap: balance !important;
+    }
+    p, label {
+      text-wrap: pretty !important;
+    }
+  
 </style>
+
+  <style>
+    /* Anti-orphan universal glue */
+    .whitespace-nowrap { white-space: nowrap !important; }
+    h1, h2, h3, h4, h5, h6 { text-wrap: balance !important; }
+    p, .card-desc { text-wrap: pretty !important; }
+  </style>
 </head>
 <body class="min-h-screen bg-[#080c14] text-slate-100 antialiased flex flex-col selection:bg-[#9aef0f] selection:text-black">
 <!-- ================= TOP CONSOLE BAR ================= -->
@@ -111,14 +134,13 @@
 </div>
 <div>
 <div class="flex items-center gap-2">
-<h1 class="font-extrabold text-base tracking-tight text-white flex items-center gap-1.5">
-                Small Goods Gym
-                <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-[#4724ba] text-white neo-border font-bold shadow-[2px_2px_0_0_#000]">VARIANT 3</span>
+<h1 class="font-extrabold text-base tracking-tight text-white flex items-center gap-1.5" class="whitespace-nowrap">Small Goods Gym
+                <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-[#4724ba] text-white neo-border font-bold shadow-[2px_2px_0_0_#000] whitespace-nowrap">VARIANT 3</span>
 </h1>
 </div>
 <p class="text-xs text-slate-400 flex items-center gap-1.5 font-mono">
-<span class="inline-block w-2 h-2 rounded-full bg-[#9aef0f] animate-pulse"></span>
-              Morley, Perth WA • Joel Mullen &amp; Holly Hunt Sports Science Suite
+<span class="inline-block w-2 h-2 rounded-full bg-[#9aef0f] animate-pulse whitespace-nowrap"></span>
+              Morley,&nbsp;Perth&nbsp;WA • Joel Mullen &amp; Holly Hunt Sports Science Suite
             </p>
 </div>
 </div>
@@ -159,7 +181,7 @@
 <div class="bg-gradient-to-r from-[#4724ba]/20 via-[#0e1526] to-[#9aef0f]/10 border-b-2 border-black py-2.5 px-4 lg:px-8">
 <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2 text-xs">
 <div class="flex items-center gap-2">
-<span class="bg-[#9aef0f] text-black font-mono font-black text-[10px] px-2 py-0.5 rounded uppercase tracking-wider neo-border">
+<span class="bg-[#9aef0f] text-black font-mono font-black text-[10px] px-2 py-0.5 rounded uppercase tracking-wider neo-border whitespace-nowrap">
           Console Mode
         </span>
 <span class="text-slate-200 font-semibold tracking-wide">
@@ -189,7 +211,7 @@
 <p class="text-xs text-slate-400 font-mono mt-0.5">Dual-segment skeletal digitizer &amp; leverage proportion compute</p>
 </div>
 <div class="flex items-center gap-1.5 flex-wrap">
-<span class="text-[10px] font-mono text-slate-400 uppercase font-bold mr-1">Archetype Presets:</span>
+<span class="text-[10px] font-mono text-slate-400 uppercase font-bold mr-1 whitespace-nowrap">Archetype Presets:</span>
 <button class="preset-chip px-2.5 py-1 rounded bg-[#162038] hover:bg-[#4724ba] text-slate-200 hover:text-white text-[11px] font-mono font-bold neo-border shadow-[2px_2px_0_0_#000] transition-all" onclick="applyPreset(58.0, 49.0, 'Extreme Long Femur (1.18)')">
               Extreme Long (1.18)
             </button>
@@ -205,7 +227,7 @@
 <div class="bg-[#080c14] p-4 rounded-xl neo-border">
 <div class="flex items-center justify-between mb-2">
 <div class="flex items-center gap-2">
-<span class="w-3 h-3 rounded-full bg-[#9aef0f]"></span>
+<span class="w-3 h-3 rounded-full bg-[#9aef0f] whitespace-nowrap"></span>
 <div>
 <label class="text-sm font-bold text-white block" for="femurSlider">Femur Segment Length</label>
 <span class="text-[11px] text-slate-400 font-mono">Greater trochanter to lateral knee epicondyle</span>
@@ -227,7 +249,7 @@
 <div class="bg-[#080c14] p-4 rounded-xl neo-border">
 <div class="flex items-center justify-between mb-2">
 <div class="flex items-center gap-2">
-<span class="w-3 h-3 rounded-full bg-[#4724ba]"></span>
+<span class="w-3 h-3 rounded-full bg-[#4724ba] whitespace-nowrap"></span>
 <div>
 <label class="text-sm font-bold text-white block" for="torsoSlider">Torso Segment Length</label>
 <span class="text-[11px] text-slate-400 font-mono">C7 Cervical vertebra to ASIS Iliac crest</span>
@@ -249,7 +271,7 @@
 <div class="bg-[#080c14] p-4 rounded-xl neo-border flex flex-col md:flex-row md:items-center justify-between gap-4">
 <div class="flex items-center gap-3.5">
 <div class="p-3 bg-[#162038] rounded-xl neo-border shadow-[2px_2px_0_0_#000] text-center min-w-[90px]">
-<span class="block text-[10px] font-mono text-slate-400 uppercase font-bold">Femur:Torso</span>
+<span class="block text-[10px] font-mono text-slate-400 uppercase font-bold whitespace-nowrap">Femur:Torso</span>
 <span class="text-3xl font-mono font-black text-[#9aef0f]" id="ratioDisplay">1.11</span>
 </div>
 <div>
@@ -258,7 +280,7 @@
 </div>
 </div>
 <div class="text-right">
-<span class="text-[10px] font-mono uppercase font-bold text-slate-400 block mb-1">Prescription Confidence</span>
+<span class="text-[10px] font-mono uppercase font-bold text-slate-400 block mb-1 whitespace-nowrap">Prescription Confidence</span>
 <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-[#4724ba] text-white font-mono text-xs font-bold neo-border shadow-[2px_2px_0_0_#000]">
 <i class="w-3.5 h-3.5 text-[#9aef0f]" data-lucide="check-check"></i>
 <span>Joel's Calibration 98.4%</span>
@@ -267,16 +289,16 @@
 </div>
 <!-- Real-Time Tag Pill Generator -->
 <div>
-<span class="text-[11px] font-mono font-bold text-slate-400 uppercase tracking-wider block mb-2">
+<span class="text-[11px] font-mono font-bold text-slate-400 uppercase tracking-wider block mb-2 whitespace-nowrap">
             Active Biomechanical Profile Tags:
           </span>
 <div class="flex flex-wrap gap-2" id="dynamicTagsContainer">
 <!-- Dynamically populated tags -->
-<span class="px-3 py-1 rounded-full text-xs font-mono font-bold bg-[#4724ba] text-white neo-border shadow-[2px_2px_0_0_#000]">#LongFemurs</span>
-<span class="px-3 py-1 rounded-full text-xs font-mono font-bold bg-[#9aef0f] text-black neo-border shadow-[2px_2px_0_0_#000]">#HighHipSquat</span>
-<span class="px-3 py-1 rounded-full text-xs font-mono font-bold bg-[#162038] text-[#9aef0f] neo-border shadow-[2px_2px_0_0_#000]">#LowBarRecommended</span>
-<span class="px-3 py-1 rounded-full text-xs font-mono font-bold bg-[#162038] text-white neo-border shadow-[2px_2px_0_0_#000]">#HipHingePattern</span>
-<span class="px-3 py-1 rounded-full text-xs font-mono font-bold bg-[#ecfd28] text-black neo-border shadow-[2px_2px_0_0_#000]">#WideStanceIndicated</span>
+<span class="px-3 py-1 rounded-full text-xs font-mono font-bold bg-[#4724ba] text-white neo-border shadow-[2px_2px_0_0_#000] whitespace-nowrap">#LongFemurs</span>
+<span class="px-3 py-1 rounded-full text-xs font-mono font-bold bg-[#9aef0f] text-black neo-border shadow-[2px_2px_0_0_#000] whitespace-nowrap">#HighHipSquat</span>
+<span class="px-3 py-1 rounded-full text-xs font-mono font-bold bg-[#162038] text-[#9aef0f] neo-border shadow-[2px_2px_0_0_#000] whitespace-nowrap">#LowBarRecommended</span>
+<span class="px-3 py-1 rounded-full text-xs font-mono font-bold bg-[#162038] text-white neo-border shadow-[2px_2px_0_0_#000] whitespace-nowrap">#HipHingePattern</span>
+<span class="px-3 py-1 rounded-full text-xs font-mono font-bold bg-[#ecfd28] text-black neo-border shadow-[2px_2px_0_0_#000] whitespace-nowrap">#WideStanceIndicated</span>
 </div>
 </div>
 </div>
@@ -288,7 +310,7 @@
 <i class="w-5 h-5 text-[#4724ba]" data-lucide="view"></i>
 <h3 class="text-base font-bold text-white tracking-tight">Squat Hole Kinematic Projection</h3>
 </div>
-<span class="px-2 py-0.5 rounded bg-black text-[#9aef0f] font-mono text-[11px] neo-border font-bold">
+<span class="px-2 py-0.5 rounded bg-black text-[#9aef0f] font-mono text-[11px] neo-border font-bold whitespace-nowrap">
               Parallel Depth (IPF)
             </span>
 </div>
@@ -327,19 +349,19 @@
 <div class="grid grid-cols-3 gap-2.5 mt-4">
 <!-- Hip Flexion Angle -->
 <div class="bg-[#080c14] p-2.5 rounded-xl neo-border text-center">
-<span class="block text-[10px] font-mono text-slate-400 uppercase font-bold">Hip Angle</span>
+<span class="block text-[10px] font-mono text-slate-400 uppercase font-bold whitespace-nowrap">Hip Angle</span>
 <span class="text-xl font-mono font-black text-amber-300" id="hipAngleDisplay">38°</span>
 <span class="block text-[9px] font-mono text-slate-400" id="hipAngleDesc">Severe Closed</span>
 </div>
 <!-- Knee Flexion Angle -->
 <div class="bg-[#080c14] p-2.5 rounded-xl neo-border text-center">
-<span class="block text-[10px] font-mono text-slate-400 uppercase font-bold">Knee Flexion</span>
+<span class="block text-[10px] font-mono text-slate-400 uppercase font-bold whitespace-nowrap">Knee Flexion</span>
 <span class="text-xl font-mono font-black text-[#9aef0f]" id="kneeFlexDisplay">118°</span>
 <span class="block text-[9px] font-mono text-slate-400" id="kneeFlexDesc">High Hamstring</span>
 </div>
 <!-- Torso Inclination Angle -->
 <div class="bg-[#080c14] p-2.5 rounded-xl neo-border text-center">
-<span class="block text-[10px] font-mono text-slate-400 uppercase font-bold">Torso Lean</span>
+<span class="block text-[10px] font-mono text-slate-400 uppercase font-bold whitespace-nowrap">Torso Lean</span>
 <span class="text-xl font-mono font-black text-indigo-300" id="torsoLeanDisplay">42°</span>
 <span class="block text-[9px] font-mono text-slate-400" id="torsoLeanDesc">Forward Hinge</span>
 </div>
@@ -378,7 +400,7 @@
 <span class="text-[10px] font-mono text-purple-300">Joel Mullen Coaching Protocol &amp; Bull-Mastiff Algorithm</span>
 </div>
 </div>
-<span class="px-2 py-0.5 rounded bg-[#9aef0f] text-black font-mono text-[10px] font-extrabold neo-border">
+<span class="px-2 py-0.5 rounded bg-[#9aef0f] text-black font-mono text-[10px] font-extrabold neo-border whitespace-nowrap">
               AUTONOMOUS
             </span>
 </div>
@@ -387,8 +409,8 @@
 <!-- Card 1: Bar Placement -->
 <div class="p-3.5 rounded-xl bg-[#080c14] neo-border border-l-4 border-l-[#9aef0f]">
 <div class="flex items-center justify-between mb-1">
-<span class="text-xs font-mono font-bold text-[#9aef0f] uppercase">1. Bar Placement &amp; Displacement</span>
-<span class="text-[10px] font-mono px-2 py-0.5 rounded bg-[#4724ba] text-white" id="barBadge">Low-Bar Posterior Seat</span>
+<span class="text-xs font-mono font-bold text-[#9aef0f] uppercase whitespace-nowrap">1. Bar Placement &amp; Displacement</span>
+<span class="text-[10px] font-mono px-2 py-0.5 rounded bg-[#4724ba] text-white whitespace-nowrap" id="barBadge">Low-Bar Posterior Seat</span>
 </div>
 <p class="text-xs text-slate-300 leading-relaxed" id="barText">
                 Position bar 3-4 cm below spine of scapula across posterior deltoids. Shortens effective spinal moment arm from 31.4 cm to 26.8 cm, significantly mitigating L5/S1 sheer forces.
@@ -397,8 +419,8 @@
 <!-- Card 2: Stance & Abduction -->
 <div class="p-3.5 rounded-xl bg-[#080c14] neo-border border-l-4 border-l-[#ecfd28]">
 <div class="flex items-center justify-between mb-1">
-<span class="text-xs font-mono font-bold text-[#ecfd28] uppercase">2. Stance Width &amp; Foot Abduction</span>
-<span class="text-[10px] font-mono px-2 py-0.5 rounded bg-black text-[#ecfd28] border border-black" id="stanceBadge">1.25× Shoulder Width</span>
+<span class="text-xs font-mono font-bold text-[#ecfd28] uppercase whitespace-nowrap">2. Stance Width &amp; Foot Abduction</span>
+<span class="text-[10px] font-mono px-2 py-0.5 rounded bg-black text-[#ecfd28] border border-black whitespace-nowrap" id="stanceBadge">1.25× Shoulder Width</span>
 </div>
 <p class="text-xs text-slate-300 leading-relaxed" id="stanceText">
                 Take an ultra-wide stance with 32°–35° toe flare. Allows the acetabular femoral head to clear the anterior pelvis without premature posterior pelvic tilt (butt-wink).
@@ -406,7 +428,7 @@
 </div>
 <!-- Card 3: Realtime Cue Checklist -->
 <div class="p-3.5 rounded-xl bg-[#080c14] neo-border">
-<span class="text-xs font-mono font-bold text-white uppercase block mb-2">Immediate Gym-Floor Cue Checklist:</span>
+<span class="text-xs font-mono font-bold text-white uppercase block mb-2 whitespace-nowrap">Immediate Gym-Floor Cue Checklist:</span>
 <ul class="space-y-1.5 text-xs text-slate-300 font-mono">
 <li class="flex items-center gap-2">
 <i class="w-3.5 h-3.5 text-[#9aef0f] flex-shrink-0" data-lucide="check-square"></i>
@@ -432,7 +454,7 @@
 <p class="font-hand text-2xl text-yellow-200 tracking-wide leading-tight" id="joelHandwrittenNote">
                 Do not fight your anatomy. Own the hip hinge. — Joel
               </p>
-<span class="text-[10px] font-mono text-purple-300 uppercase tracking-widest block mt-1">Head Coach Joel Mullen • Morley Small Goods Gym</span>
+<span class="text-[10px] font-mono text-purple-300 uppercase tracking-widest block mt-1 whitespace-nowrap">Head Coach Joel Mullen • Morley Small Goods Gym</span>
 </div>
 </div>
 </div>
@@ -451,7 +473,7 @@
 <span class="text-[10px] font-mono text-rose-300">Titled Sports Physiotherapist • Clinic Triage Bridge</span>
 </div>
 </div>
-<span class="px-2 py-0.5 rounded bg-rose-600 text-white font-mono text-[10px] font-bold neo-border">
+<span class="px-2 py-0.5 rounded bg-rose-600 text-white font-mono text-[10px] font-bold neo-border whitespace-nowrap">
               CLINICAL TRIAGE
             </span>
 </div>
@@ -460,7 +482,7 @@
           </p>
 <!-- Urgency Level Toggle Switcher -->
 <div class="bg-[#080c14] p-3.5 rounded-xl neo-border mb-4">
-<span class="text-[11px] font-mono font-bold text-slate-300 uppercase block mb-2">Select Clinical Triage Urgency:</span>
+<span class="text-[11px] font-mono font-bold text-slate-300 uppercase block mb-2 whitespace-nowrap">Select Clinical Triage Urgency:</span>
 <div class="grid grid-cols-3 gap-2">
 <button class="urgency-btn py-2 px-2 rounded-lg text-[11px] font-mono font-bold neo-border bg-[#162038] text-slate-300 hover:text-white transition-all text-center" id="urgency-routine" onclick="selectUrgency('routine')">
                 Routine Prehab
@@ -475,7 +497,7 @@
 </div>
 <!-- Symptom Checklist Form -->
 <div class="bg-[#080c14] p-3.5 rounded-xl neo-border space-y-2 mb-4">
-<span class="text-[11px] font-mono font-bold text-slate-300 uppercase block">Reported Symptoms &amp; Joint Stressors:</span>
+<span class="text-[11px] font-mono font-bold text-slate-300 uppercase block whitespace-nowrap">Reported Symptoms &amp; Joint Stressors:</span>
 <label class="flex items-center gap-2.5 text-xs text-slate-200 cursor-pointer select-none">
 <input checked="" class="w-4 h-4 rounded bg-[#162038] border-black text-[#4724ba] focus:ring-0" id="symp-lumbar" type="checkbox"/>
 <span>Posterior lumbar compressive pinch at squat reversal</span>
@@ -522,7 +544,7 @@
 <footer class="border-t-2 border-black bg-[#080c14] py-4 px-4 text-center text-xs text-slate-500 font-mono mt-8">
 <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
 <div>
-        Small Goods Gym • Morley, Perth WA • Head Coach Joel Mullen &amp; Physio Holly Hunt
+        Small Goods Gym • Morley,&nbsp;Perth&nbsp;WA • Head Coach Joel Mullen &amp; Physio Holly Hunt
       </div>
 <div class="flex items-center gap-3 text-slate-400">
 <span>Biomechanics Console v3.2</span>
@@ -671,11 +693,11 @@
         ratioDesc.innerText = "Heavy posterior hip moment arm. Extreme hinge requirement.";
         
         tagsContainer.innerHTML = `
-          <span class="px-3 py-1 rounded-full text-xs font-mono font-bold bg-[#4724ba] text-white neo-border shadow-[2px_2px_0_0_#000]">#LongFemurs</span>
-          <span class="px-3 py-1 rounded-full text-xs font-mono font-bold bg-[#9aef0f] text-black neo-border shadow-[2px_2px_0_0_#000]">#HighHipSquat</span>
-          <span class="px-3 py-1 rounded-full text-xs font-mono font-bold bg-[#162038] text-[#9aef0f] neo-border shadow-[2px_2px_0_0_#000]">#LowBarRecommended</span>
-          <span class="px-3 py-1 rounded-full text-xs font-mono font-bold bg-[#162038] text-white neo-border shadow-[2px_2px_0_0_#000]">#HipHingePattern</span>
-          <span class="px-3 py-1 rounded-full text-xs font-mono font-bold bg-[#ecfd28] text-black neo-border shadow-[2px_2px_0_0_#000]">#WideStanceIndicated</span>
+          <span class="px-3 py-1 rounded-full text-xs font-mono font-bold bg-[#4724ba] text-white neo-border shadow-[2px_2px_0_0_#000] whitespace-nowrap">#LongFemurs</span>
+          <span class="px-3 py-1 rounded-full text-xs font-mono font-bold bg-[#9aef0f] text-black neo-border shadow-[2px_2px_0_0_#000] whitespace-nowrap">#HighHipSquat</span>
+          <span class="px-3 py-1 rounded-full text-xs font-mono font-bold bg-[#162038] text-[#9aef0f] neo-border shadow-[2px_2px_0_0_#000] whitespace-nowrap">#LowBarRecommended</span>
+          <span class="px-3 py-1 rounded-full text-xs font-mono font-bold bg-[#162038] text-white neo-border shadow-[2px_2px_0_0_#000] whitespace-nowrap">#HipHingePattern</span>
+          <span class="px-3 py-1 rounded-full text-xs font-mono font-bold bg-[#ecfd28] text-black neo-border shadow-[2px_2px_0_0_#000] whitespace-nowrap">#WideStanceIndicated</span>
         `;
 
         hipAngleDisplay.innerText = "38°";
@@ -726,11 +748,11 @@
         ratioDesc.innerText = "Upright trunk tolerance. High anterior knee flexion moment arm.";
 
         tagsContainer.innerHTML = `
-          <span class="px-3 py-1 rounded-full text-xs font-mono font-bold bg-[#162038] text-[#9aef0f] neo-border shadow-[2px_2px_0_0_#000]">#ShortFemurs</span>
-          <span class="px-3 py-1 rounded-full text-xs font-mono font-bold bg-[#9aef0f] text-black neo-border shadow-[2px_2px_0_0_#000]">#UprightTorso</span>
-          <span class="px-3 py-1 rounded-full text-xs font-mono font-bold bg-[#4724ba] text-white neo-border shadow-[2px_2px_0_0_#000]">#HighBarOlympic</span>
-          <span class="px-3 py-1 rounded-full text-xs font-mono font-bold bg-[#ecfd28] text-black neo-border shadow-[2px_2px_0_0_#000]">#QuadDominant</span>
-          <span class="px-3 py-1 rounded-full text-xs font-mono font-bold bg-[#162038] text-slate-200 neo-border shadow-[2px_2px_0_0_#000]">#NarrowStance</span>
+          <span class="px-3 py-1 rounded-full text-xs font-mono font-bold bg-[#162038] text-[#9aef0f] neo-border shadow-[2px_2px_0_0_#000] whitespace-nowrap">#ShortFemurs</span>
+          <span class="px-3 py-1 rounded-full text-xs font-mono font-bold bg-[#9aef0f] text-black neo-border shadow-[2px_2px_0_0_#000] whitespace-nowrap">#UprightTorso</span>
+          <span class="px-3 py-1 rounded-full text-xs font-mono font-bold bg-[#4724ba] text-white neo-border shadow-[2px_2px_0_0_#000] whitespace-nowrap">#HighBarOlympic</span>
+          <span class="px-3 py-1 rounded-full text-xs font-mono font-bold bg-[#ecfd28] text-black neo-border shadow-[2px_2px_0_0_#000] whitespace-nowrap">#QuadDominant</span>
+          <span class="px-3 py-1 rounded-full text-xs font-mono font-bold bg-[#162038] text-slate-200 neo-border shadow-[2px_2px_0_0_#000] whitespace-nowrap">#NarrowStance</span>
         `;
 
         hipAngleDisplay.innerText = "58°";
@@ -781,10 +803,10 @@
         ratioDesc.innerText = "Even torque distribution between posterior chain and quadriceps.";
 
         tagsContainer.innerHTML = `
-          <span class="px-3 py-1 rounded-full text-xs font-mono font-bold bg-[#162038] text-white neo-border shadow-[2px_2px_0_0_#000]">#BalancedProportions</span>
-          <span class="px-3 py-1 rounded-full text-xs font-mono font-bold bg-[#9aef0f] text-black neo-border shadow-[2px_2px_0_0_#000]">#HybridTechnique</span>
-          <span class="px-3 py-1 rounded-full text-xs font-mono font-bold bg-[#4724ba] text-white neo-border shadow-[2px_2px_0_0_#000]">#LowOrHighBar</span>
-          <span class="px-3 py-1 rounded-full text-xs font-mono font-bold bg-[#ecfd28] text-black neo-border shadow-[2px_2px_0_0_#000]">#ModerateStance</span>
+          <span class="px-3 py-1 rounded-full text-xs font-mono font-bold bg-[#162038] text-white neo-border shadow-[2px_2px_0_0_#000] whitespace-nowrap">#BalancedProportions</span>
+          <span class="px-3 py-1 rounded-full text-xs font-mono font-bold bg-[#9aef0f] text-black neo-border shadow-[2px_2px_0_0_#000] whitespace-nowrap">#HybridTechnique</span>
+          <span class="px-3 py-1 rounded-full text-xs font-mono font-bold bg-[#4724ba] text-white neo-border shadow-[2px_2px_0_0_#000] whitespace-nowrap">#LowOrHighBar</span>
+          <span class="px-3 py-1 rounded-full text-xs font-mono font-bold bg-[#ecfd28] text-black neo-border shadow-[2px_2px_0_0_#000] whitespace-nowrap">#ModerateStance</span>
         `;
 
         hipAngleDisplay.innerText = "48°";

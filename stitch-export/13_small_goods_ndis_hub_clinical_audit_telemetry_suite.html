@@ -102,7 +102,30 @@
       white-space: nowrap !important;
     }
   
+
+    /* ZERO-ORPHAN GLOBAL ENFORCEMENT */
+    .whitespace-nowrap, th, td.whitespace-nowrap, .font-mono {
+      white-space: nowrap !important;
+    }
+    span[class*="rounded"], .badge, button, select {
+      white-space: nowrap !important;
+      text-wrap: nowrap !important;
+    }
+    h1, h2, h3 {
+      text-wrap: balance !important;
+    }
+    p, label {
+      text-wrap: pretty !important;
+    }
+  
 </style>
+
+  <style>
+    /* Anti-orphan universal glue */
+    .whitespace-nowrap { white-space: nowrap !important; }
+    h1, h2, h3, h4, h5, h6 { text-wrap: balance !important; }
+    p, .card-desc { text-wrap: pretty !important; }
+  </style>
 </head>
 <body class="min-h-screen bg-[#090D16] text-slate-100 selection:bg-[#6A3CF4] selection:text-white antialiased flex flex-col">
 <!-- ================= PERSISTENT CLINICAL HUB TOP NAVIGATION ================= -->
@@ -118,21 +141,20 @@
 </div>
 <!-- Telemetry active pulse -->
 <span class="absolute -bottom-1 -right-1 flex h-4 w-4">
-<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#9AEF0F] opacity-75"></span>
-<span class="relative inline-flex rounded-full h-4 w-4 bg-[#9AEF0F] border-2 border-black"></span>
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#9AEF0F] opacity-75 whitespace-nowrap"></span>
+<span class="relative inline-flex rounded-full h-4 w-4 bg-[#9AEF0F] border-2 border-black whitespace-nowrap"></span>
 </span>
 </div>
 <div>
 <div class="flex items-center gap-2 flex-wrap">
-<h1 class="font-extrabold text-sm md:text-base tracking-tight text-white flex items-center gap-1.5 uppercase font-sans">
-                Small Goods Gym
-                <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-[#4724BA] text-[#ECFD28] border-2 border-black shadow-brutal-sm font-bold tracking-wider">
+<h1 class="font-extrabold text-sm md:text-base tracking-tight text-white flex items-center gap-1.5 uppercase font-sans" class="whitespace-nowrap">Small Goods Gym
+                <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-[#4724BA] text-[#ECFD28] border-2 border-black shadow-brutal-sm font-bold tracking-wider whitespace-nowrap inline-block">
                   NDIS CLINICAL AUDIT &amp; TELEMETRY SUITE
                 </span>
 </h1>
 </div>
 <p class="text-xs text-slate-400 flex items-center gap-2 font-mono mt-0.5">
-<span class="flex items-center gap-1 text-[#9AEF0F]"><i class="w-3.5 h-3.5" data-lucide="map-pin"></i> Morley, Perth WA</span>
+<span class="flex items-center gap-1 text-[#9AEF0F]"><i class="w-3.5 h-3.5" data-lucide="map-pin"></i> Morley,&nbsp;Perth&nbsp;WA</span>
 <span class="text-slate-600">•</span>
 <span class="text-slate-300">Holly Hunt (Titled Sports Physio) &amp; Joel Mullen (CSCS/ASCA)</span>
 </p>
@@ -140,7 +162,7 @@
 </div>
 <!-- Quick Status for Mobile -->
 <div class="md:hidden flex items-center gap-1.5 px-2.5 py-1 rounded bg-[#0F172A] border border-slate-700 text-[11px] font-mono text-[#9AEF0F]">
-<span class="w-2 h-2 rounded-full bg-[#9AEF0F] animate-pulse"></span>
+<span class="w-2 h-2 rounded-full bg-[#9AEF0F] animate-pulse whitespace-nowrap"></span>
 <span>100% Audit-Ready</span>
 </div>
 </div>
@@ -149,8 +171,8 @@
 <!-- Live Hardware Telemetry Sync Chip -->
 <div class="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-lg bg-[#0F172A] border-2 border-black shadow-brutal-sm text-xs font-mono">
 <span class="relative flex h-2.5 w-2.5">
-<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#9AEF0F] opacity-75"></span>
-<span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#9AEF0F]"></span>
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#9AEF0F] opacity-75 whitespace-nowrap"></span>
+<span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#9AEF0F] whitespace-nowrap"></span>
 </span>
 <span class="text-slate-300 font-semibold">Hardware Telemetry:</span>
 <span class="text-[#9AEF0F] font-bold flex items-center gap-1">
@@ -175,23 +197,23 @@
 <!-- Quick Telemetry View Tabs -->
 <div class="max-w-7xl mx-auto mt-2.5 border-t border-slate-800/80 pt-2 flex items-center justify-between overflow-x-auto no-scrollbar gap-2 text-xs font-mono">
 <div class="flex items-center gap-2 min-w-max">
-<button class="filter-tab px-3 py-1.5 rounded-lg bg-[#6A3CF4] text-white font-bold border-2 border-black shadow-brutal-sm flex items-center gap-1.5 transition-all" id="filter-all" onclick="filterSection('all')">
+<button class="filter-tab px-3 py-1.5 rounded-lg bg-[#6A3CF4] text-white font-bold border-2 border-black shadow-brutal-sm flex items-center gap-1.5 transition-all whitespace-nowrap inline-block" id="filter-all" onclick="filterSection('all')">
 <i class="w-3.5 h-3.5" data-lucide="layout-dashboard"></i>
 <span>Full Clinical Audit Dashboard</span>
 </button>
-<button class="filter-tab px-3 py-1.5 rounded-lg bg-[#0F172A] text-slate-300 hover:text-white border-2 border-black shadow-brutal-sm flex items-center gap-1.5 transition-all" id="filter-dynamometer" onclick="filterSection('dynamometer')">
+<button class="filter-tab px-3 py-1.5 rounded-lg bg-[#0F172A] text-slate-300 hover:text-white border-2 border-black shadow-brutal-sm flex items-center gap-1.5 transition-all whitespace-nowrap inline-block" id="filter-dynamometer" onclick="filterSection('dynamometer')">
 <i class="w-3.5 h-3.5 text-[#ECFD28]" data-lucide="gauge"></i>
 <span>Activforce 2 Dynamometry</span>
 </button>
-<button class="filter-tab px-3 py-1.5 rounded-lg bg-[#0F172A] text-slate-300 hover:text-white border-2 border-black shadow-brutal-sm flex items-center gap-1.5 transition-all" id="filter-velocity" onclick="filterSection('velocity')">
+<button class="filter-tab px-3 py-1.5 rounded-lg bg-[#0F172A] text-slate-300 hover:text-white border-2 border-black shadow-brutal-sm flex items-center gap-1.5 transition-all whitespace-nowrap inline-block" id="filter-velocity" onclick="filterSection('velocity')">
 <i class="w-3.5 h-3.5 text-[#9AEF0F]" data-lucide="zap"></i>
 <span>Enode VBT Sit-to-Stand</span>
 </button>
-<button class="filter-tab px-3 py-1.5 rounded-lg bg-[#0F172A] text-slate-300 hover:text-white border-2 border-black shadow-brutal-sm flex items-center gap-1.5 transition-all" id="filter-plan-manager" onclick="filterSection('plan-manager')">
+<button class="filter-tab px-3 py-1.5 rounded-lg bg-[#0F172A] text-slate-300 hover:text-white border-2 border-black shadow-brutal-sm flex items-center gap-1.5 transition-all whitespace-nowrap inline-block" id="filter-plan-manager" onclick="filterSection('plan-manager')">
 <i class="w-3.5 h-3.5 text-[#E95766]" data-lucide="file-check-2"></i>
 <span>Support Coordinator Plain Evidence</span>
 </button>
-<button class="filter-tab px-3 py-1.5 rounded-lg bg-[#0F172A] text-slate-300 hover:text-white border-2 border-black shadow-brutal-sm flex items-center gap-1.5 transition-all" id="filter-matrix" onclick="filterSection('matrix')">
+<button class="filter-tab px-3 py-1.5 rounded-lg bg-[#0F172A] text-slate-300 hover:text-white border-2 border-black shadow-brutal-sm flex items-center gap-1.5 transition-all whitespace-nowrap inline-block" id="filter-matrix" onclick="filterSection('matrix')">
 <i class="w-3.5 h-3.5 text-cyan-400" data-lucide="receipt"></i>
 <span>Line Item 15_056_0128_1_3 Ledger</span>
 </button>
@@ -215,7 +237,7 @@
 <div class="bg-[#0F172A] border-2 border-black rounded-2xl p-4 shadow-brutal relative overflow-hidden group hover:border-[#6A3CF4] transition-all">
 <div class="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-[#6A3CF4]/20 to-transparent rounded-bl-full pointer-events-none"></div>
 <div class="flex items-center justify-between mb-2">
-<span class="px-2 py-0.5 rounded bg-purple-950/80 border border-purple-800 text-purple-300 text-[10px] font-mono font-bold uppercase tracking-wider">NDIS Goal 3.2</span>
+<span class="px-2 py-0.5 rounded bg-purple-950/80 border border-purple-800 text-purple-300 text-[10px] font-mono font-bold uppercase tracking-wider whitespace-nowrap">NDIS Goal 3.2</span>
 <i class="w-4 h-4 text-purple-400" data-lucide="target"></i>
 </div>
 <h3 class="text-xs font-mono uppercase text-slate-400 font-bold tracking-wider">NDIA Target Objective</h3>
@@ -229,7 +251,7 @@
 <div class="bg-[#0F172A] border-2 border-black rounded-2xl p-4 shadow-brutal relative overflow-hidden group hover:border-[#9AEF0F] transition-all">
 <div class="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-[#9AEF0F]/15 to-transparent rounded-bl-full pointer-events-none"></div>
 <div class="flex items-center justify-between mb-2">
-<span class="px-2 py-0.5 rounded bg-emerald-950 border border-emerald-600 text-[#9AEF0F] text-[10px] font-mono font-bold uppercase tracking-wider">Validated Outcome</span>
+<span class="px-2 py-0.5 rounded bg-emerald-950 border border-emerald-600 text-[#9AEF0F] text-[10px] font-mono font-bold uppercase tracking-wider whitespace-nowrap">Validated Outcome</span>
 <i class="w-4 h-4 text-[#9AEF0F]" data-lucide="trending-up"></i>
 </div>
 <h3 class="text-xs font-mono uppercase text-slate-400 font-bold tracking-wider">8-Week Cycle Force Delta</h3>
@@ -238,7 +260,7 @@
 <span class="text-xs font-mono text-slate-300 font-semibold">Peak Force (N)</span>
 </div>
 <div class="mt-2 text-[11px] font-mono text-emerald-400 flex items-center gap-1">
-<span class="inline-block w-2 h-2 rounded-full bg-[#9AEF0F]"></span>
+<span class="inline-block w-2 h-2 rounded-full bg-[#9AEF0F] whitespace-nowrap"></span>
 <span>Statistically Significant (p &lt; 0.01)</span>
 </div>
 </div>
@@ -246,7 +268,7 @@
 <div class="bg-[#0F172A] border-2 border-black rounded-2xl p-4 shadow-brutal relative overflow-hidden group hover:border-[#ECFD28] transition-all">
 <div class="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-[#ECFD28]/15 to-transparent rounded-bl-full pointer-events-none"></div>
 <div class="flex items-center justify-between mb-2">
-<span class="px-2 py-0.5 rounded bg-yellow-950/80 border border-yellow-700/80 text-[#ECFD28] text-[10px] font-mono font-bold uppercase tracking-wider">Hardware Protocol</span>
+<span class="px-2 py-0.5 rounded bg-yellow-950/80 border border-yellow-700/80 text-[#ECFD28] text-[10px] font-mono font-bold uppercase tracking-wider whitespace-nowrap">Hardware Protocol</span>
 <i class="w-4 h-4 text-[#ECFD28]" data-lucide="shield-alert"></i>
 </div>
 <h3 class="text-xs font-mono uppercase text-slate-400 font-bold tracking-wider">Audit Defense Grade</h3>
@@ -260,11 +282,11 @@
 <div class="bg-[#0F172A] border-2 border-black rounded-2xl p-4 shadow-brutal relative overflow-hidden group hover:border-[#E95766] transition-all">
 <div class="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-[#E95766]/15 to-transparent rounded-bl-full pointer-events-none"></div>
 <div class="flex items-center justify-between mb-2">
-<span class="px-2 py-0.5 rounded bg-rose-950/80 border border-rose-800 text-rose-300 text-[10px] font-mono font-bold uppercase tracking-wider">Governance</span>
+<span class="px-2 py-0.5 rounded bg-rose-950/80 border border-rose-800 text-rose-300 text-[10px] font-mono font-bold uppercase tracking-wider whitespace-nowrap">Governance</span>
 <i class="w-4 h-4 text-rose-400" data-lucide="award"></i>
 </div>
 <h3 class="text-xs font-mono uppercase text-slate-400 font-bold tracking-wider">Dual Practitioner Oversight</h3>
-<p class="text-sm font-bold text-white mt-1 leading-snug">Holly Hunt (AHPRA Physio) &amp; Joel Mullen (CSCS)</p>
+<p class="text-sm font-bold text-white mt-1 leading-snug">Holly Hunt (AHPRA Physio) &amp; Joel&nbsp;Mullen&nbsp;(CSCS)</p>
 <div class="mt-2 text-[11px] font-mono text-slate-400 flex items-center gap-1">
 <span class="text-[#E95766]">Reg #PHY00021481</span>
 <span>• ASCA Level 2</span>
@@ -281,10 +303,10 @@
 <!-- Left: Summary Description -->
 <div class="space-y-2 max-w-2xl">
 <div class="flex items-center gap-2.5 flex-wrap">
-<span class="px-2.5 py-1 rounded bg-[#6A3CF4] text-white text-xs font-mono font-bold border border-black shadow-brutal-sm uppercase">
+<span class="px-2.5 py-1 rounded bg-[#6A3CF4] text-white text-xs font-mono font-bold border border-black shadow-brutal-sm uppercase whitespace-nowrap inline-block">
               Participant Evidence Dossier: 'P'
             </span>
-<span class="px-2 py-0.5 rounded bg-emerald-950 border border-emerald-600/70 text-[#9AEF0F] text-[11px] font-mono font-bold flex items-center gap-1">
+<span class="px-2 py-0.5 rounded bg-emerald-950 border border-emerald-600/70 text-[#9AEF0F] text-[11px] font-mono font-bold flex items-center gap-1 whitespace-nowrap">
 <i class="w-3.5 h-3.5" data-lucide="badge-check"></i>
               NDIS Pricing Guide Line Item 15_056_0128_1_3 Compliant
             </span>
@@ -312,12 +334,12 @@
 </button>
 <!-- Secondary Button: Share Portal Link -->
 <div class="flex items-center gap-2">
-<button class="flex-1 px-4 py-2.5 rounded-xl bg-[#090D16] hover:bg-[#1E293B] text-slate-200 font-mono text-xs font-bold border-2 border-black shadow-brutal-sm flex items-center justify-center gap-2 transition-all" id="sharePortalBtn" onclick="shareReadOnlyPortal()">
+<button class="flex-1 px-4 py-2.5 rounded-xl bg-[#090D16] hover:bg-[#1E293B] text-slate-200 font-mono text-xs font-bold border-2 border-black shadow-brutal-sm flex items-center justify-center gap-2 transition-all whitespace-nowrap inline-block" id="sharePortalBtn" onclick="shareReadOnlyPortal()">
 <i class="w-4 h-4 text-[#6A3CF4]" data-lucide="link-2"></i>
 <span>Share Secure Coordinator Link</span>
 </button>
 <!-- Preview Modal Trigger -->
-<button class="px-3.5 py-2.5 rounded-xl bg-[#4724BA] hover:bg-[#6A3CF4] text-white font-mono text-xs font-bold border-2 border-black shadow-brutal-sm transition-all" onclick="openPreviewModal()" title="Instant Dossier Preview">
+<button class="px-3.5 py-2.5 rounded-xl bg-[#4724BA] hover:bg-[#6A3CF4] text-white font-mono text-xs font-bold border-2 border-black shadow-brutal-sm transition-all whitespace-nowrap inline-block" onclick="openPreviewModal()" title="Instant Dossier Preview">
 <i class="w-4 h-4" data-lucide="eye"></i>
 </button>
 </div>
@@ -345,34 +367,34 @@
 <div>
 <div class="flex items-center gap-2">
 <h3 class="font-extrabold text-base text-white tracking-tight">Activforce 2 Digital Dynamometry</h3>
-<span class="px-2 py-0.5 rounded bg-purple-950 border border-purple-700 text-purple-300 font-mono text-[10px] font-bold">CALIBRATED ISO</span>
+<span class="px-2 py-0.5 rounded bg-purple-950 border border-purple-700 text-purple-300 font-mono text-[10px] font-bold whitespace-nowrap">CALIBRATED ISO</span>
 </div>
 <p class="text-xs font-mono text-slate-400 mt-0.5">Isometric Knee Extension &amp; Hip Abduction Peak Force</p>
 </div>
 </div>
 <!-- Gain Badge -->
 <div class="text-right flex-shrink-0">
-<span class="inline-block px-3 py-1 rounded-lg bg-emerald-950 border-2 border-[#9AEF0F] text-[#9AEF0F] font-mono font-extrabold text-xs shadow-brutal-sm">
+<span class="inline-block px-3 py-1 rounded-lg bg-emerald-950 border-2 border-[#9AEF0F] text-[#9AEF0F] font-mono font-extrabold text-xs shadow-brutal-sm whitespace-nowrap inline-block">
                 +18.4% OVER 8 WEEKS
               </span>
-<span class="block text-[10px] font-mono text-slate-400 mt-0.5">312.0 N → 369.4 N</span>
+<span class="block text-[10px] font-mono text-slate-400 mt-0.5"><span class="whitespace-nowrap inline-block">312.0&nbsp;N</span> → 369.4 N</span>
 </div>
 </div>
 <!-- Quantitative Data Matrix (Newtons & Kg equivalent) -->
 <div class="grid grid-cols-3 gap-3 mb-5 text-center">
 <div class="bg-[#090D16] p-3 rounded-xl border border-slate-800">
-<span class="text-[10px] font-mono text-slate-400 block uppercase">Week 1 Baseline</span>
-<span class="text-lg md:text-xl font-mono font-extrabold text-slate-300">312.0 N</span>
+<span class="text-[10px] font-mono text-slate-400 block uppercase whitespace-nowrap">Week 1 Baseline</span>
+<span class="text-lg md:text-xl font-mono font-extrabold text-slate-300"><span class="whitespace-nowrap inline-block">312.0&nbsp;N</span></span>
 <span class="block text-[10px] font-mono text-slate-500">31.8 kg equivalent</span>
 </div>
 <div class="bg-[#090D16] p-3 rounded-xl border border-slate-800">
-<span class="text-[10px] font-mono text-slate-400 block uppercase">Week 4 Mid-Point</span>
-<span class="text-lg md:text-xl font-mono font-extrabold text-purple-300">341.2 N</span>
+<span class="text-[10px] font-mono text-slate-400 block uppercase whitespace-nowrap">Week 4 Mid-Point</span>
+<span class="text-lg md:text-xl font-mono font-extrabold text-purple-300"><span class="whitespace-nowrap inline-block">341.2&nbsp;N</span></span>
 <span class="block text-[10px] font-mono text-purple-400/80">+9.3% gain</span>
 </div>
 <div class="bg-[#090D16] p-3 rounded-xl border-2 border-[#9AEF0F]/60 bg-[#9AEF0F]/5">
-<span class="text-[10px] font-mono text-[#9AEF0F] block uppercase font-bold">Week 8 Current Audit</span>
-<span class="text-lg md:text-xl font-mono font-extrabold text-[#9AEF0F]">369.4 N</span>
+<span class="text-[10px] font-mono text-[#9AEF0F] block uppercase font-bold whitespace-nowrap">Week 8 Current Audit</span>
+<span class="text-lg md:text-xl font-mono font-extrabold text-[#9AEF0F]"><span class="whitespace-nowrap inline-block">369.4&nbsp;N</span></span>
 <span class="block text-[10px] font-mono text-emerald-300 font-bold">37.7 kg equivalent</span>
 </div>
 </div>
@@ -384,10 +406,10 @@
 </div>
 <div class="flex items-center gap-3 text-[10px]">
 <span class="flex items-center gap-1 text-purple-400">
-<span class="w-2.5 h-2.5 rounded-full bg-[#6A3CF4]"></span> Left Quad (358 N)
+<span class="w-2.5 h-2.5 rounded-full bg-[#6A3CF4] whitespace-nowrap"></span> Left Quad (<span class="whitespace-nowrap inline-block">358&nbsp;N</span>)
                 </span>
 <span class="flex items-center gap-1 text-[#9AEF0F]">
-<span class="w-2.5 h-2.5 rounded-full bg-[#9AEF0F]"></span> Right Quad (369 N)
+<span class="w-2.5 h-2.5 rounded-full bg-[#9AEF0F] whitespace-nowrap"></span> Right Quad (<span class="whitespace-nowrap inline-block">369&nbsp;N</span>)
                 </span>
 </div>
 </div>
@@ -418,7 +440,7 @@
 </svg>
 <!-- Peak annotation badge floating -->
 <div class="absolute top-2 right-4 bg-black/80 px-2 py-1 rounded border border-[#9AEF0F] text-[10px] font-mono text-[#9AEF0F]">
-                Peak: 369.4 N @ 1.84s (High RFD)
+                Peak: <span class="whitespace-nowrap inline-block">369.4&nbsp;N</span> @ 1.84s (High RFD)
               </div>
 <div class="absolute bottom-1 left-2 text-[9px] font-mono text-slate-500">
                 0.0s Ramp • 5.0s Sustained Contraction
@@ -467,34 +489,34 @@
 <div>
 <div class="flex items-center gap-2">
 <h3 class="font-extrabold text-base text-white tracking-tight">Enode Accelerometer Telemetry</h3>
-<span class="px-2 py-0.5 rounded bg-yellow-950 border border-yellow-700 text-[#ECFD28] font-mono text-[10px] font-bold">1000Hz BLE PRO</span>
+<span class="px-2 py-0.5 rounded bg-yellow-950 border border-yellow-700 text-[#ECFD28] font-mono text-[10px] font-bold whitespace-nowrap">1000Hz BLE PRO</span>
 </div>
 <p class="text-xs font-mono text-slate-400 mt-0.5">5× Sit-to-Stand Functional Transfer Velocity &amp; Rate of Force Development</p>
 </div>
 </div>
 <!-- Sensor Status Pill -->
 <div class="text-right flex-shrink-0">
-<span class="inline-block px-3 py-1 rounded-lg bg-indigo-950 border-2 border-[#6A3CF4] text-purple-300 font-mono font-extrabold text-xs shadow-brutal-sm">
+<span class="inline-block px-3 py-1 rounded-lg bg-indigo-950 border-2 border-[#6A3CF4] text-purple-300 font-mono font-extrabold text-xs shadow-brutal-sm whitespace-nowrap inline-block">
                 +45.2% VELOCITY GAIN
               </span>
-<span class="block text-[10px] font-mono text-slate-400 mt-0.5">0.42 → 0.61 m/s</span>
+<span class="block text-[10px] font-mono text-slate-400 mt-0.5">0.42 → <span class="whitespace-nowrap inline-block">0.61&nbsp;m/s</span></span>
 </div>
 </div>
 <!-- Quantitative Breakdown -->
 <div class="grid grid-cols-3 gap-3 mb-5 text-center">
 <div class="bg-[#090D16] p-3 rounded-xl border border-slate-800">
-<span class="text-[10px] font-mono text-slate-400 block uppercase">Baseline Mean V</span>
-<span class="text-lg md:text-xl font-mono font-extrabold text-slate-300">0.42 m/s</span>
+<span class="text-[10px] font-mono text-slate-400 block uppercase whitespace-nowrap">Baseline Mean V</span>
+<span class="text-lg md:text-xl font-mono font-extrabold text-slate-300"><span class="whitespace-nowrap inline-block">0.42&nbsp;m/s</span></span>
 <span class="block text-[10px] font-mono text-rose-400">High Hesitancy (0.8s)</span>
 </div>
 <div class="bg-[#090D16] p-3 rounded-xl border border-slate-800">
-<span class="text-[10px] font-mono text-slate-400 block uppercase">Peak Rep Velocity</span>
-<span class="text-lg md:text-xl font-mono font-extrabold text-[#ECFD28]">0.68 m/s</span>
+<span class="text-[10px] font-mono text-slate-400 block uppercase whitespace-nowrap">Peak Rep Velocity</span>
+<span class="text-lg md:text-xl font-mono font-extrabold text-[#ECFD28]"><span class="whitespace-nowrap inline-block">0.68&nbsp;m/s</span></span>
 <span class="block text-[10px] font-mono text-[#ECFD28]/80">Rep 3 Peak Pop</span>
 </div>
 <div class="bg-[#090D16] p-3 rounded-xl border-2 border-[#6A3CF4]/60 bg-[#6A3CF4]/10">
-<span class="text-[10px] font-mono text-purple-300 block uppercase font-bold">Current Mean V</span>
-<span class="text-lg md:text-xl font-mono font-extrabold text-white">0.61 m/s</span>
+<span class="text-[10px] font-mono text-purple-300 block uppercase font-bold whitespace-nowrap">Current Mean V</span>
+<span class="text-lg md:text-xl font-mono font-extrabold text-white"><span class="whitespace-nowrap inline-block">0.61&nbsp;m/s</span></span>
 <span class="block text-[10px] font-mono text-[#9AEF0F] font-bold">+45.2% Speed</span>
 </div>
 </div>
@@ -540,7 +562,7 @@
 <!-- Hardware Spec Pill Footer -->
 <div class="mt-3 flex items-center justify-between text-[10px] font-mono text-slate-400">
 <span class="flex items-center gap-1">
-<span class="w-2 h-2 rounded-full bg-[#9AEF0F] inline-block"></span>
+<span class="w-2 h-2 rounded-full bg-[#9AEF0F] inline-block whitespace-nowrap"></span>
                 Enode BLE Pro • Calibrated Platform 4
               </span>
 <span class="text-purple-300 font-semibold">1000Hz Optical Sampling Rate</span>
@@ -557,7 +579,7 @@
 <span class="text-[#9AEF0F]">122% of Norm</span>
 </div>
 <p class="font-sans text-slate-300 text-pretty leading-relaxed">
-            Standard community transfer threshold is 0.50 m/s. 'P' clocked a consistent <strong class="text-white">0.61 m/s mean</strong> without hand pushing off armrests, indicating restored gluteal and quad rate of force development (RFD).
+            Standard community transfer threshold is <span class="whitespace-nowrap inline-block">0.50&nbsp;m/s</span>. 'P' clocked a consistent <strong class="text-white"><span class="whitespace-nowrap inline-block">0.61&nbsp;m/s</span> mean</strong> without hand pushing off armrests, indicating restored gluteal and quad rate of force development (RFD).
           </p>
 </div>
 </section>
@@ -571,7 +593,7 @@
 <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b-2 border-slate-800 mb-6">
 <div>
 <div class="flex items-center gap-2">
-<span class="px-2.5 py-0.5 rounded bg-rose-950 border border-rose-700 text-rose-300 font-mono text-xs font-bold uppercase">
+<span class="px-2.5 py-0.5 rounded bg-rose-950 border border-rose-700 text-rose-300 font-mono text-xs font-bold uppercase whitespace-nowrap">
               PLAIN-ENGLISH AUDIT TRANSLATION
             </span>
 <span class="text-xs font-mono text-slate-400">Non-Clinical Plan Manager Review Card</span>
@@ -596,8 +618,8 @@
 <!-- Goal 1 -->
 <div class="bg-[#090D16] p-4 rounded-xl border-2 border-black shadow-brutal-sm relative">
 <div class="flex items-center justify-between mb-2">
-<span class="text-xs font-mono font-bold text-purple-400 uppercase">Functional Goal 1</span>
-<span class="px-2 py-0.5 rounded bg-emerald-950 text-[#9AEF0F] border border-emerald-600 text-[10px] font-mono font-bold">ACHIEVED</span>
+<span class="text-xs font-mono font-bold text-purple-400 uppercase whitespace-nowrap">Functional Goal 1</span>
+<span class="px-2 py-0.5 rounded bg-emerald-950 text-[#9AEF0F] border border-emerald-600 text-[10px] font-mono font-bold whitespace-nowrap">ACHIEVED</span>
 </div>
 <h4 class="text-sm font-bold text-white mb-1">Unassisted Transfers from Soft Couch</h4>
 <p class="text-xs text-slate-300 leading-relaxed text-pretty">
@@ -607,19 +629,19 @@
 <!-- Goal 2 -->
 <div class="bg-[#090D16] p-4 rounded-xl border-2 border-black shadow-brutal-sm relative">
 <div class="flex items-center justify-between mb-2">
-<span class="text-xs font-mono font-bold text-indigo-400 uppercase">Functional Goal 2</span>
-<span class="px-2 py-0.5 rounded bg-emerald-950 text-[#9AEF0F] border border-emerald-600 text-[10px] font-mono font-bold">IMPROVED</span>
+<span class="text-xs font-mono font-bold text-indigo-400 uppercase whitespace-nowrap">Functional Goal 2</span>
+<span class="px-2 py-0.5 rounded bg-emerald-950 text-[#9AEF0F] border border-emerald-600 text-[10px] font-mono font-bold whitespace-nowrap">IMPROVED</span>
 </div>
 <h4 class="text-sm font-bold text-white mb-1">10-Meter Community Mobility Velocity</h4>
 <p class="text-xs text-slate-300 leading-relaxed text-pretty">
-            Gait speed improved by <strong class="text-[#ECFD28]">+0.31 m/s</strong> (now 1.14 m/s). Participant can comfortably clear pedestrian signal crossings at Morley Galleria without panic.
+            Gait speed improved by <strong class="text-[#ECFD28]">+<span class="whitespace-nowrap inline-block">0.31&nbsp;m/s</span></strong> (now <span class="whitespace-nowrap inline-block">1.14&nbsp;m/s</span>). Participant can comfortably clear pedestrian signal crossings at Morley Galleria without panic.
           </p>
 </div>
 <!-- Goal 3 / Falls Risk -->
 <div class="bg-[#090D16] p-4 rounded-xl border-2 border-black shadow-brutal-sm relative">
 <div class="flex items-center justify-between mb-2">
-<span class="text-xs font-mono font-bold text-[#E95766] uppercase">Risk Mitigation</span>
-<span class="px-2 py-0.5 rounded bg-emerald-950 text-[#9AEF0F] border border-emerald-600 text-[10px] font-mono font-bold">-64% RISK</span>
+<span class="text-xs font-mono font-bold text-[#E95766] uppercase whitespace-nowrap">Risk Mitigation</span>
+<span class="px-2 py-0.5 rounded bg-emerald-950 text-[#9AEF0F] border border-emerald-600 text-[10px] font-mono font-bold whitespace-nowrap">-64% RISK</span>
 </div>
 <h4 class="text-sm font-bold text-white mb-1">Falls Risk Reduction Index</h4>
 <p class="text-xs text-slate-300 leading-relaxed text-pretty">
@@ -660,7 +682,7 @@
 <!-- Pushpin or sticker -->
 <div class="absolute -top-3 left-6 w-6 h-6 rounded-full bg-[#FF4500] border-2 border-black shadow-sm"></div>
 <div class="flex items-center justify-between mb-1 pl-6">
-<span class="text-[11px] font-mono font-bold tracking-widest text-slate-700 uppercase">HEAD COACH FLOOR NOTE</span>
+<span class="text-[11px] font-mono font-bold tracking-widest text-slate-700 uppercase whitespace-nowrap">HEAD COACH FLOOR NOTE</span>
 <span class="text-[10px] font-mono text-slate-600">Platform 4 • Morley</span>
 </div>
 <!-- Handwritten style message -->
@@ -680,8 +702,8 @@
 <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b-2 border-slate-800 mb-5">
 <div>
 <div class="flex items-center gap-2">
-<span class="px-2.5 py-0.5 rounded bg-cyan-950 border border-cyan-700 text-cyan-300 font-mono text-xs font-bold uppercase">
-              ATTENDANCE &amp; BUDGET LEDGER
+<span class="px-2.5 py-0.5 rounded bg-cyan-950 border border-cyan-700 text-cyan-300 font-mono text-xs font-bold uppercase whitespace-nowrap">
+              ATTENDANCE&nbsp;&amp;&nbsp;BUDGET&nbsp;LEDGER
             </span>
 <span class="text-xs font-mono text-slate-400">NDIS Support Item: 15_056_0128_1_3</span>
 </div>
@@ -708,8 +730,8 @@
 </div>
 <div class="flex items-center justify-between text-[11px] font-mono text-slate-400 mt-2">
 <div class="flex items-center gap-4">
-<span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-[#6A3CF4]"></span> Expended: 16 Hours</span>
-<span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-[#ECFD28]"></span> Remaining Scheduled: 6 Hours</span>
+<span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-[#6A3CF4] whitespace-nowrap"></span> Expended: 16 Hours</span>
+<span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-[#ECFD28] whitespace-nowrap"></span> Remaining Scheduled: 6 Hours</span>
 </div>
 <span class="text-[#9AEF0F] font-bold">Pacing: On Target with Zero Overrun</span>
 </div>
@@ -730,47 +752,47 @@
 <tbody class="divide-y divide-slate-800 bg-[#090D16]">
 <!-- Row 1 -->
 <tr class="hover:bg-slate-900/80 transition-colors">
-<td class="p-3.5 font-bold text-white">28 Oct 2024</td>
-<td class="p-3.5 text-purple-300">Holly Hunt (Physio)</td>
+<td class="p-3.5 font-bold text-white" class="whitespace-nowrap" class="whitespace-nowrap">28&nbsp;Oct&nbsp;2024</td>
+<td class="p-3.5 text-purple-300">Holly&nbsp;Hunt&nbsp;(Physio)</td>
 <td class="p-3.5 text-slate-400">15_056_0128_1_3</td>
 <td class="p-3.5 text-slate-200">Activforce Dynamometer MVIC &amp; Bilateral Torque Audit</td>
 <td class="p-3.5 text-center">
-<span class="px-2 py-0.5 rounded bg-purple-950 border border-purple-700 text-purple-300 text-[10px] font-bold">369.4 N Verified</span>
+<span class="px-2 py-0.5 rounded bg-purple-950 border border-purple-700 text-purple-300 text-[10px] font-bold whitespace-nowrap">369.4&nbsp;N&nbsp;Verified</span>
 </td>
-<td class="p-3.5 text-right font-bold text-[#9AEF0F]">Claimed • $193.99</td>
+<td class="p-3.5 text-right font-bold text-[#9AEF0F]">Claimed&nbsp;•&nbsp;$193.99</td>
 </tr>
 <!-- Row 2 -->
 <tr class="hover:bg-slate-900/80 transition-colors">
-<td class="p-3.5 font-bold text-white">24 Oct 2024</td>
-<td class="p-3.5 text-[#ECFD28]">Joel Mullen (CSCS)</td>
+<td class="p-3.5 font-bold text-white" class="whitespace-nowrap" class="whitespace-nowrap">24&nbsp;Oct&nbsp;2024</td>
+<td class="p-3.5 text-[#ECFD28]">Joel&nbsp;Mullen&nbsp;(CSCS)</td>
 <td class="p-3.5 text-slate-400">15_056_0128_1_3</td>
 <td class="p-3.5 text-slate-200">Enode 5x Sit-to-Stand Acceleration &amp; Box Squats (70kg)</td>
 <td class="p-3.5 text-center">
-<span class="px-2 py-0.5 rounded bg-yellow-950 border border-yellow-700 text-[#ECFD28] text-[10px] font-bold">0.61 m/s V_mean</span>
+<span class="px-2 py-0.5 rounded bg-yellow-950 border border-yellow-700 text-[#ECFD28] text-[10px] font-bold whitespace-nowrap">0.61&nbsp;m/s&nbsp;V_mean</span>
 </td>
-<td class="p-3.5 text-right font-bold text-[#9AEF0F]">Claimed • $193.99</td>
+<td class="p-3.5 text-right font-bold text-[#9AEF0F]">Claimed&nbsp;•&nbsp;$193.99</td>
 </tr>
 <!-- Row 3 -->
 <tr class="hover:bg-slate-900/80 transition-colors">
-<td class="p-3.5 font-bold text-white">21 Oct 2024</td>
-<td class="p-3.5 text-purple-300">Holly Hunt (Physio)</td>
+<td class="p-3.5 font-bold text-white" class="whitespace-nowrap" class="whitespace-nowrap">21&nbsp;Oct&nbsp;2024</td>
+<td class="p-3.5 text-purple-300">Holly&nbsp;Hunt&nbsp;(Physio)</td>
 <td class="p-3.5 text-slate-400">15_056_0128_1_3</td>
 <td class="p-3.5 text-slate-200">Hip Abduction Torque &amp; Stair Descent Simulation</td>
 <td class="p-3.5 text-center">
-<span class="px-2 py-0.5 rounded bg-purple-950 border border-purple-700 text-purple-300 text-[10px] font-bold">288 N Hip Abduct</span>
+<span class="px-2 py-0.5 rounded bg-purple-950 border border-purple-700 text-purple-300 text-[10px] font-bold whitespace-nowrap">288&nbsp;N&nbsp;Hip&nbsp;Abduct</span>
 </td>
-<td class="p-3.5 text-right font-bold text-[#9AEF0F]">Claimed • $193.99</td>
+<td class="p-3.5 text-right font-bold text-[#9AEF0F]">Claimed&nbsp;•&nbsp;$193.99</td>
 </tr>
 <!-- Row 4 -->
 <tr class="hover:bg-slate-900/80 transition-colors">
-<td class="p-3.5 font-bold text-white">17 Oct 2024</td>
-<td class="p-3.5 text-[#ECFD28]">Joel Mullen (CSCS)</td>
+<td class="p-3.5 font-bold text-white" class="whitespace-nowrap" class="whitespace-nowrap">17&nbsp;Oct&nbsp;2024</td>
+<td class="p-3.5 text-[#ECFD28]">Joel&nbsp;Mullen&nbsp;(CSCS)</td>
 <td class="p-3.5 text-slate-400">15_056_0128_1_3</td>
 <td class="p-3.5 text-slate-200">Platform 4 Heavy Lockout &amp; Midfoot Rooting Mechanics</td>
 <td class="p-3.5 text-center">
-<span class="px-2 py-0.5 rounded bg-yellow-950 border border-yellow-700 text-[#ECFD28] text-[10px] font-bold">Enode Live Telemetry</span>
+<span class="px-2 py-0.5 rounded bg-yellow-950 border border-yellow-700 text-[#ECFD28] text-[10px] font-bold whitespace-nowrap">Enode&nbsp;Live&nbsp;Telemetry</span>
 </td>
-<td class="p-3.5 text-right font-bold text-[#9AEF0F]">Claimed • $193.99</td>
+<td class="p-3.5 text-right font-bold text-[#9AEF0F]">Claimed&nbsp;•&nbsp;$193.99</td>
 </tr>
 </tbody>
 </table>
@@ -816,7 +838,7 @@
 </div>
 <div class="flex justify-between border-b border-slate-800 pb-2">
 <span class="text-slate-500">Facility:</span>
-<span class="text-white">Small Goods Gym (Morley, Perth WA)</span>
+<span class="text-white">Small Goods Gym (Morley,&nbsp;Perth&nbsp;WA)</span>
 </div>
 <div class="flex justify-between border-b border-slate-800 pb-2">
 <span class="text-slate-500">Primary Objective:</span>
@@ -824,11 +846,11 @@
 </div>
 <div class="flex justify-between border-b border-slate-800 pb-2">
 <span class="text-slate-500">Activforce 2 Result:</span>
-<span class="text-[#9AEF0F] font-bold">+18.4% Peak Force (312 N → 369.4 N)</span>
+<span class="text-[#9AEF0F] font-bold">+18.4% Peak Force (<span class="whitespace-nowrap inline-block">312&nbsp;N</span> → 369.4 N)</span>
 </div>
 <div class="flex justify-between border-b border-slate-800 pb-2">
 <span class="text-slate-500">Enode Accelerometer Result:</span>
-<span class="text-[#ECFD28] font-bold">+45.2% Sit-to-Stand Speed (0.42 → 0.61 m/s)</span>
+<span class="text-[#ECFD28] font-bold">+45.2% Sit-to-Stand Speed (0.42 → <span class="whitespace-nowrap inline-block">0.61&nbsp;m/s</span>)</span>
 </div>
 <div class="flex justify-between border-b border-slate-800 pb-2">
 <span class="text-slate-500">Limb Deficit Asymmetry:</span>
@@ -889,8 +911,8 @@
           "NDIA Clinical Progress Report Generated Successfully!\n\n" +
           "• Participant: 'P' (Apex Plan Management)\n" +
           "• Item: 15_056_0128_1_3 Assessment & Capacity Building\n" +
-          "• Activforce 2 Peak Force: 369.4 N (+18.4% gain)\n" +
-          "• Sit-to-Stand V_mean: 0.61 m/s (+45.2% velocity)\n" +
+          "• Activforce 2 Peak Force: <span class="whitespace-nowrap inline-block">369.4&nbsp;N</span> (+18.4% gain)\n" +
+          "• Sit-to-Stand V_mean: <span class="whitespace-nowrap inline-block">0.61&nbsp;m/s</span> (+45.2% velocity)\n" +
           "• Clinical Sign-off: Holly Hunt (AHPRA #PHY00021481)\n" +
           "• File: SHA-256 Verified audit report dispatched to local download queue."
         );

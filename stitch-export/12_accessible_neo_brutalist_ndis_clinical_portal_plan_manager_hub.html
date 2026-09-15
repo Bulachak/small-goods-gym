@@ -96,7 +96,30 @@
       white-space: nowrap !important;
     }
   
+
+    /* ZERO-ORPHAN GLOBAL ENFORCEMENT */
+    .whitespace-nowrap, th, td.whitespace-nowrap, .font-mono {
+      white-space: nowrap !important;
+    }
+    span[class*="rounded"], .badge, button, select {
+      white-space: nowrap !important;
+      text-wrap: nowrap !important;
+    }
+    h1, h2, h3 {
+      text-wrap: balance !important;
+    }
+    p, label {
+      text-wrap: pretty !important;
+    }
+  
 </style>
+
+  <style>
+    /* Anti-orphan universal glue */
+    .whitespace-nowrap { white-space: nowrap !important; }
+    h1, h2, h3, h4, h5, h6 { text-wrap: balance !important; }
+    p, .card-desc { text-wrap: pretty !important; }
+  </style>
 </head>
 <body class="min-h-screen bg-[#fbf9fb] text-[#1b1c1d] selection:bg-[#ecfd28] selection:text-black antialiased flex flex-col">
 <!-- ================= TOP CLINICAL NAVIGATION HEADER ================= -->
@@ -111,20 +134,19 @@
 </div>
 <!-- Sticker status badge -->
 <span class="absolute -bottom-1 -right-1 flex h-4 w-4">
-<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#9aef0f] opacity-75"></span>
-<span class="relative inline-flex rounded-full h-4 w-4 bg-[#9aef0f] border-2 border-black"></span>
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#9aef0f] opacity-75 whitespace-nowrap"></span>
+<span class="relative inline-flex rounded-full h-4 w-4 bg-[#9aef0f] border-2 border-black whitespace-nowrap"></span>
 </span>
 </div>
 <div>
 <div class="flex items-center gap-2">
-<h1 class="font-black text-lg tracking-tight text-black flex items-center gap-2">
-                Small Goods Gym
-                <span class="text-[10px] uppercase font-mono px-2 py-0.5 rounded bg-[#FEDDBA] text-black border-2 border-black font-extrabold tracking-wider shadow-brutal-sm">NDIS CLINICAL HUB</span>
+<h1 class="font-black text-lg tracking-tight text-black flex items-center gap-2" class="whitespace-nowrap">Small Goods Gym
+                <span class="text-[10px] uppercase font-mono px-2 py-0.5 rounded bg-[#FEDDBA] text-black border-2 border-black font-extrabold tracking-wider shadow-brutal-sm whitespace-nowrap inline-block">NDIS&nbsp;CLINICAL&nbsp;HUB</span>
 </h1>
 </div>
 <p class="text-xs text-[#484554] font-medium flex items-center gap-1.5 mt-0.5">
 <i class="w-3.5 h-3.5 text-[#4724ba]" data-lucide="map-pin"></i>
-<strong class="text-black font-semibold">Morley, Perth WA</strong> • Titled Sports Physio Holly Hunt (AHPRA Reg #PHY00021481)
+<strong class="text-black font-semibold">Morley,&nbsp;Perth&nbsp;WA</strong> • Titled&nbsp;Sports&nbsp;Physio&nbsp;Holly&nbsp;Hunt&nbsp;(AHPRA&nbsp;Reg&nbsp;#PHY00021481)
             </p>
 </div>
 </div>
@@ -166,19 +188,19 @@
 <!-- Quick Navigation Sub-Bar -->
 <div class="max-w-7xl mx-auto mt-3 border-t-2 border-black pt-2 flex items-center justify-between overflow-x-auto no-scrollbar gap-3">
 <div class="flex items-center gap-2 text-xs font-mono font-bold">
-<span class="bg-black text-white px-2 py-0.5 rounded text-[11px]">PORTAL VIEW:</span>
-<button class="px-3 py-1 rounded-lg bg-[#4724BA] text-white border-2 border-black shadow-brutal-sm font-black" id="tabTelemetryBtn" onclick="toggleMainView('telemetry')">
+<span class="bg-black text-white px-2 py-0.5 rounded text-[11px] whitespace-nowrap">PORTAL VIEW:</span>
+<button class="px-3 py-1 rounded-lg bg-[#4724BA] text-white border-2 border-black shadow-brutal-sm font-black whitespace-nowrap inline-block" id="tabTelemetryBtn" onclick="toggleMainView('telemetry')">
           1. Objective Hardware Telemetry
         </button>
-<button class="px-3 py-1 rounded-lg bg-white text-black border-2 border-black hover:bg-[#FAF2CE] shadow-brutal-sm font-black" id="tabSupportBtn" onclick="toggleMainView('support')">
+<button class="px-3 py-1 rounded-lg bg-white text-black border-2 border-black hover:bg-[#FAF2CE] shadow-brutal-sm font-black whitespace-nowrap inline-block" id="tabSupportBtn" onclick="toggleMainView('support')">
           2. Support Coordinator &amp; Carer Summary
         </button>
-<button class="px-3 py-1 rounded-lg bg-white text-black border-2 border-black hover:bg-[#FAF2CE] shadow-brutal-sm font-black" id="tabFinancialBtn" onclick="toggleMainView('financial')">
+<button class="px-3 py-1 rounded-lg bg-white text-black border-2 border-black hover:bg-[#FAF2CE] shadow-brutal-sm font-black whitespace-nowrap inline-block" id="tabFinancialBtn" onclick="toggleMainView('financial')">
           3. NDIS Line Item Audit &amp; Invoicing
         </button>
 </div>
 <div class="hidden md:flex items-center gap-2 text-xs font-mono font-bold text-[#484554]">
-<span class="w-2 h-2 rounded-full bg-[#9AEF0F] border border-black animate-pulse"></span>
+<span class="w-2 h-2 rounded-full bg-[#9AEF0F] border border-black animate-pulse whitespace-nowrap"></span>
 <span>Morley Clinic Sync: Live (IndexedDB Active)</span>
 </div>
 </div>
@@ -194,43 +216,43 @@
 <div>
 <div class="flex flex-wrap items-center gap-2">
 <h2 class="text-xl sm:text-2xl font-black tracking-tight text-black">Participant: 'P'</h2>
-<span class="px-2.5 py-0.5 rounded-full bg-[#9AEF0F] text-black font-mono text-xs font-black border-2 border-black shadow-brutal-sm">PLAN MANAGED</span>
-<span class="px-2 py-0.5 rounded bg-[#FAF2CE] text-black font-mono text-xs font-bold border border-black">NDIS ID: #430981290</span>
+<span class="px-2.5 py-0.5 rounded-full bg-[#9AEF0F] text-black font-mono text-xs font-black border-2 border-black shadow-brutal-sm whitespace-nowrap inline-block">PLAN MANAGED</span>
+<span class="px-2 py-0.5 rounded bg-[#FAF2CE] text-black font-mono text-xs font-bold border border-black whitespace-nowrap">NDIS ID: #430981290</span>
 </div>
 <p class="text-xs sm:text-sm text-[#484554] mt-1 font-medium">
             Primary Goal: <strong class="text-black">Community Independence &amp; Sit-to-Stand Unassisted Transfers</strong> • Plan Period: <strong class="text-black">July 2024 – June 2025</strong>
 </p>
 <div class="flex flex-wrap gap-2 mt-2 font-mono text-[11px] font-bold">
-<span class="bg-[#f6f4f6] px-2 py-0.5 rounded border border-black text-[#1b1c1d]">Supervising Physio: Holly Hunt (APA Sports)</span>
-<span class="bg-[#f6f4f6] px-2 py-0.5 rounded border border-black text-[#1b1c1d]">Strength Coach: Joel Mullen (Small Goods Gym Morley)</span>
+<span class="bg-[#f6f4f6] px-2 py-0.5 rounded border border-black text-[#1b1c1d] whitespace-nowrap">Supervising Physio: Holly Hunt (APA Sports)</span>
+<span class="bg-[#f6f4f6] px-2 py-0.5 rounded border border-black text-[#1b1c1d] whitespace-nowrap">Strength Coach: Joel Mullen (Small Goods Gym Morley)</span>
 </div>
 </div>
 </div>
 <!-- Quick Metrics Ribbon -->
 <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 w-full lg:w-auto">
 <div class="bg-[#FAF2CE] p-3 rounded-xl border-2 border-black shadow-brutal-sm text-center">
-<span class="text-[10px] font-mono uppercase text-[#484554] font-black block">Force Gain</span>
+<span class="text-[10px] font-mono uppercase text-[#484554] font-black block whitespace-nowrap">Force Gain</span>
 <span class="text-xl font-black font-mono text-[#1A5250]">+18.4%</span>
-<span class="text-[10px] font-mono text-black block font-semibold">312 N → 369.4 N</span>
+<span class="text-[10px] font-mono text-black block font-semibold"><span class="whitespace-nowrap inline-block">312&nbsp;N</span> → 369.4 N</span>
 </div>
 <div class="bg-[#FAF2CE] p-3 rounded-xl border-2 border-black shadow-brutal-sm text-center">
-<span class="text-[10px] font-mono uppercase text-[#484554] font-black block">Limb Symmetry</span>
+<span class="text-[10px] font-mono uppercase text-[#484554] font-black block whitespace-nowrap">Limb Symmetry</span>
 <span class="text-xl font-black font-mono text-[#6A3CF4]">93.2%</span>
 <span class="text-[10px] font-mono text-black block font-semibold">From 78.0% Base</span>
 </div>
 <div class="col-span-2 sm:col-span-1 bg-[#FAF2CE] p-3 rounded-xl border-2 border-black shadow-brutal-sm text-center">
-<span class="text-[10px] font-mono uppercase text-[#484554] font-black block">Mean Bar Velocity</span>
-<span class="text-xl font-black font-mono text-[#E95766]">0.61 m/s</span>
+<span class="text-[10px] font-mono uppercase text-[#484554] font-black block whitespace-nowrap">Mean Bar Velocity</span>
+<span class="text-xl font-black font-mono text-[#E95766]"><span class="whitespace-nowrap inline-block">0.61&nbsp;m/s</span></span>
 <span class="text-[10px] font-mono text-black block font-semibold">+45.2% Acceleration</span>
 </div>
 </div>
 </section>
-<!-- ================= SECTION 1: OBJECTIVE TELEMETRY HARDWARE VERIFICATION ================= -->
+<!-- ================= <span class="whitespace-nowrap"><span class="whitespace-nowrap">SECTION&nbsp;1</span></span>: OBJECTIVE TELEMETRY HARDWARE VERIFICATION ================= -->
 <section class="space-y-4" id="telemetrySection">
 <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b-2 border-black pb-2">
 <div>
 <div class="flex items-center gap-2">
-<span class="bg-[#FAF2CE] px-2.5 py-0.5 rounded border-2 border-black font-mono text-xs font-black shadow-brutal-sm">SECTION 1</span>
+<span class="bg-[#FAF2CE] px-2.5 py-0.5 rounded border-2 border-black font-mono text-xs font-black shadow-brutal-sm whitespace-nowrap inline-block"><span class="whitespace-nowrap"><span class="whitespace-nowrap">SECTION&nbsp;1</span></span></span>
 <h3 class="text-xl font-black tracking-tight text-black">Objective Telemetry &amp; Hardware Verification</h3>
 </div>
 <p class="text-xs text-[#484554] font-medium mt-0.5">
@@ -238,10 +260,10 @@
           </p>
 </div>
 <div class="flex items-center gap-2">
-<button class="px-3 py-1 rounded-lg bg-white border-2 border-black text-xs font-mono font-bold hover:bg-[#FAF2CE] shadow-brutal-sm active:scale-95" onclick="toggleDataPeriod(8)">
+<button class="px-3 py-1 rounded-lg bg-white border-2 border-black text-xs font-mono font-bold hover:bg-[#FAF2CE] shadow-brutal-sm active:scale-95 whitespace-nowrap inline-block" onclick="toggleDataPeriod(8)">
             8-Week View
           </button>
-<button class="px-3 py-1 rounded-lg bg-[#FAF2CE] border-2 border-black text-xs font-mono font-black shadow-brutal-sm" onclick="toggleDataPeriod(12)">
+<button class="px-3 py-1 rounded-lg bg-[#FAF2CE] border-2 border-black text-xs font-mono font-black shadow-brutal-sm whitespace-nowrap inline-block" onclick="toggleDataPeriod(12)">
             Full Cycle (12 Wks)
           </button>
 </div>
@@ -262,7 +284,7 @@
 <span class="text-xs font-mono text-[#4724ba] font-bold block">Quadriceps &amp; Hamstring Peak Isometric Force (N)</span>
 </div>
 </div>
-<span class="px-2.5 py-1 rounded-full bg-[#9AEF0F] text-black font-mono text-xs font-black border-2 border-black shadow-brutal-sm flex-shrink-0">
+<span class="px-2.5 py-1 rounded-full bg-[#9AEF0F] text-black font-mono text-xs font-black border-2 border-black shadow-brutal-sm flex-shrink-0 whitespace-nowrap inline-block">
                 +18.4% GAIN
               </span>
 </div>
@@ -270,11 +292,11 @@
 <div class="grid grid-cols-3 gap-2 my-4">
 <div class="bg-[#f6f4f6] p-2.5 rounded-xl border-2 border-black text-center shadow-brutal-sm">
 <span class="text-[10px] font-mono text-[#484554] font-bold block">Baseline (W1)</span>
-<span class="text-lg font-mono font-black text-black">312.0 N</span>
+<span class="text-lg font-mono font-black text-black"><span class="whitespace-nowrap inline-block">312.0&nbsp;N</span></span>
 </div>
 <div class="bg-[#f6f4f6] p-2.5 rounded-xl border-2 border-black text-center shadow-brutal-sm">
 <span class="text-[10px] font-mono text-[#484554] font-bold block">Current (W8)</span>
-<span class="text-lg font-mono font-black text-[#1A5250]">369.4 N</span>
+<span class="text-lg font-mono font-black text-[#1A5250]"><span class="whitespace-nowrap inline-block">369.4&nbsp;N</span></span>
 </div>
 <div class="bg-[#FAF2CE] p-2.5 rounded-xl border-2 border-black text-center shadow-brutal-sm">
 <span class="text-[10px] font-mono text-[#484554] font-bold block">Limb Symmetry</span>
@@ -285,7 +307,7 @@
 <div class="bg-[#FAF2CE]/40 border-2 border-black rounded-xl p-3.5 shadow-brutal-sm mb-4">
 <div class="flex justify-between items-center text-xs font-mono font-bold mb-2">
 <span>Isometric Force Trajectory (Newtons)</span>
-<span class="bg-white px-2 py-0.5 rounded border border-black text-[#1A5250]">Clinically Significant (&gt;15%)</span>
+<span class="bg-white px-2 py-0.5 rounded border border-black text-[#1A5250] whitespace-nowrap">Clinically Significant (&gt;15%)</span>
 </div>
 <!-- Bar graph representation -->
 <div class="h-36 w-full flex items-end justify-between gap-3 px-2 pt-2 border-b-2 border-l-2 border-black bg-white rounded-lg p-2">
@@ -315,7 +337,7 @@
 </div>
 <!-- W8 (Current Peak) -->
 <div class="flex-1 flex flex-col items-center h-full justify-end group cursor-pointer" onclick="showForceDetail('W8', 369.4, 93.2)">
-<span class="text-[9px] font-mono text-black font-black mb-1 bg-[#9AEF0F] px-1 rounded border border-black">369N</span>
+<span class="text-[9px] font-mono text-black font-black mb-1 bg-[#9AEF0F] px-1 rounded border border-black whitespace-nowrap">369N</span>
 <div class="w-full bg-[#9AEF0F] rounded-t border-t-2 border-x-2 border-black shadow-brutal-sm transition-all" style="height: 94%"></div>
 <span class="text-[10px] font-mono text-black font-black mt-1">W8★</span>
 </div>
@@ -355,19 +377,19 @@
 <span class="text-xs font-mono text-[#6A3CF4] font-bold block">Functional Sit-to-Stand &amp; Box Squat Bar Velocity (m/s)</span>
 </div>
 </div>
-<span class="px-2.5 py-1 rounded-full bg-[#ECFD28] text-black font-mono text-xs font-black border-2 border-black shadow-brutal-sm flex-shrink-0">
-                0.42 → 0.61 m/s
+<span class="px-2.5 py-1 rounded-full bg-[#ECFD28] text-black font-mono text-xs font-black border-2 border-black shadow-brutal-sm flex-shrink-0 whitespace-nowrap inline-block">
+                0.42 → <span class="whitespace-nowrap inline-block">0.61&nbsp;m/s</span>
               </span>
 </div>
 <!-- Key Metric Strip -->
 <div class="grid grid-cols-3 gap-2 my-4">
 <div class="bg-[#f6f4f6] p-2.5 rounded-xl border-2 border-black text-center shadow-brutal-sm">
 <span class="text-[10px] font-mono text-[#484554] font-bold block">Concentric Mean</span>
-<span class="text-lg font-mono font-black text-[#1A5250]">0.61 m/s</span>
+<span class="text-lg font-mono font-black text-[#1A5250]"><span class="whitespace-nowrap inline-block">0.61&nbsp;m/s</span></span>
 </div>
 <div class="bg-[#f6f4f6] p-2.5 rounded-xl border-2 border-black text-center shadow-brutal-sm">
 <span class="text-[10px] font-mono text-[#484554] font-bold block">Peak Velocity</span>
-<span class="text-lg font-mono font-black text-[#4724BA]">0.78 m/s</span>
+<span class="text-lg font-mono font-black text-[#4724BA]"><span class="whitespace-nowrap inline-block">0.78&nbsp;m/s</span></span>
 </div>
 <div class="bg-[#FAF2CE] p-2.5 rounded-xl border-2 border-black text-center shadow-brutal-sm">
 <span class="text-[10px] font-mono text-[#484554] font-bold block">Fatigue Decay</span>
@@ -378,7 +400,7 @@
 <div class="bg-[#FAF2CE]/40 border-2 border-black rounded-xl p-3.5 shadow-brutal-sm mb-4">
 <div class="flex justify-between items-center text-xs font-mono font-bold mb-2">
 <span>Sit-to-Stand Repetition Velocity Maintenance</span>
-<span class="bg-[#9AEF0F] px-2 py-0.5 rounded border border-black text-black">Fast Motor Unit Recruitment</span>
+<span class="bg-[#9AEF0F] px-2 py-0.5 rounded border border-black text-black whitespace-nowrap">Fast Motor Unit Recruitment</span>
 </div>
 <!-- Visual curve / bars -->
 <div class="h-36 w-full flex items-end justify-between gap-3 px-2 pt-2 border-b-2 border-l-2 border-black bg-white rounded-lg p-2">
@@ -396,7 +418,7 @@
 </div>
 <!-- Rep 3 (Peak) -->
 <div class="flex-1 flex flex-col items-center h-full justify-end group cursor-pointer">
-<span class="text-[9px] font-mono text-black font-black mb-1 bg-[#ECFD28] px-1 rounded border border-black">0.65</span>
+<span class="text-[9px] font-mono text-black font-black mb-1 bg-[#ECFD28] px-1 rounded border border-black whitespace-nowrap">0.65</span>
 <div class="w-full bg-[#ECFD28] rounded-t border-t-2 border-x-2 border-black shadow-brutal-sm transition-all" style="height: 86%"></div>
 <span class="text-[10px] font-mono text-black font-bold mt-1">R3★</span>
 </div>
@@ -416,7 +438,7 @@
 <!-- Community Standard Reference -->
 <div class="mt-3 pt-2 border-t border-black flex justify-between items-center text-[11px] font-mono font-bold">
 <span>NDIA Transfer Independence Threshold:</span>
-<span class="bg-[#FAF2CE] px-2 py-0.5 rounded border border-black text-[#1A5250]">&gt;0.45 m/s (Achieved 0.61 m/s ✓)</span>
+<span class="bg-[#FAF2CE] px-2 py-0.5 rounded border border-black text-[#1A5250] whitespace-nowrap">&gt;<span class="whitespace-nowrap inline-block">0.45&nbsp;m/s</span> (Achieved 0.61 m/s ✓)</span>
 </div>
 </div>
 <!-- Sports Science Interpretation -->
@@ -431,12 +453,12 @@
 </div>
 </div>
 </section>
-<!-- ================= SECTION 2: READ-ONLY SUPPORT COORDINATOR & CARER CAPACITY CARD ================= -->
+<!-- ================= <span class="whitespace-nowrap"><span class="whitespace-nowrap">SECTION&nbsp;2</span></span>: READ-ONLY SUPPORT COORDINATOR & CARER CAPACITY CARD ================= -->
 <section class="space-y-4" id="supportSection">
 <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b-2 border-black pb-2">
 <div>
 <div class="flex items-center gap-2">
-<span class="bg-[#FAF2CE] px-2.5 py-0.5 rounded border-2 border-black font-mono text-xs font-black shadow-brutal-sm">SECTION 2</span>
+<span class="bg-[#FAF2CE] px-2.5 py-0.5 rounded border-2 border-black font-mono text-xs font-black shadow-brutal-sm whitespace-nowrap inline-block"><span class="whitespace-nowrap"><span class="whitespace-nowrap">SECTION&nbsp;2</span></span></span>
 <h3 class="text-xl font-black tracking-tight text-black">Support Coordinator &amp; Carer Verification Summary</h3>
 </div>
 <p class="text-xs text-[#484554] font-medium mt-0.5">
@@ -444,7 +466,7 @@
           </p>
 </div>
 <div class="flex items-center gap-2">
-<span class="px-2.5 py-1 rounded-full bg-[#E7EBD3] text-[#1A5250] font-mono text-xs font-black border-2 border-black shadow-brutal-sm">
+<span class="px-2.5 py-1 rounded-full bg-[#E7EBD3] text-[#1A5250] font-mono text-xs font-black border-2 border-black shadow-brutal-sm whitespace-nowrap inline-block">
             Audit-Ready Verification
           </span>
 </div>
@@ -455,7 +477,7 @@
 <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 pb-4 border-b-2 border-black">
 <div>
 <div class="flex items-center gap-2">
-<span class="w-3 h-3 rounded-full bg-[#9AEF0F] border border-black animate-pulse"></span>
+<span class="w-3 h-3 rounded-full bg-[#9AEF0F] border border-black animate-pulse whitespace-nowrap"></span>
 <h4 class="text-lg font-black text-black uppercase tracking-wide">
                 Verification Summary: Measurable Capacity Building Proved
               </h4>
@@ -474,7 +496,7 @@
 <div class="bg-white p-4 rounded-xl border-2 border-black shadow-brutal-sm flex flex-col justify-between">
 <div>
 <div class="flex items-center justify-between mb-2">
-<span class="px-2 py-0.5 rounded bg-black text-[#ECFD28] text-[10px] font-mono font-black">NDIS GOAL 1</span>
+<span class="px-2 py-0.5 rounded bg-black text-[#ECFD28] text-[10px] font-mono font-black whitespace-nowrap">NDIS GOAL 1</span>
 <span class="text-[#1A5250] font-black text-xs font-mono">STATUS: EXCEEDED</span>
 </div>
 <h5 class="font-black text-sm text-black">Community Mobility &amp; Stamina</h5>
@@ -493,7 +515,7 @@
 <div class="bg-white p-4 rounded-xl border-2 border-black shadow-brutal-sm flex flex-col justify-between">
 <div>
 <div class="flex items-center justify-between mb-2">
-<span class="px-2 py-0.5 rounded bg-black text-[#ECFD28] text-[10px] font-mono font-black">NDIS GOAL 2</span>
+<span class="px-2 py-0.5 rounded bg-black text-[#ECFD28] text-[10px] font-mono font-black whitespace-nowrap">NDIS GOAL 2</span>
 <span class="text-[#1A5250] font-black text-xs font-mono">STATUS: ACHIEVED</span>
 </div>
 <h5 class="font-black text-sm text-black">Sit-to-Stand Unassisted Transfers</h5>
@@ -512,7 +534,7 @@
 <div class="bg-white p-4 rounded-xl border-2 border-black shadow-brutal-sm flex flex-col justify-between">
 <div>
 <div class="flex items-center justify-between mb-2">
-<span class="px-2 py-0.5 rounded bg-black text-[#ECFD28] text-[10px] font-mono font-black">NDIS GOAL 3</span>
+<span class="px-2 py-0.5 rounded bg-black text-[#ECFD28] text-[10px] font-mono font-black whitespace-nowrap">NDIS GOAL 3</span>
 <span class="text-[#1A5250] font-black text-xs font-mono">STATUS: SUSTAINED</span>
 </div>
 <h5 class="font-black text-sm text-black">Joint Stability &amp; Pain Mitigation</h5>
@@ -538,10 +560,10 @@
 <div>
 <div class="flex items-center gap-2">
 <h6 class="text-xs font-black text-black uppercase">Titled APA Sports Physiotherapist Formal Endorsement</h6>
-<span class="bg-[#9AEF0F] text-black text-[9px] font-mono font-black px-1.5 rounded border border-black">AHPRA Verified</span>
+<span class="bg-[#9AEF0F] text-black text-[9px] font-mono font-black px-1.5 rounded border border-black whitespace-nowrap">AHPRA Verified</span>
 </div>
 <p class="text-xs text-[#1b1c1d] font-medium mt-1 leading-relaxed">
-                “Objective measurement demonstrates that participant 'P' has transitioned beyond physical rehabilitation into genuine self-sustaining capacity building. Continuation of 1:1 sports science capacity building under support item <span class="font-mono font-bold bg-[#FAF2CE] px-1 rounded">15_055_0128_1_3</span> is medically essential to safeguard these independence gains and prevent physical regression requiring higher-cost personal care.”
+                “Objective measurement demonstrates that participant 'P' has transitioned beyond physical rehabilitation into genuine self-sustaining capacity building. Continuation of 1:1 sports science capacity building under support item <span class="font-mono font-bold bg-[#FAF2CE] px-1 rounded whitespace-nowrap">15_055_0128_1_3</span> is medically essential to safeguard these independence gains and prevent physical regression requiring higher-cost personal care.”
               </p>
 <div class="mt-2 text-[11px] font-mono text-[#484554] font-bold flex items-center gap-2">
 <span class="text-black font-extrabold">Holly Hunt</span> • B.Phty, M.Sports Physio • Small Goods Gym Morley
@@ -557,19 +579,19 @@
               "P is moving with unbelievable confidence. The numbers on the Activforce don't lie - real strength, real independence! Ready for the next block."
             </p>
 <div class="mt-2 flex items-center justify-between font-mono text-[11px] text-black font-bold">
-<span>— Joel Mullen (Head Coach)</span>
+<span>— Joel&nbsp;Mullen&nbsp;(Head&nbsp;Coach)</span>
 <span class="underline">Eleiko Platform 3</span>
 </div>
 </div>
 </div>
 </div>
 </section>
-<!-- ================= SECTION 3: AUDIT REPORT PREVIEW & FINANCIAL BREAKDOWN ================= -->
+<!-- ================= <span class="whitespace-nowrap"><span class="whitespace-nowrap">SECTION&nbsp;3</span></span>: AUDIT REPORT PREVIEW & FINANCIAL BREAKDOWN ================= -->
 <section class="space-y-4" id="financialSection">
 <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b-2 border-black pb-2">
 <div>
 <div class="flex items-center gap-2">
-<span class="bg-[#FAF2CE] px-2.5 py-0.5 rounded border-2 border-black font-mono text-xs font-black shadow-brutal-sm">SECTION 3</span>
+<span class="bg-[#FAF2CE] px-2.5 py-0.5 rounded border-2 border-black font-mono text-xs font-black shadow-brutal-sm whitespace-nowrap inline-block"><span class="whitespace-nowrap"><span class="whitespace-nowrap">SECTION&nbsp;3</span></span></span>
 <h3 class="text-xl font-black tracking-tight text-black">Interactive Audit Report Preview &amp; Financial Breakdown</h3>
 </div>
 <p class="text-xs text-[#484554] font-medium mt-0.5">
@@ -577,7 +599,7 @@
           </p>
 </div>
 <div class="flex items-center gap-2">
-<button class="px-4 py-2 rounded-xl bg-[#4724BA] hover:bg-[#6A3CF4] text-white font-mono text-xs font-black border-2 border-black shadow-brutal-sm transition-all" onclick="openAuditReportModal()">
+<button class="px-4 py-2 rounded-xl bg-[#4724BA] hover:bg-[#6A3CF4] text-white font-mono text-xs font-black border-2 border-black shadow-brutal-sm transition-all whitespace-nowrap inline-block" onclick="openAuditReportModal()">
 <i class="w-3.5 h-3.5 inline-block mr-1" data-lucide="printer"></i>
             Full Page Print Preview
           </button>
@@ -589,10 +611,10 @@
 <!-- Left: NDIS Item Line Breakdown (7 Cols) -->
 <div class="lg:col-span-7 space-y-4">
 <div class="flex items-center justify-between pb-2 border-b-2 border-black">
-<span class="text-xs font-mono font-black uppercase text-black">
+<span class="text-xs font-mono font-black uppercase text-black whitespace-nowrap">
                 Category 15: Improved Daily Living Skills (NDIA Capped)
               </span>
-<span class="bg-[#9AEF0F] text-black text-[11px] font-mono font-black px-2 py-0.5 rounded border border-black">
+<span class="bg-[#9AEF0F] text-black text-[11px] font-mono font-black px-2 py-0.5 rounded border border-black whitespace-nowrap">
                 100% Compliant
               </span>
 </div>
@@ -662,11 +684,11 @@
 <div class="lg:col-span-5 bg-[#FAF2CE]/50 p-4 rounded-xl border-2 border-black shadow-brutal-sm flex flex-col justify-between">
 <div>
 <div class="flex items-center justify-between mb-3 pb-2 border-b-2 border-black">
-<span class="text-xs font-mono font-black text-black uppercase flex items-center gap-1.5">
+<span class="text-xs font-mono font-black text-black uppercase flex items-center gap-1.5 whitespace-nowrap">
 <i class="w-4 h-4 text-[#4724BA]" data-lucide="file-check"></i>
                   NDIA PDF Preview Envelope
                 </span>
-<span class="text-[10px] font-mono px-2 py-0.5 rounded bg-black text-white font-bold">READY</span>
+<span class="text-[10px] font-mono px-2 py-0.5 rounded bg-black text-white font-bold whitespace-nowrap">READY</span>
 </div>
 <!-- Document Simulation Box -->
 <div class="bg-white p-4 rounded-lg border-2 border-black shadow-brutal-sm text-[11px] font-mono space-y-2">
@@ -684,7 +706,7 @@
 </div>
 <div class="flex justify-between">
 <span class="text-[#484554]">Key Outcome:</span>
-<span class="font-bold text-[#1A5250]">+18.4% Peak Force (369.4 N)</span>
+<span class="font-bold text-[#1A5250]">+18.4% Peak Force (<span class="whitespace-nowrap inline-block">369.4&nbsp;N</span>)</span>
 </div>
 <div class="flex justify-between">
 <span class="text-[#484554]">Clinical Sig:</span>
@@ -709,7 +731,7 @@
 <div class="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs hidden flex items-center justify-center p-3 md:p-6" id="auditModal">
 <div class="bg-white border-[3px] border-black rounded-3xl max-w-4xl w-full max-h-[92vh] overflow-y-auto shadow-brutal-xl p-6 relative flex flex-col justify-between">
 <!-- Close Button -->
-<button class="absolute top-4 right-4 w-9 h-9 rounded-xl bg-white hover:bg-[#E95766] hover:text-white border-2 border-black flex items-center justify-center font-mono font-black text-sm shadow-brutal-sm transition-colors" onclick="closeAuditReportModal()">
+<button class="absolute top-4 right-4 w-9 h-9 rounded-xl bg-white hover:bg-[#E95766] hover:text-white border-2 border-black flex items-center justify-center font-mono font-black text-sm shadow-brutal-sm transition-colors whitespace-nowrap inline-block" onclick="closeAuditReportModal()">
         ✕
       </button>
 <!-- Printable Report Body -->
@@ -727,7 +749,7 @@
 </div>
 </div>
 <div class="text-right font-mono text-xs">
-<span class="bg-[#FAF2CE] px-2 py-1 rounded border border-black font-black block">CONFIDENTIAL CLINICAL AUDIT</span>
+<span class="bg-[#FAF2CE] px-2 py-1 rounded border border-black font-black block whitespace-nowrap">CONFIDENTIAL CLINICAL AUDIT</span>
 <span class="text-[#484554] mt-1 block">Date of Issue: 24 Oct 2024</span>
 </div>
 </div>
@@ -760,8 +782,8 @@
 <div class="p-3 bg-[#FAF2CE]/50 rounded-lg border border-black">
 <span class="text-xs font-mono font-black text-[#4724BA] block">1. ACTIVFORCE 2 DYNAMOMETRY</span>
 <ul class="text-xs font-mono text-black space-y-1 mt-1">
-<li>• Baseline Isometric Peak: <strong>312.0 N</strong></li>
-<li>• Current Isometric Peak: <strong>369.4 N (+18.4%)</strong></li>
+<li>• Baseline Isometric Peak: <strong><span class="whitespace-nowrap inline-block">312.0&nbsp;N</span></strong></li>
+<li>• Current Isometric Peak: <strong><span class="whitespace-nowrap inline-block">369.4&nbsp;N</span> (+18.4%)</strong></li>
 <li>• Limb Symmetry Index (LSI): <strong>93.2% (Normative)</strong></li>
 <li>• Clinical Implication: Safe unilateral support without pelvic drop.</li>
 </ul>
@@ -769,7 +791,7 @@
 <div class="p-3 bg-[#FAF2CE]/50 rounded-lg border border-black">
 <span class="text-xs font-mono font-black text-[#6A3CF4] block">2. ENODE CONCENTRIC VELOCITY</span>
 <ul class="text-xs font-mono text-black space-y-1 mt-1">
-<li>• Mean Concentric Velocity: <strong>0.61 m/s</strong> (up from 0.42 m/s)</li>
+<li>• Mean Concentric Velocity: <strong><span class="whitespace-nowrap inline-block">0.61&nbsp;m/s</span></strong> (up from <span class="whitespace-nowrap inline-block">0.42&nbsp;m/s</span>)</li>
 <li>• Repetition Fatigue Decay: <strong>&lt; 8.5% across 5 reps</strong></li>
 <li>• Transfer Autonomy: <strong>100% Unassisted Sit-to-Stand</strong></li>
 <li>• Clinical Implication: Immediate functional transfer to daily tasks.</li>
@@ -811,14 +833,14 @@
 <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
 <div class="flex items-center gap-2">
 <img alt="Small Goods Gym Sticker" class="w-5 h-5 object-contain inline-block" src="./01_small_goods_logo_sticker2x_p_500.png"/>
-<span>Small Goods Gym • Morley, Perth WA • Head Coach Joel Mullen &amp; Physio Holly Hunt</span>
+<span>Small Goods Gym • Morley,&nbsp;Perth&nbsp;WA • Head Coach Joel Mullen &amp; Physio Holly Hunt</span>
 </div>
 <div class="flex items-center gap-3">
-<span class="bg-[#FAF2CE] px-2 py-0.5 rounded border border-black">AHPRA Verified</span>
+<span class="bg-[#FAF2CE] px-2 py-0.5 rounded border border-black whitespace-nowrap">AHPRA Verified</span>
 <span>•</span>
-<span class="bg-[#FAF2CE] px-2 py-0.5 rounded border border-black">NDIA Guidelines Compliant</span>
+<span class="bg-[#FAF2CE] px-2 py-0.5 rounded border border-black whitespace-nowrap">NDIA Guidelines Compliant</span>
 <span>•</span>
-<span class="bg-[#FAF2CE] px-2 py-0.5 rounded border border-black">Activforce 2 Dynamometry</span>
+<span class="bg-[#FAF2CE] px-2 py-0.5 rounded border border-black whitespace-nowrap">Activforce 2 Dynamometry</span>
 </div>
 </div>
 </footer>
