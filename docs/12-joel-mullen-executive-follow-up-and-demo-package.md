@@ -4,7 +4,8 @@
 **To:** Joel Mullen (Founder & Head Coach, Small Goods Gym, Morley, Perth, WA)  
 **CC:** Izzy (Community & Design), Javier (Lead Systems Developer)  
 **Date:** Tuesday, September 15, 2026  
-**Shared Drive Dossier:** `https://drive.google.com/drive/folders/1oYHlfjHvNT6LrcAKzKySbHAUHqUdLM1G?usp=drive_link`  
+**Shared Client Deliverables Drive:** `https://drive.google.com/drive/folders/1o7D7GksP6ble-piJuJAAgRSNLIK_7SVZ?usp=sharing`  
+**Live Hosted Web Demo:** `https://bulachak.github.io/small-goods-gym/live-demo-hub.html`  
 **Upcoming 3-Way Regroup:** Friday, September 19, 2026 @ 21:30 PT / Saturday, September 20, 2026 @ 12:30 AWST  
 
 ---
@@ -25,11 +26,12 @@ Below is the complete executive debrief, your interactive prototype links, and o
 
 ## 2. What We Built & Tested for You (Ready to Review)
 
-All interactive demo files and technical guides have been synced directly to our **[Small Goods Gym Shared Google Drive](https://drive.google.com/drive/folders/1oYHlfjHvNT6LrcAKzKySbHAUHqUdLM1G?usp=drive_link)**.
+All interactive demo files and technical guides are accessible in our **[Client Deliverables Google Drive](https://drive.google.com/drive/folders/1o7D7GksP6ble-piJuJAAgRSNLIK_7SVZ?usp=sharing)** and hosted live on the web:
 
 ### A. The Goat AI Co-Pilot Prototype
-* **File in Drive:** `Small Goods Gym — Goat AI Coach Prototype Demo.html`  
-* **Local File:** `small-goods-coach-demo.html`
+* **Live Hosted Link (1-tap on mobile/desktop):** [bulachak.github.io/small-goods-gym/small-goods-coach-demo.html](https://bulachak.github.io/small-goods-gym/small-goods-coach-demo.html)
+* **File in Drive:** `Goat_AI_Co_Pilot_Prototype.html`  
+* **Local Repo:** `small-goods-coach-demo.html`
 * **What it does:** A dedicated fullscreen interactive AI coaching companion. It doesn't give generic ChatGPT platitudes; it speaks in your voice ("G'day! Let's get to work") and answers platform questions with exact book and page citations.
 * **Try these prompts in the demo:**
   - *"I missed two snatches at 85kg, what should I do?"* -> Triggers the **90-second triage protocol**: bar velocity drop >15% = CNS depletion; drop load 5–7.5% (take 80kg for 2 crisp singles) or terminate the lift.
@@ -37,8 +39,9 @@ All interactive demo files and technical guides have been synced directly to our
   - *"How does the shock method work?"* -> Verkhoshansky amortization phase (<150ms) and depth jump drop parameters.
 
 ### B. The 6-Tab Live Demo Hub (with Floating Goat AI Widget)
-* **File in Drive:** `Small Goods Gym — Live Interactive Demo Suite (Updated).html`
-* **Local File:** `live-demo-hub.html`
+* **Live Hosted Link (1-tap on mobile/desktop):** [bulachak.github.io/small-goods-gym/live-demo-hub.html](https://bulachak.github.io/small-goods-gym/live-demo-hub.html)
+* **File in Drive:** `Small_Goods_Gym_Interactive_Demo_Suite.html`
+* **Local Repo:** `live-demo-hub.html`
 * **What it does:** The complete gym-floor operating suite across 6 integrated modules:
   1. **Athlete Logger:** Big-button tactile floor logging with Enode VBT integration (`0.64 m/s`), rest timers, and video replay.
   2. **Biomechanical Levers:** Interactive femur-to-torso slider (`1.02` ratio), ape index, and moment-arm torque diagrams.
@@ -48,8 +51,8 @@ All interactive demo files and technical guides have been synced directly to our
   6. **Goat AI Co-Pilot:** Deep sports-science QA terminal + **floating bottom-right launcher button (🐐)** accessible across every single tab.
 
 ### C. Main Brand Showcase & Webflow Token Wall
-* **File in Drive:** `Small Goods Gym — Main Architecture Showcase & Stitch Studio (with Goat AI Widget).html`
-* **Local File:** `index.html`
+* **Live Hosted Link:** [bulachak.github.io/small-goods-gym/index.html](https://bulachak.github.io/small-goods-gym/index.html)
+* **Local Repo:** `index.html`
 * **What it does:** Shows the complete Webflow color tokens (Inch Worm `#9aef0f`, Purple Heart `#4724ba`, Sweet Corn `#f8ef8d`), typography trio (*Poppins*, *Roboto Mono*, *Reenie Beanie*), and responsive layouts.
 
 ---
@@ -137,10 +140,14 @@ I wanted to send a quick update after our chat on Monday: my team and I went int
 2. 6-Tab Gym-Floor Suite: Complete tactile logger with VBT (0.64 m/s), 12-platform RSVP/waitlist, and leverage calculations based on the 450mm bumper plate scale and jump flight-time equations we discussed.
 3. WhatsApp Bot: We set up the backend so lifters can book platforms and ask coaching questions directly on WhatsApp without downloading a new app!
 
-I've uploaded the interactive files and a quick developer brief for Javier into our shared Google Drive:
-https://drive.google.com/drive/folders/1oYHlfjHvNT6LrcAKzKySbHAUHqUdLM1G?usp=drive_link
+I've uploaded the standalone files and a quick developer guide for Javier into a dedicated client folder on Google Drive:
+https://drive.google.com/drive/folders/1o7D7GksP6ble-piJuJAAgRSNLIK_7SVZ?usp=sharing
 
-Looking forward to our regroup on Friday at 9:30 PM PT / Saturday 12:30 PM Perth time with Javier. Let me know if you get a chance to click through the prototypes!
+You can also test both prototypes directly on your phone in 1 tap without installing anything:
+• Fullscreen Goat AI Coach: https://bulachak.github.io/small-goods-gym/small-goods-coach-demo.html
+• 6-Tab Operating Hub: https://bulachak.github.io/small-goods-gym/live-demo-hub.html
+
+Looking forward to our regroup on Friday at 9:30 PM PT / Saturday 12:30 PM Perth time with Javier. Let me know if you get a chance to click through!
 
 Cheers,
 Mila
@@ -157,10 +164,12 @@ Thank you again for the fantastic session on Monday. It’s inspiring to collabo
 Over the last 24 hours, we translated our meeting debrief into working interactive software so you have real tools to test ahead of our Friday 3-way call with Javier:
 
 1. Interactive Goat AI Coach Prototype:
-A full-screen coaching companion grounded in Yuri Verkhoshansky, Vladimir Zatsiorsky, and Dr. Dan Cleather. It runs deterministic 90-second triage protocols for missed lifts and analyzes squat leverage adjustments for long femurs.
+A dedicated coaching companion grounded in Yuri Verkhoshansky, Vladimir Zatsiorsky, and Dr. Dan Cleather. It runs deterministic 90-second triage protocols for missed lifts and analyzes squat leverage adjustments for long femurs.
+👉 Live Web Test: https://bulachak.github.io/small-goods-gym/small-goods-coach-demo.html
 
 2. 6-Tab Live System Demo Hub:
 Features the tactile gym-floor logger, Enode VBT speed tracker, interactive biomechanical ratio slider, 12-platform capacity cap / waitlist manager, and a floating Goat AI chat drawer accessible across every tab.
+👉 Live Web Test: https://bulachak.github.io/small-goods-gym/live-demo-hub.html
 
 3. Computer Vision & App Physics Ingested:
 We researched and integrated the exact math from the apps you described:
@@ -168,13 +177,13 @@ We researched and integrated the exact math from the apps you described:
 - My Jump 2: 240 fps flight time vertical jump equation (h = 1/8 * g * t²).
 
 4. WhatsApp Bot Gateway:
-Since your community lives on WhatsApp, we built endpoints so lifters can text the bot to check platform availability, reserve training slots, or receive instant set triage directly on WhatsApp.
+Since your community lives on WhatsApp, we built backend endpoints so lifters can text the bot to check platform availability, reserve training slots, or receive instant set triage directly on WhatsApp.
 
 5. Developer Guide for Javier:
-We prepared a clean, respectful architecture guide (docs/09-javier-hardware-and-ai-integration-guide.md). Javier keeps 100% control of Cloudflare and user authentication; our AI service connects via a lightweight 10-line reverse proxy without disrupting his 3 years of work.
+We prepared a clean, respectful architecture guide (Javier_Hardware_and_AI_Integration_Guide.md). Javier keeps 100% control of Cloudflare and user authentication; our AI service connects via a lightweight 10-line reverse proxy without disrupting his 3 years of work.
 
-Everything is live in our shared Google Drive folder:
-https://drive.google.com/drive/folders/1oYHlfjHvNT6LrcAKzKySbHAUHqUdLM1G?usp=drive_link
+All standalone HTML deliverables and documentation guides are gathered in your dedicated Google Drive folder:
+https://drive.google.com/drive/folders/1o7D7GksP6ble-piJuJAAgRSNLIK_7SVZ?usp=sharing
 
 Our call is confirmed for Friday, September 19 at 9:30 PM PT / Saturday, September 20 at 12:30 PM AWST (Perth). 
 
