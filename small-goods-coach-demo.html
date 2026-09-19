@@ -254,7 +254,6 @@
 
     function App() {
       const [viewMode, setViewMode] = useState("chat"); // chat | triage | science
-      const [activeCategory, setActiveCategory] = useState("all"); // all | beginner | vbt | science
       const [messages, setMessages] = useState([
         {
           sender: "bot",
@@ -264,11 +263,6 @@
       const [inputText, setInputText] = useState("");
       const [isTyping, setIsTyping] = useState(false);
       const chatEndRef = useRef(null);
-
-      // Filtered Presets by Category
-      const filteredPresets = activeCategory === "all"
-        ? PRESET_CONVERSATIONS
-        : PRESET_CONVERSATIONS.filter(p => p.tier === activeCategory);
 
       // Triage Simulator State
       const [triageExercise, setTriageExercise] = useState("Snatch");
@@ -493,28 +487,10 @@
                     <div ref={chatEndRef} />
                   </div>
 
-                  {/* Category Filter Tabs */}
-                  <div className="px-4 pt-2.5 pb-1 bg-[#1b1532] border-t-2 border-black flex items-center space-x-1.5 overflow-x-auto">
-                    <span className="text-[10px] font-mono text-slate-400 uppercase font-bold shrink-0 mr-1">Experience Level:</span>
-                    {[
-                      { id: "all", label: "🌟 All Topics" },
-                      { id: "beginner", label: "👶 Beginner & Everyday" },
-                      { id: "vbt", label: "⚡ Athletes & VBT" },
-                      { id: "science", label: "🔬 Coaches & Science" }
-                    ].map(cat => (
-                      <button
-                        key={cat.id}
-                        onClick={() => setActiveCategory(cat.id)}
-                        className={`text-[11px] font-bold px-2.5 py-1 rounded-lg border border-black transition-all shrink-0 ${activeCategory === cat.id ? 'bg-[#9aef0f] text-black shadow-[2px_2px_0px_#000]' : 'bg-[#0b0914] text-slate-400 hover:text-white'}`}
-                      >
-                        {cat.label}
-                      </button>
-                    ))}
-                  </div>
-
-                  {/* Quick Preset Chips */}
-                  <div className="px-4 py-2 bg-[#1b1532] overflow-x-auto flex items-center space-x-2">
-                    {filteredPresets.map(p => (
+                  {/* Quick Suggested Prompts Carousel */}
+                  <div className="px-4 py-2 bg-[#1b1532] border-t-2 border-black overflow-x-auto flex items-center space-x-2">
+                    <span className="text-[11px] font-mono text-slate-400 uppercase font-bold shrink-0">Try Asking:</span>
+                    {PRESET_CONVERSATIONS.map(p => (
                       <button
                         key={p.id}
                         onClick={() => handleSendMessage(p.userMsg)}
@@ -532,7 +508,7 @@
                       value={inputText}
                       onChange={(e) => setInputText(e.target.value)}
                       onKeyDown={(e) => e.key === 'Enter' && handleSendMessage()}
-                      placeholder="Ask the Goat AI (e.g., 'Missed 2 snatches', 'Long femurs squat', 'Shock method height')..."
+                      placeholder="Ask the Goat AI anything (e.g. 'Never squatted before', 'Stiff hips', 'Missed 2 snatches', 'What is VBT?')..."
                       className="flex-1 bg-[#0b0914] border-2 border-black rounded-xl px-3.5 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-[#9aef0f]"
                     />
                     <button
