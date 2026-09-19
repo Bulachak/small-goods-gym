@@ -3,7 +3,6 @@
 [![Live Demo Hub](https://img.shields.io/badge/Live%20Demo-6--Tab%20Suite-9aef0f?style=for-the-badge&logo=google-chrome&logoColor=black)](https://bulachak.github.io/small-goods-gym/live-demo-hub.html)
 [![Goat AI Coach](https://img.shields.io/badge/Goat%20AI-Co--Pilot%20Prototype-4724ba?style=for-the-badge&logo=openai&logoColor=white)](https://bulachak.github.io/small-goods-gym/small-goods-coach-demo.html)
 [![Brand Showcase](https://img.shields.io/badge/Brand%20Showcase-Webflow%20Tokens-f8ef8d?style=for-the-badge&logo=webflow&logoColor=black)](https://bulachak.github.io/small-goods-gym/index.html)
-[![Client Drive](https://img.shields.io/badge/Google%20Drive-Client%20Deliverables-4285f4?style=for-the-badge&logo=googledrive&logoColor=white)](https://drive.google.com/drive/folders/1o7D7GksP6ble-piJuJAAgRSNLIK_7SVZ?usp=sharing)
 
 Sports technology architecture, tactile gym-floor interfaces, Soviet sports-science knowledge retrieval (FTS5 BM25), and biomechanical modeling built for **Small Goods Gym** (Morley, Perth, Western Australia).
 
@@ -20,13 +19,6 @@ All prototypes are hosted live on GitHub Pages and can be launched directly in a
 | **Main Brand Showcase** | [**Launch Brand Showcase**](https://bulachak.github.io/small-goods-gym/index.html) | Webflow design token wall (Inch Worm `#9aef0f`, Purple Heart `#4724ba`, Sweet Corn `#f8ef8d`), typography trio (*Poppins*, *Roboto Mono*, *Reenie Beanie*), and responsive layouts. | [`index.html`](file:///c:/Users/kamil/PROJECTS/small-goods-gym/index.html) |
 | **Athlete Profile View** | [**Launch Athlete Profile**](https://bulachak.github.io/small-goods-gym/athlete-profile-preview.html) | Anthropometry card, leverage tags (long femurs / short torso), PB tracker, and biomechanical ratios. | [`athlete-profile-preview.html`](file:///c:/Users/kamil/PROJECTS/small-goods-gym/athlete-profile-preview.html) |
 | **Tactile Floor Logger** | [**Launch Floor Logger**](https://bulachak.github.io/small-goods-gym/workout-logger-preview.html) | Big-button tactile workout logging interface optimized for sweaty hands and high CNS fatigue. | [`workout-logger-preview.html`](file:///c:/Users/kamil/PROJECTS/small-goods-gym/workout-logger-preview.html) |
-
----
-
-## 📁 Shared Cloud Deliverables
-
-- **Client Deliverables Google Drive:** [Open Client Folder](https://drive.google.com/drive/folders/1o7D7GksP6ble-piJuJAAgRSNLIK_7SVZ?usp=sharing)
-- **Project Archive Google Drive:** [Open Archive Folder](https://drive.google.com/drive/folders/1oYHlfjHvNT6LrcAKzKySbHAUHqUdLM1G?usp=drive_link)
 
 ---
 
