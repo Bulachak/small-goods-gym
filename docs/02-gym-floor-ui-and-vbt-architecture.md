@@ -71,6 +71,8 @@ When an athlete records a velocity drop $>15\%$ against their first working rep 
 
 ## 4. Relational VBT Telemetry Schema (Cloudflare D1 SQLite)
 
+### Visual Entity-Relationship Diagram
+
 ```mermaid
 erDiagram
     PROGRAM_SETS ||--o{ VBT_REP_LOGS : "captures telemetry for"
@@ -112,6 +114,8 @@ erDiagram
         datetime created_at
     }
 ```
+
+### Executable SQLite DDL Implementation
 
 ```sql
 -- Hardware Sensor Registry
