@@ -1,164 +1,186 @@
-﻿Gym-Floor UX & Mobile Interaction Architecture
-When designing a mobile interface for Small Goods Gym, the primary constraint is the physical environment of the gym floor: athletes will have sweaty hands, experience high central nervous system fatigue during rest intervals, and need to log training data rapidly without disrupting their training flow 1. Applying human-computer interaction (HCI) heuristics and software design guidelines ensures the app is a tool rather than an administrative distraction:
-* Fitts’s Law (Touch Target Optimization): This law dictates that the time to acquire a target is a function of the distance to and size of the target 2. Under fatigue or with sweaty hands, fine motor control degrades.
-* Application: All high-frequency gym-floor actions—such as clicking "Add Set", tapping "Complete Set", or ticking a "Done" checkbox—must use massive, full-width touch targets (minimum \\(48\times48\\) dp, but ideally \\(64\times64\\) dp on mobile) positioned within the natural sweeping arc of the user’s thumb (the lower third of the screen).
-* Hick’s Law (Minimizing Cognitive Load): Hick’s Law states that the time it takes to make a decision increases logarithmically with the number and complexity of choices 2.
-* Application: Do not present a massive spreadsheet of the entire week's programming. Instead, adopt a focused interface that displays one exercise at a time (or a single active super-set block). The screen should present a highly simplified view: the current exercise, the video demonstration, and the current set's target weight/reps with prominent "+" and "-" adjustments.
-* Doherty Threshold (Instantaneous Feedback): System responsiveness is critical; productivity increases when the interaction pace is kept under 400 milliseconds.
-* Application: Logging a set must provide instant visual and haptic confirmation (e.g., a rapid color transition to green and a micro-vibration) within this sub-400ms window. If the UI lags while waiting for Javier's backend database write, the athlete will double-tap, causing data corruption.
-* Postel’s Law / Robustness Principle: "Be conservative in what you do, be liberal in what you accept from others" 2.
-* Application: Athletes are prone to logging errors when fatigued. If an athlete inputs "100" instead of "100kg", skips an optional set, or inputs messy text notes in a weight field, the client frontend must gracefully handle and normalize these inputs behind the scenes rather than throwing rigid modal error popups that block their workout.
-* Tesler’s Law (Conservation of Complexity): This law states that every system has an inherent amount of complexity that cannot be removed; it must be decided whether the software or the user handles it 2.
-* Application: By utilizing the KISS (Keep It Simple, Stupid) philosophy, we shift the administrative complexity away from the athlete on the gym floor 3. The software should pre-load and pre-populate the athlete's target weights, reps, and RPEs based on their prior week's logs, reducing their gym-floor interaction to a single-tap confirmation unless they need to override the values 3, 4.
-Integration Architecture with Javier’s Backend Shell
-To build the client frontend and Phase 2 AI microservices without rewriting Javier’s foundational user management, roles, and permissions shell, we must implement a decoupled, modular architecture 5. This prevents us from being blocked by his progress while maintaining high internal quality 5, 6:
-   ┌──────────────────────────────────────────────────┐
-   │                  Next.js PWA                     │
-   │  (Athlete / Coach Client - Offline First Cache)   │
-   └────────┬────────────────────────────────┬────────┘
-            │                                │
-            │ REST / Auth                    │ Event RSVP / Logs
-            ▼                                ▼
-┌───────────────────────┐        ┌───────────────────────┐
-│ Javier's Backend Shell│        │  FastAPI Microservice │
-│ (Auth & User Roles)   │        │   (Progression Engine │
-└───────────────────────┘        │   & AI Co-Pilot Core) │
-                                 └───────────┬───────────┘
-                                             │ DB Sync
-                                             ▼
-                                 ┌───────────────────────┐
-                                 │  PostgreSQL Database  │
-                                 │  (Shared / Replicated)│
-                                 └───────────────────────┘
-1. Decoupled Architecture & Indirection
-By using the GRASP Indirection pattern, we introduce a stable API boundary between Javier's authentication shell and our newly designed application frontend 7. The Next.js frontend (compiled as a Progressive Web App, PWA) will act as the single client, communicating with Javier’s backend purely for user validation and session management, while routing athletic data (program delivery, RSVPs, logs, and progression analytics) to a decoupled FastAPI (Python) microservice.
-2. Protecting Against Instability (Protected Variations)
-According to the GRASP Protected Variations pattern, we must identify points of predicted instability (e.g., Javier changing authentication endpoints or data schemas) and wrap them in a stable interface 8. We can achieve this by implementing a Dependency Inversion Principle (DIP) contract at the API layer 9, 10:
-* The Next.js client does not call Javier's endpoints directly. Instead, it relies on an abstracted API client layer.
-* If Javier alters his backend configuration, we only update the adapter class mapping to his endpoints 11. Our custom FastAPI microservice and Next.js program delivery views remain completely unaffected 11, 12.
-3. Single Responsibility Principle (SRP) at the Service Layer
-Under SRP, each subsystem should have only one reason to change 10, 13:
-* Javier’s Backend Shell: Solely responsible for authentication, cryptographic user storage, and basic roles (e.g., 'athlete', 'coach', 'physio') 14, 15.
-* Next.js PWA Client: Solely responsible for presentation, athletic data capture, local state storage (crucial for offline gym logging when cell reception is weak), and local haptics 16, 17.
-* FastAPI AI Microservice: Solely responsible for computing biomechanical progressions, analyzing VBT (Velocity-Based Training) inputs, and executing progression engines 18.
-Data Modeling for Anthropometry & Progression
-To support both the immediate MVP and the upcoming Phase 2 AI Assistant Engine, we require a highly cohesive data schema 19. By leveraging the GRASP Information Expert pattern, we ensure that responsibilities for calculating PBs, identifying leverage tags, and interpreting VBT data are placed directly on the entities that contain the source information 20, 21.
-Relational Database Schema (PostgreSQL)
--- 1. ATHLETE PROFILE (Links to Javier's Auth User, handles limb measurements)
-CREATE TABLE athlete_profiles (
-    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    user_id UUID UNIQUE NOT NULL, -- FK to Javier's Auth Users table
-    height_cm NUMERIC(5,2) NOT NULL,
-    femur_length_cm NUMERIC(4,2) NOT NULL,
-    torso_length_cm NUMERIC(4,2) NOT NULL,
-    arm_span_cm NUMERIC(5,2) NOT NULL,
-    leverage_tags VARCHAR[] DEFAULT '{}', -- E.g., {'long_femurs', 'short_torso'}
-    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
-);
+# Gym-Floor UX, React Native Mobile Architecture & February MVP Roadmap
 
+## 1. Gym-Floor UX & Mobile Interaction Architecture
 
--- 2. EXERCISE LIBRARY (Stores video demonstrations and mechanical characteristics)
-CREATE TABLE exercises (
-    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    name VARCHAR(100) UNIQUE NOT NULL,
-    video_url TEXT NOT NULL, -- Private video library reference
-    category VARCHAR(50) NOT NULL, -- E.g., 'Squat', 'Bench', 'Deadlift', 'Accessory'
-    mechanical_tags VARCHAR[] DEFAULT '{}', -- E.g., {'hip_hinge', 'quad_dominant'}
-    is_active BOOLEAN DEFAULT TRUE
-);
+When designing a mobile interface for **Small Goods Gym**, the primary constraint is the physical environment of the gym floor: athletes will have sweaty hands, experience high central nervous system (CNS) fatigue during rest intervals, and need to log training data rapidly without disrupting their training tempo.
 
+Applying human-computer interaction (HCI) heuristics and software design guidelines ensures the app remains a transparent athletic tool rather than an administrative burden:
 
--- 3. WORKOUT SESSIONS (The container for individual workouts within a block)
-CREATE TABLE workout_sessions (
-    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    athlete_id UUID REFERENCES athlete_profiles(id) ON DELETE CASCADE,
-    scheduled_date DATE NOT NULL,
-    completed_at TIMESTAMP WITH TIME ZONE,
-    coaches_notes TEXT,
-    athletes_notes TEXT,
-    status VARCHAR(20) DEFAULT 'scheduled' -- 'scheduled', 'completed', 'missed'
-);
+* **Fitts’s Law (Touch Target Optimization):** The time required to acquire a target is a function of target distance and target width. Under fatigue or with sweaty hands, fine motor control degrades significantly.
+  * *Application:* All high-frequency gym-floor actions—such as tapping *"Add Set"*, completing a set, or logging reps—utilize massive touch targets ($64\times64\text{ dp}$ on mobile) positioned within the natural sweeping thumb arc in the lower third of the screen.
+* **Hick’s Law (Minimizing Cognitive Load):** Decision time increases logarithmically with the number and complexity of choices.
+  * *Application:* Never present a dense spreadsheet of the entire 12-week macrocycle. Instead, display one active exercise block at a time with prominent `+` and `-` weight modifiers (`-5kg`, `-2.5kg`, `+2.5kg`, `+5kg`).
+* **Doherty Threshold (Sub-400ms Feedback Loop):** Productivity and user satisfaction spike when interaction feedback occurs in under 400 milliseconds.
+  * *Application:* Logging a set triggers instantaneous visual state changes (transitioning to an accent green checkmark) and micro-haptic confirmation within sub-100ms. Database synchronization occurs asynchronously in the background.
+* **Postel’s Law (Robustness Principle):** *"Be conservative in what you do, be liberal in what you accept from others."*
+  * *Application:* Athletes under heavy loads make logging typos (e.g. typing `"100kg"` or `"8 rpe"` into numeric fields). The input parser auto-sanitizes raw text strings into clean numbers behind the scenes without blocking modal errors.
+* **Tesler’s Law (Conservation of Complexity):** Every application has an inherent amount of irreducible complexity.
+  * *Application:* Shift administrative complexity away from the athlete on the platform. The app pre-populates target loads and reps based on the previous week's logs, reducing platform interactions to a single-tap confirmation unless overridden.
 
+---
 
--- 4. EXERCISE LOGS (Captures highly granular set-by-set data, RPE, and VBT data)
-CREATE TABLE exercise_logs (
-    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    session_id UUID REFERENCES workout_sessions(id) ON DELETE CASCADE,
-    exercise_id UUID REFERENCES exercises(id) ON DELETE RESTRICT,
-    set_number INT NOT NULL,
-    prescribed_reps INT NOT NULL,
-    prescribed_weight NUMERIC(6,2),
-    prescribed_rpe NUMERIC(3,1),
-    logged_reps INT,
-    logged_weight NUMERIC(6,2),
-    logged_rpe NUMERIC(3,1), -- Rating of Perceived Exertion (1 to 10)
-    velocity_m_s NUMERIC(4,2), -- Accelerometer/VBT data capture
-    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
-);
+## 2. Decoupled Production Architecture: Expo, Cloudflare & Clerk
 
+To build the client interface and Phase 2 AI microservices without disrupting Javier’s foundational authentication, roles, and user management, the architecture is decoupled into lightweight, serverless edge services:
 
--- 5. PERSONAL BESTS (Aggregated automatically from historical logs to track progress)
-CREATE TABLE personal_bests (
-    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    athlete_id UUID REFERENCES athlete_profiles(id) ON DELETE CASCADE,
-    exercise_id UUID REFERENCES exercises(id) ON DELETE RESTRICT,
-    weight NUMERIC(6,2) NOT NULL,
-    reps INT NOT NULL,
-    calculated_1rm NUMERIC(6,2) NOT NULL, -- Calculated using standard formulas
-    logged_at TIMESTAMP WITH TIME ZONE NOT NULL,
-    log_id UUID REFERENCES exercise_logs(id) ON DELETE CASCADE
-);
-Architectural Justification of Schema Design
-* Information Expert Integration: Calculating an athlete's estimated 1-Rep Max (1RM) for a PB entry requires the formula variables weight and reps 21. Assigning this calculation to a trigger or database function on the exercise_logs entity follows Information Expert because that table directly captures the lifting metrics 20.
-* Modularity & Loose Coupling: We keep the exercises registry strictly decoupled from the athlete_profiles 22. This allows Joel and Holly to modify the master exercise video library without altering any athlete-specific profiles or historical workout logs 22.
-February MVP Scoping & Roadmap (Pareto 80/20 Rule)
-According to the Pareto Principle (80/20 Rule), 80% of an application's utility and business value comes from 20% of its features 2. For Small Goods Gym, the high-signal, core 20% consists of:
-1. Eliminating the WhatsApp chaos by building a direct RSVP/Schedule Hub 23.
-2. Removing administrative friction by serving workout programs with inline video guides and a direct PB logger, replacing scattered Google Sheets 23.
-By applying the YAGNI (You Aren't Gonna Need It) principle, we postpone the physical implementation of the AI progression engines, biomechanical leverages, and VBT processing 3, 24. However, we scaffold the database architecture (as designed above) from day one, ensuring the system can evolve naturally without expensive migrations in Phase 2 25, 26.
-We will run Agile Sprint Cycles to prioritize satisfying the customer through early, continuous delivery of working software 23, 27:
-                             [ ROADMAP TIMELINE ]
+```mermaid
+flowchart TD
+    subgraph Client["Mobile & Floor Client (Expo / React Native)"]
+        A["Expo App (iOS / Android / Web)"]
+        A1["Offline-First State Cache (AsyncStorage)"]
+        A2["Bluetooth LE Sensor Manager (Enode VBT)"]
+        A --> A1
+        A --> A2
+    end
 
+    subgraph Auth["Authentication & Session Boundary"]
+        B["Clerk Authentication"]
+        B1["JWT Session Tokens & Claims"]
+        B --> B1
+    end
 
-OCTOBER                 NOVEMBER               DECEMBER               JANUARY                 FEBRUARY
-  │                        │                      │                      │                       │
-  ├─ SPRINT 1 ─────────────┼─ SPRINT 2 ───────────┼─ SPRINT 3 ───────────┼─ SPRINT 4 ────────────┤
-  │ API Gateway &          │ Schedule Hub &       │ Program Engine,      │ Testing, Offline      │ Release Gate,
-  │ Schema Setup           │ Mobile RSVP UI       │ Video & Logs UI      │ Refactoring, PWA Cache│ Final MVP Launch
-  │                        │                      │                      │                       │
-  ▼                        ▼                      ▼                      ▼                       ▼
-[DIP Contracts]        [PWA Boilerplate]     [Google Sheets Mig.]    [Fail-Fast Handling]     [Production Ready]
-Sprint 1 (October): Architecture Scaffolding & API Gateway
-* Objective: Define DIP contracts and set up the FastAPI and database framework next to Javier's auth shell 9, 10.
-* Tasks:
-* Deploy the PostgreSQL database schema outlined above.
-* Establish JWT validation inside our FastAPI microservice to consume Javier's authentication context without tightly coupling systems 22, 28.
-* Set up automated database migrations (Alembic) to support evolutionary change 29, 30.
-Sprint 2 (November): Goal 1 Launch (Community & Events Hub)
-* Objective: Build and launch the high-signal schedule hub to completely replace the WhatsApp groups 23.
-* Tasks:
-* Implement basic calendar views on Next.js.
-* Construct the /events and /rsvp routes on the FastAPI service.
-* Enable push notifications and a "1-tap RSVP" mechanism.
-* Agile Review Gate: Test with a subset of 10 "club coaching" athletes to gather immediate, real-world feedback 23, 31.
-Sprint 3 (December): Goal 2 Launch (Program Delivery & Master Videos)
-* Objective: Move Joel and Holly's programs out of Google Sheets into the application database 23.
-* Tasks:
-* Build the admin panel for Joel and Holly to easily input training blocks, targets, and map exercises to Vimeo/YouTube links.
-* Construct the /athlete/program view to display their active day's workout.
-* Add inline video modal players inside the workout cards so athletes never have to leave the app to check movement setups.
-Sprint 4 (January): Workout Logging, PB Trackers & Offline Safeguards
-* Objective: Create the interactive logging components and build system resilience 32, 33.
-* Tasks:
-* Deploy the interactive gym-floor set logger using massive touch targets and Doherty-compliant sub-400ms visual confirmations.
-* Set up local storage synchronization (IndexedDB cache) so athletes do not lose workout logs if the gym's Wi-Fi drops.
-* Implement Fail-Fast error handling on VBT parsing and database writes to verify inputs early and cleanly notify users of logging discrepancies 3, 34.
-* Build a calculated PB dashboard that automatically triggers whenever a new top lift is recorded in exercise_logs.
-Sprint 5 (February): Hardening, Refactoring & Production MVP Launch
-* Objective: Final QA, optimization, and official release 32.
-* Tasks:
-* Conduct comprehensive gym-floor "wet hands" and "fatigue" UI trials with Joel, Holly, and the coaching team 31.
-* Refactor codebases to reduce technical cruft, improving future maintainability and agility before Phase 2 begins 5, 6.
-* Launch the MVP for all 75 active members of Small Goods Gym 23.
-By utilizing this structured, decoupled approach, you respect Javier's existing backend boundaries, establish a high-performance and resilient gym-floor mobile client, and lay the absolute database framework needed to easily introduce your AI Coach Co-Pilot in Phase 2 5, 35.
-🏋️ Would you like me to generate a complete visual interactive prototype of the gym-floor workout logger using Tailwind and React, or should we refine the database schema for the VBT accelerometer metadata first?
+    subgraph Edge["Cloudflare Serverless Edge"]
+        C["Cloudflare Workers (Edge Router & API)"]
+        C1["POST /api/chat (Goat AI Proxy)"]
+        C2["POST /api/sets (Workout Logger)"]
+        C3["POST /api/rsvps (12-Platform Cap)"]
+        C --> C1
+        C --> C2
+        C --> C3
+    end
+
+    subgraph Storage["Cloudflare Persistence & Media"]
+        D[("Cloudflare D1 (SQLite Database)")]
+        D1["Users Table (Clerk Sync)"]
+        D2["Biometrics Table (PII Isolated)"]
+        D3["Programs & Sets (VBT Logs)"]
+        D4["Events & 12-Platform RSVPs"]
+        D --> D1
+        D --> D2
+        D --> D3
+        D --> D4
+        E["Cloudflare R2 Storage (Exercise Videos)"]
+    end
+
+    subgraph ExternalAI["External Sports Science Engine"]
+        F["Google Gemini 2.5 / Flash API"]
+        G["Soviet Sports Science RAG (BM25 Index)"]
+    end
+
+    A -- "1. Auth & Session" --> B
+    A -- "2. Bearer JWT + GraphQL/REST" --> C
+    C -- "3. Verify Token" --> B1
+    C -- "4. Fast Relational SQL" --> D
+    C -- "5. Serve Video Assets" --> E
+    C1 -- "6. Secure Edge Proxy" --> F
+    C1 -- "7. Ingest Coaching Methodology" --> G
+```
+
+### Architectural Principles:
+1. **React Native (Expo) Client:** Chosen to unlock native iOS Bluetooth LE APIs required for wireless barbell velocity sensors (Enode / GymAware). Compiles natively for iOS/Android and deploys as a web app.
+2. **Protected Variations (GRASP):** The client interacts with Javier's backend exclusively via stable Worker routes. Changes to authentication schemas or endpoints require zero changes to gym-floor UI views.
+3. **Cloudflare Workers & D1 (Zero Idle Cost):** Ephemeral serverless compute eliminates expensive dedicated servers. Cloudflare D1 provides sub-millisecond SQLite queries with 3× 10GB databases included free.
+
+---
+
+## 3. Relational Data Model (Cloudflare D1 SQLite)
+
+To safeguard athlete privacy under GDPR and California PII standards, personal information is strictly separated from physical biometrics.
+
+```mermaid
+erDiagram
+    USERS ||--o| BIOMETRICS : "has isolated 1:1"
+    USERS ||--o{ USER_PROGRAMS : "assigned"
+    USER_PROGRAMS ||--o{ PROGRAM_SETS : "contains"
+    EXERCISES ||--o{ PROGRAM_SETS : "defines movement"
+    EVENTS ||--o{ EVENT_RSVPS : "receives"
+    USERS ||--o{ EVENT_RSVPS : "registers"
+
+    USERS {
+        text id PK
+        text clerk_user_id UK
+        text email
+        text display_name
+        text role
+        text membership_status
+        datetime created_at
+    }
+
+    BIOMETRICS {
+        text id PK
+        text user_id FK
+        integer is_anonymized
+        real height_cm
+        real femur_length_cm
+        real torso_length_cm
+        real upper_arm_length_cm
+        real forearm_length_cm
+        real arm_span_cm
+        real femur_to_torso_ratio
+        real forearm_to_arm_ratio
+        real ape_index
+        text leverage_tags
+    }
+
+    EXERCISES {
+        text id PK
+        text name
+        text movement_pattern
+        text video_url
+        text coaching_cues
+    }
+
+    PROGRAM_SETS {
+        text id PK
+        text program_id FK
+        text exercise_id FK
+        integer set_number
+        real prescribed_weight_kg
+        integer prescribed_reps
+        real logged_weight_kg
+        integer logged_reps
+        real logged_vbt_velocity
+        integer is_completed
+    }
+
+    EVENTS {
+        text id PK
+        text title
+        datetime event_datetime
+        integer capacity_cap
+    }
+
+    EVENT_RSVPS {
+        text id PK
+        text event_id FK
+        text user_id FK
+        integer platform_number
+        text status
+    }
+```
+
+---
+
+## 4. February MVP Scoping & Roadmap (Pareto 80/20 Rule)
+
+Following the Pareto Principle (80/20 Rule), 80% of gym-floor value derives from 20% of core operational features:
+1. **Eliminating WhatsApp Noise:** A dedicated schedule and 12-platform RSVP hub.
+2. **Replacing Spreadsheets:** Delivering workouts with inline coaching cues and tactile set logging.
+
+```mermaid
+flowchart LR
+    S1["Sprint 1 (October)<br/><b>Architecture Scaffolding</b><br/>• Cloudflare D1 Schema<br/>• Clerk JWT Auth Handshake<br/>• Worker Routing"]
+    S2["Sprint 2 (November)<br/><b>12-Platform Hub</b><br/>• 12-Slot Capacity Cap<br/>• Priority Waitlist<br/>• Sunday Breakfast RSVPs"]
+    S3["Sprint 3 (December)<br/><b>Program Delivery</b><br/>• Block Programming View<br/>• Video Exercise Demos<br/>• Anthropometry HUD"]
+    S4["Sprint 4 (January)<br/><b>Tactile Logger & VBT</b><br/>• Fitts's Law 64dp Buttons<br/>• 90s Floor Rest Timer<br/>• CNS Fatigue Speed Warnings"]
+    S5["Sprint 5 (February)<br/><b>Hardening & MVP Launch</b><br/>• Gym Floor Wet-Hands QA<br/>• Offline Cache Sync<br/>• Production Rollout"]
+
+    S1 --> S2 --> S3 --> S4 --> S5
+```
+
+### Sprint Milestones:
+* **Sprint 1 (October):** Deploy D1 SQLite schema, configure Worker routes, and wire Clerk JWT validation.
+* **Sprint 2 (November):** Deliver the 12-platform capacity grid and priority waitlist queue in Expo.
+* **Sprint 3 (December):** Ingest coach training blocks and connect video demonstrations to exercise cards.
+* **Sprint 4 (January):** Implement the big-button floor logger with real-time Enode VBT speed inputs and 90-second rest timers.
+* **Sprint 5 (February):** Complete physical gym-floor trials with Joel and Holly, lock legacy Google Sheets to read-only, and launch the MVP for all 75 members.

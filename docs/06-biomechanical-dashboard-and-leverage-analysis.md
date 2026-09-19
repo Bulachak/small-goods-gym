@@ -1,23 +1,90 @@
-﻿I have generated and published the visual biomechanical dashboard component directly to your Studio panel as athlete-profile-view.tsx.
-This completes the entire end-to-end frontend and backend architecture cycle for your Phase 1 and Phase 2 roadmap at Small Goods Gym.
-What the athlete-profile-view.tsx Dashboard Delivers
-This interactive Next.js/React dashboard is built specifically for Joel and Holly to view, analyze, and manage active athlete biomechanical leverage tags and anthropometric profiles.
-1. Interactive Biomechanical Slider Controls
-* Provides sliding input controls to manually adjust or override an athlete's height, femur length, torso length, and arm span.
-* Recalculates leverages in real time using client-side mathematical calculations to ensure a responsive, Doherty-compliant (sub-400ms) experience on the gym floor.
-2. Automated Leverage Tags (GRASP Information Expert)
-* Translates raw limb ratios into dynamic tags (e.g., #Long Femurs, #Short Torso, #Long Arms (Ape Index > 1.03)) to instantly categorize squat, bench, and deadlift profiles.
-* Calculates and visualizes relative proportions using dynamic gauge indicators to show exactly where an athlete falls within physiological averages.
-3. AI Coach Co-Pilot Live Recommendations
-* Generates dynamic coaching directives based on biometric ratios. For example, if an athlete's femur-to-torso ratio exceeds 1.15, the co-pilot flags them as an Extreme Forward Lean / Hip-Dominant Squatter and outputs high-signal adjustments:
-* Squat: Wider stance, low-bar placement to reduce lumbar shear, and targeted ankle mobility protocols.
-* Deadlift: Leverages convencionales, high-hip setups, and progressive hamstring drive.
-4. Physiotherapist Review Gateway
-* Directly integrates a clinical review panel designed for Holly Hunt’s treatment portal, ensuring that biomechanical anomalies, injury red flags, and joint-shear indicators are flagged immediately for clinical check-ins.
-Your Completed Tech Stack & Directory
-You now have a complete visual and analytical suite for Small Goods Gym:
-* Athlete Logging Interface: workout-logger-prototype.tsx (Large targets, Postel's Law parser, VBT fatigue simulator).
-* Coach Management Dashboard: athlete-profile-view.tsx (Limb leverage analyzer, dynamic AI co-pilot recommendations).
-* Data Integration & Migration: simulate-sheets-migration.py, migration-audit-report.json, and coach-template-guide.md (Standardized templates and automated cleaning scripts to ingest Google Sheets).
-* Backend & DB Telemetry Infrastructure: vbt-integration-blueprint.py, seed-database.sql, Dockerfile, and docker-compose.yml (PostgreSQL schemas, speed zones, and Docker sandbox configurations).
-🏋️ Would you like to draft a deployment guide to assist Javier in merging these client dashboards into his existing authentication shell, or should we refine the automated notifications for the calendar RSVP system?
+# Biomechanical Leverage HUD & Multi-Segment Kinematic Model
+
+## 1. 4-Segment Anthropometric Diagnostic Engine
+
+Grounded in the biomechanical research of **Dr. Dan Cleather** (*Force: The Biomechanics of Training*) and **Vladimir Zatsiorsky** (*Ergonomic Biomechanics*), the Small Goods Gym kinematics engine models human lever systems across 4 primary skeletal segments:
+
+```mermaid
+flowchart TD
+    subgraph Input["Limb Segment Measurements (cm)"]
+        H["Total Height"]
+        F["Femur Length"]
+        T["Torso Length"]
+        UA["Upper Arm (Humerus)"]
+        FA["Forearm (Forelimb)"]
+        AS["Arm Span"]
+    end
+
+    subgraph Ratios["Kinematic Ratio Engine (`BiomechanicalLeverHUD.tsx`)"]
+        R1["Femur-to-Torso Ratio (F / T)"]
+        R2["Forearm Ratio (FA / [UA + FA])"]
+        R3["Ape Index (AS / H)"]
+    end
+
+    subgraph Directives["Small Goods Automated Coaching Directives"]
+        D1["Squat Kinematics<br/>• Stance width (1.3× shoulder width)<br/>• Sagittal moment arm reduction<br/>• Low-bar vs. High-bar placement"]
+        D2["Bench Press Kinematics<br/>• Chest touch point moment arm<br/>• 45° elbow tuck vs. 90° flare<br/>• Shoulder internal rotation torque"]
+        D3["Deadlift Kinematics<br/>• Starting hip height<br/>• Lumbar moment arm vs. glute drive<br/>• Conventional vs. Sumo efficiency"]
+        D4["Olympic Clean Kinematics<br/>• Front-rack elbow elevation<br/>• Lat engagement & turnover clearance"]
+    end
+
+    F & T --> R1 --> D1
+    UA & FA --> R2 --> D2 & D4
+    AS & H --> R3 --> D3
+```
+
+---
+
+## 2. Segment Analysis & Mathematical Mechanics
+
+### A. Femur-to-Torso Ratio (Squat Physics)
+$$\text{Ratio} = \frac{\text{Femur Length (cm)}}{\text{Torso Length (cm)}}$$
+
+* **Long Femur Lever ($\text{Ratio} > 1.0$):**
+  * *Mechanical Challenge:* Long femurs force the hips further backward in the sagittal plane, extending the horizontal moment arm between the barbell and the lumbar spine ($L_{\text{spine}} = F_{\text{femur}} \times \cos(\theta)$).
+  * *Coaching Cue:* Widen stance to $1.3\times$ shoulder width, flare toes outward $30^\circ$, and cue low-bar placement to recruit posterior chain musculature without excessive lumbar flexion.
+* **Balanced / Short Femur Lever ($\text{Ratio} \le 0.95$):**
+  * *Mechanical Advantage:* Allows an upright torso with minimal forward lean. Natural fit for Olympic high-bar and front squats.
+
+### B. Forearm & Upper Arm Ratios (Bench Press & Clean Turnover)
+$$\text{Forearm Ratio} = \frac{\text{Forearm Length (cm)}}{\text{Upper Arm} + \text{Forearm (cm)}}$$
+
+* **Long Forearms ($\text{Ratio} > 0.47$):**
+  * *Bench Press:* Extends the vertical range of motion and increases anterior shoulder capsule torque at the chest touch. Cued to tuck elbows to $45^\circ$ and maintain vertical forearms directly under the barbell.
+  * *Olympic Clean:* Demands elevated lat engagement and thoracic mobility to secure the bar on the anterior deltoids without wrist crowding.
+
+### C. Ape Index (Deadlift Mechanics)
+$$\text{Ape Index} = \frac{\text{Arm Span (cm)}}{\text{Total Height (cm)}}$$
+
+* **Positive Ape Index ($> 1.02$):**
+  * *Mechanical Advantage:* Bar reaches the floor at a higher torso angle. Reduces lumbar shear stress. Conventional deadlift is mechanically superior.
+* **Negative Ape Index ($< 0.98$):**
+  * *Mechanical Challenge:* Lifter must hinge deeper or bend knees significantly. Cued to adopt a semi-sumo stance to shorten the torso distance to the barbell.
+
+---
+
+## 3. React Native Mobile Implementation (`BiomechanicalLeverHUD.tsx`)
+
+The diagnostic engine is delivered in **React Native (Expo)**, enabling coaches on the floor to adjust sliders with instant feedback (<100ms):
+
+```tsx
+import { BiomechanicalLeverHUD } from './expo-handover/components/BiomechanicalLeverHUD';
+
+export default function AthleteScreen({ athlete }) {
+  return (
+    <BiomechanicalLeverHUD
+      initialMeasurements={{
+        heightCm: athlete.height,
+        femurCm: athlete.femur,
+        torsoCm: athlete.torso,
+        upperArmCm: athlete.upperArm,
+        forearmCm: athlete.forearm,
+        armSpanCm: athlete.armSpan,
+      }}
+      onSave={(measurements, analysis) => {
+        // Syncs to Cloudflare D1 biometrics table
+      }}
+    />
+  );
+}
+```

@@ -1,10 +1,8 @@
 # USA Parafencing & Small Goods Gym • ArenaPL Benchmark & Social Gamification Blueprint
 **Document ID:** SGG-PF-ANALYSIS-002  
-**Date:** September 16, 2026  
+**Date:** September 16, 2026 (Updated September 19, 2026 for React Native Architecture)  
 **Author:** Kamilla Gafurzianova, OLY & Antigravity (Google DeepMind Agentic Systems)  
 **Stakeholders:** Kamilla Gafurzianova (Head Coach, USA Parafencing; Systems Architect), Joel Mullen (Small Goods Gym), Javier (Lead Systems Developer)  
-**Live Google Doc:** https://docs.google.com/document/d/14ZbEJfbYG7nTJlIamFcYBEoxbJ3CPvX-aSG0SzRtGH4/edit  
-**Live Master Google Sheet (5 Tabs):** https://docs.google.com/spreadsheets/d/1tHwWUHzROzQ5VsLkuUPJt8eC7KEQwG7yIgZmtdNELQI/edit  
 
 ---
 
@@ -15,7 +13,42 @@ Traditional sports databases (OpenPowerlifting in strength, FIE/Ophardt in fenci
 
 ---
 
-## 2. The Gamification Layer: Road to LA28 Tier Ladder
+## 2. Gamification Architecture & Flow
+
+```mermaid
+flowchart TD
+    subgraph AthleteProfile["Athlete Profile & Passport (React Native)"]
+        HeroCard["Athlete Hero Card<br/>(Category A/B, Weapon, World Rank)"]
+        TierBadge["Road to LA28 Tier Ladder<br/>(Diamond, Platinum, Gold, Silver, Bronze)"]
+        BoutGrid["Bout Timeline Accordion<br/>(Pool V/D Pills + 15-Touch DE Bracket)"]
+        ClutchRadar["Clutch Forensics & Period 2 Delta<br/>(14-14 Priority Touch Win Rate)"]
+        SocialModal["Viral Story Generator Modal<br/>(Expo ViewShot / 9:16 Canvas)"]
+    end
+
+    subgraph EdgeServices["Cloudflare Edge & Microservices"]
+        WorkerRouter["Cloudflare Worker API Gateway<br/>(Clerk JWT Authentication)"]
+        OpenPLSync["FIE / Ophardt / OpenPL Scraper Worker<br/>(Automated Tournament Sync)"]
+    end
+
+    subgraph SQLiteD1["Cloudflare D1 Storage"]
+        D1_Fencers["fencer_profiles (PII Isolated)"]
+        D1_Bouts["bout_history (Pool & DE Scores)"]
+        D1_Trophies["trophy_cabinet (World Cups & Zonals)"]
+    end
+
+    HeroCard --> TierBadge
+    HeroCard --> BoutGrid
+    HeroCard --> ClutchRadar
+    HeroCard --> SocialModal
+
+    AthleteProfile -->|HTTPS / Bearer Clerk JWT| WorkerRouter
+    WorkerRouter --> SQLiteD1
+    OpenPLSync -->|Cron / Webhook Trigger| SQLiteD1
+```
+
+---
+
+## 3. The Gamification Layer: Road to LA28 Tier Ladder
 Arena Powerlifting successfully converted abstract IPF GL points (e.g. 76.93) into a recognizable tier badge (*"Silver 2"*). In USA Parafencing, world rankings and qualification points are often opaque to athletes and sponsors.
 
 We establish a formal, gamified **LA28 Competitive Ladder** within `AthleteProfileView.tsx`:
@@ -27,9 +60,9 @@ We establish a formal, gamified **LA28 Competitive Ladder** within `AthleteProfi
 
 ---
 
-## 3. Bout Forensics vs. Powerlifting Attempt Analytics
+## 4. Bout Forensics vs. Powerlifting Attempt Analytics
 - **The 14-14 Priority Touch (The 3rd Attempt Make Rate Analog):**
-  `Clutch Win Rate (%) = (Bouts Won at 14-14 / Total Bouts Reaching 14-14) * 100`
+  $$\text{Clutch Win Rate (\%)} = \left(\frac{\text{Bouts Won at 14-14}}{\text{Total Bouts Reaching 14-14}}\right) \times 100$$
 - **The 9-Attempt Accordion vs. Pool & DE Bout Matrix:**
   Expandable green (V) and red (D) pills showing 5-touch pool cards with touch indicator (`Ind`) and 15-touch DE progression.
 - **Period 2 Adjustment Delta:**
@@ -39,7 +72,7 @@ We establish a formal, gamified **LA28 Competitive Ladder** within `AthleteProfi
 
 ---
 
-## 4. The Viral Social Media Engine: 1-Click Story Card Generator
+## 5. The Viral Social Media Engine: 1-Click Story Card Generator
 Five tailor-made card templates for USA Parafencing:
 1. **World Cup Podium Alert (9:16 Story)**
 2. **Road to LA28 Quota Tracker (9:16 Story & 1:1 Feed)**
@@ -55,8 +88,9 @@ Strict brand standards:
 
 ---
 
-## 5. Technical Implementation Plan in `usa-parafencing-road-to-la28`
-- `<AthleteHeroPassport />` component in `src/components/AthleteProfileView.tsx`
-- `<TrophyCabinet />` component mapping `recentCompetitions` medals
-- `<BoutTimelineAccordion />` mapping pool and DE rounds
-- `<SocialStoryModal />` using client-side HTML5 Canvas for zero-latency mobile sharing.
+## 6. Technical Implementation Plan in React Native
+- `<AthleteHeroPassport />` component in React Native (Expo) using native `View`, `Text`, and `Pressable`.
+- `<TrophyCabinet />` component mapping `recentCompetitions` medals with dynamic glow effects.
+- `<BoutTimelineAccordion />` mapping pool and DE rounds with haptic feedback on touch.
+- `<SocialStoryModal />` using `react-native-view-shot` for zero-latency 3× Retina mobile sharing to Instagram Stories.
+- Direct edge data hydration from Cloudflare Workers and Cloudflare D1 (SQLite) backend.

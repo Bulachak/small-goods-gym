@@ -13,24 +13,30 @@ Small Goods Gym rejects generic fitness app heuristics. Its platform is architec
 
 To power both Joel Mullen's coaching eye, Holly Hunt's clinical rehabilitation/NDIS triage, and the automated algorithms in `athlete-profile-view.tsx` and `vbt-integration-blueprint.py`, this dossier establishes a comprehensive review of six pivotal reference works:
 
-```
-                                  KINETIC & PERIODIZATION MATRIX
-                                 
-      NEURAL & POWER GENERATION               BIOMECHANICS & LEVERAGES            PERIODIZATION & FATIGUE
-  ┌──────────────────────────────┐        ┌──────────────────────────────┐    ┌──────────────────────────────┐
-  │      YURI VERKHOSHANSKY      │        │       DR. DAN CLEATHER       │    │       VLADIMIR ISSURIN       │
-  │      & MEL C. SIFF           │───────►│ Force: Biomechanics of Trng  │───►│      Block Periodization     │
-  │ • Dynamic Correspondence     │        │ • Segment moment arms (Femur)│    │ • Acc -> Trans -> Real       │
-  │ • Shock Method (<150ms)      │        │ • Joint torque equilibrium   │    │ • Residual Training Effects  │
-  └──────────────────────────────┘        └──────────────────────────────┘    └──────────────────────────────┘
-                 │                                       │                                   │
-                 ▼                                       ▼                                   ▼
-  ┌──────────────────────────────┐        ┌──────────────────────────────┐    ┌──────────────────────────────┐
-  │     ANATOLIY BONDARCHUK      │        │        DR. BRYAN MANN        │    │       MLADEN JOVANOVIĆ       │
-  │  Transfer of Training (I-III)│        │ Velocity-Based Training (VBT)│    │   Agile Periodization Manual │
-  │ • CE, SDE, SPE, GPE taxonomy │───────►│ • 5 Velocity Zones           │───►│ • Planning under Uncertainty │
-  │ • Individual adapt. rhythms  │        │ • 20% & 30% fatigue cutoffs  │    │ • Embedded Co-Pilot logic    │
-  └──────────────────────────────┘        └──────────────────────────────┘    └──────────────────────────────┘
+```mermaid
+flowchart TD
+    subgraph Neural["Neural & Power Generation"]
+        A["<b>Yuri Verkhoshansky & Mel Siff</b><br/><i>Supertraining</i><br/>• Dynamic Correspondence<br/>• Shock Method (&lt;150ms amortization)"]
+        B["<b>Anatoliy Bondarchuk</b><br/><i>Transfer of Training</i><br/>• CE, SDE, SPE, GPE taxonomy<br/>• Individual adaptation rhythms"]
+        A --> B
+    end
+
+    subgraph Biomechanics["Biomechanics & Leverages"]
+        C["<b>Dr. Dan Cleather</b><br/><i>Force: Biomechanics of Training</i><br/>• Segment moment arms (Femur/Torso)<br/>• Joint torque equilibrium"]
+        D["<b>Dr. Bryan Mann</b><br/><i>Velocity-Based Training (VBT)</i><br/>• 5 Velocity Zones<br/>• 15% & 30% fatigue cutoffs"]
+        C --> D
+    end
+
+    subgraph Periodization["Periodization & Triage"]
+        E["<b>Vladimir Issurin</b><br/><i>Block Periodization</i><br/>• Accumulation → Transmutation → Realization<br/>• Residual Training Effects"]
+        F["<b>Mladen Jovanović</b><br/><i>Agile Periodization Manual</i><br/>• Planning under Uncertainty<br/>• Embedded Co-Pilot Triage"]
+        E --> F
+    end
+
+    A -.-> C
+    C -.-> E
+    B -.-> D
+    D -.-> F
 ```
 
 ---

@@ -20,27 +20,33 @@ This dossier establishes:
 
 ## 1. Soviet Sports Science Knowledge Base
 
-```
-                                  KINETIC CHAIN ANCHOR
-                               Power Starts in the Legs
-                                          │
-                  ┌───────────────────────┴───────────────────────┐
-                  ▼                                               ▼
-         YURI VERKHOSHANSKY                              VLADIMIR ZATSIORSKY
-  Special Strength Training (SST)               Science & Practice of Strength Training
-  ──────────────────────────────                ───────────────────────────────────────
-  • Principle of Dynamic Correspondence          • Three Cardinal Methods (ME, RE, DE)
-  • Shock Method / Plyometrics (Amortization)   • Rate of Force Development (RFD = dF/dt)
-  • Concentrated Loading & Block Periodization  • Motor Unit Synchronization & Intramuscular
-  • Delayed Transformation of Training Effect   • Biomechanical Moment Arms & Joint Torques
-                  │                                               │
-                  └───────────────────────┬───────────────────────┘
-                                          ▼
-                                   DR. DAN CLEATHER
-                           Force: The Biomechanics of Training
-                           ───────────────────────────────────
-                           • Segment Length & Anthropometric Leverage
-                           • Joint Moments & Force-Velocity Profiling
+```mermaid
+flowchart TD
+    Anchor["KINETIC CHAIN ANCHOR<br/>Power Starts in the Legs (Hips & Posterior Chain)"]
+    
+    subgraph Verkhoshansky["Yuri Verkhoshansky • Special Strength Training (SST)"]
+        V1["Principle of Dynamic Correspondence"]
+        V2["Shock Method / Plyometrics (Amortization < 0.15s)"]
+        V3["Concentrated Loading & Block Periodization"]
+        V4["Delayed Transformation of Training Effect (LDTE)"]
+    end
+
+    subgraph Zatsiorsky["Vladimir Zatsiorsky • Science & Practice of Strength Training"]
+        Z1["Three Cardinal Methods: ME (90-100%), RE (60-82%), DE (50-75%)"]
+        Z2["Rate of Force Development (RFD = dF/dt)"]
+        Z3["Explosive Strength Deficit (ESD)"]
+        Z4["Motor Unit Synchronization & Size Principle"]
+    end
+
+    subgraph Cleather["Dr. Dan Cleather • Force: The Biomechanics of Training"]
+        C1["Segment Lengths & 4-Segment Anthropometric Leverage"]
+        C2["Joint Moments & Force-Velocity Profiling"]
+    end
+
+    Anchor --> Verkhoshansky
+    Anchor --> Zatsiorsky
+    Verkhoshansky --> Cleather
+    Zatsiorsky --> Cleather
 ```
 
 ### A. Yuri Verkhoshansky (Юрий Витальевич Верхошанский)
@@ -116,19 +122,25 @@ This dossier establishes:
 ### A. WL Analysis (Weightlifting Analysis)
 *The Barbell Kinematics & Trajectory Engine*
 
-```
-     Camera (Perpendicular 90°)
-                │
-                ▼
-      ┌──────────────────┐
-      │  Standard Bumper │  Diameter: Exactly 450 mm (IWF Spec)
-      │      Plate       │  Scale Factor = 450 mm / Pixel_Diameter
-      └──────────────────┘
-                │
-                ├──► Bar Path Trajectory (Loop, Forward/Back Drift)
-                ├──► Peak & Mean Velocity (m/s)
-                ├──► Power Output (Watts) = Force (N) × Velocity (m/s)
-                └──► Catch / Turnover Height (m)
+```mermaid
+flowchart TD
+    Camera["Mobile Camera (Perpendicular 90° Lateral View)"]
+    Plate["Standard Bumper Plate<br/>(Invariant Diameter: 450 mm / IWF Spec)"]
+    Scale["Scale Factor Calculation:<br/>S = 450 mm / Pixel_Diameter"]
+    
+    subgraph KinematicOutputs["Extracted Metric Barbell Kinematics"]
+        Trajectory["Bar Path Trajectory (Loop, Forward/Back Drift Δx)"]
+        Velocity["Peak & Mean Velocity (m/s)"]
+        Power["Power Output (Watts) = Force (N) × Velocity (m/s)"]
+        Catch["Catch / Turnover Height (m) Relative to Standing Height"]
+    end
+
+    Camera --> Plate
+    Plate --> Scale
+    Scale --> Trajectory
+    Scale --> Velocity
+    Scale --> Power
+    Scale --> Catch
 ```
 
 #### How It Works
@@ -156,24 +168,25 @@ This dossier establishes:
 ### B. The Jump App: "My Jump 2" / "My Jump Lab"
 *Creator: Dr. Carlos Balsalobre-Fernández (Ph.D. Sports Science)*
 
-```
-       Record High-Speed Video (120 fps or 240 fps)
-                          │
-            ┌─────────────┴─────────────┐
-            ▼                           ▼
-     [ Takeoff Frame ]           [ Landing Frame ]
-   First frame toes leave       First frame foot touches
-     contact with floor             contact on floor
-            │                           │
-            └─────────────┬─────────────┘
-                          ▼
-            Flight Time (t_flight) in Seconds
-            t = (Frame_Landing - Frame_Takeoff) / FPS
-                          │
-                          ▼
-         Ballistic Parabolic Trajectory Formula:
-               h = (1/8) × g × (t_flight)²
-               h ≈ 1.22625 × (t_flight)²  (meters)
+```mermaid
+flowchart TD
+    Video["Record High-Speed Video<br/>(120 fps or 240 fps)"]
+    
+    subgraph FrameScrubbing["Two-Point Event Scrubbing"]
+        Takeoff["Takeoff Frame:<br/>First frame toes leave contact with floor"]
+        Landing["Landing Frame:<br/>First frame foot touches contact on floor"]
+    end
+
+    FlightTime["Flight Time Calculation:<br/>t_flight = (Landing_Frame - Takeoff_Frame) / FPS"]
+    ParabolicFormula["Ballistic Parabolic Trajectory Formula:<br/>h = (1/8) × g × (t_flight)² ≈ 1.22625 × (t_flight)² (meters)"]
+    DerivedMetrics["Clinical & S&C Metrics:<br/>• Reactive Strength Index (RSI) = Flight_Time / Contact_Time<br/>• Force-Velocity Profile (F0, V0, Sfv)"]
+
+    Video --> Takeoff
+    Video --> Landing
+    Takeoff --> FlightTime
+    Landing --> FlightTime
+    FlightTime --> ParabolicFormula
+    ParabolicFormula --> DerivedMetrics
 ```
 
 #### The Scientific Validation Behind the App
@@ -213,23 +226,35 @@ Instead of forcing lifters to manually scrub video frames or buy $400 hardware p
 ### Proposal 2: Deterministic In-Session Triage Algorithm ("The 90-Second Co-Pilot")
 Joel highlighted the problem of an athlete failing two consecutive snatches at prescribed weight. The AI Assistant Coach will execute a deterministic decision tree rather than LLM guesswork:
 
-```
-                  Athlete Fails 2 Consecutive Working Sets
-                                    │
-                                    ▼
-                     Evaluate Bar Velocity Drop (Δv)
-                                    │
-                 ┌──────────────────┴──────────────────┐
-                 ▼                                     ▼
-        Δv < 10% (Speed Normal)               Δv > 15% (Severe Velocity Decay)
-       Mechanical / Positional Fault                Systemic / CNS Fatigue
-                 │                                     │
-                 ▼                                     ▼
-     Check Anthropometric Profile          Prescribe Load / Volume Cut
-     • High Torso/Femur Ratio:             • Drop load by 5-7.5% immediately
-       Cue: "Hold chest tall over bar"     • If next set fails: Terminate lift
-     • Long Femurs:                          and transition to accessory work.
-       Cue: "Push knees out, drive floor"
+```mermaid
+flowchart TD
+    Fail["Athlete Fails 2 Consecutive Working Sets"]
+    Eval["Evaluate Bar Velocity Drop (Δv) via Enode BLE / Telemetry"]
+    
+    subgraph PositionalFault["Mechanical / Positional Fault (Δv < 10%)"]
+        CheckBio["Check 4-Segment Anthropometric Profile"]
+        HighTorso["High Torso / Femur Ratio:<br/>Cue: 'Hold chest tall over bar'"]
+        LongFemurs["Long Femurs / Short Torso:<br/>Cue: 'Push knees out, drive floor'"]
+        ArmLever["Long Forearm / Short Humerus:<br/>Adjust grip width & bar contact point"]
+    end
+
+    subgraph CNSFatigue["Systemic / CNS Fatigue (Δv > 15%)"]
+        LoadCut["Prescribe Immediate Load Cut:<br/>Drop load by 5% – 7.5% immediately"]
+        SetCheck{"Next Set Successful?"}
+        CompleteSet["Complete Prescribed Reps at Adjusted Velocity"]
+        TerminateLift["Terminate Primary Lift:<br/>Transition to Hypertrophy / Accessory Work"]
+    end
+
+    Fail --> Eval
+    Eval -->|Δv < 10% (Speed Normal)| CheckBio
+    CheckBio --> HighTorso
+    CheckBio --> LongFemurs
+    CheckBio --> ArmLever
+
+    Eval -->|Δv > 15% (Severe Velocity Decay)| LoadCut
+    LoadCut --> SetCheck
+    SetCheck -->|Yes| CompleteSet
+    SetCheck -->|No| TerminateLift
 ```
 
 ### Proposal 3: NDIS Clinical Outcome Bridge for Holly Hunt (Physiotherapy)
@@ -237,8 +262,11 @@ Connect the jump RSI and barbell VBT metrics directly to NDIA-approved functiona
 - **Fall Prevention & Reactive Balance:** Track Drop Jump contact times ($< 250\text{ ms}$) and RSI as clinical evidence of tendon compliance and neurological protective reflexes for NDIS participants.
 - **Asymmetry Detection:** Use bilateral video tracking to flag unweighted limb favor ($> 10\%$ lateral shift) during the concentric phase, routing a warning directly to Holly's triage queue.
 
-### Proposal 4: The Javier Integration Contract (Cloudflare Worker Spec)
-A lean, zero-overhead JSON schema that Javier can integrate into his existing Cloudflare Workers/D1 backend without refactoring his auth tables.
+### Proposal 4: The Javier Integration Contract (Cloudflare Worker & D1 Spec)
+A lean, zero-overhead JSON schema that Javier can integrate into his existing Cloudflare Workers/D1 backend without refactoring his auth tables:
+- Direct edge routing via `worker-chat-proxy.ts` with Clerk JWT authentication.
+- Telemetry logging into Cloudflare D1 (SQLite) with isolated PII (`users` vs. `workout_sets`).
+- Full client support for React Native (Expo) on gym iPads and lifter iPhones.
 
 ---
 

@@ -14,15 +14,17 @@ This directory contains production-ready, drop-in assets designed to integrate s
 ```text
 expo-handover/
 ├── components/
+│   ├── index.ts                    # Unified barrel export for all mobile components
 │   ├── GoatAICoPilot.tsx           # React Native Expo Chat Drawer & Quick-Triage HUD
 │   ├── BiomechanicalLeverHUD.tsx   # 4-segment anthropometry calculator (femur, torso, forearm, upper arm)
 │   ├── TactileFloorLogger.tsx      # Big-button floor workout logger with VBT speed inputs
-│   └── PlatformRSVPModal.tsx       # 12-platform capacity cap & waitlist queue modal
+│   ├── PlatformRSVPModal.tsx       # 12-platform capacity cap & waitlist queue modal
+│   └── LifterPassportCard.tsx      # ArenaPL-style Lifter Passport with 9-attempt accordion & tier badges
 ├── worker/
 │   ├── worker-chat-proxy.ts        # Cloudflare Worker reverse proxy to Google Gemini API
 │   └── wrangler.toml               # Cloudflare Worker configuration & D1 binding
 └── database/
-    └── schema-cloudflare-d1.sql    # 6-table relational SQLite schema for Cloudflare D1
+    └── schema-cloudflare-d1.sql    # 8-table relational SQLite schema for Cloudflare D1
 ```
 
 ---
@@ -71,6 +73,14 @@ All 4 components in `components/` are built using pure React Native and Expo pri
 - **What it does:** Enforces Small Goods' strict **12-platform capacity cap**.
 - Visual grid of Platforms 1 through 12, 1-tap booking/release, and automated priority waitlist queue when all 12 spots are filled.
 
+### E. `LifterPassportCard.tsx` (ArenaPL Lifter Passport)
+- **What it does:** Implements the esports-grade athlete hero card and competitive record tracker inspired by Arena Powerlifting:
+  - Visual 9-attempt accordion grid with green/red pills and attempt spread analytics (+kg).
+  - IPF GL Points to Tier Ladder mapping (Diamond, Platinum, Gold, Silver 1–3, Bronze).
+  - SBD Proportion Bar (Squat/Bench/Deadlift balance).
+  - Career trophy case (medals and titles).
+  - 1-tap viral Instagram Story Card export.
+
 ---
 
 ## ⚡ 2. Deploying the Cloudflare Worker AI Proxy
@@ -96,7 +106,7 @@ The script `worker/worker-chat-proxy.ts` allows the Expo app to talk to Google G
 
 ## 🗄️ 3. Cloudflare D1 Relational Schema
 
-The file `database/schema-cloudflare-d1.sql` contains the 6 core relational SQLite tables we aligned on during our call:
+The file `database/schema-cloudflare-d1.sql` contains the 8 core relational SQLite tables we aligned on:
 
 1. `users` — Synced with Clerk (`clerk_user_id`, `email`, `role`, `membership_status`).
 2. `biometrics` — **Strictly isolated from users for GDPR & California PII compliance.** Holds millimetric limb lengths, ratios, and categorical lever tags.
@@ -104,6 +114,8 @@ The file `database/schema-cloudflare-d1.sql` contains the 6 core relational SQLi
 4. `user_programs` — 12-week macrocycle and block tracking.
 5. `program_sets` — Prescribed vs. logged load, reps, and Enode VBT velocities.
 6. `events` & `event_rsvps` — 12-platform sessions and community RSVP management.
+7. `competition_records` — Historical and OpenPowerlifting meet records with 9-attempt breakdown.
+8. `trophy_case` — Medals, state/national championships, and podium finishes.
 
 ### Privacy & Anonymization Trigger:
 An automated SQLite trigger (`trg_anonymize_member_biometrics`) is included. When a member's `membership_status` transitions to `'hiatus'` or `'archived'`, all exact limb measurements in `biometrics` are wiped to `NULL`, while preserving non-identifiable categorical lever tags (`["long_femur"]`) for gym-wide biomechanical modeling.

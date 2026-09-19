@@ -17,6 +17,25 @@ At Small Goods Gym in Morley, Perth, head coach Joel Mullen communicates with li
 
 This guide provides the complete, production-grade deployment playbook for connecting **Small Goods Gym** to WhatsApp using the `concierge-bot-engine`.
 
+```mermaid
+sequenceDiagram
+    autonumber
+    actor Lifter as Lifter on WhatsApp
+    participant Meta as Meta WhatsApp Cloud API / Twilio
+    participant Worker as Cloudflare Worker / Webhook Gateway
+    participant D1 as Cloudflare D1 (Platform Slots)
+    participant Gemini as Goat AI Engine (Gemini Flash)
+
+    Lifter->>Meta: "Can I lift at 5:30 PM today?"
+    Meta->>Worker: POST /api/whatsapp-webhook (JSON payload)
+    Worker->>D1: Check open platforms for 5:30 PM
+    D1-->>Worker: 10 / 12 platforms booked (2 open)
+    Worker->>Gemini: Draft coaching confirmation in Joel's voice
+    Gemini-->>Worker: "G'day! 2 spots open. Reserved Platform 11 for you."
+    Worker->>Meta: POST /messages (WhatsApp reply)
+    Meta-->>Lifter: Instant WhatsApp message received
+```
+
 ---
 
 ## 2. Comparison of the Three Integration Architectures

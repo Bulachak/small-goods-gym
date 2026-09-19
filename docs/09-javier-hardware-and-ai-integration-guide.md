@@ -23,32 +23,38 @@ The purpose of this guide is to establish a **zero-friction, decoupled integrati
 
 ## 2. The 3-Tier System Topology
 
-```
-┌─────────────────────────────────────────────────────────────────────────────────┐
-│                           CLIENT INTERFACES (PWA)                               │
-│   • Gym-Floor Logger & Set Tracker (Next.js PWA / React Native)                 │
-│   • Anthropometric Leverage & Biomechanics Dashboard                            │
-│   • Goat AI Co-Pilot Chat Modal & Quick-Triage Chips                           │
-└───────────────────────┬─────────────────────────────────┬───────────────────────┘
-                        │                                 │
-           Auth & State │ (REST / GraphQL)                │ AI & Telemetry (/api/v1/*)
-                        ▼                                 ▼
-┌────────────────────────────────────────┐       ┌────────────────────────────────┐
-│                TIER 1                  │       │            TIER 2              │
-│       JAVIER'S BACKEND PLATFORM        │       │   AI & SPORTS SCIENCE ENGINE   │
-│         (Cloudflare Workers)           │       │    (`concierge-bot-engine`)    │
-├────────────────────────────────────────┤       ├────────────────────────────────┤
-│ • Authentication & JWT Token Issuance  │       │ • Sub-5ms FTS5 Knowledge Base  │
-│ • User Profiles, Roles & Subscriptions │       │   (1,309 Soviet Science Chunks)│
-│ • Workout History & Prescribed Programs│       │ • Goat AI RAG (Gemini Flash)   │
-│ • Community Breakfast Event RSVPs      │       │ • Barbell Plate CV Calibration │
-│ • Primary DB: Cloudflare D1/Postgres   │       │ • Grounded Soviet Literature   │
-└───────────────────┬────────────────────┘       └────────────────┬───────────────┘
-                    │                                             │
-                    └──────────────────────┬──────────────────────┘
-                                           ▼
-                                 SHARED SECRETS / JWKS
-                            (Asymmetric RS256 Token Verify)
+```mermaid
+flowchart TD
+    subgraph Client["Client Interfaces (Expo / React Native)"]
+        A["Gym-Floor Logger & Set Tracker (`TactileFloorLogger.tsx`)"]
+        B["Biomechanical Leverage HUD (`BiomechanicalLeverHUD.tsx`)"]
+        C["Goat AI Co-Pilot Modal (`GoatAICoPilot.tsx`)"]
+    end
+
+    subgraph Auth["Authentication Boundary (Clerk)"]
+        D["Clerk JWT Authentication"]
+    end
+
+    subgraph Javier["Javier's Platform (Cloudflare Serverless)"]
+        E["Cloudflare Worker API Gateway"]
+        F[("Cloudflare D1 (SQLite Database)")]
+        G["Cloudflare R2 (Video Demonstration Storage)"]
+        E <--> F
+        E <--> G
+    end
+
+    subgraph AI["Sports Science & AI Engine"]
+        H["Goat AI Proxy Worker (`worker-chat-proxy.ts`)"]
+        I["Google Gemini 2.5 / Flash API"]
+        J["Soviet Sports Science FTS5 Knowledge Base"]
+        H <--> I
+        H <--> J
+    end
+
+    Client -- "1. Clerk Session Token" --> Auth
+    Client -- "2. Bearer JWT / CRUD" --> E
+    Client -- "3. Authenticated POST /api/chat" --> H
+    H -- "4. Read Biometrics (Isolated)" --> F
 ```
 
 ### Responsibility Matrix

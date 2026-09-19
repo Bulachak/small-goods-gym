@@ -61,7 +61,7 @@ small-goods-gym/
 │   ├── 09-javier-hardware...       # Developer guide for Javier
 │   ├── 13-arena-powerlifting...    # Arena powerlifting benchmark blueprint
 ├── expo-handover/                  # Production React Native (Expo) & Cloudflare D1 package
-│   ├── components/                 # React Native UI (Goat AI, Levers, Logger, RSVP)
+│   ├── components/                 # React Native UI (Goat AI, Levers, Logger, RSVP, Lifter Passport)
 │   ├── worker/                     # Cloudflare Worker reverse proxy to Gemini
 │   ├── database/                   # Cloudflare D1 SQLite relational schema
 │   └── README.md                   # Step-by-step developer guide for Javier

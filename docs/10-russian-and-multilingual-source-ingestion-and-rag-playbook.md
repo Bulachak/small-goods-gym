@@ -25,47 +25,30 @@ This playbook documents the **end-to-end architecture, text processing pipeline,
 
 ## 2. The 5-Stage Ingestion & Retrieval Pipeline
 
-```
-┌─────────────────────────────────────────────────────────────────────────────────┐
-│                     STAGE 1: DOCUMENT ACQUISITION & AUDIT                       │
-│ • Verify digital text layer vs bitmap scans (pypdf character density audit)     │
-│ • Catalog metadata: Title, Author, Year, Original Russian + English Title       │
-└───────────────────────────────────────┬─────────────────────────────────────────┘
-                                        │
-                                        ▼
-┌─────────────────────────────────────────────────────────────────────────────────┐
-│                    STAGE 2: EXTRACTION & DE-HYPHENATION                         │
-│ • Regex de-hyphenation: r'(\w+)-\s*\n\s*(\w+)' -> r'\1\2'                     │
-│ • Whitespace normalization, typographic cleanups (dashes, quotes, zero-width)   │
-│ • Header/footer boilerplate stripping across page numbers                      │
-└───────────────────────────────────────┬─────────────────────────────────────────┘
-                                        │
-                                        ▼
-┌─────────────────────────────────────────────────────────────────────────────────┐
-│                   STAGE 3: HIERARCHICAL SEMANTIC CHUNKING                       │
-│ • Sliding window: 1,500 – 2,500 characters with sentence-boundary preservation  │
-│ • Breadcrumb injection: '# [Author] | [Title] | [Section] | Page [N]'           │
-│ • Cross-lingual bilingual tags: Russian terms + English conceptual translations │
-└───────────────────────────────────────┬─────────────────────────────────────────┘
-                                        │
-                                        ▼
-┌─────────────────────────────────────────────────────────────────────────────────┐
-│                      STAGE 4: DUAL-LAYER STORAGE & INDEXING                     │
-│ ┌─────────────────────────────────────────┐ ┌─────────────────────────────────┐ │
-│ │   Layer A: SQLite FTS5 (BM25 Engine)    │ │ Layer B: Dense Vector Embeddings│ │
-│ │ • Sub-3ms keyword/phrase retrieval      │ │ • text-embedding-004 / LanceDB  │ │
-│ │ • Zero external server dependencies     │ │ • Cross-lingual semantic bridge │ │
-│ │ • Built-in BM25 ranking & snippets      │ │ • High-dimensional similarity   │ │
-│ └─────────────────────────────────────────┘ └─────────────────────────────────┘ │
-└───────────────────────────────────────┬─────────────────────────────────────────┘
-                                        │
-                                        ▼
-┌─────────────────────────────────────────────────────────────────────────────────┐
-│              STAGE 5: CALIBRATED DISAMBIGUATION & GROUNDED SYNTHESIS            │
-│ • Stopword filtering across Russian & English (remove auxiliary tokens)         │
-│ • Calibrated score threshold (score >= 5) to isolate primary literature         │
-│ • Dynamic LLM prompt injection with verbatim Russian citation + Coach Translation│
-└─────────────────────────────────────────────────────────────────────────────────┘
+```mermaid
+flowchart TD
+    subgraph S1["Stage 1: Document Acquisition & Text Layer Audit"]
+        A["Verify Digital Text Layer vs. Bitmap Scan<br/>• pypdf Character Density Audit<br/>• Catalog Metadata (Title, Author, Year, Russian + English)"]
+    end
+
+    subgraph S2["Stage 2: Extraction & De-Hyphenation"]
+        B["Regex De-Hyphenation (`разрыв слов`)<br/>• Strips line-wrap hyphens (`динамичес-\nкое` → `динамическое`)<br/>• Whitespace & Unicode Normalization<br/>• Header/Footer Boilerplate Stripping"]
+    end
+
+    subgraph S3["Stage 3: Hierarchical Semantic Chunking"]
+        C["Atomic Semantic Chunks (1,500 – 2,500 chars)<br/>• Sentence-Boundary Preservation<br/>• Metadata Breadcrumbs (`[Author] | [Title] | [Page]`)<br/>• Bilingual Cross-Lingual Tags (RU + EN)"]
+    end
+
+    subgraph S4["Stage 4: Dual-Layer Storage & Indexing"]
+        D1["Layer A: SQLite FTS5 (BM25 Engine)<br/>• Sub-3ms Keyword / Phrase Retrieval<br/>• Zero Cloud Cost / In-Process SQLite<br/>• Exact Mathematical Formula Matching"]
+        D2["Layer B: Dense Vector Embeddings<br/>• text-embedding-004 / LanceDB<br/>• Cross-Lingual Semantic Bridge<br/>• Cosine Distance Matching"]
+    end
+
+    subgraph S5["Stage 5: Disambiguation & Grounded Synthesis"]
+        E["Calibrated Scoring & Citation Assembly<br/>• Stopword Filtering (RU + EN)<br/>• Verbatim Russian Quote + English Coaching Translation<br/>• Prompt Injection into Gemini 2.5 / Flash"]
+    end
+
+    A --> B --> C --> D1 & D2 --> E
 ```
 
 ---

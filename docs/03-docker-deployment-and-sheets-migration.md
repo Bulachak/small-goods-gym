@@ -1,39 +1,61 @@
-﻿I have generated and published two production infrastructure files to your Studio panel:
-1. docker-compose.yml: A configuration that orchestrates a local PostgreSQL 15 container with a persistent data volume and the FastAPI service. It automatically configures the database credentials, sets up a secure network bridge between services, and ensures the API waits for the database to be completely healthy before starting.
-2. Dockerfile: A lightweight Python 3.12 environment setup that installs the system dependencies required for PostgreSQL connectivity (libpq-dev, build-essential) and packages the FastAPI, SQLAlchemy, and Pydantic libraries.
-You can place these files next to your vbt-integration-blueprint.py (renaming it to main.py) to spin up your entire local testing sandbox instantly using a single command:
-docker compose up --build
-Strategy & Roadmap: Migrating Historical Data from Google Sheets
-Moving Small Goods Gym's historical records from scattered Google Sheets to our highly structured PostgreSQL database is a classic data integration challenge. Applying Postel’s Law (be liberal in what you accept) and the Single Responsibility Principle (SRP), we can execute this migration in three systematic phases to ensure zero data loss or corruption.
-Phase A: Spreadsheet Standardization (The Pre-Migration Cleanup)
-Before writing any code, Joel and Holly's active Google Sheets must be standardized to prevent the parser from failing on erratic data entries:
-* Exercise Naming Alignment: Inconsistent names (e.g., "Back Squat", "Squat", "HBBS - High Bar Back Squat") must be mapped to a clean, canonical name from your new exercises table registry.
-* Structuring the Block Templates: Create a dedicated "Template Sheet" in their Google Drive using a strict column layout:
-* Week | Day | Exercise Name | Prescribed Sets | Prescribed Reps | Target RPE | Video URL
-* Athlete Roster Sheet: Ensure all ~75 active members have a unique row with their email address (matching the user_id Javier's auth shell uses) along with their initial anthropometric measurements.
-                  [ COOPERATIVE SPREADSHEET ETL FLOW ]
+# Cloudflare D1 Deployment & Google Sheets Historical Data Migration
 
+## 1. Cloudflare D1 Deployment Architecture
 
-┌────────────────────────┐      CSV       ┌────────────────────────┐
-│  Standardized Sheets   ├───────────────>│  Python Migration ETL  │
-│  (Cleaned by Coaches)  │     Export     │ (Pandas & Alembic Seed)│
-└────────────────────────┘                └───────────┬────────────┘
-                                                      │
-                                                      │ Validates & Resolves
-                                                      ▼
-┌────────────────────────┐  JWT Validation ┌────────────────────────┐
-│ Javier's User Database ├───────────────>│  PostgreSQL Database   │
-│  (Auth Schema Sync)    │                │ (Target Schema Loaded) │
-└────────────────────────┘                └────────────────────────┘
-Phase B: The Scripted ETL (Extract, Transform, Load)
-We will build a localized Python script inside /workspace/scratch/ (utilized during Sprint 3) to process the CSV exports of those standardized sheets.
-* Extraction: The script reads the CSV exports using Python’s pandas library.
-* Transformation & Mapping:
-* The User Resolver (Information Expert): The script queries Javier's authentication table by email to fetch the assigned UUIDs, mapping them directly to our athlete_profiles rows.
-* The Exercise Matcher: It extracts unique names from the templates to seed the exercises table and handles missing videos by assigning a generic placeholder URL.
-* Target Parsing: It transforms range values (e.g., "3-5 reps" or "7-8 RPE") into discrete, upper-boundary database records (logged_reps = 5) or saves them in text fields to preserve the coaches' intent without throwing DB constraint errors.
-* Loading: Database writes are wrapped inside robust SQL transactions. If any row fails validation (e.g., a missing exercise), the entire block rolls back to prevent half-migrated "ghost data."
-Phase C: Validation & Go-Live
-1. Parallel Verification Period: For the first training block in February, Joel and Holly will run the app alongside their legacy Google Sheets for one week. This live verification tests our logging latency and database write integrity.
-2. Read-Only Lock: Once verified, the legacy Google Sheets are marked "Read-Only" with a link redirecting athletes and coaches to download the new Small Goods Gym PWA.
-📅 What is your preferred timeline for starting this Google Sheets cleanup with Joel and Holly, or would you like to design a Python migration script to simulate parsing a test CSV export?
+In alignment with Javier Pereira's verified production stack, Small Goods Gym utilizes **Cloudflare D1 (SQLite)** rather than self-hosted PostgreSQL containers. Cloudflare D1 provides zero-maintenance, serverless edge relational persistence with 3× 10GB databases included on the free tier.
+
+```mermaid
+flowchart TD
+    subgraph Local["Local Development & Seed Engine"]
+        A["Standardized Google Sheets (CSV Exports)"]
+        B["Python Migration ETL Script"]
+        A --> B
+    end
+
+    subgraph Cloudflare["Cloudflare Serverless Infrastructure"]
+        C["Wrangler CLI (`npx wrangler d1 execute`)"]
+        D[("Cloudflare D1 SQLite Database")]
+        E["Cloudflare Worker (Edge API Router)"]
+        B --> C
+        C --> D
+        E <--> D
+    end
+
+    subgraph Client["React Native (Expo Client)"]
+        F["Expo Mobile App (iOS / Android / Web)"]
+        F <--> E
+    end
+```
+
+---
+
+## 2. Google Sheets Migration Strategy (3 Systematic Phases)
+
+Migrating Small Goods Gym's historical member training logs from scattered Google Sheets to structured SQLite tables requires zero data loss and strict schema validation:
+
+```mermaid
+flowchart LR
+    P1["Phase A<br/><b>Spreadsheet Standardization</b><br/>• Standardize exercise names<br/>• Clean athlete emails<br/>• Structure block template"]
+    P2["Phase B<br/><b>Scripted Python ETL</b><br/>• Match Clerk User IDs<br/>• Sanitize weight/rep strings<br/>• Generate D1 SQL transactions"]
+    P3["Phase C<br/><b>Validation & Cutover</b><br/>• Parallel 1-week gym trial<br/>• Verify floor logging latency<br/>• Mark Sheets read-only"]
+
+    P1 --> P2 --> P3
+```
+
+### Phase A: Spreadsheet Standardization (Pre-Migration Cleanup)
+1. **Exercise Naming Normalization:** Inconsistent entries (e.g. *"HBBS"*, *"High Bar Squat"*, *"Back Squat"*) are mapped to canonical exercise entries in the `exercises` table.
+2. **Template Columns:** Standardized into a 7-column layout:
+   $$\text{Week} \mid \text{Day} \mid \text{Exercise Name} \mid \text{Prescribed Sets} \mid \text{Prescribed Reps} \mid \text{Target RPE} \mid \text{Video URL}$$
+3. **Athlete Roster:** All active members (~75 lifters) are mapped to their unique email addresses registered in Clerk.
+
+### Phase B: Scripted ETL (Extract, Transform, Load)
+- **Extraction:** Read exported CSV files via Python `pandas`.
+- **Transformation:**
+  - Resolve Clerk user IDs to internal UUIDs.
+  - Parse load and rep ranges (e.g., `"3-5 reps"` converted to upper bound `5`).
+  - Separate personal identification from physical biometrics.
+- **Loading:** Write data in atomic batches wrapped in `BEGIN TRANSACTION ... COMMIT`.
+
+### Phase C: Validation & Go-Live Cutover
+1. **Parallel Verification Period:** For the first training block, coaches run the Expo app alongside their legacy Google Sheets for one week to audit logging latency and data integrity.
+2. **Read-Only Lock:** Once verified, legacy Google Sheets are marked read-only with redirect notices pointing athletes to download the Small Goods Gym mobile app.

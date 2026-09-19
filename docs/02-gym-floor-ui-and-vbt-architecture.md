@@ -1,91 +1,146 @@
-﻿I have generated a high-fidelity visual and interactive frontend React component designed for gym-floor conditions. The code is structured using SOLID and GRASP patterns and is fully styled with Tailwind CSS. It is saved in your Studio panel as workout-logger-prototype.tsx for your review and deployment.
-Part 1: Interactive Gym-Floor Prototype (workout-logger-prototype.tsx)
-The generated prototype applies human-computer interaction (HCI) heuristics to solve the specific environmental challenges of Small Goods Gym—namely sweaty hands, CNS fatigue, and weak Wi-Fi/cellular connection:
-* Fitts's Law & Large Touch Targets:
-* The Design: Standard mobile keyboards and small input fields are frustrating when an athlete has sweaty hands and shaking muscles.
-* The Implementation: The active set input space contains massive, dedicated numeric blocks for logging reps, weight, and RPE, paired with a large, immediate log action button (✓) positioned within easy reach of the athlete's thumb.
-* Hick's Law (Progressive Disclosure):
-* The Design: Displaying a massive spreadsheet of the entire training block overloads the athlete.
-* The Implementation: Only the currently active set displays editable form elements and actions. Completed sets transition into a collapsed static view, keeping the workout screen clean and focused.
-* Doherty Threshold (Sub-400ms Visual and Haptic Loop):
-* The Design: Waiting on database round-trips to update the UI ruins the athlete's training tempo.
-* The Implementation: Tapping the log button triggers an optimistic UI state update. The set instantly transitions to a green-accented "Saved" state with zero lag. In the production app, the component is configured to trigger a short vibration (navigator.vibrate(40)) to provide silent confirmation, even in a noisy gym environment.
-* Postel's Law (Robust Input Handling):
-* The Design: Athletes make typos when exhausted (e.g., typing "100kg" or "7.5 rpe").
-* The Implementation: The input parser strips out non-numeric characters on the fly, auto-formatting messy raw text inputs into clean numbers behind the scenes before storing them.
-* Phase 2 Biomechanical & VBT Visual Mock:
-* The Design: Showcases how Holly and Joel's biomechanical setup tips are badged at the top of the interface based on the athlete's anthropometric tags.
-* The Implementation: It includes a live interactive VBT Simulator (toggle the Simulate Reps button) that updates bar speed in real time and throws critical visual fatigue alerts when velocity loss crosses physiological thresholds (e.g., >30% velocity loss).
-Part 2: Refined VBT Metadata & Biomechanical Schema
-To transition from the basic set logging of Phase 1 to the intelligent assistant engine of Phase 2, we must structure how we store raw telemetry from Bluetooth accelerometers (e.g., RepOne, GymAware).
-While workout logs are tracked at the Set level, velocity-based training is analyzed at the Repetition level. Below is the production-ready PostgreSQL database model designed to support the Phase 2 AI Assistant Engine:
--- 1. HARDWARE SENSORS REGISTRY
--- Avoids arbitrary strings; tracks individual device models and calibration parameters.
-CREATE TABLE vbt_devices (
-    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    name VARCHAR(50) NOT NULL, -- E.g., 'RepOne Tether', 'GymAware Flex'
-    hardware_type VARCHAR(30) NOT NULL, -- 'linear_position_transducer', 'accelerometer'
-    connection_protocol VARCHAR(20) DEFAULT 'bluetooth_le',
-    firmware_version VARCHAR(20),
-    calibration_offset_multiplier NUMERIC(5,4) DEFAULT 1.0000,
-    is_active BOOLEAN DEFAULT TRUE,
-    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+# Gym-Floor Tactile Interface & Velocity-Based Training (VBT) Architecture
+
+## 1. Tactile Floor Interface (React Native / Expo)
+
+Operating in gym-floor environments requires solving physical constraints: shaky hands under maximum load, sweat-covered screens, ambient noise, and central nervous system (CNS) fatigue. Standard mobile form designs fail under these conditions.
+
+The Small Goods Gym floor client is built using **React Native (Expo)**, strictly adhering to core human-computer interaction heuristics:
+
+* **Fitts's Law & 64dp Target Zones:**
+  * Standard mobile numeric inputs are error-prone during heavy sessions.
+  * The active set logger utilizes massive touch targets ($64\times64\text{ dp}$ minimum) positioned in the natural sweep of the athlete's thumb, with dedicated modifier buttons (`-5kg`, `-2.5kg`, `+2.5kg`, `+5kg`).
+* **Hick's Law (Progressive Disclosure):**
+  * Displaying full macrocycle spreadsheets induces cognitive overload.
+  * Only the currently active set displays interactive inputs. Completed sets collapse into clean, green-accented static summaries (`Set 1: 85kg × 2 @ 1.44 m/s ✓`).
+* **Doherty Threshold (<400ms Feedback Loop):**
+  * Tapping *"Complete Set"* executes an optimistic UI state change with zero network lag.
+  * On iOS and Android, haptic confirmation triggers via native vibration APIs (`Haptics.impactAsync()`), providing tactile confirmation over loud gym music.
+* **Postel's Law (Robust Input Sanitization):**
+  * Inputs strip out non-numeric characters automatically (`"85kg"` → `85.0`, `"8 rpe"` → `8.0`).
+
+---
+
+## 2. Real-Time Hardware Telemetry Flow (Bluetooth LE → Cloudflare D1)
+
+```mermaid
+sequenceDiagram
+    autonumber
+    actor Lifter as Lifter on Platform
+    participant Barbell as Barbell (Enode / Linear Transducer)
+    participant Expo as React Native App (Expo Core)
+    participant Worker as Cloudflare Worker (/api/sets)
+    participant D1 as Cloudflare D1 (SQLite)
+
+    Lifter->>Barbell: Executes concentric phase (Snatch @ 85kg)
+    Barbell->>Expo: Stream velocity packets via Bluetooth LE (240 Hz)
+    Expo->>Expo: Calculate Mean Concentric Velocity (1.18 m/s)
+    Expo->>Expo: Compare with Baseline (1.45 m/s) -> 18.6% drop
+    alt Velocity Drop > 15% (CNS Fatigue)
+        Expo->>Lifter: Trigger Yellow Warning Banner + Haptic Alert
+        Expo->>Lifter: ⚡ Triage: Drop load 5-7.5% or terminate lift
+    else Velocity Healthy (<15% drop)
+        Expo->>Lifter: Green Confirmation ✓ + Start 90s Rest Timer
+    end
+    Expo->>Worker: POST /api/sets (Logged Weight, Reps, Velocity, Flag)
+    Worker->>D1: INSERT INTO program_sets & vbt_rep_logs
+    D1-->>Worker: OK (Row persisted)
+    Worker-->>Expo: 200 OK
+```
+
+---
+
+## 3. Physiological Velocity Zones & Triage Thresholds
+
+Grounded in the sports-science literature of **Dr. Bryan Mann** and **Vladimir Issurin**:
+
+| Training Zone | Mean Concentric Velocity ($m/s$) | Physiological Focus | Neuromuscular Adaptation |
+| :--- | :--- | :--- | :--- |
+| **Absolute Strength / Max Effort** | $0.15 - 0.35\text{ m/s}$ | High intensity ($>85\%$ 1RM) | High-threshold motor unit synchronization |
+| **Accelerative Strength** | $0.45 - 0.75\text{ m/s}$ | Heavy barbell acceleration | Overcoming sticking points, force recruitment |
+| **Power / Explosive Strength** | $0.75 - 1.00\text{ m/s}$ | Peak wattage output | Optimal power development ($40-60\%$ 1RM) |
+| **Speed-Strength** | $1.00 - 1.30\text{ m/s}$ | Velocity over mass | Rate of Force Development (RFD) |
+| **Starting Strength** | $1.30 - 2.00\text{ m/s}$ | Ballistic / Plyometric | Maximal muscular contraction speed |
+
+### The 15% Velocity Loss Cutoff:
+When an athlete records a velocity drop $>15\%$ against their first working rep at the same load:
+1. **Under 15% Drop:** Normal metabolic fatigue. Continue prescribed sets.
+2. **15%–25% Drop:** CNS depletion. High-threshold motor units cease firing cleanly. Reduce load by $5\%–7.5\%$ for remaining sets.
+3. **>30% Drop:** Excessive mechanical breakdown and acute injury risk. Immediate termination of the primary movement.
+
+---
+
+## 4. Relational VBT Telemetry Schema (Cloudflare D1 SQLite)
+
+```mermaid
+erDiagram
+    PROGRAM_SETS ||--o{ VBT_REP_LOGS : "captures telemetry for"
+    VBT_DEVICES ||--o{ VBT_REP_LOGS : "recorded by"
+
+    PROGRAM_SETS {
+        text id PK
+        text program_id FK
+        text exercise_id FK
+        integer set_number
+        real logged_weight_kg
+        integer logged_reps
+        real logged_vbt_velocity
+        integer is_completed
+        integer cns_fatigue_flag
+        datetime logged_at
+    }
+
+    VBT_DEVICES {
+        text id PK
+        text name
+        text hardware_type
+        text connection_protocol
+        real calibration_multiplier
+        integer is_active
+    }
+
+    VBT_REP_LOGS {
+        text id PK
+        text set_log_id FK
+        text device_id FK
+        integer rep_number
+        real concentric_mean_velocity_m_s
+        real concentric_peak_velocity_m_s
+        real concentric_peak_power_watts
+        real bar_displacement_cm
+        integer concentric_duration_ms
+        real velocity_loss_pct
+        datetime created_at
+    }
+```
+
+```sql
+-- Hardware Sensor Registry
+CREATE TABLE IF NOT EXISTS vbt_devices (
+    id TEXT PRIMARY KEY,
+    name TEXT NOT NULL,                        -- e.g. 'Enode Sensor #3', 'GymAware Flex'
+    hardware_type TEXT NOT NULL,               -- 'accelerometer', 'linear_position_transducer'
+    connection_protocol TEXT DEFAULT 'ble',    -- 'ble' (Bluetooth Low Energy)
+    calibration_multiplier REAL DEFAULT 1.0000,
+    is_active INTEGER DEFAULT 1,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
-
--- 2. VBT VELOCITY AND POWER TARGET ZONES
--- Maps Joel and Holly's core training goals to physiological velocity zones for automated coaching flags.
-CREATE TABLE vbt_training_zones (
-    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    zone_name VARCHAR(50) UNIQUE NOT NULL, -- E.g., 'Absolute Strength', 'Dynamic Effort', 'Starting Strength'
-    min_velocity_m_s NUMERIC(3,2) NOT NULL, -- E.g., 0.15 m/s
-    max_velocity_m_s NUMERIC(3,2) NOT NULL, -- E.g., 0.35 m/s
-    description TEXT,
-    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+-- Granular Repetition-Level Telemetry
+CREATE TABLE IF NOT EXISTS vbt_rep_logs (
+    id TEXT PRIMARY KEY,
+    set_log_id TEXT NOT NULL,
+    device_id TEXT,
+    rep_number INTEGER NOT NULL,
+    concentric_mean_velocity_m_s REAL NOT NULL,
+    concentric_peak_velocity_m_s REAL,
+    concentric_peak_power_watts REAL,
+    bar_displacement_cm REAL,                  -- Checks range of motion / squat depth
+    concentric_duration_ms INTEGER,
+    velocity_loss_pct REAL,                    -- Loss relative to fastest rep in set
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (set_log_id) REFERENCES program_sets(id) ON DELETE CASCADE,
+    FOREIGN KEY (device_id) REFERENCES vbt_devices(id) ON DELETE SET NULL
 );
 
-
--- Populate default velocity-based coaching thresholds
-INSERT INTO vbt_training_zones (zone_name, min_velocity_m_s, max_velocity_m_s, description) VALUES
-('Absolute Strength / Max Effort', 0.15, 0.35, 'High intensity, neural adaptations, minimal speed priority.'),
-('Accelerative Strength', 0.45, 0.75, 'Overcoming heavier loads with maximal acceleration.'),
-('Power / Explosive Strength', 0.75, 1.00, 'Optimizing wattage output; moderate loads moved at high speeds.'),
-('Speed-Strength', 1.00, 1.30, 'Light loads, high acceleration, emphasizing rate of force development (RFD).'),
-('Starting Strength', 1.30, 2.00, 'Ultra-light loads emphasizing pure muscular contraction speed.');
-
-
--- 3. GRANULAR REP-LEVEL METRICS (Linked to Phase 1's exercise_logs)
--- Captures raw, real-time accelerometer telemetry for every single repetition.
-CREATE TABLE vbt_rep_logs (
-    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    set_log_id UUID REFERENCES exercise_logs(id) ON DELETE CASCADE, -- Link to parent set log
-    device_id UUID REFERENCES vbt_devices(id) ON DELETE SET NULL, -- Hardware tracker reference
-    rep_number INT NOT NULL, -- Rep sequence in the set (e.g., Rep 1, Rep 2)
-    
-    -- Telemetry Metrics
-    concentric_mean_velocity_m_s NUMERIC(4,2) NOT NULL, -- Key VBT indicator
-    concentric_peak_velocity_m_s NUMERIC(4,2),
-    concentric_mean_power_watts NUMERIC(6,1),
-    concentric_peak_power_watts NUMERIC(6,1),
-    eccentric_mean_velocity_m_s NUMERIC(4,2), -- Useful for control/tempo tracking
-    
-    -- Biomechanical Integrity Metrics
-    bar_displacement_cm NUMERIC(5,2), -- Verifies range of motion (ROM) consistency
-    concentric_duration_ms INT, -- Precise time spent under concentric tension
-    peak_acceleration_g NUMERIC(4,2), -- Force profiling data
-    
-    -- Live Calculated Insights
-    velocity_loss_percentage NUMERIC(5,2), -- Loss calculated against the fastest rep of the set
-    
-    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
-);
-
-
--- CREATE INDEXES FOR FAST ANALYTICS QUERYING
-CREATE INDEX idx_vbt_rep_logs_set ON vbt_rep_logs(set_log_id);
-CREATE INDEX idx_vbt_rep_logs_velocity ON vbt_rep_logs(concentric_mean_velocity_m_s);
-Why This Schema Fits the Phase 2 AI Coach Co-Pilot
-* Biomechanical Range-of-Motion (ROM) Audits: By storing bar_displacement_cm, the system detects if an athlete is "cutting depth" on squats or shortening their deadlift path when fatigued.
-* Real-time Fatigue & Injury Prevention (Velocity Loss): Tracking velocity_loss_percentage on every rep allows the co-pilot to identify neuromuscular fatigue. If an athlete hits a 30% velocity drop-off on rep 4 of a 5-rep set, the AI flag triggers, recommending Joel/Holly modify the next block to protect the athlete.
-* Information Expert Alignment: Calculating velocity_loss_percentage is handled inside database triggers or our FastAPI service using the max value of concentric_mean_velocity_m_s within the same set_log_id. This encapsulates business logic and keeps the client React frontend incredibly lightweight.
-🏋️ Would you like me to map out the FastAPI backend endpoints that will handle ingestion of this VBT metadata, or should we build a mock SQL script to run test queries and calculate estimated 1RMs and velocity decay?
+CREATE INDEX IF NOT EXISTS idx_vbt_rep_set ON vbt_rep_logs(set_log_id);
+```

@@ -1,14 +1,58 @@
-﻿I have generated and published two critical deliverables to your Studio panel to help execute your Phase 1 database deployment and Google Sheets migration strategy:
-1. seed-database.sql: A production-ready, PostgreSQL 15+ database schema script. It implements our decoupled relational schema and seeds default lookup tables—including standard VBT physiological speed zones, the initial exercise registry, and mock athlete biometric profiles—making it perfect for spinning up local testing sandboxes or seeding production instances.
-2. coach-template-guide.md: An actionable, copy-pasteable guide written specifically for Joel and Holly. It outlines the exact CSV headers, constraints, and standard format conventions needed to clean up their training spreadsheets and prepare them for a zero-loss automated import.
-Part 1: Relational Schema & Seeding Details (seed-database.sql)
-The seeding script translates our object-oriented architecture into a secure, production-grade relational database design.
-* Relational Integrity: Restricts exercise deletion if active athlete logs depend on them (ON DELETE RESTRICT), but cascades profile deletions gracefully (ON DELETE CASCADE) to protect user data privacy as required by the Software Engineering Code of Ethics.
-* VBT Hardware Calibration: Incorporates a modular registry for tracking external linear position transducers (e.g., RepOne) and laser optoelectronic sensors (e.g., GymAware Flex) next to custom calibration factors.
-* Biomechanical Metrics: Configures the athlete_profiles table with specialized decimal columns for femur, torso, and arm-span parameters. This sets up the exact database scaffolding needed to deploy Phase 2 anthropometric analysis without expensive database migrations down the line.
-Part 2: Coaching Standardization Guide (coach-template-guide.md)
-This markdown guide acts as the interface instructions for the human-in-the-loop data migration. It ensures that coaches can clean up their records in Google Sheets using tools they already understand, keeping administrative friction low while preserving maximum data quality.
-* Email-First Identity Resolution: Instructs coaches to utilize the registered email as the unique primary key, which allows the Python ETL script to automatically link historical spreadsheet records to Javier's user account table.
-* Structured Exercise Naming: Instructs the coaching team to eliminate custom shorthand abbreviations (e.g., mapping "HBBS", "HB squats", and "High bar squat" to "Back Squat"), which maintains strict data integrity across historical logs.
-* RPE Range Parsing: Establishes parsing rules for compound coaching entries (e.g., "7.5-8 RPE"), ensuring the migration pipeline extracts the upper-boundary value to run automated progression calculations cleanly.
-🏋️ Would you like me to build a custom Python ETL script that the coaches can run to automatically validate and convert their completed CSV templates directly into Postgres-ready INSERT commands, or should we prepare the Next.js visual profile interface for Joel and Holly to view these athlete biometric leverage tags?
+# Phase 1 Database Seeding & Coach Template Standardization
+
+## 1. Cloudflare D1 Database Seeding Architecture
+
+The Phase 1 seeding architecture translates our sports-technology models into **Cloudflare D1 (SQLite)**, providing immediate relational persistence for exercise video libraries, biometric profiles, and physiological VBT target zones.
+
+```mermaid
+flowchart TD
+    subgraph Input["Coaching Templates"]
+        A["Google Sheets Standardization (`coach-template-guide.md`)"]
+        B["Standardized CSV Export"]
+        A --> B
+    end
+
+    subgraph Seeding["Seeding Pipeline"]
+        C["D1 Schema Initialization (`schema-cloudflare-d1.sql`)"]
+        D["Master Movement Registry (`exercises`)"]
+        E["Physiological Velocity Zones (`vbt_training_zones`)"]
+        F["Isolated Biometric Baselines (`biometrics`)"]
+        
+        B --> C
+        C --> D
+        C --> E
+        C --> F
+    end
+
+    subgraph Client["Expo Mobile Client"]
+        G["React Native Floor Logger"]
+        H["Goat AI Co-Pilot Assistant"]
+        D --> G
+        E --> G
+        F --> H
+    end
+```
+
+---
+
+## 2. Relational Integrity & Privacy Protections
+
+* **Cascading Privacy (`ON DELETE CASCADE`):** When an athlete exercises their GDPR / California right to erasure, deleting their record from the `users` table automatically wipes their associated `biometrics` and `user_programs` rows.
+* **Master Movement Protection (`ON DELETE RESTRICT`):** Deleting an exercise from the master library is restricted if historical athlete logs reference it, preventing orphan log entries.
+* **Decoupled Biometrics:** Storing limb measurements (femurs, torso, forearms, upper arms) in an isolated table guarantees that staff managing memberships never inadvertently expose health or anthropometric profiles.
+
+---
+
+## 3. Coaching Template Standardization Protocol
+
+To ensure historical spreadsheets migrate into Cloudflare D1 without data loss, Joel and Holly utilize a standardized column protocol:
+
+| Column | Example Value | Validation Rule | Target Table |
+| :--- | :--- | :--- | :--- |
+| **Email** | `liam.oc@gmail.com` | Must match registered Clerk user account | `users.email` |
+| **Exercise** | `High-Bar Back Squat` | Must match master exercise library key | `exercises.name` |
+| **Prescribed Sets** | `4` | Positive integer ($\ge 1$) | `program_sets.prescribed_sets` |
+| **Prescribed Reps** | `3` | Positive integer ($\ge 1$) | `program_sets.prescribed_reps` |
+| **Target Load** | `140.0` | Numeric float in kilograms | `program_sets.prescribed_weight_kg` |
+| **Target RPE** | `8.0` | Range $1.0 - 10.0$ | `program_sets.prescribed_rpe` |
+| **Video URL** | `https://vimeo.com/...` | Secure HTTPS video demonstration link | `exercises.video_url` |

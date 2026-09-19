@@ -148,3 +148,45 @@ BEGIN
         updated_at = CURRENT_TIMESTAMP
     WHERE user_id = NEW.id;
 END;
+
+-- ==============================================================================
+-- 7. COMPETITION RECORDS & 9-ATTEMPT ACCORDION (Lifter Passport)
+-- ==============================================================================
+CREATE TABLE IF NOT EXISTS competition_records (
+    id TEXT PRIMARY KEY,
+    user_id TEXT NOT NULL,
+    meet_name TEXT NOT NULL,
+    meet_date DATE NOT NULL,
+    division TEXT NOT NULL,
+    weight_class_kg REAL NOT NULL,
+    federation TEXT NOT NULL,
+    ipf_gl_points REAL,
+    tier_rank TEXT CHECK(tier_rank IN ('Diamond', 'Platinum', 'Gold', 'Silver 1', 'Silver 2', 'Silver 3', 'Bronze')),
+    best_squat_kg REAL,
+    best_bench_kg REAL,
+    best_deadlift_kg REAL,
+    total_kg REAL,
+    attempts_json TEXT NOT NULL DEFAULT '{}', -- JSON object with squat, bench, deadlift 3-attempt arrays
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
+
+CREATE INDEX IF NOT EXISTS idx_competitions_user_id ON competition_records(user_id);
+
+-- ==============================================================================
+-- 8. TROPHY CASE
+-- ==============================================================================
+CREATE TABLE IF NOT EXISTS trophy_case (
+    id TEXT PRIMARY KEY,
+    user_id TEXT NOT NULL,
+    title TEXT NOT NULL,                     -- e.g. "WA State Champion", "APU Nationals Gold"
+    level TEXT NOT NULL CHECK(level IN ('gold', 'silver', 'bronze')),
+    awarded_date DATE,
+    competition_record_id TEXT,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (competition_record_id) REFERENCES competition_records(id) ON DELETE SET NULL
+);
+
+CREATE INDEX IF NOT EXISTS idx_trophies_user_id ON trophy_case(user_id);
+
