@@ -45,6 +45,8 @@ export interface GoatAICoPilotProps {
 // Preset Quick Triage Prompts
 const QUICK_PROMPTS = [
   { label: '⚡ 90s Missed Lift Triage', prompt: 'I missed two snatches at 85kg. What should I do on my next set?' },
+  { label: '🐐 The Small Goods Way', prompt: 'What are the 5 exercise categories and session ordering rules of The Small Goods Way?' },
+  { label: '🩺 Pain > 3/10 Triage', prompt: 'I have a 4/10 anterior shoulder pinch on bench press. How should I regress?' },
   { label: '📏 Long Femur Squats', prompt: 'My femurs are long compared to my torso (1.02 ratio). How should I adjust my squat stance?' },
   { label: '💪 Arm & Forearm Levers', prompt: 'How do my forearm and upper arm lengths affect my bench press touch point and shoulder rotation?' },
   { label: '💥 Soviet Shock Method', prompt: 'Explain the Verkhoshansky shock method depth jump parameters and amortization phase.' },
@@ -146,6 +148,30 @@ export const GoatAICoPilot: React.FC<GoatAICoPilotProps> = ({
   // Deterministic local triage rules (offline gym-floor safety engine)
   const generateDeterministicFallback = (prompt: string, profile: typeof athleteProfile): ChatMessage => {
     const p = prompt.toLowerCase();
+
+    if (p.includes('small goods way') || p.includes('category') || p.includes('categories') || p.includes('ordering')) {
+      return {
+        id: `bot-${Date.now()}`,
+        sender: 'assistant',
+        text: `🐐 THE SMALL GOODS WAY (JOEL'S COACHING FRAMEWORK):\n\n• 5 Exercise Categories:\n  1. Range Adders: Expand active ROM & tissue tolerance at length (RDLs, FFE Split Squats).\n  2. Co-ordinators: Motor pattern efficiency & comp lifts (Snatches, Paused Low Bar).\n  3. Accelerators: RFD & velocity under submaximal load (Banded Squats, Box Jumps).\n  4. Force Builders: Absolute force ceiling via high stability (Hatfield Squats, Bounce Bench).\n  5. Volume Builders: Hypertrophy & density (Myo-rep sets, Giant sets).\n\n• Strict Session Ordering: Range Adders → Co-ordinators → Accelerators → Force Builders → Volume Builders.\n(Rule: Never place high-density Volume Builders before explosive Accelerators or Co-ordinators).`,
+        timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+        citations: ['The Small Goods Way (Joel Mullen, 2026)', 'Small Goods Gym Floor Standards'],
+      };
+    }
+
+    if (p.includes('pain') || p.includes('pinch') || p.includes('hurt') || p.includes('regress')) {
+      return {
+        id: `bot-${Date.now()}`,
+        sender: 'assistant',
+        text: `🩺 JOEL'S PAIN THRESHOLD PROTOCOL (Pain > 3/10 Detected):\n\n1. Immediate Regression: Terminate heavy axial/joint-shearing load immediately.\n2. Prescribe Range Adder / High-Stability Variant: Transition to external stability (e.g. swap barbell bench for Swiss-bar or dumbbell floor press with neutral grip).\n3. Autoregulation Rule: Load safely only within active, pain-free ROM. Never force movement through acute joint compression.\n4. Physio Flag: Logged for Holly Hunt's clinical review queue.`,
+        timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+        citations: ['The Small Goods Way: Pain Threshold Rule', 'Holly Hunt Physio Care Gateway'],
+        triageAlert: {
+          type: 'biomechanics',
+          action: 'Regress to Range Adder / high-stability variant & notify Holly',
+        },
+      };
+    }
 
     if (p.includes('missed') || p.includes('snatch') || p.includes('velocity')) {
       return {
