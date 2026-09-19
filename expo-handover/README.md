@@ -95,7 +95,7 @@ The script `worker/worker-chat-proxy.ts` allows the Expo app to talk to Google G
    ```bash
    npx wrangler secret put GEMINI_API_KEY
    ```
-   *(Enter your Google Gemini / Google AI Studio API key when prompted).*
+   *(Enter Joel / Small Goods Gym's Google AI Studio API key when prompted. All token costs are billed directly to Small Goods Gym's account; Kamilla's hosting cost is strictly $0.00. Detailed architecture: [Doc 17](../docs/17-production-infrastructure-and-zero-cost-handover-architecture.md)).*
 3. Deploy to your Cloudflare account:
    ```bash
    npx wrangler deploy

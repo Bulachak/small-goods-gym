@@ -62,6 +62,7 @@ small-goods-gym/
 │   ├── 09-javier-hardware...       # Developer guide for Javier
 │   ├── 13-arena-powerlifting...    # Arena powerlifting benchmark blueprint
 │   ├── 16-the-small-goods-way...   # Joel Mullen coaching framework & AI architecture
+│   ├── 17-production-infrastr...   # Production architecture & zero-cost handover ledger
 ├── expo-handover/                  # Production React Native (Expo) & Cloudflare D1 package
 │   ├── components/                 # React Native UI (Goat AI, Levers, Logger, RSVP, Lifter Passport)
 │   ├── worker/                     # Cloudflare Worker reverse proxy to Gemini
