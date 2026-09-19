@@ -1,9 +1,37 @@
+# Dependencies & OS
 node_modules/
 .DS_Store
 Thumbs.db
 *.log
 scratch/
+
+# Internal Sports Science Books & Digitized Raw Text
 docs/books/
 docs/markdown_books/
+
+# Meeting Transcripts, Debriefs & Voice Briefs
 docs/Joel_Mila_Meeting_Transcript*
 docs/Joel_Mila_Meeting_Debrief*
+docs/*debrief*
+docs/*Debrief*
+docs/*transcript*
+docs/*Transcript*
+docs/*voice-brief*
+docs/*VOICE_BRIEF*
+docs/*follow-up*
+docs/*Follow-Up*
+docs/12-joel-mullen-executive-follow-up-and-demo-package.md
+docs/15-joel-javier-mila-technical-alignment-and-architecture-debrief-2026-09-18.md
+*Call_Prep*
+*Executive_Briefing*
+*executive-briefing*
+*executive-follow-up*
+*technical-alignment*
+*Follow-Up*
+
+# Client & Participant Confidential Documentation
+NDIS_Clinical_Evidence_Pack*
+*Participant_P*
+
+# Internal Migration & Audit Reports
+migration-audit-report*.json

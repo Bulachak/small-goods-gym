@@ -20,8 +20,6 @@ All prototypes are hosted live on GitHub Pages and can be launched directly in a
 | **Main Brand Showcase** | [**Launch Brand Showcase**](https://bulachak.github.io/small-goods-gym/index.html) | Webflow design token wall (Inch Worm `#9aef0f`, Purple Heart `#4724ba`, Sweet Corn `#f8ef8d`), typography trio (*Poppins*, *Roboto Mono*, *Reenie Beanie*), and responsive layouts. | [`index.html`](file:///c:/Users/kamil/PROJECTS/small-goods-gym/index.html) |
 | **Athlete Profile View** | [**Launch Athlete Profile**](https://bulachak.github.io/small-goods-gym/athlete-profile-preview.html) | Anthropometry card, leverage tags (long femurs / short torso), PB tracker, and biomechanical ratios. | [`athlete-profile-preview.html`](file:///c:/Users/kamil/PROJECTS/small-goods-gym/athlete-profile-preview.html) |
 | **Tactile Floor Logger** | [**Launch Floor Logger**](https://bulachak.github.io/small-goods-gym/workout-logger-preview.html) | Big-button tactile workout logging interface optimized for sweaty hands and high CNS fatigue. | [`workout-logger-preview.html`](file:///c:/Users/kamil/PROJECTS/small-goods-gym/workout-logger-preview.html) |
-| **NDIS Evidence Pack** | [**Launch NDIS Pack**](https://bulachak.github.io/small-goods-gym/NDIS_Clinical_Evidence_Pack_Participant_P.html) | Clinical mobility scorecards, range-of-motion metrics, and report generator for support coordinators. | [`NDIS_Clinical_Evidence_Pack_Participant_P.html`](file:///c:/Users/kamil/PROJECTS/small-goods-gym/NDIS_Clinical_Evidence_Pack_Participant_P.html) |
-| **Executive Briefing** | [**Launch Executive Briefing**](https://bulachak.github.io/small-goods-gym/Joel_Call_Prep_and_Executive_Briefing.html) | Executive call preparation, meeting debrief, and technical specifications. | [`Joel_Call_Prep_and_Executive_Briefing.html`](file:///c:/Users/kamil/PROJECTS/small-goods-gym/Joel_Call_Prep_and_Executive_Briefing.html) |
 
 ---
 
@@ -47,7 +45,7 @@ All prototypes are hosted live on GitHub Pages and can be launched directly in a
 ### 3. Non-Invasive Integration with Javier's Production Stack
 - Aligned directly with Javier's verified stack: **Expo (React Native)** on frontend, **Cloudflare Workers** (serverless edge), **Cloudflare D1 (SQLite)**, and **Clerk** authentication.
 - Connects via a lightweight reverse proxy worker without modifying existing user auth or database tables.
-- Full debrief and schema boundary specification available at [`docs/15-joel-javier-mila-technical-alignment-and-architecture-debrief-2026-09-18.md`](file:///c:/Users/kamil/PROJECTS/small-goods-gym/docs/15-joel-javier-mila-technical-alignment-and-architecture-debrief-2026-09-18.md).
+- Architecture integration blueprint available in [`docs/09-javier-hardware-and-ai-integration-guide.md`](file:///c:/Users/kamil/PROJECTS/small-goods-gym/docs/09-javier-hardware-and-ai-integration-guide.md).
 
 ### 4. WhatsApp Bot Gateway
 - Direct webhook endpoints for Meta WhatsApp Cloud API and Twilio Sandbox.
@@ -64,14 +62,13 @@ small-goods-gym/
 ├── index.html                      # Brand token wall & architecture showcase
 ├── athlete-profile-preview.html    # Athlete profile & anthropometry preview
 ├── workout-logger-preview.html     # Tactile workout logger floor preview
-├── NDIS_Clinical_Evidence_Pack...  # Clinical mobility evidence generator
-├── Joel_Call_Prep_and_Executive... # Executive briefing HTML
-├── docs/                           # 15 comprehensive technical & scientific specifications
+├── docs/                           # Technical architecture & sports science blueprints
 │   ├── 01-mobile-architecture...   # Mobile UX & Javier integration blueprint
+│   ├── 02-gym-floor-ui...          # Gym floor tactile interface & VBT engine
+│   ├── 06-biomechanical-dash...    # Anthropometric leverage diagnostic model
 │   ├── 09-javier-hardware...       # Developer guide for Javier
-│   ├── 12-joel-mullen-exec...      # Executive follow-up and demo package
-│   ├── 15-joel-javier-mila-tech... # 3-Way technical alignment debrief & architecture roadmap
-│   └── markdown_books/             # Digitized Soviet sports science library
+│   ├── 13-arena-powerlifting...    # Arena powerlifting benchmark blueprint
+│   └── 14-parafencing-and-small... # Gamification & passport mechanics
 ├── rsvp-system/                    # 12-Platform RSVP & waitlist logic
 └── tools/                          # RAG ingestion and benchmark tools
 ```
