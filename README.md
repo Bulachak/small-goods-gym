@@ -68,7 +68,11 @@ small-goods-gym/
 │   ├── 06-biomechanical-dash...    # Anthropometric leverage diagnostic model
 │   ├── 09-javier-hardware...       # Developer guide for Javier
 │   ├── 13-arena-powerlifting...    # Arena powerlifting benchmark blueprint
-│   └── 14-parafencing-and-small... # Gamification & passport mechanics
+├── expo-handover/                  # Production React Native (Expo) & Cloudflare D1 package
+│   ├── components/                 # React Native UI (Goat AI, Levers, Logger, RSVP)
+│   ├── worker/                     # Cloudflare Worker reverse proxy to Gemini
+│   ├── database/                   # Cloudflare D1 SQLite relational schema
+│   └── README.md                   # Step-by-step developer guide for Javier
 ├── rsvp-system/                    # 12-Platform RSVP & waitlist logic
 └── tools/                          # RAG ingestion and benchmark tools
 ```

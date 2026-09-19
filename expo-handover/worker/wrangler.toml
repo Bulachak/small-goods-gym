@@ -1,0 +1,16 @@
+name = "small-goods-ai-worker"
+main = "worker-chat-proxy.ts"
+compatibility_date = "2026-09-01"
+
+[vars]
+ENVIRONMENT = "production"
+
+# Cloudflare D1 Database Binding
+[[d1_databases]]
+binding = "DB"
+database_name = "small_goods_d1"
+database_id = "your-d1-database-id-here"
+
+# Secrets required (Deploy via CLI):
+# npx wrangler secret put GEMINI_API_KEY
+# npx wrangler secret put CLERK_PEM_PUBLIC_KEY
