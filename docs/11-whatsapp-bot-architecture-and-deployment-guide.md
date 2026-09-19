@@ -150,7 +150,7 @@ If Joel prefers lifters to message his **existing Australian mobile number** rat
 
 ### 1. Launch Concierge Bot Engine:
 ```bash
-cd C:\Users\kamil\PROJECTS\concierge-bot-engine
+cd concierge-bot-engine
 uvicorn web.app:app --host 0.0.0.0 --port 8000 --reload
 ```
 

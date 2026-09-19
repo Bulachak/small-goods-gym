@@ -1,13 +1,13 @@
-# Small Goods Gym: Google Sheets Standardization & Template Guide
+# Small Goods Gym: Spreadsheet Standardization & Coaching Template Guide
 
-To migrate historical workout data from Google Sheets into the new **Small Goods Gym PWA App**, the coaches (Joel & Holly) must organize current active sheets to fit a standardized template structure. 
+To migrate historical workout data into the new **Small Goods Gym Mobile App (React Native / Expo)**, coaches (Joel & Holly) can organize active spreadsheets to fit this standardized template structure. 
 
-This guide outlines the exact column headers, formatting rules, and copy-pasteable layout needed to execute the migration seamlessly.
+This guide outlines the exact column headers, formatting rules, and copy-pasteable layout needed to execute data ingestion into Cloudflare D1 cleanly.
 
 ---
 
 ## 1. Athlete Roster Template (`athlete_roster.csv`)
-This sheet establishes baseline accounts and links them to Javier's user accounts. It also captures the baseline anthropometric ratios necessary for Phase 2's leverage-based setup coaching.
+This sheet establishes baseline accounts and captures the full 4-segment anthropometric measurements (femur, torso, humerus, forelimb) necessary for biomechanical leverage diagnostics.
 
 ### Columns Guide:
 | Column Header | Data Type / Format | Example Value | Description / Constraint |
@@ -18,11 +18,13 @@ This sheet establishes baseline accounts and links them to Javier's user account
 | `height_cm` | Decimal (cm) | `180.5` | Standing barefoot height. |
 | `femur_length_cm` | Decimal (cm) | `48.0` | Greater trochanter to lateral condyle measurement. |
 | `torso_length_cm` | Decimal (cm) | `61.0` | Lateral condyle to C7 vertebra vertical measurement. |
+| `upper_arm_length_cm` | Decimal (cm) | `33.5` | Acromion to lateral epicondyle (Humerus). |
+| `forearm_length_cm` | Decimal (cm) | `28.0` | Lateral epicondyle to styloid process (Forelimb). |
 | `arm_span_cm` | Decimal (cm) | `185.0` | Fingertip-to-fingertip arm span width. |
 
 ### Empty Row Template (Copy & Paste):
 ```csv
-email,first_name,last_name,height_cm,femur_length_cm,torso_length_cm,arm_span_cm
+email,first_name,last_name,height_cm,femur_length_cm,torso_length_cm,upper_arm_length_cm,forearm_length_cm,arm_span_cm
 ```
 
 ---

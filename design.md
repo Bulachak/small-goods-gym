@@ -3,7 +3,7 @@
 **Version:** `1.0.0`  
 **Status:** `Canonical Brand & Design Specification`  
 **Extracted From:** Live Webflow Production Stylesheets (`small-goods-gym.webflow.shared.css`) & Official Brand Assets  
-**Target Applications:** Next.js PWA Client, Gym-Floor Logger, Coach Leverages Suite, Event RSVP System  
+**Target Applications:** React Native (Expo) Mobile App, Gym-Floor Logger, Coach Leverages Suite, Event RSVP System  
 
 ---
 
@@ -20,7 +20,7 @@ Small Goods Gym rejects generic, sterile, corporate fitness app aesthetics (e.g.
 
 ## 2. Official Logo & Sticker Asset
 
-* **Canonical File:** [`images/small-goods-logo_sticker@2x-p-500.png`](file:///C:/Users/kamil/PROJECTS/small-goods-gym/images/small-goods-logo_sticker@2x-p-500.png)
+* **Canonical File:** [`images/small-goods-logo_sticker@2x-p-500.png`](./images/small-goods-logo_sticker@2x-p-500.png)
 * **Form Factor:** Dynamic inverted triangle / shield with stylized upper crown teeth.
 * **Sticker Effect:** 3px solid black border with a 45° black drop-shadow contour.
 * **Signature Brand Gradient:**

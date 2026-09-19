@@ -7,7 +7,7 @@
 ---
 
 ## 1. Strategic Cross-Pollination Thesis
-The athlete profile architecture from **Arena Powerlifting** ([arenapowerlifting.com](https://arenapowerlifting.com/u/amie-culverson-3096a8e764f1)) forwarded by Joel Mullen solves the exact visual, psychological, and storytelling challenges faced in the **USA Parafencing Road to LA28** application (`C:\Users\kamil\PROJECTS\parafencing-project`).
+The athlete profile architecture from **Arena Powerlifting** ([arenapowerlifting.com](https://arenapowerlifting.com/u/amie-culverson-3096a8e764f1)) forwarded by Joel Mullen solves the exact visual, psychological, and storytelling challenges faced in the **USA Parafencing Road to LA28** platform (`parafencing-project`).
 
 Traditional sports databases (OpenPowerlifting in strength, FIE/Ophardt in fencing) are sterile administrative spreadsheets. By adopting ArenaPL's **esports gamification**, **9-attempt/bout timeline accordions**, **clutch forensics**, and **1-click viral Instagram Story generators**, we elevate Team USA adaptive athletes into celebrated heroes, create immense athlete retention, and build an automated organic sponsor acquisition engine for the Road to LA28.
 

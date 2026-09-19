@@ -10,8 +10,9 @@ from pypdf import PdfReader
 
 sys.stdout.reconfigure(encoding='utf-8')
 
-BOOKS_DIR = os.path.abspath("c:/Users/kamil/PROJECTS/small-goods-gym/docs/books")
-OUTPUT_DIR = os.path.abspath("c:/Users/kamil/PROJECTS/small-goods-gym/docs/markdown_books")
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BOOKS_DIR = os.path.join(BASE_DIR, "docs", "books")
+OUTPUT_DIR = os.path.join(BASE_DIR, "docs", "markdown_books")
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 
 BOOK_METADATA = {

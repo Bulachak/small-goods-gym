@@ -1,32 +1,78 @@
-I have designed and published the **Waitlist Progress Bar & Position Tracker UI** directly to your Studio panel as **waitlist-progress-bar.tsx**.  
-This component features high visual polish, Tailwind styling, and interactive simulation controls to demonstrate how we manage waitlist constraints on the gym floor under varying network and physical conditions.
+# Small Goods Gym • Interactive Waitlist & Progress Tracker UI Specification
+**Document ID:** `SGG-SPEC-UI-002`  
+**Target Component:** [`waitlist-progress-bar.tsx`](./waitlist-progress-bar.tsx)  
+**Stakeholders:** Joel Mullen (Head Coach), Holly Hunt (Physiotherapy), Javier Pereira (Lead Systems Developer)  
+**Design System Reference:** [`design.md`](../design.md) (Neo-Brutalist High Performance)  
 
-### UX & Architecture Highlights of the Component
+---
 
-The prototype applies specific human-computer interaction (HCI) laws from our knowledge base to solve the operational and physical realities of **Small Goods Gym**:
+## 1. Overview & Human-Computer Interaction (HCI) Principles
 
-* **Fitts's Law (Thumb-Zone Optimized Actions):**  
-* *Problem:* When athletes are fatigued after heavy lifts, fine motor precision decreases.  
-* *Solution:* The primary 1-Tap RSVP button spans the full width of the mobile interface and is anchored within the natural sweeping arc of the user’s thumb (lower third of the screen), facilitating rapid interactions.  
-* **Doherty Threshold (Sub-400ms Feedback Cycles):**  
-* *Problem:* Lagging interfaces cause athletes to double-tap or assume the action failed.  
-* *Solution:* All user actions (tapping "RSVP", "Cancel", or simulating background queue shifts) trigger immediate **visual transition states** within **200 milliseconds**, providing instant feedback. The component is also pre-configured with browser haptic hooks (navigator.vibrate) to emit a brief, non-intrusive phone vibration on successful submission.  
-* **Dual-State Gauge Indicator (Hick’s Law / Progressive Disclosure):**  
-* *Problem:* Displaying raw text databases is visually distracting.  
-* *Solution:* The platform capacity is represented by a dual-state progress bar:  
-* **Standard State:** Shows a smooth emerald gradient when active platform spots (up to 12\) are open.  
-* **Full State:** Transitions into a gold-to-orange gradient once the 12-person cap is exceeded, clearly highlighting the waitlist. It dynamically displays the athlete’s live position in line (e.g., *"You are Position \#1"*).  
-* **Postel's Law (Offline Synchronization Engine):**  
-* *Problem:* Gyms often have cellular "dead-zones" or weak Wi-Fi.  
-* *Solution:* Toggling the **"Gym Dead-Zone"** simulator on the dashboard shows how the PWA behaves offline. It bypasses network limits by caching user RSVPs in an **Offline Action Queue** and optimistically updating the UI instantly, then synchronizing with Javier's database when the connection is restored.  
-* **Holly Hunt's Biomechanical Injury Interceptor:**  
-* *Problem:* Athletes with active rehabilitation protocols must be protected from joint-shear or spinal load injuries.  
-* *Solution:* The component detects if the active athlete has an active injury flag (Alex Carter's shoulder restriction in the simulation). The UI instantly blocks the RSVP and presents a specialized **Physio Care Warning card** containing Holly's notes, requiring an explicit bypass acknowledgment before booking.
+The **Waitlist Progress Bar & Position Tracker UI** manages platform reservations, capacity thresholds, and waitlist queues under real-world athletic training conditions.
 
-### Interactive Features Built into the Dashboard:
+The component incorporates five foundational HCI principles:
+1. **Fitts's Law (Thumb-Zone Ergonomics):** High-fatigue training reduces fine-motor dexterity. The primary 1-tap action button spans the full width of the mobile interface and is anchored within the natural lower-third sweeping arc of the user's thumb.
+2. **Doherty Threshold (Sub-200ms State Transitions):** All reservation interactions trigger immediate visual and haptic state transitions within **200 milliseconds** (`navigator.vibrate` on web / Expo Haptics on mobile), eliminating double-tap confusion.
+3. **Progressive Disclosure & Hick's Law:** Complex database state is simplified into an intuitive dual-state visual capacity gauge.
+4. **Postel's Law (Offline Synchronization Engine):** When network dead-zones occur, client actions are optimistically confirmed and queued locally, automatically synchronizing once connectivity is restored.
+5. **Biomechanical Safety Interception:** Automated blocking of athletes with active physical rehabilitation flags.
 
-* **"Gym Dead-Zone" Toggle:** Actively simulate network disconnects to watch the client queue transactions in real-time.  
-* **"Trigger Attendee Cancellation" Button:** Simulates a random platform attendee canceling their spot. Watch how the database trigger instantly promotes the first waitlisted athlete in line to "Attending" with no lag, demonstrating the automated queue flow.
+---
 
-This component is written using modular TypeScript, making it easy for Javier to integrate directly into his Next.js app pages next to his session hooks.  
-📅 **Would you like me to map out how the automated SMS alerts are dispatched when a waitlisted athlete gets promoted to an active platform spot, or should we refine the coaches' analytics table for tracking month-over-month workout attendance?**  
+## 2. Visual Capacity State Machine
+
+```mermaid
+stateDiagram-v2
+    [*] --> OpenCapacity: Event Created (0/12)
+    
+    state OpenCapacity {
+        description: Emerald Gradient (1-11 Attendees)
+        action: 1-Tap Instant Reservation
+    }
+
+    OpenCapacity --> AtCapacity: 12th Athlete Confirms
+    
+    state AtCapacity {
+        description: Solid Gold Badge (12/12 Platforms Full)
+        action: Waitlist Activation
+    }
+
+    AtCapacity --> WaitlistActive: 13th+ Athlete RSVPs
+    
+    state WaitlistActive {
+        description: Coral / Orange Gradient (Queue Position #1, #2, ...)
+        action: Incremental FIFO Waitlist Placement
+    }
+
+    WaitlistActive --> OpenCapacity: Active Attendee Cancels (FIFO Auto-Promotion)
+    AtCapacity --> OpenCapacity: Active Attendee Cancels (Platform Opens)
+    WaitlistActive --> WaitlistActive: Waitlisted Athlete Withdraws (Positions Decrement)
+```
+
+---
+
+## 3. UI States & Color Palette Mapping
+
+The component adheres strictly to Small Goods Gym's Neo-Brutalist design tokens:
+
+| Capacity State | Attendees / Cap | Gauge Visual Style | Badge Text & Label |
+| :--- | :--- | :--- | :--- |
+| **Open** | 1 to 11 / 12 | Smooth Emerald Gradient (`#9aef0f` to `#2ea043`) | `"Platforms Available (X open)"` |
+| **Full** | Exactly 12 / 12 | High-Contrast Butter Yellow (`#f8ef8d`) | `"Session Full • 12/12 Platforms"` |
+| **Waitlisted** | > 12 | Warning Coral / Orange (`#e95766` to `#ff7849`) | `"Waitlist Active • Position #X"` |
+| **Offline** | Any (No Signal) | Muted Slate with Pulse Badge (`#6e7681`) | `"Offline • Queued Locally"` |
+
+---
+
+## 4. Interactive Simulation Controls
+
+Built into [`waitlist-progress-bar.tsx`](./waitlist-progress-bar.tsx) for developer demonstration and stakeholder review:
+- **"Gym Dead-Zone" Simulator Toggle:** Simulates cellular disconnects to demonstrate offline optimistic UI rendering and asynchronous synchronization.
+- **"Trigger Cancellation" Button:** Simulates an active attendee releasing their platform, demonstrating instantaneous auto-promotion of the next waitlisted lifter.
+- **"Toggle Physio Restriction" Button:** Simulates an athlete with an active joint injury flag, demonstrating the interception modal.
+
+---
+
+## 5. Mobile & Web Integration
+
+The component is written in modular TypeScript and Tailwind CSS, and maps directly to the React Native equivalent in [`expo-handover/components/PlatformRSVPModal.tsx`](../expo-handover/components/PlatformRSVPModal.tsx).

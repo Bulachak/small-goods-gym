@@ -14,11 +14,11 @@ All prototypes are hosted live on GitHub Pages and can be launched directly in a
 
 | Prototype | Live Hosted Link | Description | Local Source |
 | :--- | :--- | :--- | :--- |
-| **6-Tab Live Demo Hub** | [**Launch Live Demo Hub**](https://bulachak.github.io/small-goods-gym/live-demo-hub.html) | Complete 6-module gym-floor suite: tactile logger, Enode VBT speed tracking (`0.64 m/s`), biomechanical lever calculator, 12-platform capacity cap, NDIS analytics, Javier architecture handshake, and floating Goat AI widget (🐐). | [`live-demo-hub.html`](file:///c:/Users/kamil/PROJECTS/small-goods-gym/live-demo-hub.html) |
-| **Goat AI Co-Pilot** | [**Launch Goat AI Coach**](https://bulachak.github.io/small-goods-gym/small-goods-coach-demo.html) | Dedicated full-screen AI coaching companion speaking in Joel's voice (*"G'day! Let's get to work"*), running deterministic 90-second missed-lift triage and Verkhoshansky / Zatsiorsky / Cleather citations. | [`small-goods-coach-demo.html`](file:///c:/Users/kamil/PROJECTS/small-goods-gym/small-goods-coach-demo.html) |
-| **Main Brand Showcase** | [**Launch Brand Showcase**](https://bulachak.github.io/small-goods-gym/index.html) | Webflow design token wall (Inch Worm `#9aef0f`, Purple Heart `#4724ba`, Sweet Corn `#f8ef8d`), typography trio (*Poppins*, *Roboto Mono*, *Reenie Beanie*), and responsive layouts. | [`index.html`](file:///c:/Users/kamil/PROJECTS/small-goods-gym/index.html) |
-| **Athlete Profile View** | [**Launch Athlete Profile**](https://bulachak.github.io/small-goods-gym/athlete-profile-preview.html) | Anthropometry card, leverage tags (long femurs / short torso), PB tracker, and biomechanical ratios. | [`athlete-profile-preview.html`](file:///c:/Users/kamil/PROJECTS/small-goods-gym/athlete-profile-preview.html) |
-| **Tactile Floor Logger** | [**Launch Floor Logger**](https://bulachak.github.io/small-goods-gym/workout-logger-preview.html) | Big-button tactile workout logging interface optimized for sweaty hands and high CNS fatigue. | [`workout-logger-preview.html`](file:///c:/Users/kamil/PROJECTS/small-goods-gym/workout-logger-preview.html) |
+| **6-Tab Live Demo Hub** | [**Launch Live Demo Hub**](https://bulachak.github.io/small-goods-gym/live-demo-hub.html) | Complete 6-module gym-floor suite: tactile logger, Enode VBT speed tracking (`0.64 m/s`), biomechanical lever calculator, 12-platform capacity cap, NDIS analytics, Javier architecture handshake, and floating Goat AI widget (🐐). | [`live-demo-hub.html`](./live-demo-hub.html) |
+| **Goat AI Co-Pilot** | [**Launch Goat AI Coach**](https://bulachak.github.io/small-goods-gym/small-goods-coach-demo.html) | Dedicated full-screen AI coaching companion speaking in Joel's voice (*"G'day! Let's get to work"*), running deterministic 90-second missed-lift triage and Verkhoshansky / Zatsiorsky / Cleather citations. | [`small-goods-coach-demo.html`](./small-goods-coach-demo.html) |
+| **Main Brand Showcase** | [**Launch Brand Showcase**](https://bulachak.github.io/small-goods-gym/index.html) | Webflow design token wall (Inch Worm `#9aef0f`, Purple Heart `#4724ba`, Sweet Corn `#f8ef8d`), typography trio (*Poppins*, *Roboto Mono*, *Reenie Beanie*), and responsive layouts. | [`index.html`](./index.html) |
+| **Athlete Profile View** | [**Launch Athlete Profile**](https://bulachak.github.io/small-goods-gym/athlete-profile-preview.html) | Anthropometry card, leverage tags (long femurs / short torso), PB tracker, and biomechanical ratios. | [`athlete-profile-preview.html`](./athlete-profile-preview.html) |
+| **Tactile Floor Logger** | [**Launch Floor Logger**](https://bulachak.github.io/small-goods-gym/workout-logger-preview.html) | Big-button tactile workout logging interface optimized for sweaty hands and high CNS fatigue. | [`workout-logger-preview.html`](./workout-logger-preview.html) |
 
 ---
 
@@ -37,7 +37,7 @@ All prototypes are hosted live on GitHub Pages and can be launched directly in a
 ### 3. Non-Invasive Integration with Javier's Production Stack
 - Aligned directly with Javier's verified stack: **Expo (React Native)** on frontend, **Cloudflare Workers** (serverless edge), **Cloudflare D1 (SQLite)**, and **Clerk** authentication.
 - Connects via a lightweight reverse proxy worker without modifying existing user auth or database tables.
-- Architecture integration blueprint available in [`docs/09-javier-hardware-and-ai-integration-guide.md`](file:///c:/Users/kamil/PROJECTS/small-goods-gym/docs/09-javier-hardware-and-ai-integration-guide.md).
+- Architecture integration blueprint available in [`docs/09-javier-hardware-and-ai-integration-guide.md`](./docs/09-javier-hardware-and-ai-integration-guide.md).
 
 ### 4. WhatsApp Bot Gateway
 - Direct webhook endpoints for Meta WhatsApp Cloud API and Twilio Sandbox.

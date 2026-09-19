@@ -11,9 +11,10 @@ import sqlite3
 
 sys.stdout.reconfigure(encoding='utf-8')
 
-MD_BOOKS_DIR = os.path.abspath("c:/Users/kamil/PROJECTS/small-goods-gym/docs/markdown_books")
-DOCS_DIR = os.path.abspath("c:/Users/kamil/PROJECTS/small-goods-gym/docs")
-DATA_OUT_DIR = os.path.abspath("c:/Users/kamil/PROJECTS/concierge-bot-engine/data")
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+MD_BOOKS_DIR = os.path.join(BASE_DIR, "docs", "markdown_books")
+DOCS_DIR = os.path.join(BASE_DIR, "docs")
+DATA_OUT_DIR = os.path.join(BASE_DIR, "data")
 os.makedirs(DATA_OUT_DIR, exist_ok=True)
 
 DB_PATH = os.path.join(DATA_OUT_DIR, "sports_science_knowledge.sqlite")

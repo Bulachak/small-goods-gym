@@ -1,56 +1,89 @@
-I have designed, built, and published a complete **Refined RSVP & Waitlist System** tailored for the unique coaching and physiological constraints of **Small Goods Gym**.  
-This system moves beyond basic scheduling to address the operational realities of a boutique gym—specifically **strict platform capacity limits (12 athletes max)**, **automated waitlist management**, **network dead-zones (offline client queueing)**, and **direct integration with Holly Hunt's physical rehabilitation safeguards**.  
-Three newly generated and ready-to-deploy files are now active in your **Studio panel**:
+# Small Goods Gym • 12-Platform Capacity & Waitlist System Specification
+**Document ID:** `SGG-SPEC-RSVP-001`  
+**Target Facility:** Small Goods Gym (Morley, Perth, WA)  
+**Stakeholders:** Joel Mullen (Head Coach), Holly Hunt (Physiotherapy), Javier Pereira (Lead Systems Developer)  
+**Core Components:** [`refined-rsvp-system.tsx`](./refined-rsvp-system.tsx) • [`refined-rsvp-backend-v2.py`](./refined-rsvp-backend-v2.py) • [`refined-rsvp-migration.sql`](./refined-rsvp-migration.sql)  
 
-1. **refined-rsvp-system.tsx**: A responsive React/Tailwind frontend interface featuring real-time state changes, offline queueing, and a biomechanical warning block.  
-2. **refined-rsvp-backend.py**: A clean FastAPI backend router managing Pydantic schemas, capacity checks, and automated waitlist tracking.  
-3. **refined-rsvp-migration.sql**: An evolutionary PostgreSQL schema migration script that embeds an automated first-in, first-out (FIFO) promotion trigger directly within the database database layer.
+---
 
-### Architectural Highlights of the Refined RSVP System
+## 1. Operational Context & Gym Floor Constraints
 
-#### 1\. Holly Hunt's Biomechanical Care Gateway (Ethics & Integration)
+Small Goods Gym operates under specific physical, coaching, and clinical boundaries that distinguish it from mass-market fitness facilities:
+1. **Strict 12-Platform Capacity Cap:** Head coach Joel Mullen enforces a strict 12-lifter limit per barbell session to guarantee uncompromised 1-on-1 coaching oversight.
+2. **Holly Hunt Biomechanical Care Gateway:** Athletes flagged with active rehabilitation restrictions or acute joint-shear risk are systematically protected from booking contraindicated sessions.
+3. **Gym-Floor Network Dead-Zones:** Low-signal basement/gym areas require robust offline action queuing so lifters can RSVP without UI freezes.
+4. **Automated FIFO Waitlist Management:** When an active attendee cancels, the system atomically promotes the next waitlisted lifter without manual coach intervention.
 
-In alignment with the **Software Engineering Code of Ethics**, which mandates that the **health, safety, and welfare of the public (our athletes) override all other interests**, we have integrated Holly Hunt’s rehabilitation tracking directly into the RSVP system.
+---
 
-* **The Flow:** When an athlete attempts to RSVP to an intense session (e.g., *Olympic Weightlifting: Clean & Jerk*), the backend intercepts the request and checks their athlete\_profiles record.  
-* **The Guardrail:** If an active injury or rehab flag is detected, the API returns a warning payload, and the React UI rendered in **refined-rsvp-system.tsx** instantly displays a prominent yellow **Physio Care Warning card** 8\. The system blocks the RSVP until the athlete explicitly acknowledges the warning or provides a coach override, protecting them from training through joint-shear risks.
+## 2. System Architecture & Component Flow
 
-#### 2\. Robust Offline PWA Queueing (Postel’s Law & Doherty Threshold)
+```mermaid
+flowchart TD
+    subgraph MobileClient["Athlete Mobile Client (Expo / PWA)"]
+        UI["12-Platform RSVP Card<br/>(Fitts's Law 64dp Button)"]
+        OfflineQueue["Offline Action Queue<br/>(IndexedDB / AsyncStorage)"]
+        PhysioCard["Physio Care Warning Modal<br/>(Injury Restriction Alert)"]
+    end
 
-To maintain **high internal quality** 7 and keep athletes engaged under real-world gym conditions (such as low-signal basement areas), the React prototype implements a resilient offline state machine:
+    subgraph EdgeAPI["API Gateway Router"]
+        Router["RSVP Endpoint Router<br/>(POST / DELETE /api/v1/events/rsvp)"]
+        RehabCheck{"Athlete Has Active<br/>Injury Flag?"}
+        OverrideCheck{"Coach / Athlete<br/>Override Submitted?"}
+        CapCheck{"Current Attendees<br/>< 12 Platforms?"}
+    end
 
-* **The Interaction:** When an athlete taps the RSVP button, the client provides **sub-250ms haptic and visual confirmations** (green "Attending" highlight and micro-vibration), keeping interaction speeds well below the **400ms Doherty Threshold**.  
-* **The Offline Cache:** If the gym's Wi-Fi fails, the app applies **Postel's Law** (*be liberal in what you accept*) 10\. Instead of freezing or displaying modal pop-ups, it caches the action in a local browser queue (IndexedDB) and automatically synchronizes with Javier's database the second connection is restored.
+    subgraph DataTier["Relational Storage (Cloudflare D1 / SQLite)"]
+        T_Events["events (12-Platform Limit)"]
+        T_RSVP["event_rsvps (Status: attending)"]
+        T_Waitlist["event_rsvps (Status: waitlisted, Position #)"]
+        Trigger["trg_waitlist_fifo_promotion<br/>(Atomic Auto-Elevation on Cancel)"]
+    end
 
-#### 3\. Database-Level FIFO Promotion Trigger (SRP & Low Coupling)
+    UI -->|1-Tap RSVP| Router
+    UI -.->|Network Disconnected| OfflineQueue
+    OfflineQueue -.->|Connection Restored| Router
 
-Rather than cluttering your FastAPI endpoints with complex queue calculations, we rely on **SQL triggers** 9 to enforce database integrity:
+    Router --> RehabCheck
+    RehabCheck -->|Yes| OverrideCheck
+    OverrideCheck -->|No| PhysioCard
+    OverrideCheck -->|Yes (Logged)| CapCheck
+    RehabCheck -->|No| CapCheck
 
-* **The Logic:** When an athlete cancels an active spot on an event, a database-level trigger in **refined-rsvp-migration.sql** instantly fires.  
-* **The Promotion:** It queries the waitlist, finds the first athlete in line (sorted chronologically), promotes their reservation to 'attending', and clears their queue spot.  
-* **The Handshake:** This design keeps your FastAPI service thin, highly focused (adhering to the **Single Responsibility Principle**), and allows your WebPush microservice to listen for state updates and alert the promoted athlete immediately.
+    CapCheck -->|Yes (< 12)| T_RSVP
+    CapCheck -->|No (>= 12)| T_Waitlist
 
-### In-Depth File Overviews
+    T_RSVP -->|Attendee Cancels| Trigger
+    Trigger -->|Pop Next in Queue| T_RSVP
+```
 
-#### A. Interactive Frontend Prototype (refined-rsvp-system.tsx)
+---
 
-This component is pre-wired to support local simulations of all core states. Open the file to experience:
+## 3. Architectural Highlights
 
-* **Simulator Controls:** A toggle to simulate a "Gym Dead-Zone" so you can test how the interface behaves offline, queueing requests in real-time.  
-* **Dynamic Capacity Gauge:** A visual progress bar that switches color states from emerald (open spots) to gradient gold/red once the 12-person platform cap is exceeded and the waitlist becomes active.
+### A. Holly Hunt's Biomechanical Care Gateway
+In adherence to sports-science safety standards, an athlete's physical welfare supersedes class capacity:
+- **Interception:** When an athlete attempts to RSVP for a session with high joint-shear demands (e.g., *Olympic Weightlifting: Clean & Jerk*), the backend inspects their `athlete_profiles` record.
+- **Guardrail:** If an active injury flag is detected, the API returns a `403 Forbidden` with a detailed `physio_warning` payload.
+- **Resolution:** The UI displays a high-contrast Physio Care Warning card. The athlete or coach must explicitly review Holly's clinical notes and submit an `override_rehab_warning=True` parameter to proceed, creating an immutable audit trail.
 
-#### B. API Routing Gateway (refined-rsvp-backend.py)
+### B. Offline Mobile Queueing (Doherty Threshold & Postel's Law)
+- **Sub-250ms Response:** Tapping "RSVP" triggers immediate optimistic UI state transitions with haptic confirmation (`navigator.vibrate` / Expo Haptics), keeping interaction latency well beneath the 400ms Doherty Threshold.
+- **Offline Resiliency:** Under network failure, actions are serialized into an offline local queue. The application displays an "Offline - Queued" badge and automatically replays requests when connectivity is restored.
 
-A production FastAPI script containing validation schemas and database hooks:
+### C. Database-Level FIFO Promotion Trigger
+Queue management is enforced at the database layer to guarantee atomic consistency and prevent race conditions:
+- When an attendee cancels their reservation, an internal trigger (`trg_waitlist_fifo_promotion`) immediately activates.
+- The earliest queued record (`status = 'waitlisted'`, ordered by `queue_position ASC`) is promoted to `status = 'attending'`.
+- All subsequent waitlist positions are decremented by 1.
 
-* **POST /api/v1/events/{event\_id}/rsvp**: Intercepts requests, validates user UUIDs against active injury databases, and places users into attending or waitlisted queues.  
-* **DELETE /api/v1/events/{event\_id}/rsvp**: Removes users from sessions or waitlists, clearing the path for automated queue elevation.
+---
 
-#### C. SQL Schema Upgrade (refined-rsvp-migration.sql)
+## 4. Component Manifest
 
-A non-destructive schema migration file:
-
-* Extends the base tables with columns for queue\_position and rehab\_warning\_overridden (ensuring we audit exactly when an athlete was warned and bypassed a restriction for legal/liability safety).  
-* Deploys the recursive database trigger function promote\_first\_from\_waitlist() to automate the queue logic within the relational engine.
-
-🏋️ **Would you like me to generate a fully automated Unit Testing suite in Python to assert and verify our waitlist promotion logic and injury warning alerts before passing the code to Javier?**  
+| Component File | Role & Technology |
+| :--- | :--- |
+| [`refined-rsvp-system.tsx`](./refined-rsvp-system.tsx) | Complete React interactive prototype with real-time state simulator, dead-zone toggles, and Physio Care Warning modal. |
+| [`refined-rsvp-backend-v2.py`](./refined-rsvp-backend-v2.py) | API router implementing Pydantic validation, injury checks, 12-platform capacity enforcement, and clean error handling. |
+| [`refined-rsvp-migration.sql`](./refined-rsvp-migration.sql) | Relational migration script adding `queue_position`, `rehab_warning_overridden`, and automated FIFO triggers. |
+| [`refined-rsvp-test-suite.py`](./refined-rsvp-test-suite.py) | Automated 7-test suite validating the entire lifecycle in under 0.1 seconds. |

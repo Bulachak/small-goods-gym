@@ -1,6 +1,6 @@
 # Small Goods Gym — Knowledge Base Architecture & Vector Database Evaluation
 
-**Target Systems:** `concierge-bot-engine` (`C:\Users\kamil\PROJECTS\concierge-bot-engine`), Small Goods Core Platform (`C:\Users\kamil\PROJECTS\small-goods-gym`), Javier's backend auth/PostgreSQL shell, Google Cloud / Vertex AI / Firebase  
+**Target Systems:** Small Goods Core Platform, Javier's Cloudflare Workers & D1 (SQLite) backend, Edge AI Gateway
 **Target Audience:** Kamilla Gafurzianova, Joel Mullen, Javier  
 **Date:** September 15, 2026  
 **Created By:** Antigravity (Sports Tech Architecture Team)
@@ -176,8 +176,8 @@ The Hybrid architecture saves **> 95% of operational infrastructure costs** whil
 
 ## 5. Integration Blueprint for `concierge-bot-engine`
 
-```
-c:\Users\kamil\PROJECTS\concierge-bot-engine\
+```text
+concierge-bot-engine/
 ├── data\
 │   └── sports_science.lance\          # Embedded LanceDB hybrid index (< 50MB)
 ├── profiles\

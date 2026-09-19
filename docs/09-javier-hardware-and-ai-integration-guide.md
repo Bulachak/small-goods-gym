@@ -81,7 +81,7 @@ sequenceDiagram
     autonumber
     actor Athlete as Athlete (PWA)
     participant CF as Javier's Cloudflare Worker
-    participant DB as Javier's PostgreSQL / D1
+    participant DB as Cloudflare D1 (SQLite)
     participant AI as AI Engine (concierge-bot-engine)
 
     Athlete->>CF: POST /api/auth/login (credentials)

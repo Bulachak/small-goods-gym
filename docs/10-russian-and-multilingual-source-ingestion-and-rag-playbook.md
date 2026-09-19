@@ -273,7 +273,7 @@ Apply this directly on the platform: do not select arbitrary accessory exercises
 
 ## 6. Verification & Automated Testing Discipline
 
-All multilingual knowledge retrieval changes must be verified through the automated test suite in [`tests/test_engine.py`](file:///C:/Users/kamil/PROJECTS/concierge-bot-engine/tests/test_engine.py):
+All multilingual knowledge retrieval changes must be verified through the automated test suite in `tests/test_engine.py`:
 
 1. **Test 13 (`test_13_small_goods_gym_literature_search`):** Verifies that querying Russian terms (*"динамическое соответствие"*, *"КПШ рывок"*) returns exact bibliographic citations and snippets.
 2. **Test 14 (`test_14_sports_science_faq_disambiguation`):** Verifies that English theoretical queries mentioning author names bypass canned FAQs (`matched_faq is None`) and quote the underlying literature database.
