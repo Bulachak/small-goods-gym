@@ -44,10 +44,10 @@ All prototypes are hosted live on GitHub Pages and can be launched directly in a
 - Big-button targets (minimum 64×64 dp) positioned for thumb-arc accessibility during fatigue.
 - Direct Enode VBT speed sensor integration and 12-platform capacity cap enforcement.
 
-### 3. Non-Invasive Integration with Javier's Stack
-- Respects Javier's Cloudflare infrastructure and authentication shell.
-- Connects via a lightweight 10-line reverse proxy without modifying existing user auth or database tables.
-- Developer guide available at [`docs/09-javier-hardware-and-ai-integration-guide.md`](file:///c:/Users/kamil/PROJECTS/small-goods-gym/docs/09-javier-hardware-and-ai-integration-guide.md).
+### 3. Non-Invasive Integration with Javier's Production Stack
+- Aligned directly with Javier's verified stack: **Expo (React Native)** on frontend, **Cloudflare Workers** (serverless edge), **Cloudflare D1 (SQLite)**, and **Clerk** authentication.
+- Connects via a lightweight reverse proxy worker without modifying existing user auth or database tables.
+- Full debrief and schema boundary specification available at [`docs/15-joel-javier-mila-technical-alignment-and-architecture-debrief-2026-09-18.md`](file:///c:/Users/kamil/PROJECTS/small-goods-gym/docs/15-joel-javier-mila-technical-alignment-and-architecture-debrief-2026-09-18.md).
 
 ### 4. WhatsApp Bot Gateway
 - Direct webhook endpoints for Meta WhatsApp Cloud API and Twilio Sandbox.
@@ -66,10 +66,11 @@ small-goods-gym/
 ├── workout-logger-preview.html     # Tactile workout logger floor preview
 ├── NDIS_Clinical_Evidence_Pack...  # Clinical mobility evidence generator
 ├── Joel_Call_Prep_and_Executive... # Executive briefing HTML
-├── docs/                           # 14 comprehensive technical & scientific specifications
+├── docs/                           # 15 comprehensive technical & scientific specifications
 │   ├── 01-mobile-architecture...   # Mobile UX & Javier integration blueprint
 │   ├── 09-javier-hardware...       # Developer guide for Javier
 │   ├── 12-joel-mullen-exec...      # Executive follow-up and demo package
+│   ├── 15-joel-javier-mila-tech... # 3-Way technical alignment debrief & architecture roadmap
 │   └── markdown_books/             # Digitized Soviet sports science library
 ├── rsvp-system/                    # 12-Platform RSVP & waitlist logic
 └── tools/                          # RAG ingestion and benchmark tools
