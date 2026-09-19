@@ -154,67 +154,121 @@
     };
 
     const PRESET_CONVERSATIONS = [
+      // --- TIER 1: BEGINNER & EVERYDAY ---
+      {
+        id: "day1_squat",
+        tier: "beginner",
+        chipText: "👋 Day 1 Squat Help",
+        userMsg: "I've never done barbell squats before and feel a bit nervous and stiff. Where should I start?",
+        botReply: "Welcome to the gym! Feeling nervous or stiff on day one is 100% normal—everyone in this gym started right where you are.\n\n🎯 Step 1: Let's start with a Goblet Squat holding a light dumbbell or kettlebell against your chest, or even squatting down to a 20-inch box.\n\n🎯 Step 2 (Your Somatic Cue): Keep your feet shoulder-width apart, toes turned out slightly. Think about sitting your hips back between your heels like settling into a comfy armchair, and spread the floor apart with your feet.\n\n💡 The Coach's Why: Holding a light weight in front acts as a natural counterbalance, which helps your torso stay upright and lets your hips do the work without straining your lower back.\n\nTake your time with 3 easy sets of 8 reps. How does that feel on your knees and hips?"
+      },
+      {
+        id: "time_crunch",
+        tier: "beginner",
+        chipText: "⏱️ 30-Min Time Crunch",
+        userMsg: "I only have 30 minutes for my workout today. How should I prioritize it using The Small Goods Way?",
+        botReply: "No worries at all! Life happens, and 30 focused minutes is plenty to get a high-quality session under your belt.\n\n🎯 The Small Goods 30-Minute Autoregulation Plan:\n1. 5 Mins — Range Adder: 2 quick sets of front-foot elevated split squats and hip openers.\n2. 15 Mins — Primary Force Builder: Squat or Bench for 3 heavy working sets of 5 reps with 2 minutes rest.\n3. 10 Mins — Volume Builder (Myo-Reps): Pick one accessory (e.g. dumbbell rows or leg extensions). Do 1 activation set of 12 reps to near-failure, rest 15 seconds, then do 3 mini-sets of 4 reps with 15s rest between.\n\n💡 The Coach's Why: Myo-reps give you all the muscle-building stimulus of 4 regular sets in just one-third of the clock time by keeping your high-threshold muscle fibers firing.\n\nReady to get after it? Let's clock in!"
+      },
+      {
+        id: "stiff_mobility",
+        tier: "beginner",
+        chipText: "🩹 Stiff Hips & Ankles",
+        userMsg: "My hips and ankles feel super tight today. What Range Adder should I do before lifting?",
+        botReply: "G'day! Let's get those joints opened up so your barbell work feels silky smooth.\n\n🎯 Range Adder Protocol:\n1. 90/90 Hip Swivels: 8 smooth transitions per side, focusing on slow control.\n2. Front-Foot Elevated (FFE) Split Squats: 2 sets of 6 reps per leg holding a light 8kg dumbbell, letting the knee glide forward over the toes in a pain-free range.\n3. Deficit Romanian Deadlifts: Light bar, soft knees, pushing hips straight back toward the wall.\n\n💡 The Coach's Why: In The Small Goods Way, we use loaded movements through full active ranges (Range Adders) rather than passive stretching, because loaded movement signals your brain that it's safe to produce force in deep positions.\n\nGive those split squats a whirl and let me know if your hips feel looser!"
+      },
+      {
+        id: "shoulder_pinch",
+        tier: "beginner",
+        chipText: "🩺 Shoulder Pinch (>3/10)",
+        userMsg: "I have a 4/10 anterior shoulder pinch on bench press. How should I regress?",
+        botReply: "🩺 Joel's Pain Threshold Rule (Pain > 3/10 Detected):\n\nFirst up: good on ya for listening to your body. We never grind through acute joint pinching.\n\n🎯 Immediate Floor Action:\n1. Step away from the straight barbell bench press immediately.\n2. Regress to a High-Stability Variant: Grab a pair of dumbbells and do a Floor Press with a neutral (palms facing each other) grip, or use the Swiss multi-grip bar.\n3. Cue: Keep your shoulder blades gently squeezed into your back pockets and stop each rep an inch before any discomfort.\n\n💡 The Coach's Why: A neutral grip reduces internal rotation at the shoulder, giving your supraspinatus tendon room to breathe while still training chest and triceps.\n\n📋 Care Handover: I've logged this discomfort vector in Holly Hunt's physio triage queue for follow-up.\n\nTry the dumbbell floor press—does that feel pain-free?"
+      },
+      {
+        id: "small_goods_way",
+        tier: "beginner",
+        chipText: "🐐 The Small Goods Way",
+        userMsg: "What are the 5 exercise categories and session ordering rules of The Small Goods Way?",
+        botReply: "G'day! Here is how we build training sessions in The Small Goods Way:\n\n🎯 Quick Floor Rule: We always build training in 5 distinct layers, ordered from the most mobile and explosive down to pure volume:\n\n• 1. Range Adders: Opening up active flexibility & joint tolerance (e.g. RDLs, front-foot elevated split squats).\n• 2. Co-ordinators: Skill and clean technique (e.g. snatches, paused squats).\n• 3. Accelerators: Speed & explosive snap with submaximal weights (e.g. banded squats, box jumps).\n• 4. Force Builders: Heavy strength with rock-solid stability (e.g. Hatfield safety-bar squats, bench press).\n• 5. Volume Builders: Muscle pumping and density (e.g. giant sets, myo-rep sets).\n\n💡 The Coach's Why: Putting explosive movements before high-fatigue volume ensures your nervous system stays fresh so you move fast and stay injury-free.\n\nWhat exercise are you gearing up for right now?"
+      },
+
+      // --- TIER 2: ATHLETES & VBT ---
       {
         id: "snatch_miss",
+        tier: "vbt",
         chipText: "🏋️ Failed 2 Snatches @ 85%",
         userMsg: "Coach, I just missed my last 2 snatch attempts at 85kg (85%). What should I do right now in my session?",
-        botReply: "Here is your 90-second Small Goods triage:\n\n1. ⚡ **Velocity Check:** Did the bar feel fast off the floor and you missed the lockout, or did the bar feel like concrete?\n   - **If velocity dropped >15%:** Your CNS is fatigued. Drop load by 5-7.5% immediately (take 80kg for 2 singles) or call the lift.\n   - **If speed was high (>1.65 m/s):** It is a technical timing or bar-loop issue.\n2. 📚 **Verkhoshansky's Anchor:** All power starts and ends in the legs. You are likely pulling early with your arms instead of letting the legs complete the second pull.\n3. 🎯 **Cue from Goat:** *'Stay over the bar 2 inches longer, push the floor through your midfoot, and let the bar brush your hip without bumping it forward.'*"
+        botReply: "G'day! Here is your 90-second Small Goods triage:\n\n🎯 Immediate Floor Action:\n1. ⚡ Speed Check: Did the bar feel fast off the floor and you missed the lockout, or did the bar feel like concrete?\n   - If velocity dropped >15%: Your CNS is fatigued. Drop load by 5–7.5% immediately (take 80kg instead of 85kg) for 2 clean technical singles, or call the lift.\n   - If speed was high (>1.65 m/s): It's purely a technical timing or bar-loop issue.\n2. 🎯 Somatic Floor Cue: 'Stay over the bar two inches longer, push the world away through your midfoot, and let the bar brush your hip without bumping it forward.'\n\n💡 The Coach's Why: All power starts and ends in the legs (Verkhoshansky). Pulling early with the arms cuts your leg drive short and kicks the bar away from your body.\n\nHow did that first single at 80kg feel?"
       },
       {
         id: "long_femurs",
+        tier: "vbt",
         chipText: "📐 Long Femurs Squat Adjustments",
         userMsg: "My femur-to-torso ratio is 1.14 (femur 51cm, torso 44cm). Why do my squats look like a good morning, and how do I fix it?",
-        botReply: "Your leverages explain this objectively through Dan Cleather's joint torque physics:\n\n1. 📐 **The Physics:** A long femur pushes your hip joint far behind the midfoot balance line. To keep the bar over midfoot, your torso MUST lean forward to counterbalance your hips.\n2. 🛠️ **Small Goods Fixes:**\n   - **Widen Stance:** Move your feet to 1.2–1.3× shoulder width.\n   - **Push Knees Out:** Abducting your hips effectively shortens your femur in the sagittal plane, allowing your pelvis to sit closer to the bar.\n   - **Bar Placement:** Shift to low-bar placement (across rear delts) to reduce spinal shear moment arm.\n   - **Footwear:** Add 0.75\" heel elevation (Olympic weightlifting shoes) to increase ankle dorsiflexion tolerance."
-      },
-      {
-        id: "shock_method",
-        chipText: "⚡ Verkhoshansky Shock Method",
-        userMsg: "Can I do box jumps for plyometrics, or what did Verkhoshansky actually specify for the Shock Method?",
-        botReply: "Verkhoshansky was adamant: jumping up onto a high box is NOT true plyometrics.\n\n1. ⚡ **True Plyometrics (Ударный метод):** Depth jumps from a wooden box (0.50m - 0.75m) onto firm ground, followed by an instantaneous maximal vertical or horizontal jump.\n2. ⏱️ **The 150ms Amortization Rule:** Ground contact time MUST be under **0.15 seconds (150ms)**. If your ground contact exceeds 0.20s, the elastic strain energy stored in your titin and tendon collagen dissipates as heat, and you are just doing slow concentric jumping.\n3. 🚫 **Safety Guardrail:** If an athlete cannot squat 1.5× bodyweight with sound mechanics, depth jumps are contraindicated to protect patellar tendons."
-      },
-      {
-        id: "wl_vbt",
-        chipText: "📈 WL Analysis & 450mm Bumper Plate Scale",
-        userMsg: "How does the WL Analysis app calculate barbell velocity and bar path from video without sensors?",
-        botReply: "WL Analysis relies on an invariant physical constant in Olympic weightlifting:\n\n1. 🎯 **The 450mm Calibration Scale:** Every competition IWF bumper plate has an outer diameter of exactly **450 mm (0.45 m)**.\n2. 📸 **Pixel-to-Metric Mapping:** With a camera filming perpendicular (90°) to the bar, the software fits a circle to the outer plate contour: `Scale Factor = 450mm / plate_pixel_diameter`.\n3. 📊 **Kinematic Extraction:** From this invariant metric scale, it derives:\n   - **Bar Path Trajectory:** Horizontal drift loop (Δx). A forward loop >5cm flags excessive hip bumping.\n   - **Velocity (v = Δs/Δt):** Peak and mean velocity curves.\n   - **Turnover Height:** Proves whether you caught in a power position (>80% standing height) or full squat."
-      },
-      {
-        id: "jump_app",
-        chipText: "⏱️ My Jump 2 Flight Time Physics",
-        userMsg: "How does the slow-motion jump app work that Joel mentioned on the call?",
-        botReply: "Joel described **My Jump 2** (by Dr. Carlos Balsalobre-Fernández):\n\n1. 📹 **High-Speed Capture:** Records at 240 fps (1 frame = 4.17 ms).\n2. 🎯 **Two-Frame Selection:**\n   - **Takeoff Frame:** First frame toes lose floor contact.\n   - **Landing Frame:** First frame foot makes initial ground contact.\n3. 🧮 **Ballistic Formula:** Flight time `t` determines height via projectile physics:\n   `h = 1/8 * g * t² ≈ 1.22625 * t² (meters)`.\n4. 🩺 **Clinical Value for Holly Hunt:** In Drop Jumps, it calculates Reactive Strength Index (`RSI = Flight Time / Contact Time`), offering objective data on tendon compliance and fatigue for NDIS capacity building."
-      },
-      {
-        id: "issurin_periodization",
-        chipText: "⏱️ How Fast Does Strength Decay? (Issurin RTE)",
-        userMsg: "Coach, if I transition into a speed or rehab block, how long do my maximal strength and conditioning gains actually last before decaying?",
-        botReply: "Prof. Vladimir Issurin's **Residual Training Effects (RTE)** establish the biological retention windows:\n\n1. 🏋️ **Maximal Strength:** Lasts **30 ± 5 days**. Neural motor unit synchronization and muscle cross-sectional area (CSA) can be fully retained with a single microdose session every 10–14 days.\n2. 🫁 **Aerobic / Tissue Capacity:** Lasts **30 ± 5 days** (capillarization and mitochondrial density persist through transmutation).\n3. ⚡ **Strength-Endurance:** Lasts **18 ± 4 days** (glycolytic buffer capacity requires re-stimulation every 2–3 weeks).\n4. 🏎️ **Maximal Speed & RFD:** Decays in **5 ± 3 days** (alactic enzyme activity and reflex potentiation are highly perishable).\n\n💡 **Coaching Rule:** Joel cycles your blocks knowing we have 4 full weeks of strength retention while focusing on ankle mobility and rate of force development!"
+        botReply: "G'day! Having longer thigh bones (femurs) compared to your torso is super common—it just means standard high-bar, narrow-stance advice will make you feel like you're folding in half.\n\n🎯 Simple Somatic Fixes:\n1. Widen Stance: Set your heels about 1.2× to 1.3× shoulder width.\n2. Flare Toes Out 30°: Turn your toes out comfortably to give your pelvis room to sink down between your thighs.\n3. The Cue: Think about 'spreading the floor apart with your feet like tearing a newspaper in half' as you sit down into the space between your heels.\n4. Bar Placement: Try setting the bar 1–2 inches lower across your rear deltoids (Low Bar).\n\n💡 The Coach's Why: Dan Cleather's joint torque physics (τ = F × d) shows that abducting the hips effectively shortens the sagittal moment arm of the femur, keeping your pelvis closer to the midfoot line without excessive spinal shear.\n\nGive that wider stance a spin with an empty bar. Does your depth feel more natural?"
       },
       {
         id: "mann_vbt",
+        tier: "vbt",
         chipText: "📊 Bryan Mann VBT Velocity Zones",
         userMsg: "What barbell velocity should I aim for on my snatches and squats, and when should I stop a set?",
-        botReply: "Dr. Bryan Mann's Mean Concentric Velocity (MCV) zones and fatigue cutoffs:\n\n1. 📈 **The 5 Velocity Zones:**\n   - **Absolute Strength:** `< 0.50 m/s` (85-100% 1RM) — maximal motor unit recruitment.\n   - **Accelerative Strength:** `0.50 - 0.75 m/s` (70-85% 1RM) — moving heavy weight with explosive intent.\n   - **Strength-Speed:** `0.75 - 1.00 m/s` (50-70% 1RM) — peak power sweet spot.\n   - **Speed-Strength:** `1.00 - 1.30 m/s` (30-50% 1RM) — speed prioritized over load.\n   - **Starting Strength:** `> 1.30 m/s` (<30% 1RM) — ballistic alactic power.\n2. 🛑 **Velocity Loss Cutoffs:**\n   - **10% - 20% loss:** Stop set! Ideal for athletic power and sprinting speed with near-zero muscle damage.\n   - **20% - 30% loss:** Functional hypertrophy and strength-endurance.\n   - **> 30% loss:** Immediate termination! Flags severe CNS fatigue and form degradation."
+        botReply: "Here is Dr. Bryan Mann's Mean Concentric Velocity (MCV) zones and fatigue cutoffs:\n\n📈 The 5 Velocity Zones:\n• Absolute Strength: < 0.50 m/s (85–100% 1RM) — maximal motor unit recruitment.\n• Accelerative Strength: 0.50 – 0.75 m/s (70–85% 1RM) — moving heavy weight with explosive intent.\n• Strength-Speed: 0.75 – 1.00 m/s (50–70% 1RM) — peak power sweet spot.\n• Speed-Strength: 1.00 – 1.30 m/s (30–50% 1RM) — speed prioritized over load.\n• Starting Strength: > 1.30 m/s (<30% 1RM) — ballistic alactic power.\n\n🛑 Velocity Loss Cutoffs:\n• 10%–20% loss: Stop set! Ideal for athletic power and sprinting speed with near-zero muscle damage.\n• 20%–30% loss: Functional hypertrophy and strength-endurance.\n• > 30% loss: Immediate termination! Flags severe CNS fatigue and form degradation.\n\n💡 The Coach's Why: Velocity loss directly correlates with metabolic fatigue and muscle damage. Cutting sets at 10-20% loss allows you to train explosive speed twice as often."
+      },
+      {
+        id: "wl_vbt",
+        tier: "vbt",
+        chipText: "📈 WL Analysis & 450mm Plate Scale",
+        userMsg: "How does the WL Analysis app calculate barbell velocity and bar path from video without sensors?",
+        botReply: "WL Analysis relies on an invariant physical constant in Olympic weightlifting:\n\n🎯 1. The 450mm Calibration Scale: Every competition IWF bumper plate has an outer diameter of exactly 450 mm (0.45 m).\n📸 2. Pixel-to-Metric Mapping: With a camera filming perpendicular (90°) to the bar, the software fits a circle to the outer plate contour: Scale Factor = 450mm / plate_pixel_diameter.\n📊 3. Kinematic Extraction: From this invariant metric scale, it derives:\n• Bar Path Trajectory: Horizontal drift loop (Δx). A forward loop >5cm flags excessive hip bumping.\n• Velocity (v = Δs/Δt): Peak and mean velocity curves.\n• Turnover Height: Proves whether you caught in a power position (>80% standing height) or full squat.\n\n💡 The Coach's Why: By anchoring to a universal physical constant (450mm), athletes get lab-grade velocity without wearing awkward sensors or cables."
+      },
+
+      // --- TIER 3: COACHES & SPORTS SCIENCE ---
+      {
+        id: "shock_method",
+        tier: "science",
+        chipText: "⚡ Verkhoshansky Shock Method",
+        userMsg: "Can I do box jumps for plyometrics, or what did Verkhoshansky actually specify for the Shock Method?",
+        botReply: "Verkhoshansky was adamant: jumping up onto a high box is NOT true plyometrics.\n\n⚡ 1. True Plyometrics (Ударный метод): Depth jumps from a wooden box (0.50m - 0.75m) onto firm ground, followed by an instantaneous maximal vertical or horizontal jump.\n⏱️ 2. The 150ms Amortization Rule: Ground contact time MUST be under 0.15 seconds (150ms).\n\n💡 The Coach's Why: If ground contact exceeds 0.20s, the elastic strain energy stored in your titin and tendon collagen dissipates as heat, and you are just doing slow concentric jumping.\n\n🚫 Safety Guardrail: If an athlete cannot squat 1.5× bodyweight with sound mechanics, depth jumps are contraindicated to protect patellar tendons."
+      },
+      {
+        id: "jump_app",
+        tier: "science",
+        chipText: "⏱️ My Jump 2 Flight Time Physics",
+        userMsg: "How does the slow-motion jump app work that Joel mentioned on the call?",
+        botReply: "Joel described My Jump 2 (by Dr. Carlos Balsalobre-Fernández):\n\n📹 1. High-Speed Capture: Records at 240 fps (1 frame = 4.17 ms).\n🎯 2. Two-Frame Selection:\n• Takeoff Frame: First frame toes lose floor contact.\n• Landing Frame: First frame foot makes initial ground contact.\n🧮 3. Ballistic Formula: Flight time t determines height via projectile physics: h = 1/8 * g * t² ≈ 1.22625 * t² (meters).\n\n💡 The Coach's Why: In Drop Jumps, it calculates Reactive Strength Index (RSI = Flight Time / Contact Time), offering objective data on tendon compliance and fatigue for NDIS capacity building."
+      },
+      {
+        id: "issurin_periodization",
+        tier: "science",
+        chipText: "⏱️ Issurin Residual Training Effects (RTE)",
+        userMsg: "Coach, if I transition into a speed or rehab block, how long do my maximal strength and conditioning gains actually last before decaying?",
+        botReply: "Prof. Vladimir Issurin's Residual Training Effects (RTE) establish the biological retention windows:\n\n🏋️ 1. Maximal Strength: Lasts 30 ± 5 days. Neural motor unit synchronization and muscle cross-sectional area (CSA) can be fully retained with a single microdose session every 10–14 days.\n🫁 2. Aerobic / Tissue Capacity: Lasts 30 ± 5 days (capillarization and mitochondrial density persist through transmutation).\n⚡ 3. Strength-Endurance: Lasts 18 ± 4 days (glycolytic buffer capacity requires re-stimulation every 2–3 weeks).\n🏎️ 4. Maximal Speed & RFD: Decays in 5 ± 3 days (alactic enzyme activity and reflex potentiation are highly perishable).\n\n💡 The Coach's Why: Joel cycles your blocks knowing we have 4 full weeks of strength retention while focusing on ankle mobility and rate of force development!"
       },
       {
         id: "bondarchuk_transfer",
-        chipText: "🎯 Bondarchuk Transfer of Training (CE vs SDE)",
+        tier: "science",
+        chipText: "🎯 Bondarchuk Transfer of Training",
         userMsg: "Why does Joel prioritize pause squats and pin squats over leg extensions for my squat plateau?",
-        botReply: "Dr. Anatoliy Bondarchuk's 4-tier taxonomy explains this through the **Transfer Index (T)**:\n\n1. 🏋️ **The 4 Tiers:**\n   - **CE (Competitive Exercise):** 1RM Competition Squat.\n   - **SDE (Special Developmental):** Pause squats, pin squats at sticking point. Duplicates the exact joint angles and neural regimes. Highest transfer index!\n   - **SPE (Special Preparatory):** Good mornings, Romanian deadlifts. Same muscle systems, different trajectory.\n   - **GPE (General Preparatory):** Leg extensions, sleds, cardio machines.\n2. 🔬 **The Elite Transfer Law:** For beginners, everything transfers (even GPE). But as you advance, **transfer from GPE drops to near zero (T ≈ 0)**. Joel uses SDE pin squats because only exercises matching your exact sticking point joint angle will break through your plateau!"
+        botReply: "Dr. Anatoliy Bondarchuk's 4-tier taxonomy explains this through the Transfer Index (T):\n\n🏋️ The 4 Tiers:\n• CE (Competitive Exercise): 1RM Competition Squat.\n• SDE (Special Developmental): Pause squats, pin squats at sticking point. Duplicates the exact joint angles and neural regimes. Highest transfer index!\n• SPE (Special Preparatory): Good mornings, Romanian deadlifts. Same muscle systems, different trajectory.\n• GPE (General Preparatory): Leg extensions, sleds, cardio machines.\n\n💡 The Coach's Why: For beginners, everything transfers (even GPE). But as you advance, transfer from GPE drops to near zero (T ≈ 0). Joel uses SDE pin squats because only exercises matching your exact sticking point joint angle will break through your plateau!"
       }
     ];
 
     function App() {
       const [viewMode, setViewMode] = useState("chat"); // chat | triage | science
+      const [activeCategory, setActiveCategory] = useState("all"); // all | beginner | vbt | science
       const [messages, setMessages] = useState([
         {
           sender: "bot",
-          text: "G'day! I'm the Goat AI Co-Pilot for Small Goods Gym. Grounded in Soviet sports science (Verkhoshansky & Zatsiorsky), barbell VBT, and biomechanical leverages. How can I help your session today?"
+          text: "G'day! I'm your Goat AI Co-Pilot for Small Goods Gym. Whether it's your very first day touching a barbell or you're dialling in for a national meet, I'm right here in your corner. How's your session feeling today?"
         }
       ]);
       const [inputText, setInputText] = useState("");
       const [isTyping, setIsTyping] = useState(false);
       const chatEndRef = useRef(null);
+
+      // Filtered Presets by Category
+      const filteredPresets = activeCategory === "all"
+        ? PRESET_CONVERSATIONS
+        : PRESET_CONVERSATIONS.filter(p => p.tier === activeCategory);
 
       // Triage Simulator State
       const [triageExercise, setTriageExercise] = useState("Snatch");
@@ -297,26 +351,40 @@
           await new Promise(r => setTimeout(r, 450));
           const lowerQ = query.toLowerCase();
 
-          if (lowerQ.includes("miss") || lowerQ.includes("fail") || lowerQ.includes("85")) {
-            botAnswer = PRESET_CONVERSATIONS[0].botReply;
+          // Direct match from preset conversations
+          const matchedPreset = PRESET_CONVERSATIONS.find(p => p.userMsg.toLowerCase() === lowerQ);
+          if (matchedPreset) {
+            botAnswer = matchedPreset.botReply;
+          } else if (lowerQ.includes("beginner") || lowerQ.includes("day 1") || lowerQ.includes("never done") || lowerQ.includes("nervous") || lowerQ.includes("start")) {
+            botAnswer = PRESET_CONVERSATIONS.find(p => p.id === "day1_squat").botReply;
+          } else if (lowerQ.includes("30") || lowerQ.includes("short on time") || lowerQ.includes("crunch") || lowerQ.includes("time limit")) {
+            botAnswer = PRESET_CONVERSATIONS.find(p => p.id === "time_crunch").botReply;
+          } else if (lowerQ.includes("stiff") || lowerQ.includes("tight") || (lowerQ.includes("hip") && lowerQ.includes("ankle")) || lowerQ.includes("mobility")) {
+            botAnswer = PRESET_CONVERSATIONS.find(p => p.id === "stiff_mobility").botReply;
+          } else if (lowerQ.includes("pinch") || (lowerQ.includes("shoulder") && lowerQ.includes("bench")) || lowerQ.includes("pain") || lowerQ.includes("hurt")) {
+            botAnswer = PRESET_CONVERSATIONS.find(p => p.id === "shoulder_pinch").botReply;
+          } else if (lowerQ.includes("small goods way") || lowerQ.includes("category") || lowerQ.includes("categories") || lowerQ.includes("ordering")) {
+            botAnswer = PRESET_CONVERSATIONS.find(p => p.id === "small_goods_way").botReply;
+          } else if (lowerQ.includes("miss") || lowerQ.includes("fail") || lowerQ.includes("85") || lowerQ.includes("snatch")) {
+            botAnswer = PRESET_CONVERSATIONS.find(p => p.id === "snatch_miss").botReply;
           } else if (lowerQ.includes("femur") || lowerQ.includes("squat") || lowerQ.includes("leverage")) {
-            botAnswer = PRESET_CONVERSATIONS[1].botReply;
+            botAnswer = PRESET_CONVERSATIONS.find(p => p.id === "long_femurs").botReply;
           } else if (lowerQ.includes("shock") || lowerQ.includes("plyo") || (lowerQ.includes("verkhoshansky") && lowerQ.includes("depth"))) {
-            botAnswer = PRESET_CONVERSATIONS[2].botReply;
+            botAnswer = PRESET_CONVERSATIONS.find(p => p.id === "shock_method").botReply;
           } else if (lowerQ.includes("wl") || lowerQ.includes("plate") || lowerQ.includes("450") || lowerQ.includes("vbt")) {
-            botAnswer = PRESET_CONVERSATIONS[3].botReply;
+            botAnswer = PRESET_CONVERSATIONS.find(p => p.id === "wl_vbt").botReply;
           } else if (lowerQ.includes("jump") || lowerQ.includes("flight") || lowerQ.includes("frame")) {
-            botAnswer = PRESET_CONVERSATIONS[4].botReply;
+            botAnswer = PRESET_CONVERSATIONS.find(p => p.id === "jump_app").botReply;
           } else if (lowerQ.includes("dynamic correspondence") || lowerQ.includes("динамическое соответствие")) {
-            botAnswer = "📖 **From the Sports Science & Biomechanics Library:**\n\n> \"Dynamic correspondence requires the exercise to replicate the kinematic, kinetic, and temporal characteristics of the competition movement—matching amplitude, direction of force, accentuation of maximum force, and the amortization-takeoff regime.\"\n\n— **Yuri Verkhoshansky**, *Special Strength Training: A Practical Manual for Coaches* (p. 91)\n\n💡 **Goat Coaching Translation:** On the platform, don't perform arbitrary accessory work. Choose exercises whose rate of force development (RFD) matches the specific acceleration phase of your lift.";
+            botAnswer = "📖 **Dynamic Correspondence (Verkhoshansky):**\n\n🎯 **Platform Cue:** Don't perform arbitrary gym exercises hoping they make you faster. Pick movements that duplicate the exact direction of force and acceleration timing of your sport.\n\n💡 **The Coach's Why:** Yuri Verkhoshansky proved that strength only transfers if the rate of force development (RFD = dF/dt) and joint amplitudes match your competition lift.\n\n📚 Source: *Verkhoshansky, Special Strength Training Manual for Coaches (p. 91)*.\n\nWhat movement are you looking to transfer strength toward?";
           } else if (lowerQ.includes("issurin") || lowerQ.includes("periodization") || lowerQ.includes("decay") || lowerQ.includes("rte")) {
-            botAnswer = "Vladimir Issurin's Block Periodization sequences Accumulation (hypertrophy/aerobic base), Transmutation (sport-specific strength), and Realization (peaking). Biological decay rates (Residual Training Effects): Maximal Strength lasts 30 ± 5 days; Aerobic Capacity lasts 30 ± 5 days; Strength-Endurance lasts 18 ± 4 days; RFD and Maximal Speed decay within 5 ± 3 days.";
+            botAnswer = PRESET_CONVERSATIONS.find(p => p.id === "issurin_periodization").botReply;
           } else if (lowerQ.includes("mann") || lowerQ.includes("velocity zones") || lowerQ.includes("mcv")) {
-            botAnswer = "Dr. Bryan Mann's VBT velocity zones: (1) Absolute Strength: <0.50 m/s (85-100%); (2) Accelerative Strength: 0.50-0.75 m/s (70-85%); (3) Strength-Speed: 0.75-1.00 m/s (50-70%); (4) Speed-Strength: 1.00-1.30 m/s (30-50%); (5) Starting Strength: >1.30 m/s (<30%). Keep velocity loss under 10-20% for explosive power adaptations.";
+            botAnswer = PRESET_CONVERSATIONS.find(p => p.id === "mann_vbt").botReply;
           } else if (lowerQ.includes("bondarchuk") || lowerQ.includes("transfer") || lowerQ.includes("sde")) {
-            botAnswer = "Dr. Anatoliy Bondarchuk's 4-tier Transfer of Training taxonomy: CE (Competitive Exercise), SDE (Special Developmental Exercise - highest transfer), SPE (Special Preparatory Exercise), and GPE (General Preparatory Exercise). Bondarchuk proved that in advanced lifters, GPE transfer approaches zero. Focus on SDEs that match competition motor firing patterns.";
+            botAnswer = PRESET_CONVERSATIONS.find(p => p.id === "bondarchuk_transfer").botReply;
           } else {
-            botAnswer = `Based on Small Goods methodology and Soviet strength principles (Verkhoshansky & Zatsiorsky): Every physical adaptation begins with the kinetic chain rooted in the legs. For this specific inquiry on "${query}", ensure your movement amplitude respects your anthropometric femur/torso leverage and maintain rate of force development (RFD). If pain or acute joint restriction is present, this will be routed directly to Holly Hunt for physio triage.`;
+            botAnswer = `G'day! Rooted in The Small Goods Way and Soviet sports science: power generation always begins with the legs. For "${query}", let's make sure your setup fits your body's unique levers and moves with explosive intent.\n\n💡 The Coach's Why: Moving with speed on warm-ups recruits your high-threshold fast-twitch fibers early so you're ready for top sets.\n\nWhat specific movement or weight are we looking at next?`;
           }
         }
 
@@ -425,10 +493,28 @@
                     <div ref={chatEndRef} />
                   </div>
 
+                  {/* Category Filter Tabs */}
+                  <div className="px-4 pt-2.5 pb-1 bg-[#1b1532] border-t-2 border-black flex items-center space-x-1.5 overflow-x-auto">
+                    <span className="text-[10px] font-mono text-slate-400 uppercase font-bold shrink-0 mr-1">Experience Level:</span>
+                    {[
+                      { id: "all", label: "🌟 All Topics" },
+                      { id: "beginner", label: "👶 Beginner & Everyday" },
+                      { id: "vbt", label: "⚡ Athletes & VBT" },
+                      { id: "science", label: "🔬 Coaches & Science" }
+                    ].map(cat => (
+                      <button
+                        key={cat.id}
+                        onClick={() => setActiveCategory(cat.id)}
+                        className={`text-[11px] font-bold px-2.5 py-1 rounded-lg border border-black transition-all shrink-0 ${activeCategory === cat.id ? 'bg-[#9aef0f] text-black shadow-[2px_2px_0px_#000]' : 'bg-[#0b0914] text-slate-400 hover:text-white'}`}
+                      >
+                        {cat.label}
+                      </button>
+                    ))}
+                  </div>
+
                   {/* Quick Preset Chips */}
-                  <div className="px-4 py-2 bg-[#1b1532] border-t-2 border-black overflow-x-auto flex items-center space-x-2">
-                    <span className="text-[11px] font-mono text-slate-400 uppercase font-bold shrink-0">Quick Triage:</span>
-                    {PRESET_CONVERSATIONS.map(p => (
+                  <div className="px-4 py-2 bg-[#1b1532] overflow-x-auto flex items-center space-x-2">
+                    {filteredPresets.map(p => (
                       <button
                         key={p.id}
                         onClick={() => handleSendMessage(p.userMsg)}
@@ -473,13 +559,17 @@
                         <span className="font-black text-[#9aef0f] text-base">1.18 (#LongFemurs)</span>
                       </div>
                       <div className="bg-[#0b0914] p-2 rounded-lg border border-black">
-                        <span className="text-slate-400 block">VBT Snatch Target</span>
-                        <span className="font-black text-amber-300 text-base">≥ 1.65 m/s</span>
+                        <span className="text-slate-400 block">Coaching Tone</span>
+                        <span className="font-black text-amber-300 text-base">Accessible & Warm</span>
                       </div>
                     </div>
-                    <p className="text-xs text-slate-300 leading-relaxed">
-                      Co-Pilot automatically filters all mechanical cues through Alex's long femur leverage and active shoulder impingement record.
+                    <p className="text-xs text-slate-300 leading-relaxed mb-2">
+                      Co-Pilot automatically switches between intuitive sensory metaphors for gym beginners and joint-moment physics for national lifters.
                     </p>
+                    <div className="flex items-center space-x-1.5 text-[10px] font-mono text-[#9aef0f] bg-[#0b0914] p-1.5 rounded border border-black">
+                      <span>✓</span>
+                      <span>Universal Progressive Disclosure Active</span>
+                    </div>
                   </div>
 
                   {/* Strict Guardrail Card */}
@@ -492,22 +582,25 @@
                       <strong>Currency is Trust.</strong> The AI Co-Pilot operates under zero-hallucination constraints:
                     </p>
                     <ul className="text-[11px] text-slate-400 space-y-1 list-disc pl-4">
-                      <li>Never invents nutritional dosages or rapid cuts.</li>
-                      <li>Never cues arm pulling when bar stalling occurs.</li>
+                      <li>Never dumps uninvited academic jargon on everyday lifters.</li>
+                      <li>Translates science into sensory somatic cues first.</li>
                       <li>Immediately routes structural pain to <strong>Holly Hunt</strong> (Physiotherapy).</li>
                     </ul>
                   </div>
 
-                  {/* Soviet Anchor Quote */}
+                  {/* Coach Joel's Sticky Note */}
                   <div className="neo-card bg-[#f8ef8d] text-black p-4 rounded-2xl shadow-[4px_4px_0px_#000]">
                     <div className="flex items-center justify-between mb-1">
-                      <span className="text-xs font-black uppercase font-mono tracking-wider">Coach Joel's Sticky Note</span>
+                      <span className="text-xs font-black uppercase font-mono tracking-wider">Coach Joel's North Star</span>
                       <span className="text-xs">📌</span>
                     </div>
-                    <p className="font-serif italic text-sm leading-snug font-semibold">
+                    <p className="font-serif italic text-sm leading-snug font-bold mb-2">
+                      "Good training starts with seeing the person in front of you. Be a safe place for a 'misfit' community."
+                    </p>
+                    <p className="font-serif italic text-xs leading-snug text-slate-800">
                       "All power generation starts and ends with the legs. The arms are an important extension, but it doesn't matter what sport: it's gonna be the legs."
                     </p>
-                    <span className="block text-[11px] font-mono font-bold mt-2 text-right">— Yuri Verkhoshansky & Joel Mullen</span>
+                    <span className="block text-[11px] font-mono font-bold mt-2 text-right">— Joel Mullen & Yuri Verkhoshansky</span>
                   </div>
                 </div>
               </div>

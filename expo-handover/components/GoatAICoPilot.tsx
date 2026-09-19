@@ -42,15 +42,17 @@ export interface GoatAICoPilotProps {
   };
 }
 
-// Preset Quick Triage Prompts
+// Preset Quick Triage Prompts (Accessible across all experience levels)
 const QUICK_PROMPTS = [
+  { label: '👋 Day 1 Squat Help', prompt: "I've never done barbell squats before and feel a bit nervous/stiff. Where should I start?" },
+  { label: '⏱️ 30-Minute Crunch', prompt: 'I only have 30 minutes today. How should I prioritize my session using The Small Goods Way?' },
+  { label: '🩹 Stiff Hips & Ankles', prompt: 'My hips and ankles feel super tight today. What Range Adder should I do before lifting?' },
+  { label: '🩺 Shoulder Pinch (>3/10)', prompt: 'I have a 4/10 anterior shoulder pinch on bench press. How should I regress?' },
   { label: '⚡ 90s Missed Lift Triage', prompt: 'I missed two snatches at 85kg. What should I do on my next set?' },
   { label: '🐐 The Small Goods Way', prompt: 'What are the 5 exercise categories and session ordering rules of The Small Goods Way?' },
-  { label: '🩺 Pain > 3/10 Triage', prompt: 'I have a 4/10 anterior shoulder pinch on bench press. How should I regress?' },
   { label: '📏 Long Femur Squats', prompt: 'My femurs are long compared to my torso (1.02 ratio). How should I adjust my squat stance?' },
   { label: '💪 Arm & Forearm Levers', prompt: 'How do my forearm and upper arm lengths affect my bench press touch point and shoulder rotation?' },
   { label: '💥 Soviet Shock Method', prompt: 'Explain the Verkhoshansky shock method depth jump parameters and amortization phase.' },
-  { label: '🏋️ 12-Platform Cap', prompt: 'How many lifting platforms are currently open for the 5:30 PM session?' },
 ];
 
 export const GoatAICoPilot: React.FC<GoatAICoPilotProps> = ({
@@ -70,9 +72,9 @@ export const GoatAICoPilot: React.FC<GoatAICoPilotProps> = ({
     {
       id: 'msg-0',
       sender: 'assistant',
-      text: `G'day ${athleteProfile.name}! Goat AI here. Floor co-pilot is active. Grounded in Soviet sports science and Small Goods coaching methodology. How can I help your session?`,
+      text: `G'day ${athleteProfile.name}! Goat AI here. Whether it's your very first day under the bar or you're dialling in for a national meet, I'm right here in your corner. How is your session feeling today?`,
       timestamp: 'Now',
-      citations: ['Verkhoshansky (1988)', 'Zatsiorsky (1995)', 'Cleather (2021)'],
+      citations: ['The Small Goods Way (Joel Mullen)', 'Verkhoshansky (1988)', 'Cleather (2021)'],
     },
   ]);
   const [inputText, setInputText] = useState('');
@@ -149,84 +151,124 @@ export const GoatAICoPilot: React.FC<GoatAICoPilotProps> = ({
   const generateDeterministicFallback = (prompt: string, profile: typeof athleteProfile): ChatMessage => {
     const p = prompt.toLowerCase();
 
+    // 1. Day 1 / Beginner / Nervous Support
+    if (p.includes('beginner') || p.includes('day 1') || p.includes('never done') || p.includes('nervous') || p.includes('start')) {
+      return {
+        id: `bot-${Date.now()}`,
+        sender: 'assistant',
+        text: `Welcome in! Feeling nervous or stiff on day one is 100% normal—everyone in this gym started right where you are.\n\n🎯 Step 1: Let's start with a Goblet Squat holding a light dumbbell or kettlebell against your chest, or even squatting down to a 20-inch box.\n\n🎯 Step 2 (Your Somatic Cue): Keep your feet shoulder-width apart, toes turned out slightly. Think about sitting your hips back between your heels like settling into a comfy armchair, and spread the floor with your feet.\n\n💡 The Coach's Why: Holding a light weight in front acts as a natural counterbalance, which helps your torso stay upright and lets your hips do the work without straining your lower back.\n\nTake your time with 3 easy sets of 8 reps. How does that feel on your knees and hips?`,
+        timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+        citations: ['The Small Goods Way: "Become a Stronger You"', 'Cleather, Force (2021)'],
+      };
+    }
+
+    // 2. Mobility / Stiff Hips & Ankles
+    if (p.includes('stiff') || p.includes('tight') || (p.includes('hip') && p.includes('ankle')) || p.includes('warm') || p.includes('mobility')) {
+      return {
+        id: `bot-${Date.now()}`,
+        sender: 'assistant',
+        text: `G'day! Let's get those joints opened up so your barbell work feels silky smooth.\n\n🎯 Range Adder Protocol:\n1. 90/90 Hip Swivels: 8 smooth transitions per side, focusing on slow control.\n2. Front-Foot Elevated (FFE) Split Squats: 2 sets of 6 reps per leg holding a light 8kg dumbbell, letting the knee glide forward over the toes in a pain-free range.\n3. Deficit Romanian Deadlifts: Light bar, soft knees, pushing hips straight back toward the wall.\n\n💡 The Coach's Why: In The Small Goods Way, we use loaded movements through full active ranges (Range Adders) rather than passive stretching, because loaded movement signals your brain that it's safe to produce force in deep positions.\n\nGive those split squats a whirl and let me know if your hips feel looser!`,
+        timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+        citations: ['The Small Goods Way: Range Adder System', 'Verkhoshansky, Special Strength Training'],
+      };
+    }
+
+    // 3. Time Crunch / 30-Minute Session
+    if (p.includes('30') || p.includes('short on time') || p.includes('crunch') || p.includes('time limit')) {
+      return {
+        id: `bot-${Date.now()}`,
+        sender: 'assistant',
+        text: `No worries at all! Life happens, and 30 focused minutes is plenty to get a high-quality session under your belt.\n\n🎯 The Small Goods 30-Minute Autoregulation Plan:\n1. 5 Mins — Range Adder: 2 quick sets of FFE split squats and hip openers.\n2. 15 Mins — Primary Force Builder: Squat or Bench for 3 heavy working sets of 5 reps with 2 minutes rest.\n3. 10 Mins — Volume Builder (Myo-Reps): Pick one accessory (e.g. dumbbell rows or leg extensions). Do 1 activation set of 12 reps to near-failure, rest 15 seconds, then do 3 mini-sets of 4 reps with 15s rest between.\n\n💡 The Coach's Why: Myo-reps give you all the muscle-building stimulus of 4 regular sets in just one-third of the clock time by keeping your high-threshold muscle fibers firing.\n\nReady to get after it? Let's clock in!`,
+        timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+        citations: ['The Small Goods Way: Minimum Effective Dose & Density Protocols', 'Zatsiorsky, Repeated Effort Method'],
+      };
+    }
+
+    // 4. The Small Goods Way Taxonomy & Ordering
     if (p.includes('small goods way') || p.includes('category') || p.includes('categories') || p.includes('ordering')) {
       return {
         id: `bot-${Date.now()}`,
         sender: 'assistant',
-        text: `🐐 THE SMALL GOODS WAY (JOEL'S COACHING FRAMEWORK):\n\n• 5 Exercise Categories:\n  1. Range Adders: Expand active ROM & tissue tolerance at length (RDLs, FFE Split Squats).\n  2. Co-ordinators: Motor pattern efficiency & comp lifts (Snatches, Paused Low Bar).\n  3. Accelerators: RFD & velocity under submaximal load (Banded Squats, Box Jumps).\n  4. Force Builders: Absolute force ceiling via high stability (Hatfield Squats, Bounce Bench).\n  5. Volume Builders: Hypertrophy & density (Myo-rep sets, Giant sets).\n\n• Strict Session Ordering: Range Adders → Co-ordinators → Accelerators → Force Builders → Volume Builders.\n(Rule: Never place high-density Volume Builders before explosive Accelerators or Co-ordinators).`,
+        text: `G'day! Here is how we build training sessions in The Small Goods Way:\n\n1. 🎯 Quick Floor Rule: We always build training in 5 distinct layers, ordered from the most mobile and explosive down to pure volume:\n\n• 1. Range Adders: Opening up active flexibility & joint tolerance (e.g. RDLs, front-foot elevated split squats).\n• 2. Co-ordinators: Skill and clean technique (e.g. snatches, paused squats).\n• 3. Accelerators: Speed & explosive snap with submaximal weights (e.g. banded squats, box jumps).\n• 4. Force Builders: Heavy strength with rock-solid stability (e.g. Hatfield safety-bar squats, bench press).\n• 5. Volume Builders: Muscle pumping and density (e.g. giant sets, myo-rep sets).\n\n💡 The Coach's Why: Putting explosive movements before high-fatigue volume ensures your nervous system stays fresh so you move fast and stay injury-free.\n\nWhat exercise are you gearing up for right now?`,
         timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
         citations: ['The Small Goods Way (Joel Mullen, 2026)', 'Small Goods Gym Floor Standards'],
       };
     }
 
+    // 5. Pain Threshold & Triage
     if (p.includes('pain') || p.includes('pinch') || p.includes('hurt') || p.includes('regress')) {
       return {
         id: `bot-${Date.now()}`,
         sender: 'assistant',
-        text: `🩺 JOEL'S PAIN THRESHOLD PROTOCOL (Pain > 3/10 Detected):\n\n1. Immediate Regression: Terminate heavy axial/joint-shearing load immediately.\n2. Prescribe Range Adder / High-Stability Variant: Transition to external stability (e.g. swap barbell bench for Swiss-bar or dumbbell floor press with neutral grip).\n3. Autoregulation Rule: Load safely only within active, pain-free ROM. Never force movement through acute joint compression.\n4. Physio Flag: Logged for Holly Hunt's clinical review queue.`,
+        text: `🩺 Joel's Pain Threshold Rule (Pain > 3/10 Detected):\n\nFirst up: good on ya for listening to your body. We never grind through acute joint pinching.\n\n🎯 Immediate Floor Action:\n1. Step away from the straight barbell bench press immediately.\n2. Regress to a High-Stability Variant: Grab a pair of dumbbells and do a Floor Press with a neutral (palms facing each other) grip, or use the Swiss multi-grip bar.\n3. Cue: Keep your shoulder blades gently squeezed into your back pockets and stop each rep an inch before any discomfort.\n\n💡 The Coach's Why: A neutral grip reduces internal rotation at the shoulder, giving your supraspinatus tendon room to breathe while still training chest and triceps.\n\n📋 Care Handover: I've logged this discomfort vector in Holly Hunt's physio triage queue for follow-up.\n\nTry the dumbbell floor press—does that feel pain-free?`,
         timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
         citations: ['The Small Goods Way: Pain Threshold Rule', 'Holly Hunt Physio Care Gateway'],
         triageAlert: {
           type: 'biomechanics',
-          action: 'Regress to Range Adder / high-stability variant & notify Holly',
+          action: 'Regress to neutral-grip floor press & notify Holly Hunt Physio',
         },
       };
     }
 
+    // 6. Missed Lifts / Velocity Drop
     if (p.includes('missed') || p.includes('snatch') || p.includes('velocity')) {
       return {
         id: `bot-${Date.now()}`,
         sender: 'assistant',
-        text: `⚡ 90-SECOND REST TRIAGE ACTIVATED:\n\n1. CNS Velocity Check: If bar speed dropped >15% below baseline, high-threshold motor unit recruitment is compromised.\n2. Protocol: Drop working weight by 5% to 7.5% (take 80kg instead of 85kg) for 2 clean technical singles.\n3. Termination Rule: If second rep at 80kg fails concentric acceleration, terminate the snatch portion and transition to pulls.`,
+        text: `⚡ 90-Second Rest Triage Activated:\n\nTake a deep breath and chalk up. Let's diagnose what happened in those two reps:\n\n🎯 The Call:\n1. Speed Check: If the bar felt slow or heavy off the floor, your central nervous system is fatigued. Drop working weight by 5%–7.5% (take 80kg instead of 85kg) for 2 clean technical singles.\n2. Floor Cue: Stay over the bar half a beat longer. Drive the world away with your legs through midfoot, and keep your arms relaxed like ropes until your hips finish their drive.\n3. Termination Rule: If your next single at 80kg still lacks pop, we terminate the snatch portion and move straight to pulls.\n\n💡 The Coach's Why: Continuing to miss at maximal load under fatigue only trains your brain to execute bad motor patterns (Zatsiorsky). Dropping 5% restores high velocity and rebuilds confidence.\n\nHow did that first single at 80kg feel?`,
         timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
         citations: ['Issurin, Residual Training Effects (2008)', 'Mann, Velocity-Based Training Guide (2015)'],
         triageAlert: {
           type: 'drop_load',
-          action: 'Drop weight 5–7.5% or terminate lift',
+          action: 'Drop weight 5–7.5% (80kg) for 2 clean singles or terminate lift',
         },
       };
     }
 
+    // 7. Long Femur Squats
     if (p.includes('femur') || p.includes('squat')) {
       return {
         id: `bot-${Date.now()}`,
         sender: 'assistant',
-        text: `📐 BIOMECHANICAL LEVER ANALYSIS (Femur/Torso: ${profile.femurToTorsoRatio}):\n\nBecause your femurs are long relative to your torso:\n• Sagittal Moment Arm: Forward knee travel creates an extended lumbar lever arm if you use a narrow high-bar stance.\n• Solution: Widen stance to 1.3× shoulder width, flare toes 30° out to shorten the sagittal femur projection, and use low-bar placement to recruit hip extensors.`,
+        text: `📐 Stance & Leverage Analysis (Femur/Torso: ${profile.femurToTorsoRatio}):\n\nG'day! Having longer thigh bones (femurs) compared to your torso is super common—it just means standard high-bar, narrow-stance advice will make you feel like you're folding in half.\n\n🎯 Simple Somatic Fixes:\n1. Widen Stance: Set your heels about 1.2× to 1.3× shoulder width.\n2. Flare Toes Out 30°: Turn your toes out comfortably to give your pelvis room to sink down between your thighs.\n3. The Cue: Think about "spreading the floor apart with your feet like tearing a newspaper in half" as you sit down into the space between your heels.\n4. Bar Placement: Try setting the bar 1–2 inches lower across your rear deltoids (Low Bar).\n\n💡 The Coach's Why: Opening your hip angle shortens the front-to-back distance your hips have to travel, allowing your chest to stay more upright and protecting your lower back.\n\nGive that wider stance a spin with an empty bar. Does your depth feel more natural?`,
         timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-        citations: ['Cleather, Force: The Biomechanics of Training (2021)', 'Zatsiorsky, Ergonomic Biomechanics (1984)'],
+        citations: ['Cleather, Force: The Biomechanics of Training (2021)', 'The Small Goods Way'],
         triageAlert: {
           type: 'biomechanics',
-          action: 'Widen stance to 1.3× shoulder width & flare toes 30°',
+          action: 'Widen stance to 1.2–1.3× shoulder width & flare toes 30°',
         },
       };
     }
 
+    // 8. Forearms & Arm Levers
     if (p.includes('arm') || p.includes('forearm') || p.includes('bench')) {
       return {
         id: `bot-${Date.now()}`,
         sender: 'assistant',
-        text: `💪 UPPER LIMB & FOREARM LEVERAGES:\n\n• Forearm-to-Arm Ratio (${profile.forearmToArmRatio}): Long forearms increase the horizontal moment arm at the shoulder when the bar touches the sternum.\n• Bench Press Adjustment: Tuck elbows at 45° rather than 90° flare to preserve the anterior capsule, and take a slightly wider grip to keep the forearms vertical at touch.\n• Olympic Clean: Requires active lat engagement in the front rack to prevent the bar from crashing on the clavicles.`,
+        text: `💪 Upper Limb Lever Analysis (Forearm/Arm: ${profile.forearmToArmRatio}):\n\nLong forearms mean the bar travels a greater distance down to your chest and puts extra leverage on your shoulders if your elbows flare wide.\n\n🎯 Actionable Floor Setup:\n1. Elbow Angle: Tuck your elbows at roughly 45° to your torso (making an arrow shape with your body, not a 'T').\n2. Grip Width: Take a grip where your forearms are straight vertical right when the barbell touches your lower chest.\n3. Floor Drive: Plant your heels firm into the floor and squeeze your glutes.\n\n💡 The Coach's Why: Tucking the elbows stacks your wrists directly over your elbows at the bottom of the lift, directing all force straight up into the bar while keeping the shoulder capsule safe.\n\nHow does your shoulder feel at the touch point with this grip?`,
         timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-        citations: ['Cleather (2021)', 'Verkhoshansky, Special Strength Training Manual (2011)'],
+        citations: ['Cleather (2021)', 'Verkhoshansky, Special Strength Training Manual'],
       };
     }
 
-    if (p.includes('shock') || p.includes('depth jump')) {
+    // 9. Verkhoshansky Shock Method
+    if (p.includes('shock') || p.includes('depth jump') || p.includes('plyo')) {
       return {
         id: `bot-${Date.now()}`,
         sender: 'assistant',
-        text: `💥 VERKHOSHANSKY SHOCK METHOD:\n\n• Amortization Phase: Transition from eccentric to concentric must occur in <150 milliseconds to exploit elastic muscle recoil.\n• Drop Height: 0.75m for explosive reactive power; 1.10m maximum for pure eccentric overload.\n• Volume: Strictly 4 sets of 10 drops, 2× weekly. Do NOT perform if fatigued or bar velocity is down.`,
+        text: `💥 Verkhoshansky Shock Method (True Plyometrics):\n\nHere's the real science behind depth jumping, directly from Yuri Verkhoshansky:\n\n🎯 Key Floor Rules:\n1. The Height: Step off a 0.50m to 0.75m box onto firm ground. (Never higher than 0.75m for explosive power).\n2. The 150-Millisecond Rule: The instant your feet hit the floor, you must rebound upward like hitting a burning-hot stove. Ground contact must be under 0.15 seconds.\n3. Dosage: Strictly 3 to 4 sets of 8 to 10 reps, with 3 full minutes of walking rest between sets.\n\n💡 The Coach's Why: If your feet stay on the floor longer than 150ms, the spring-like elastic energy stored in your muscle tendons turns into heat instead of rebound, defeating the whole purpose of the exercise.\n\n⚠️ Guardrail: If you are not squatting at least 1.5× bodyweight with solid form, we build up with box jumps and continuous pogo hops first!`,
         timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-        citations: ['Verkhoshansky, Fundamentals of Special Strength Training (1977, p. 112)'],
+        citations: ['Verkhoshansky, Fundamentals of Special Strength Training (1977)', 'The Small Goods Way: Accelerator Framework'],
       };
     }
 
+    // 10. Default Accessible Fallback
     return {
       id: `bot-${Date.now()}`,
       sender: 'assistant',
-      text: `G'day! For your current profile (${profile.leverageTags.join(', ')}), keep your concentric intent explosive. Every warm-up rep should move as fast as your top singles. What specific movement or load are we reviewing?`,
+      text: `G'day! For your profile (${profile.leverageTags.join(', ')}), remember Joel's #1 golden rule on the floor: power always starts with the legs, and every rep should be moved with fast, explosive intent.\n\n💡 The Coach's Why: Moving the bar as fast as you can on warm-ups primes your nervous system to fire all your muscle fibers when you reach heavy weights.\n\nWhat lift or question are we tackling next today?`,
       timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-      citations: ['Small Goods Gym Floor Standard'],
+      citations: ['The Small Goods Way (Joel Mullen)', 'Verkhoshansky (1988)'],
     };
   };
 

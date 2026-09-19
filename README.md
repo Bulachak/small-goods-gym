@@ -15,7 +15,7 @@ All prototypes are hosted live on GitHub Pages and can be launched directly in a
 | Prototype | Live Hosted Link | Description | Local Source |
 | :--- | :--- | :--- | :--- |
 | **6-Tab Live Demo Hub** | [**Launch Live Demo Hub**](https://bulachak.github.io/small-goods-gym/live-demo-hub.html) | Complete 6-module gym-floor suite: tactile logger, Enode VBT speed tracking (`0.64 m/s`), biomechanical lever calculator, 12-platform capacity cap, NDIS analytics, Javier architecture handshake, and floating Goat AI widget (🐐). | [`live-demo-hub.html`](./live-demo-hub.html) |
-| **Goat AI Co-Pilot** | [**Launch Goat AI Coach**](https://bulachak.github.io/small-goods-gym/small-goods-coach-demo.html) | Dedicated full-screen AI coaching companion speaking in Joel's voice (*"G'day! Let's get to work"*), running deterministic 90-second missed-lift triage and Verkhoshansky / Zatsiorsky / Cleather citations. | [`small-goods-coach-demo.html`](./small-goods-coach-demo.html) |
+| **Goat AI Co-Pilot** | [**Launch Goat AI Coach**](https://bulachak.github.io/small-goods-gym/small-goods-coach-demo.html) | Dedicated full-screen AI coaching companion speaking in Joel's warm, accessible voice. Employs the **Universal Progressive Disclosure Triad** (intuitive somatic cues for day-1 beginners, deep biomechanical torques & VBT for national competitors), Joel's 5 movement categories, and deterministic 90s triage. | [`small-goods-coach-demo.html`](./small-goods-coach-demo.html) |
 | **Main Brand Showcase** | [**Launch Brand Showcase**](https://bulachak.github.io/small-goods-gym/index.html) | Webflow design token wall (Inch Worm `#9aef0f`, Purple Heart `#4724ba`, Sweet Corn `#f8ef8d`), typography trio (*Poppins*, *Roboto Mono*, *Reenie Beanie*), and responsive layouts. | [`index.html`](./index.html) |
 | **Athlete Profile View** | [**Launch Athlete Profile**](https://bulachak.github.io/small-goods-gym/athlete-profile-preview.html) | Anthropometry card, leverage tags (long femurs / short torso), PB tracker, and biomechanical ratios. | [`athlete-profile-preview.html`](./athlete-profile-preview.html) |
 | **Tactile Floor Logger** | [**Launch Floor Logger**](https://bulachak.github.io/small-goods-gym/workout-logger-preview.html) | Big-button tactile workout logging interface optimized for sweaty hands and high CNS fatigue. | [`workout-logger-preview.html`](./workout-logger-preview.html) |
@@ -24,10 +24,11 @@ All prototypes are hosted live on GitHub Pages and can be launched directly in a
 
 ## 🧠 Core System Capabilities
 
-### 1. Goat AI Sports-Science Co-Pilot
-- Grounded in a 1,309-chunk indexed Soviet sports science knowledge base (Verkhoshansky, Zatsiorsky, Cleather, Mann, Issurin).
-- Deterministic 90-second triage protocol for missed lifts (velocity drop >15% triggers load reduction or set termination).
-- Biomechanical torque analysis for long-femur lifters (Cleather stance scaling, moment arms, low-bar placement).
+### 1. Goat AI Sports-Science Co-Pilot (Accessible Across All Levels)
+- **Universal Progressive Disclosure Protocol:** Communicates equally comfortably with a day-one beginner who has never touched a barbell (plain-English sensory metaphors like *"settling into an armchair"* or *"ripping the newspaper between your feet"*) and a PhD biomechanist or national champion lifter (moment arms, $dF/dt$, $m/s$ velocity loss cutoffs).
+- **The Small Goods Way Integration:** Fully implements Joel Mullen's 5 movement categories (*Range Adders*, *Co-ordinators*, *Accelerators*, *Force Builders*, *Volume Builders*) and fatigue-prevention session ordering sequences.
+- **Strict Grounding:** Grounded in a 1,309-chunk indexed Soviet sports science knowledge base (Verkhoshansky, Zatsiorsky, Cleather, Mann, Issurin).
+- **Deterministic 90-Second In-Session Triage:** Live floor decision tree for missed lifts (velocity decay $>15\%$ triggers immediate 5–7.5% load drop or session termination; structural pain $>3/10$ regresses to high-stability Range Adders and routes to Holly Hunt Physiotherapy).
 
 ### 2. Gym-Floor Tactile Interface
 - Designed adhering to Fitts's Law, Hick's Law, and the Doherty Threshold (<400ms feedback).
