@@ -13,6 +13,7 @@ This directory contains production-ready, drop-in assets designed to integrate s
 
 ```text
 expo-handover/
+├── assets/                         # Production icons & logo (favicon.png, icon.png, adaptive-icon.png, logo.png)
 ├── components/
 │   ├── index.ts                    # Unified barrel export for all mobile components
 │   ├── GoatAICoPilot.tsx           # React Native Expo Chat Drawer & Quick-Triage HUD
