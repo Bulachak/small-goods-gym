@@ -3,6 +3,8 @@ node_modules/
 .DS_Store
 Thumbs.db
 *.log
+*.zip
+*.tar.gz
 scratch/
 
 # Internal Sports Science Books & Digitized Raw Text
