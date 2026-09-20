@@ -37,6 +37,7 @@ export interface GoatAICoPilotProps {
     name: string;
     femurToTorsoRatio: number;
     forearmToArmRatio: number;
+    shoulderWidthCm?: number; // Biacromial breadth (Joel request)
     leverageTags: string[];
     currentExercise?: string;
   };
@@ -54,6 +55,7 @@ const QUICK_PROMPTS = [
   { label: '🩹 Stiff Hips & Ankles', prompt: 'My hips and ankles feel super tight today. What Range Adder should I do before lifting?' },
   { label: '🩺 Shoulder Pinch (>3/10)', prompt: 'I have a 4/10 anterior shoulder pinch on bench press. How should I regress?' },
   { label: '⚡ 90s Missed Lift Triage', prompt: 'I missed two snatches at 85kg. What should I do on my next set?' },
+  { label: '📐 Shoulder Width & Bench', prompt: 'How does my shoulder width (biacromial breadth) determine my optimal bench press grip and deadlift arm hang?' },
   { label: '🥐 Sunday Biscuits', prompt: 'What happens at Sunday Community Breakfast Biscuits and how do I RSVP?' },
   { label: '🐐 The Small Goods Way', prompt: 'What are the 5 exercise categories and session ordering rules of The Small Goods Way?' },
   { label: '📏 Long Femur Squats', prompt: 'My femurs are long compared to my torso (1.02 ratio). How should I adjust my squat stance?' },
@@ -363,6 +365,25 @@ export const GoatAICoPilot: React.FC<GoatAICoPilotProps> = ({
               "How does your shoulder feel at the touch point with this grip?",
         timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
         citations: ['Cleather (2021)', 'Verkhoshansky, Special Strength Training Manual'],
+      };
+    }
+
+    // 12.5 Shoulder Width & Bench Grip / Deadlift Arm Hang (Joel Mullen Requirement)
+    if (p.includes('shoulder width') || p.includes('biacromial') || (p.includes('shoulder') && p.includes('bench')) || (p.includes('shoulder') && p.includes('grip'))) {
+      const sw = athleteContext.shoulderWidthCm || 44;
+      const recGrip = Math.round(sw * 1.6);
+      return {
+        id: `bot-${Date.now()}`,
+        sender: 'assistant',
+        text: "G'day! Here is how your shoulder width dictates your bench grip and deadlift setup:\n\n" +
+              `🎯 Your Biacromial Calibration: Your shoulder width is ${sw} cm.\n\n` +
+              `1. Bench Press Grip: Aim for an index finger grip width of roughly ${recGrip} cm (1.5×–1.7× biacromial distance). This positions your forearms perpendicular to the bar at chest touch, eliminating excessive internal rotation torque on your rotator cuff.\n` +
+              "2. Deadlift Arm Hang: Your hands should hang directly vertical outside your thighs. Narrower shoulders allow a more vertical arm hang, shortening the total distance the bar must travel to lockout.\n" +
+              `3. Squat Upper-Back Shelf: A ${sw} cm shoulder girdle provides a sturdy rear-delt platform for low-bar placement, keeping the bar locked in position without wrist strain.\n\n` +
+              "💡 The Coach's Why: Setting bench grip as a multiple of biacromial breadth standardizes joint moment arms across lifters of all sizes (Cleather, 2021).\n\n" +
+              `Does a ${recGrip} cm grip feel comfortable and natural on your chest?`,
+        timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+        citations: ['Cleather (2021), Force: The Biomechanics of Training', 'Small Goods 5-Segment Anthropometry'],
       };
     }
 
@@ -699,18 +720,24 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
   },
   quickPromptChip: {
-    backgroundColor: '#1c1c28',
+    backgroundColor: '#1e293b',
     paddingHorizontal: 12,
     paddingVertical: 7,
-    borderRadius: 16,
+    borderRadius: 6,
     marginRight: 8,
-    borderWidth: 1,
-    borderColor: '#2e2e42',
+    borderWidth: 2,
+    borderColor: '#000000',
+    shadowColor: '#000000',
+    shadowOffset: { width: 2, height: 2 },
+    shadowOpacity: 1,
+    shadowRadius: 0,
+    elevation: 2,
   },
   quickPromptText: {
-    color: '#e5e7eb',
+    color: '#ffffff',
     fontSize: 12,
-    fontWeight: '600',
+    fontWeight: '700',
+    fontFamily: 'Roboto Mono',
   },
   messagesContainer: {
     flex: 1,
@@ -730,77 +757,96 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
   },
   avatarMini: {
-    width: 28,
-    height: 28,
-    borderRadius: 14,
-    backgroundColor: '#4724ba',
+    width: 32,
+    height: 32,
+    borderRadius: 6,
+    backgroundColor: '#9aef0f',
     justifyContent: 'center',
     alignItems: 'center',
     marginRight: 8,
     marginTop: 4,
+    borderWidth: 2,
+    borderColor: '#000000',
+    shadowColor: '#000000',
+    shadowOffset: { width: 2, height: 2 },
+    shadowOpacity: 1,
+    shadowRadius: 0,
+    elevation: 2,
   },
   avatarMiniText: {
-    fontSize: 14,
+    fontSize: 16,
   },
   bubble: {
-    maxWidth: '82%',
+    maxWidth: '84%',
     padding: 14,
-    borderRadius: 16,
+    borderRadius: 8,
+    borderWidth: 2,
+    borderColor: '#000000',
+    shadowColor: '#000000',
+    shadowOffset: { width: 3, height: 3 },
+    shadowOpacity: 1,
+    shadowRadius: 0,
+    elevation: 3,
   },
   userBubble: {
     backgroundColor: '#4724ba',
-    borderBottomRightRadius: 4,
   },
   assistantBubble: {
-    backgroundColor: '#181822',
-    borderWidth: 1,
-    borderColor: '#262638',
-    borderBottomLeftRadius: 4,
+    backgroundColor: '#0f172a',
   },
   messageText: {
-    color: '#f3f4f6',
-    fontSize: 14,
-    lineHeight: 20,
+    color: '#f8fafc',
+    fontSize: 13,
+    lineHeight: 19,
   },
   triageBadge: {
-    backgroundColor: '#261b00',
-    borderLeftWidth: 3,
-    borderLeftColor: '#f59e0b',
+    backgroundColor: '#f8ef8d',
+    borderWidth: 2,
+    borderColor: '#000000',
     padding: 10,
     marginTop: 10,
     borderRadius: 6,
+    shadowColor: '#000000',
+    shadowOffset: { width: 3, height: 3 },
+    shadowOpacity: 1,
+    shadowRadius: 0,
+    elevation: 3,
   },
   triageBadgeTitle: {
-    color: '#fbbf24',
+    color: '#000000',
     fontSize: 11,
-    fontWeight: '800',
+    fontWeight: '900',
+    fontFamily: 'Roboto Mono',
     marginBottom: 2,
   },
   triageBadgeText: {
-    color: '#fef3c7',
+    color: '#000000',
     fontSize: 12,
-    fontWeight: '600',
+    fontWeight: '700',
   },
   citationsContainer: {
     marginTop: 10,
     paddingTop: 8,
     borderTopWidth: 1,
-    borderTopColor: '#28283c',
+    borderTopColor: 'rgba(255,255,255,0.1)',
   },
   citationsLabel: {
     color: '#9aef0f',
     fontSize: 11,
-    fontWeight: '700',
+    fontWeight: '800',
+    fontFamily: 'Roboto Mono',
     marginBottom: 4,
   },
   citationItem: {
-    color: '#9ca3af',
+    color: '#94a3b8',
     fontSize: 11,
     lineHeight: 16,
+    fontFamily: 'Roboto Mono',
   },
   timestampText: {
-    color: '#6b7280',
+    color: '#64748b',
     fontSize: 10,
+    fontFamily: 'Roboto Mono',
     alignSelf: 'flex-end',
     marginTop: 6,
   },
@@ -812,6 +858,7 @@ const styles = StyleSheet.create({
   loadingText: {
     color: '#9aef0f',
     fontSize: 12,
+    fontFamily: 'Roboto Mono',
     marginLeft: 8,
   },
   inputBar: {
@@ -819,35 +866,43 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: 12,
     paddingVertical: 10,
-    backgroundColor: '#13131b',
-    borderTopWidth: 1,
-    borderTopColor: '#22222e',
+    backgroundColor: '#090d16',
+    borderTopWidth: 2,
+    borderTopColor: '#000000',
   },
   textInput: {
     flex: 1,
-    backgroundColor: '#1c1c28',
+    backgroundColor: '#0f172a',
     color: '#ffffff',
-    borderRadius: 20,
-    paddingHorizontal: 16,
+    borderRadius: 6,
+    paddingHorizontal: 14,
     paddingVertical: 10,
-    fontSize: 14,
+    fontSize: 13,
     marginRight: 8,
-    borderWidth: 1,
-    borderColor: '#2d2d40',
+    borderWidth: 2,
+    borderColor: '#000000',
   },
   sendButton: {
     backgroundColor: '#9aef0f',
     paddingHorizontal: 16,
     paddingVertical: 10,
-    borderRadius: 20,
+    borderRadius: 6,
+    borderWidth: 2,
+    borderColor: '#000000',
+    shadowColor: '#000000',
+    shadowOffset: { width: 2, height: 2 },
+    shadowOpacity: 1,
+    shadowRadius: 0,
+    elevation: 2,
   },
   sendButtonDisabled: {
-    backgroundColor: '#2e3a17',
+    backgroundColor: '#334155',
   },
   sendButtonText: {
-    color: '#0d0d12',
-    fontWeight: '700',
-    fontSize: 14,
+    color: '#000000',
+    fontWeight: '900',
+    fontSize: 13,
+    letterSpacing: 0.5,
   },
 });
 

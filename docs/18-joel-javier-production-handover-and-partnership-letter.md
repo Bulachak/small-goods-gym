@@ -7,8 +7,7 @@
 - **Joel Mullen** — Founder & Head Coach, Small Goods Gym (Morley, Perth, WA)  
 - **Javier Pereira** — Lead Systems Developer, Small Goods Gym  
 **CC:** Izzy (Community & Brand)  
-**Handover Status:** Complete & Production-Verified  
-**Live Hosted Hub:** [https://bulachak.github.io/small-goods-gym/live-demo-hub.html](https://bulachak.github.io/small-goods-gym/live-demo-hub.html)  
+**Live Hosted Web App (Canonical):** [https://bulachak.github.io/small-goods-gym/index.html](https://bulachak.github.io/small-goods-gym/index.html)  
 **Standalone Goat AI Demo:** [https://bulachak.github.io/small-goods-gym/small-goods-coach-demo.html](https://bulachak.github.io/small-goods-gym/small-goods-coach-demo.html)  
 **GitHub Repository:** [https://github.com/Bulachak/small-goods-gym](https://github.com/Bulachak/small-goods-gym)  
 
@@ -35,7 +34,7 @@ Every item agreed upon in our September 18 debrief (`SGG-COMM-002`) is implement
 | # | Commitment from Friday Call | Delivery in Handover Package |
 | :--- | :--- | :--- |
 | **1** | **Javier's Stack Alignment** | Replaced all Next.js/Cloud Run concepts with pure React Native components (`expo-handover/components/`) and a single Cloudflare Worker proxy (`worker-chat-proxy.ts`). |
-| **2** | **Upper Limb Kinematics** | Expanded the anthropometric leverage engine in `BiomechanicalLeverHUD.tsx` to calculate forearm (forelimb) and upper arm (humerus) ratios for bench press internal rotation torque, deadlift starting back angle, and Olympic front-rack turnover clearance. |
+| **2** | **5-Segment Anthropometry & Kinematics** | Expanded the leverage engine in `BiomechanicalLeverHUD.tsx` to calculate femur, torso, forearm (forelimb), upper arm (humerus), and shoulder width (biacromial breadth). Added Dan Cleather's $1.6 \times$ biacromial bench grip prescription, deadlift starting angle, and squat stance calibration. |
 | **3** | **Joel's Coaching Taxonomy** | Formally ingested "The Small Goods Way" (`docs/16-...`): 5 movement categories (*Range Adders $\to$ Co-ordinators $\to$ Accelerators $\to$ Force Builders $\to$ Volume Builders*), MED grinder set limits, and session sequence rules. |
 | **4** | **Human, Conversational Chatbot** | Overhauled the Goat AI engine across all 5 surfaces. The bot now speaks with warmth and natural dialogue for everyday athletes, using the **Universal Progressive Disclosure Triad** (Immediate Somatic Cue $\to$ The Coach's Why $\to$ Deep Biomechanics on demand). No more academic gatekeeping or robotic walls of text. |
 | **5** | **GDPR & PII Isolation** | Created `schema-cloudflare-d1.sql` with an 8-table relational schema that strictly isolates biometric limb dimensions from member identities, including an automated SQLite trigger that anonymizes measurements when athletes go on hiatus. |
@@ -59,7 +58,7 @@ expo-handover/
 ├── components/                        # Pure React Native (Expo) UI Components
 │   ├── index.ts                       # Barrel export
 │   ├── GoatAICoPilot.tsx              # Conversational sports-science chat drawer
-│   ├── BiomechanicalLeverHUD.tsx      # 4-segment anthropometry diagnostic
+│   ├── BiomechanicalLeverHUD.tsx      # 5-segment anthropometry & biacromial bench grip diagnostic
 │   ├── TactileFloorLogger.tsx         # 64px touch-target floor logger with VBT
 │   ├── PlatformRSVPModal.tsx          # 12-platform capacity cap & waitlist enforcer
 │   └── LifterPassportCard.tsx         # ArenaPL-style 9-attempt competition card
@@ -83,9 +82,9 @@ expo-handover/
 
 Joel and Javier can click and test everything immediately from their phones:
 
-- **Live Gym-Floor Demo Suite (6 Tabs):**  
-  👉 [https://bulachak.github.io/small-goods-gym/live-demo-hub.html](https://bulachak.github.io/small-goods-gym/live-demo-hub.html)  
-  *Explore the Tactile Logger, 4-Segment Levers, 12-Platform RSVP, NDIS scorecards, and floating Goat AI drawer.*
+- **Canonical Gym-Floor Web App (6 Tabs):**  
+  👉 [https://bulachak.github.io/small-goods-gym/index.html](https://bulachak.github.io/small-goods-gym/index.html)  
+  *Explore the Tactile Logger, 5-Segment Biomechanical Levers (Femur, Torso, Forearm, Upper Arm, Shoulder Width), 12-Platform RSVP, NDIS scorecards, and floating Goat AI drawer.*
 
 - **Fullscreen Conversational Goat AI Coach:**  
   👉 [https://bulachak.github.io/small-goods-gym/small-goods-coach-demo.html](https://bulachak.github.io/small-goods-gym/small-goods-coach-demo.html)  

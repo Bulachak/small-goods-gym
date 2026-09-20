@@ -1,8 +1,8 @@
 # Small Goods Gym • Systems Architecture & Interactive Demo Suite
 
-[![Live Demo Hub](https://img.shields.io/badge/Live%20Demo-6--Tab%20Suite-9aef0f?style=for-the-badge&logo=google-chrome&logoColor=black)](https://bulachak.github.io/small-goods-gym/live-demo-hub.html)
+[![Canonical Web App](https://img.shields.io/badge/Web%20App-6--Tab%20Suite-9aef0f?style=for-the-badge&logo=google-chrome&logoColor=black)](https://bulachak.github.io/small-goods-gym/index.html)
 [![Goat AI Coach](https://img.shields.io/badge/Goat%20AI-Co--Pilot%20Prototype-4724ba?style=for-the-badge&logo=openai&logoColor=white)](https://bulachak.github.io/small-goods-gym/small-goods-coach-demo.html)
-[![Brand Showcase](https://img.shields.io/badge/Brand%20Showcase-Webflow%20Tokens-f8ef8d?style=for-the-badge&logo=webflow&logoColor=black)](https://bulachak.github.io/small-goods-gym/index.html)
+[![Brand Tokens](https://img.shields.io/badge/Brand%20Tokens-Neo--Brutalist-f8ef8d?style=for-the-badge&logo=webflow&logoColor=black)](https://bulachak.github.io/small-goods-gym/index.html)
 
 Sports technology architecture, tactile gym-floor interfaces, Soviet sports-science knowledge retrieval (FTS5 BM25), and biomechanical modeling built for **Small Goods Gym** (Morley, Perth, Western Australia).
 
@@ -14,9 +14,8 @@ All prototypes are hosted live on GitHub Pages and can be launched directly in a
 
 | Prototype | Live Hosted Link | Description | Local Source |
 | :--- | :--- | :--- | :--- |
-| **6-Tab Live Demo Hub** | [**Launch Live Demo Hub**](https://bulachak.github.io/small-goods-gym/live-demo-hub.html) | Complete 6-module gym-floor suite: tactile logger, Enode VBT speed tracking (`0.64 m/s`), biomechanical lever calculator, 12-platform capacity cap, NDIS analytics, Javier architecture handshake, and floating Goat AI widget (🐐). | [`live-demo-hub.html`](./live-demo-hub.html) |
+| **Canonical 6-Tab Web App** | [**Launch Web App**](https://bulachak.github.io/small-goods-gym/index.html) | Canonical Neo-Brutalist 6-module gym-floor suite: tactile logger, 5-segment biomechanical lever lab (femur, torso, forearm, upper arm, shoulder width), 12-platform capacity cap, NDIS analytics, Javier architecture handshake, and floating Goat AI drawer (🐐). | [`index.html`](./index.html) |
 | **Goat AI Co-Pilot** | [**Launch Goat AI Coach**](https://bulachak.github.io/small-goods-gym/small-goods-coach-demo.html) | Dedicated full-screen AI coaching companion speaking in Joel's warm, accessible voice. Employs the **Universal Progressive Disclosure Triad** (intuitive somatic cues for day-1 beginners, deep biomechanical torques & VBT for national competitors), Joel's 5 movement categories, and deterministic 90s triage. | [`small-goods-coach-demo.html`](./small-goods-coach-demo.html) |
-| **Main Brand Showcase** | [**Launch Brand Showcase**](https://bulachak.github.io/small-goods-gym/index.html) | Webflow design token wall (Inch Worm `#9aef0f`, Purple Heart `#4724ba`, Sweet Corn `#f8ef8d`), typography trio (*Poppins*, *Roboto Mono*, *Reenie Beanie*), and responsive layouts. | [`index.html`](./index.html) |
 | **Athlete Profile View** | [**Launch Athlete Profile**](https://bulachak.github.io/small-goods-gym/athlete-profile-preview.html) | Anthropometry card, leverage tags (long femurs / short torso), PB tracker, and biomechanical ratios. | [`athlete-profile-preview.html`](./athlete-profile-preview.html) |
 | **Tactile Floor Logger** | [**Launch Floor Logger**](https://bulachak.github.io/small-goods-gym/workout-logger-preview.html) | Big-button tactile workout logging interface optimized for sweaty hands and high CNS fatigue. | [`workout-logger-preview.html`](./workout-logger-preview.html) |
 
@@ -50,9 +49,9 @@ All prototypes are hosted live on GitHub Pages and can be launched directly in a
 
 ```text
 small-goods-gym/
-├── live-demo-hub.html              # 6-Tab flagship interactive operating hub
+├── index.html                      # Canonical 6-tab Neo-Brutalist operating suite
+├── live-demo-hub.html              # Instant redirect to canonical index.html
 ├── small-goods-coach-demo.html     # Fullscreen Goat AI Coach companion prototype
-├── index.html                      # Brand token wall & architecture showcase
 ├── athlete-profile-preview.html    # Athlete profile & anthropometry preview
 ├── workout-logger-preview.html     # Tactile workout logger floor preview
 ├── docs/                           # Technical architecture & sports science blueprints

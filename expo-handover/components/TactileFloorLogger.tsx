@@ -72,79 +72,88 @@ export const TactileFloorLogger: React.FC<TactileFloorLoggerProps> = ({
 
   const currentSet = sets[currentSetIdx];
 
-  // Weight adjustments
   const adjustWeight = (delta: number) => {
     setSets((prev) => {
-      const updated = [...prev];
-      updated[currentSetIdx] = {
-        ...updated[currentSetIdx],
-        loggedWeightKg: Math.max(0, updated[currentSetIdx].loggedWeightKg + delta),
-      };
-      return updated;
+      const copy = [...prev];
+      const newWeight = Math.max(0, Number((copy[currentSetIdx].loggedWeightKg + delta).toFixed(1)));
+      copy[currentSetIdx] = { ...copy[currentSetIdx], loggedWeightKg: newWeight };
+      return copy;
     });
   };
 
-  // Rep adjustments
   const adjustReps = (delta: number) => {
     setSets((prev) => {
-      const updated = [...prev];
-      updated[currentSetIdx] = {
-        ...updated[currentSetIdx],
-        loggedReps: Math.max(0, updated[currentSetIdx].loggedReps + delta),
-      };
-      return updated;
+      const copy = [...prev];
+      const newReps = Math.max(1, copy[currentSetIdx].loggedReps + delta);
+      copy[currentSetIdx] = { ...copy[currentSetIdx], loggedReps: newReps };
+      return copy;
     });
   };
 
-  // Velocity input
-  const handleVelocityChange = (valStr: string) => {
-    const val = parseFloat(valStr);
+  const handleVelocityChange = (val: string) => {
+    const num = parseFloat(val);
     setSets((prev) => {
-      const updated = [...prev];
-      updated[currentSetIdx] = {
-        ...updated[currentSetIdx],
-        vbtVelocityMs: isNaN(val) ? undefined : val,
-      };
-      return updated;
+      const copy = [...prev];
+      copy[currentSetIdx] = { ...copy[currentSetIdx], vbtVelocityMs: isNaN(num) ? undefined : num };
+      return copy;
     });
   };
 
-  // Toggle complete
   const completeCurrentSet = () => {
     setSets((prev) => {
-      const updated = [...prev];
-      updated[currentSetIdx] = {
-        ...updated[currentSetIdx],
-        completed: true,
-      };
-      return updated;
+      const copy = [...prev];
+      copy[currentSetIdx] = { ...copy[currentSetIdx], completed: true };
+      return copy;
     });
+
     // Start 90s rest timer
     setRestSeconds(90);
     setTimerRunning(true);
-    // Advance to next set if available
+
+    // Auto advance to next set if available
     if (currentSetIdx < sets.length - 1) {
-      setCurrentSetIdx(currentSetIdx + 1);
+      setCurrentSetIdx((idx) => idx + 1);
     }
+
+    onLogComplete?.(sets);
   };
 
-  // Check VBT Velocity Loss (>15% drop from baseline = CNS fatigue trigger)
-  const velocityDropPct = currentSet.vbtVelocityMs
-    ? Math.round(((baselineVelocityMs - currentSet.vbtVelocityMs) / baselineVelocityMs) * 100)
-    : 0;
+  // Check for CNS fatigue (>15% velocity loss)
+  const velocityDropPct =
+    currentSet.vbtVelocityMs && baselineVelocityMs
+      ? Math.round(((baselineVelocityMs - currentSet.vbtVelocityMs) / baselineVelocityMs) * 100)
+      : 0;
 
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollContent}>
-        {/* Exercise Header */}
-        <View style={styles.exerciseHeader}>
+        {/* Top Header */}
+        <View style={styles.header}>
+          <View style={styles.headerBadge}>
+            <Text style={styles.headerBadgeText}>TACTILE FLOOR LOGGER</Text>
+          </View>
           <Text style={styles.exerciseTitle}>{exerciseName}</Text>
-          <Text style={styles.exerciseMeta}>
-            Baseline Velocity: {baselineVelocityMs} m/s • Target: {initialWeightKg}kg × {initialReps} reps
+          <Text style={styles.subtitle}>
+            Prescribed: {targetSets} Sets × {initialReps} Reps @ {initialWeightKg}kg • Baseline: {baselineVelocityMs} m/s
           </Text>
         </View>
 
-        {/* Set Navigator Tabs */}
+        {/* Coach Joel Mullen's Floor Directive (Signature Yellow Sticky Note) */}
+        <View style={styles.stickyNote}>
+          <View style={styles.stickyBadge}>
+            <Text style={styles.stickyBadgeText}>STICKER CUE</Text>
+          </View>
+          <Text style={styles.stickyHeader}>COACH JOEL MULLEN'S LIVE FLOOR DIRECTIVE:</Text>
+          <Text style={styles.stickyQuote}>
+            "Push knees out hard into the band on the ascent. Torso must not collapse forward past 45°!"
+          </Text>
+          <View style={styles.stickyFooter}>
+            <Text style={styles.stickyMeta}>Target Stance: Wide (Low Bar)</Text>
+            <Text style={styles.stickyMeta}>Threshold: 20% Velocity Loss</Text>
+          </View>
+        </View>
+
+        {/* Set Selector Tabs */}
         <View style={styles.setTabsRow}>
           {sets.map((s, idx) => (
             <TouchableOpacity
@@ -180,7 +189,7 @@ export const TactileFloorLogger: React.FC<TactileFloorLoggerProps> = ({
           </View>
         )}
 
-        {/* Tactile Big-Button Logging Controls (Fitts's Law) */}
+        {/* Tactile Big-Button Logging Controls (Fitts's Law 64dp) */}
         <View style={styles.card}>
           <Text style={styles.cardHeader}>SET {currentSet.setNumber} LOGGING CONTROLS</Text>
 
@@ -225,7 +234,7 @@ export const TactileFloorLogger: React.FC<TactileFloorLoggerProps> = ({
               style={styles.velocityInput}
               keyboardType="numeric"
               placeholder="e.g. 1.25"
-              placeholderTextColor="#6b7280"
+              placeholderTextColor="#64748b"
               value={currentSet.vbtVelocityMs ? String(currentSet.vbtVelocityMs) : ''}
               onChangeText={handleVelocityChange}
             />
@@ -237,7 +246,7 @@ export const TactileFloorLogger: React.FC<TactileFloorLoggerProps> = ({
             onPress={completeCurrentSet}
           >
             <Text style={styles.completeButtonText}>
-              {currentSet.completed ? 'SET COMPLETED ✓ (TAP TO RE-LOG)' : 'COMPLETE SET ✓'}
+              {currentSet.completed ? 'SET COMPLETED ✓ (TAP TO RE-LOG)' : '✓ LOG SET'}
             </Text>
           </TouchableOpacity>
         </View>
@@ -251,9 +260,9 @@ export const TactileFloorLogger: React.FC<TactileFloorLoggerProps> = ({
           <View style={styles.timerButtonsRow}>
             <TouchableOpacity
               style={styles.timerBtn}
-              onPress={() => setTimerRunning(!timerRunning)}
+              onPress={() => setTimerRunning((r) => !r)}
             >
-              <Text style={styles.timerBtnText}>{timerRunning ? 'PAUSE' : 'START TIMER'}</Text>
+              <Text style={styles.timerBtnText}>{timerRunning ? 'PAUSE' : 'START 90s'}</Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={[styles.timerBtn, styles.timerResetBtn]}
@@ -262,7 +271,7 @@ export const TactileFloorLogger: React.FC<TactileFloorLoggerProps> = ({
                 setRestSeconds(90);
               }}
             >
-              <Text style={styles.timerResetBtnText}>RESET 90S</Text>
+              <Text style={styles.timerResetBtnText}>RESET</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -272,58 +281,138 @@ export const TactileFloorLogger: React.FC<TactileFloorLoggerProps> = ({
 };
 
 // ==========================================
-// STYLES
+// NEO-BRUTALIST STYLESHEET (Small Goods Standard)
 // ==========================================
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#0a0a0e',
+    backgroundColor: '#090d16',
   },
   scrollContent: {
     padding: 16,
     paddingBottom: 40,
   },
-  exerciseHeader: {
+  header: {
     marginBottom: 16,
+  },
+  headerBadge: {
+    backgroundColor: '#4724ba',
+    alignSelf: 'flex-start',
+    paddingHorizontal: 8,
+    paddingVertical: 2,
+    borderRadius: 4,
+    borderWidth: 2,
+    borderColor: '#000000',
+    marginBottom: 6,
+  },
+  headerBadgeText: {
+    color: '#ffffff',
+    fontFamily: 'Roboto Mono',
+    fontWeight: '900',
+    fontSize: 10,
+    letterSpacing: 0.5,
   },
   exerciseTitle: {
     color: '#ffffff',
     fontSize: 22,
-    fontWeight: '800',
-    letterSpacing: -0.4,
+    fontWeight: '900',
+    letterSpacing: -0.5,
   },
-  exerciseMeta: {
-    color: '#9aef0f',
+  subtitle: {
+    color: '#94a3b8',
     fontSize: 12,
-    fontWeight: '600',
+    marginTop: 2,
+    fontFamily: 'Roboto Mono',
+  },
+  stickyNote: {
+    backgroundColor: '#f8ef8d',
+    borderWidth: 2,
+    borderColor: '#000000',
+    borderRadius: 8,
+    padding: 14,
+    marginBottom: 16,
+    shadowColor: '#000000',
+    shadowOffset: { width: 4, height: 4 },
+    shadowOpacity: 1,
+    shadowRadius: 0,
+    elevation: 4,
+  },
+  stickyBadge: {
+    position: 'absolute',
+    top: 6,
+    right: 6,
+    backgroundColor: '#000000',
+    paddingHorizontal: 6,
+    paddingVertical: 2,
+    borderRadius: 2,
+  },
+  stickyBadgeText: {
+    color: '#ffffff',
+    fontSize: 9,
+    fontFamily: 'Roboto Mono',
+    fontWeight: '900',
+  },
+  stickyHeader: {
+    color: '#1e293b',
+    fontSize: 10,
+    fontWeight: '900',
+    fontFamily: 'Roboto Mono',
+    letterSpacing: 0.5,
+  },
+  stickyQuote: {
+    color: '#000000',
+    fontSize: 16,
+    fontWeight: '700',
+    fontStyle: 'italic',
+    lineHeight: 22,
+    marginVertical: 6,
+  },
+  stickyFooter: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    borderTopWidth: 1,
+    borderTopColor: 'rgba(0,0,0,0.15)',
+    paddingTop: 6,
     marginTop: 4,
+  },
+  stickyMeta: {
+    color: '#1e293b',
+    fontSize: 11,
+    fontFamily: 'Roboto Mono',
+    fontWeight: '700',
   },
   setTabsRow: {
     flexDirection: 'row',
     gap: 8,
-    marginBottom: 14,
+    marginBottom: 16,
   },
   setTab: {
     flex: 1,
-    backgroundColor: '#161622',
+    backgroundColor: '#0f172a',
     paddingVertical: 10,
     alignItems: 'center',
-    borderRadius: 8,
-    borderWidth: 1,
-    borderColor: '#242436',
+    borderRadius: 6,
+    borderWidth: 2,
+    borderColor: '#000000',
+    shadowColor: '#000000',
+    shadowOffset: { width: 2, height: 2 },
+    shadowOpacity: 1,
+    shadowRadius: 0,
+    elevation: 2,
   },
   setTabActive: {
-    borderColor: '#9aef0f',
-    backgroundColor: '#202032',
+    backgroundColor: '#4724ba',
+    borderColor: '#000000',
   },
   setTabCompleted: {
-    backgroundColor: '#122612',
+    backgroundColor: '#1a331a',
     borderColor: '#9aef0f',
   },
   setTabText: {
-    color: '#9ca3af',
+    color: '#94a3b8',
     fontSize: 12,
-    fontWeight: '700',
+    fontFamily: 'Roboto Mono',
+    fontWeight: '800',
   },
   setTabTextActive: {
     color: '#ffffff',
@@ -332,36 +421,49 @@ const styles = StyleSheet.create({
     color: '#9aef0f',
   },
   alertBanner: {
-    backgroundColor: '#261b00',
-    borderLeftWidth: 4,
-    borderLeftColor: '#f59e0b',
-    padding: 14,
+    backgroundColor: '#e95766',
     borderRadius: 8,
+    padding: 14,
     marginBottom: 16,
+    borderWidth: 2,
+    borderColor: '#000000',
+    shadowColor: '#000000',
+    shadowOffset: { width: 4, height: 4 },
+    shadowOpacity: 1,
+    shadowRadius: 0,
+    elevation: 4,
   },
   alertTitle: {
-    color: '#fbbf24',
-    fontSize: 12,
-    fontWeight: '800',
+    color: '#000000',
+    fontSize: 13,
+    fontWeight: '900',
+    fontFamily: 'Roboto Mono',
     marginBottom: 4,
   },
   alertText: {
-    color: '#fef3c7',
+    color: '#000000',
     fontSize: 12,
     lineHeight: 18,
+    fontWeight: '600',
   },
   card: {
-    backgroundColor: '#13131c',
-    borderRadius: 14,
+    backgroundColor: '#0f172a',
+    borderRadius: 8,
     padding: 16,
-    borderWidth: 1,
-    borderColor: '#222230',
     marginBottom: 16,
+    borderWidth: 2,
+    borderColor: '#000000',
+    shadowColor: '#000000',
+    shadowOffset: { width: 4, height: 4 },
+    shadowOpacity: 1,
+    shadowRadius: 0,
+    elevation: 4,
   },
   cardHeader: {
-    color: '#9ca3af',
+    color: '#94a3b8',
     fontSize: 11,
-    fontWeight: '800',
+    fontFamily: 'Roboto Mono',
+    fontWeight: '900',
     letterSpacing: 0.5,
     marginBottom: 16,
   },
@@ -369,95 +471,118 @@ const styles = StyleSheet.create({
     marginBottom: 18,
   },
   controlLabel: {
-    color: '#d1d5db',
-    fontSize: 13,
-    fontWeight: '600',
-    marginBottom: 6,
+    color: '#cbd5e1',
+    fontSize: 12,
+    fontWeight: '700',
+    fontFamily: 'Roboto Mono',
+    marginBottom: 4,
   },
   hugeValue: {
     color: '#ffffff',
-    fontSize: 34,
+    fontSize: 32,
     fontWeight: '900',
-    letterSpacing: -1,
+    fontFamily: 'Roboto Mono',
+    letterSpacing: -0.5,
   },
   unitText: {
-    fontSize: 18,
+    fontSize: 16,
     color: '#9aef0f',
-    fontWeight: '600',
+    fontWeight: '700',
   },
   touchButtonsRow: {
     flexDirection: 'row',
     gap: 8,
-    marginTop: 10,
+    marginTop: 8,
   },
   modifierButton: {
     flex: 1,
-    height: 52, // Fitts's Law 52dp minimum touch target
-    backgroundColor: '#1e1e2d',
-    borderRadius: 8,
+    height: 52, // Fitts's Law touch target
+    backgroundColor: '#1e293b',
+    borderRadius: 6,
     justifyContent: 'center',
     alignItems: 'center',
-    borderWidth: 1,
-    borderColor: '#2c2c42',
+    borderWidth: 2,
+    borderColor: '#000000',
+    shadowColor: '#000000',
+    shadowOffset: { width: 2, height: 2 },
+    shadowOpacity: 1,
+    shadowRadius: 0,
+    elevation: 2,
   },
   modifierButtonText: {
-    color: '#e5e7eb',
-    fontSize: 14,
-    fontWeight: '700',
+    color: '#ffffff',
+    fontSize: 13,
+    fontFamily: 'Roboto Mono',
+    fontWeight: '800',
   },
   plusButton: {
-    backgroundColor: '#262040',
-    borderColor: '#4724ba',
+    backgroundColor: '#f8ef8d',
   },
   plusButtonText: {
-    color: '#a78bfa',
+    color: '#000000',
   },
   velocityInput: {
-    backgroundColor: '#1a1a27',
+    backgroundColor: '#1e293b',
     color: '#9aef0f',
-    fontSize: 20,
+    fontSize: 18,
+    fontFamily: 'Roboto Mono',
     fontWeight: '800',
-    paddingHorizontal: 16,
-    paddingVertical: 12,
-    borderRadius: 8,
-    borderWidth: 1,
-    borderColor: '#2c2c40',
+    paddingHorizontal: 14,
+    paddingVertical: 10,
+    borderRadius: 6,
+    borderWidth: 2,
+    borderColor: '#000000',
+    marginTop: 4,
   },
   completeButton: {
-    height: 64, // Massive 64dp primary floor button
+    height: 60,
     backgroundColor: '#9aef0f',
-    borderRadius: 12,
+    borderRadius: 8,
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 10,
+    borderWidth: 2,
+    borderColor: '#000000',
+    shadowColor: '#000000',
+    shadowOffset: { width: 4, height: 4 },
+    shadowOpacity: 1,
+    shadowRadius: 0,
+    elevation: 4,
+    marginTop: 8,
   },
   completedAlreadyButton: {
     backgroundColor: '#4724ba',
   },
   completeButtonText: {
-    color: '#0a0a0e',
-    fontSize: 15,
+    color: '#000000',
+    fontSize: 14,
     fontWeight: '900',
     letterSpacing: 0.5,
   },
   timerCard: {
-    backgroundColor: '#12121a',
-    borderRadius: 12,
+    backgroundColor: '#0f172a',
+    borderRadius: 8,
     padding: 16,
-    borderWidth: 1,
-    borderColor: '#1e1e2c',
+    borderWidth: 2,
+    borderColor: '#000000',
+    shadowColor: '#000000',
+    shadowOffset: { width: 4, height: 4 },
+    shadowOpacity: 1,
+    shadowRadius: 0,
+    elevation: 4,
     alignItems: 'center',
   },
   timerTitle: {
-    color: '#9ca3af',
-    fontSize: 12,
-    fontWeight: '700',
+    color: '#94a3b8',
+    fontSize: 11,
+    fontFamily: 'Roboto Mono',
+    fontWeight: '800',
   },
   timerCountdown: {
     color: '#ffffff',
-    fontSize: 44,
+    fontSize: 40,
+    fontFamily: 'Roboto Mono',
     fontWeight: '900',
-    marginVertical: 8,
+    marginVertical: 6,
     letterSpacing: -1,
   },
   timerButtonsRow: {
@@ -468,20 +593,29 @@ const styles = StyleSheet.create({
     backgroundColor: '#4724ba',
     paddingHorizontal: 20,
     paddingVertical: 10,
-    borderRadius: 8,
+    borderRadius: 6,
+    borderWidth: 2,
+    borderColor: '#000000',
+    shadowColor: '#000000',
+    shadowOffset: { width: 2, height: 2 },
+    shadowOpacity: 1,
+    shadowRadius: 0,
+    elevation: 2,
   },
   timerBtnText: {
     color: '#ffffff',
-    fontSize: 12,
-    fontWeight: '800',
+    fontSize: 11,
+    fontFamily: 'Roboto Mono',
+    fontWeight: '900',
   },
   timerResetBtn: {
-    backgroundColor: '#222230',
+    backgroundColor: '#1e293b',
   },
   timerResetBtnText: {
-    color: '#9ca3af',
-    fontSize: 12,
-    fontWeight: '700',
+    color: '#94a3b8',
+    fontSize: 11,
+    fontFamily: 'Roboto Mono',
+    fontWeight: '800',
   },
 });
 

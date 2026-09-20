@@ -17,7 +17,7 @@ expo-handover/
 ├── components/
 │   ├── index.ts                    # Unified barrel export for all mobile components
 │   ├── GoatAICoPilot.tsx           # React Native Expo Chat Drawer & Quick-Triage HUD
-│   ├── BiomechanicalLeverHUD.tsx   # 4-segment anthropometry calculator (femur, torso, forearm, upper arm)
+│   ├── BiomechanicalLeverHUD.tsx   # 5-segment anthropometry calculator (femur, torso, forearm, upper arm, shoulder width)
 │   ├── TactileFloorLogger.tsx      # Big-button floor workout logger with VBT speed inputs
 │   ├── PlatformRSVPModal.tsx       # 12-platform capacity cap & waitlist queue modal
 │   └── LifterPassportCard.tsx      # ArenaPL-style Lifter Passport with 9-attempt accordion & tier badges
@@ -32,7 +32,7 @@ expo-handover/
 
 ## 🚀 1. Integrating the React Native Components into Expo
 
-All 4 components in `components/` are built using pure React Native and Expo primitives (`View`, `Text`, `TouchableOpacity`, `ScrollView`, `TextInput`, `Modal`). They require **zero DOM dependencies** and render cleanly on web, iOS, and Android.
+All 5 components in `components/` are built using pure React Native and Expo primitives (`View`, `Text`, `TouchableOpacity`, `ScrollView`, `TextInput`, `Modal`). They require **zero DOM dependencies** and render cleanly on web, iOS, and Android.
 
 ### A. `GoatAICoPilot.tsx` (AI Assistant)
 - **What it does:** Full-screen modal or drawer containing the sports-science co-pilot.
@@ -47,6 +47,7 @@ All 4 components in `components/` are built using pure React Native and Expo pri
       name: user.displayName,
       femurToTorsoRatio: 1.02,
       forearmToArmRatio: 0.88,
+      shoulderWidthCm: 44,
       leverageTags: ['Long Femurs', 'Long Forearms'],
     }}
   />
@@ -54,9 +55,10 @@ All 4 components in `components/` are built using pure React Native and Expo pri
 - **Fallback:** If `apiEndpoint` is omitted, it automatically runs an offline deterministic triage engine (useful for local dev and patchy gym floor Wi-Fi).
 
 ### B. `BiomechanicalLeverHUD.tsx` (Anthropometric Diagnostic)
-- **What it does:** Implements Joel's expanded leverage model:
-  - **Femurs & Torso:** Squat depth, stance width (1.3× shoulder width), sagittal moment arm.
+- **What it does:** Implements Joel's expanded 5-segment leverage model:
+  - **Femurs & Torso:** Squat depth, stance width ($1.3\times$ biacromial breadth), sagittal moment arm.
   - **Forearm (Forelimb) & Upper Arm (Humerus):** Bench press touch point, elbow flexion, shoulder torque, clean front-rack angle.
+  - **Shoulder Width (Biacromial Breadth):** Dan Cleather $1.6\times$ biacromial bench grip prescription for vertical forearms at chest touch.
   - **Ape Index:** Deadlift starting hip height and back angle.
 - **Props:**
   ```tsx

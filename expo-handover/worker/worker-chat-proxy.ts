@@ -16,6 +16,7 @@ interface ChatRequestBody {
     name?: string;
     femurToTorsoRatio?: number;
     forearmToArmRatio?: number;
+    shoulderWidthCm?: number;
     leverageTags?: string[];
     currentExercise?: string;
   };
@@ -119,6 +120,7 @@ ATHLETE BIOMECHANICAL CONTEXT:
 - Name: ${athleteProfile?.name || 'Lifter'}
 - Femur/Torso Ratio: ${athleteProfile?.femurToTorsoRatio || 'Balanced'}
 - Forearm/Arm Ratio: ${athleteProfile?.forearmToArmRatio || 'Balanced'}
+- Shoulder Width: ${athleteProfile?.shoulderWidthCm ? `${athleteProfile.shoulderWidthCm} cm (Recommended Biacromial Bench Grip: ${Math.round(athleteProfile.shoulderWidthCm * 1.6)} cm)` : 'Standard'}
 - Leverage Tags: ${(athleteProfile?.leverageTags || ['Standard']).join(', ')}
 - Current Exercise: ${athleteProfile?.currentExercise || 'Barbell Session'}
 

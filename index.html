@@ -1006,9 +1006,18 @@
       const [recordedSets, setRecordedSets] = useState(ATHLETES[0].history);
       const [meanVel, setMeanVel] = useState(0.68);
 
-      // Biomechanics slider state
-      const [femurRatio, setFemurRatio] = useState(1.02);
+      // Biomechanics 5-Segment Anthropometry State (Joel Mullen Model: Femur, Torso, Forearm, Upper Arm, Shoulder Width)
+      const [femurLengthCm, setFemurLengthCm] = useState(52.0);
+      const [torsoLengthCm, setTorsoLengthCm] = useState(48.0);
+      const [forearmLengthCm, setForearmLengthCm] = useState(29.0);
+      const [upperArmLengthCm, setUpperArmLengthCm] = useState(33.0);
+      const [shoulderWidthCm, setShoulderWidthCm] = useState(44.0); // Biacromial breadth (Joel request)
       const [apeIndex, setApeIndex] = useState(6);
+
+      // Computed dynamic ratios
+      const femurRatio = +(femurLengthCm / Math.max(torsoLengthCm, 1)).toFixed(2);
+      const forearmRatio = +(forearmLengthCm / Math.max(forearmLengthCm + upperArmLengthCm, 1)).toFixed(2);
+      const biacromialGripBenchCm = Math.round(shoulderWidthCm * 1.6); // Dan Cleather: 1.5 - 1.7x biacromial breadth
 
       // Events & RSVP state (Joel Mullen Goal #1: 12-platform cap & WhatsApp replacement)
       const [attendeesCount, setAttendeesCount] = useState(11);
@@ -1547,44 +1556,131 @@
           {/* TAB 2: BIOMECHANICAL LEVER LAB */}
           {activeTab === 'biomech' && (
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-              {/* Interactive Sliders */}
-              <div className="bg-white dark:bg-[#0f172a] p-6 rounded-lg neo-border neo-shadow space-y-6">
+              {/* Interactive 5-Segment Sliders (Joel Mullen Biomechanics Model) */}
+              <div className="bg-white dark:bg-[#0f172a] p-6 rounded-lg neo-border neo-shadow space-y-5">
                 <div>
-                  <span className="text-xs font-mono font-bold uppercase px-2 py-0.5 bg-brand-lime text-black rounded neo-border">BIOMECHANICAL ENGINE</span>
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-mono font-bold uppercase px-2 py-0.5 bg-brand-lime text-black rounded neo-border">5-SEGMENT BIOMECHANICS</span>
+                    <span className="text-[10px] font-mono text-purple-600 dark:text-purple-300 font-bold">CLEATHER / VERKHOSHANSKY</span>
+                  </div>
                   <h2 className="text-xl font-extrabold mt-1">Anatomical Lever Calibration</h2>
                   <p className="text-xs text-slate-600 dark:text-slate-400 mt-1">
-                    Drag the sliders to test how limb segment lengths alter joint torque and bar path requirements.
+                    Calibrate limb segments (femur, torso, forearm, upper arm, shoulder width) to calculate moment arms and barbell trajectories.
                   </p>
                 </div>
 
-                {/* Femur-to-Torso Ratio Slider */}
-                <div className="space-y-2">
+                {/* 1. Femur Length Slider */}
+                <div className="space-y-1.5">
                   <div className="flex justify-between font-mono text-xs">
-                    <span className="font-bold">Femur / Torso Ratio:</span>
-                    <span className="bg-brand-purple text-white px-2 py-0.5 rounded font-extrabold">{femurRatio}</span>
+                    <span className="font-bold">1. Femur Length:</span>
+                    <span className="bg-brand-purple text-white px-2 py-0.5 rounded font-extrabold">{femurLengthCm} cm (Ratio: {femurRatio})</span>
                   </div>
                   <input
-                    id="femur-ratio-slider"
-                    aria-label="Femur to Torso Ratio"
+                    id="femur-length-slider"
+                    aria-label="Femur Length in centimeters"
                     type="range"
-                    min="0.75"
-                    max="1.15"
-                    step="0.01"
-                    value={femurRatio}
-                    onChange={(e) => setFemurRatio(parseFloat(e.target.value))}
+                    min="38"
+                    max="65"
+                    step="0.5"
+                    value={femurLengthCm}
+                    onChange={(e) => setFemurLengthCm(parseFloat(e.target.value))}
                     className="w-full h-2 bg-slate-200 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-brand-purple"
                   />
-                  <div className="flex justify-between text-[10px] font-mono text-slate-600 dark:text-slate-400">
-                    <span>Short (&lt; 0.85)</span>
-                    <span>Average (0.85 - 0.95)</span>
-                    <span>Long (&gt; 0.98)</span>
+                  <div className="flex justify-between text-[10px] font-mono text-slate-500">
+                    <span>38 cm</span>
+                    <span>Torso: {torsoLengthCm} cm ({femurRatio > 1.0 ? 'Long Femurs' : 'Balanced'})</span>
+                    <span>65 cm</span>
                   </div>
                 </div>
 
-                {/* Ape Index Slider */}
-                <div className="space-y-2">
+                {/* 2. Torso Length Slider */}
+                <div className="space-y-1.5">
                   <div className="flex justify-between font-mono text-xs">
-                    <span className="font-bold">Ape Index (Arm Span - Height):</span>
+                    <span className="font-bold">2. Torso Length:</span>
+                    <span className="bg-slate-200 dark:bg-slate-800 text-black dark:text-white px-2 py-0.5 rounded font-extrabold neo-border">{torsoLengthCm} cm</span>
+                  </div>
+                  <input
+                    id="torso-length-slider"
+                    aria-label="Torso Length in centimeters"
+                    type="range"
+                    min="36"
+                    max="60"
+                    step="0.5"
+                    value={torsoLengthCm}
+                    onChange={(e) => setTorsoLengthCm(parseFloat(e.target.value))}
+                    className="w-full h-2 bg-slate-200 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-slate-500"
+                  />
+                </div>
+
+                {/* 3. Forearm & Upper Arm (Forelimb Kinematics - Joel Request) */}
+                <div className="grid grid-cols-2 gap-3 pt-1">
+                  <div className="space-y-1">
+                    <div className="flex justify-between font-mono text-xs">
+                      <span className="font-bold">3. Forearm:</span>
+                      <span className="text-brand-purple dark:text-brand-lime font-bold">{forearmLengthCm} cm</span>
+                    </div>
+                    <input
+                      id="forearm-length-slider"
+                      aria-label="Forearm Length in centimeters"
+                      type="range"
+                      min="22"
+                      max="38"
+                      step="0.5"
+                      value={forearmLengthCm}
+                      onChange={(e) => setForearmLengthCm(parseFloat(e.target.value))}
+                      className="w-full h-2 bg-slate-200 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-brand-lime"
+                    />
+                    <span className="text-[10px] font-mono text-slate-500">Ratio: {forearmRatio} ({forearmRatio > 0.47 ? 'Long' : 'Short'})</span>
+                  </div>
+
+                  <div className="space-y-1">
+                    <div className="flex justify-between font-mono text-xs">
+                      <span className="font-bold">4. Upper Arm:</span>
+                      <span className="text-brand-purple dark:text-brand-lime font-bold">{upperArmLengthCm} cm</span>
+                    </div>
+                    <input
+                      id="upperarm-length-slider"
+                      aria-label="Upper Arm Length in centimeters"
+                      type="range"
+                      min="26"
+                      max="42"
+                      step="0.5"
+                      value={upperArmLengthCm}
+                      onChange={(e) => setUpperArmLengthCm(parseFloat(e.target.value))}
+                      className="w-full h-2 bg-slate-200 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-brand-lime"
+                    />
+                    <span className="text-[10px] font-mono text-slate-500">Arm: {forearmLengthCm + upperArmLengthCm} cm</span>
+                  </div>
+                </div>
+
+                {/* 5. Shoulder Width (Biacromial Breadth - Joel Request) */}
+                <div className="space-y-1.5 pt-1">
+                  <div className="flex justify-between font-mono text-xs">
+                    <span className="font-bold">5. Shoulder Width (Biacromial):</span>
+                    <span className="bg-brand-yellow text-black px-2 py-0.5 rounded font-extrabold neo-border">{shoulderWidthCm} cm</span>
+                  </div>
+                  <input
+                    id="shoulder-width-slider"
+                    aria-label="Shoulder Width Biacromial in centimeters"
+                    type="range"
+                    min="34"
+                    max="56"
+                    step="0.5"
+                    value={shoulderWidthCm}
+                    onChange={(e) => setShoulderWidthCm(parseFloat(e.target.value))}
+                    className="w-full h-2 bg-slate-200 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-brand-yellow"
+                  />
+                  <div className="flex justify-between text-[10px] font-mono text-slate-500">
+                    <span>34 cm (Narrow Girdle)</span>
+                    <span>Rec. Bench Grip: {biacromialGripBenchCm} cm</span>
+                    <span>56 cm (Broad Girdle)</span>
+                  </div>
+                </div>
+
+                {/* 6. Ape Index Slider */}
+                <div className="space-y-1.5">
+                  <div className="flex justify-between font-mono text-xs">
+                    <span className="font-bold">6. Ape Index (Wingspan - Height):</span>
                     <span className="bg-brand-coral text-black px-2 py-0.5 rounded font-extrabold neo-border">
                       {apeIndex >= 0 ? `+${apeIndex} cm` : `${apeIndex} cm`}
                     </span>
@@ -1600,8 +1696,8 @@
                     onChange={(e) => setApeIndex(parseInt(e.target.value))}
                     className="w-full h-2 bg-slate-200 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-brand-coral"
                   />
-                  <div className="flex justify-between text-[10px] font-mono text-slate-600 dark:text-slate-400">
-                    <span>-8 cm (Short Arms)</span>
+                  <div className="flex justify-between text-[10px] font-mono text-slate-500">
+                    <span>-8 cm (Short Wingspan)</span>
                     <span>0 cm (Proportional)</span>
                     <span>+14 cm (Long Wingspan)</span>
                   </div>
@@ -1611,29 +1707,48 @@
                 <div className="bg-slate-50 dark:bg-slate-800/80 p-4 rounded neo-border space-y-3">
                   <span className="text-xs font-mono font-bold text-slate-500 uppercase">Prescribed Technical Adjustments</span>
                   
-                  <div className="text-xs space-y-2">
+                  <div className="text-xs space-y-2.5">
+                    {/* Squat */}
                     <div className="p-2.5 rounded bg-white dark:bg-slate-900 neo-border">
-                      <span className="font-bold text-brand-purple dark:text-brand-lime block">Squat Kinematics:</span>
+                      <div className="flex justify-between items-center mb-1">
+                        <span className="font-bold text-brand-purple dark:text-brand-lime">Squat Kinematics:</span>
+                        <span className="text-[10px] font-mono bg-purple-100 dark:bg-purple-950 text-purple-800 dark:text-purple-300 px-1.5 py-0.2 rounded">Femurs + Shoulder Shelf</span>
+                      </div>
                       {femurRatio > 0.98 ? (
-                        <p className="text-slate-700 dark:text-slate-300 mt-0.5">
-                          Wide stance (1.3x shoulder width), 25° toe flare, Low-Bar bar placement required to shorten the lumbar moment arm.
+                        <p className="text-slate-700 dark:text-slate-300">
+                          Wide stance (1.3× shoulder width = {Math.round(shoulderWidthCm * 1.3)} cm), 25° toe flare. Low-Bar placement on rear delts ({shoulderWidthCm} cm shelf) shortens effective lumbar moment arm.
                         </p>
                       ) : (
-                        <p className="text-slate-700 dark:text-slate-300 mt-0.5">
-                          Upright High-Bar or Front Squat viable with minimal forward lean; quad-dominant mechanical leverage.
+                        <p className="text-slate-700 dark:text-slate-300">
+                          Upright High-Bar or Front Squat viable with minimal forward lean; quad-dominant mechanical leverage with shoulder stance of {shoulderWidthCm} cm.
                         </p>
                       )}
                     </div>
 
+                    {/* Bench Press (Forearm + Biacromial) */}
                     <div className="p-2.5 rounded bg-white dark:bg-slate-900 neo-border">
-                      <span className="font-bold text-red-700 dark:text-red-400 block">Deadlift Setup:</span>
+                      <div className="flex justify-between items-center mb-1">
+                        <span className="font-bold text-amber-700 dark:text-amber-400">Bench Press Kinematics:</span>
+                        <span className="text-[10px] font-mono bg-amber-100 dark:bg-amber-950 text-amber-800 dark:text-amber-300 px-1.5 py-0.2 rounded">Biacromial: {shoulderWidthCm}cm</span>
+                      </div>
+                      <p className="text-slate-700 dark:text-slate-300">
+                        Prescribed index grip: <strong>{biacromialGripBenchCm} cm</strong> (1.6× biacromial width). {forearmRatio > 0.47 ? `Long forearms (${forearmLengthCm} cm) increase internal rotation torque; tuck elbows to 45° at touch.` : `Short forearms (${forearmLengthCm} cm) shorten range of motion and favor high mechanical efficiency.`}
+                      </p>
+                    </div>
+
+                    {/* Deadlift Setup (Ape Index + Shoulder Hang) */}
+                    <div className="p-2.5 rounded bg-white dark:bg-slate-900 neo-border">
+                      <div className="flex justify-between items-center mb-1">
+                        <span className="font-bold text-red-700 dark:text-red-400">Deadlift Setup:</span>
+                        <span className="text-[10px] font-mono bg-red-100 dark:bg-red-950 text-red-800 dark:text-red-300 px-1.5 py-0.2 rounded">Arm Hang & Stance</span>
+                      </div>
                       {apeIndex > 4 ? (
-                        <p className="text-slate-700 dark:text-slate-300 mt-0.5">
-                          Conventional deadlift favored due to superior starting hip height and reduced horizontal distance to the barbell.
+                        <p className="text-slate-700 dark:text-slate-300">
+                          Conventional deadlift favored due to +{apeIndex}cm ape index and high starting hip height. {shoulderWidthCm > 46 ? 'Broad shoulders require slightly wider grip outside knees.' : 'Narrow shoulder width allows straight vertical hang, minimizing total pull distance.'}
                         </p>
                       ) : (
-                        <p className="text-slate-700 dark:text-slate-300 mt-0.5">
-                          Semi-Sumo or Sumo stance strongly recommended to shorten torso travel and preserve lumbar spine under heavy load.
+                        <p className="text-slate-700 dark:text-slate-300">
+                          Semi-Sumo or Sumo stance strongly recommended to shorten torso travel and protect lumbar spine against short wingspan ({apeIndex} cm).
                         </p>
                       )}
                     </div>

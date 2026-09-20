@@ -48,7 +48,7 @@ To maximize alignment across diverse stakeholder backgrounds, presentation deliv
 
 ## 4. Associated System Assets
 
-- **Interactive Mobile Hub:** [`live-demo-hub.html`](../live-demo-hub.html)
+- **Interactive Web App (Canonical):** [`index.html`](../index.html)
 - **React Native Handover Directory:** [`expo-handover/`](../expo-handover/)
 - **Full Slide Deck PDF:** [`slide-decks/Architecting_Elite_Performance.pdf`](./Architecting_Elite_Performance.pdf)
 - **Developer Integration Guide:** [`javier-integration-guide.md`](../javier-integration-guide.md)

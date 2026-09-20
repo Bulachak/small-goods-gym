@@ -36,11 +36,13 @@ CREATE TABLE IF NOT EXISTS biometrics (
     torso_length_cm REAL,
     upper_arm_length_cm REAL,                 -- Humerus (Joel call requirement)
     forearm_length_cm REAL,                   -- Forelimb (Joel call requirement)
+    shoulder_width_cm REAL,                   -- Biacromial breadth (Joel call requirement)
     arm_span_cm REAL,
     
     -- Kinematic Ratios
     femur_to_torso_ratio REAL,
     forearm_to_arm_ratio REAL,
+    biacromial_bench_grip_cm REAL,            -- Recommended 1.6x biacromial breadth (Dan Cleather)
     ape_index REAL,
     
     -- Categorical Lever Tags (Preserved permanently for aggregate research)
@@ -144,6 +146,7 @@ BEGIN
         torso_length_cm = NULL,
         upper_arm_length_cm = NULL,
         forearm_length_cm = NULL,
+        shoulder_width_cm = NULL,
         arm_span_cm = NULL,
         updated_at = CURRENT_TIMESTAMP
     WHERE user_id = NEW.id;
