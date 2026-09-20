@@ -110,10 +110,12 @@ export const MOCK_PASSPORT_DATA: LifterPassportData = {
   },
 };
 
-export const LifterPassportCard: React.FC<{
+export interface LifterPassportCardProps {
   data?: LifterPassportData;
   onExportStory?: () => void;
-}> = ({ data = MOCK_PASSPORT_DATA, onExportStory }) => {
+}
+
+export const LifterPassportCard: React.FC<LifterPassportCardProps> = ({ data = MOCK_PASSPORT_DATA, onExportStory }) => {
   const [activeTab, setActiveTab] = useState<'meet' | 'training'>('meet');
 
   // Lift proportions

@@ -36,6 +36,10 @@ export interface BiomechanicalLeverHUDProps {
   onSave?: (measurements: AthleteAnthropometry, directives: BiomechanicalDirectives) => void;
 }
 
+// Aliases for developer ergonomics
+export type AnthropometricInput = AthleteAnthropometry;
+export type BiomechanicalProfile = BiomechanicalDirectives;
+
 export const BiomechanicalLeverHUD: React.FC<BiomechanicalLeverHUDProps> = ({
   initialMeasurements = {
     heightCm: 180.0,

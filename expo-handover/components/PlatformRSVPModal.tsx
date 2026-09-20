@@ -29,6 +29,9 @@ export interface PlatformRSVPModalProps {
   onConfirmRSVP?: (platformNumber: number | null, isWaitlist: boolean) => void;
 }
 
+// Alias for RSVP reservation state
+export type RSVPReservation = PlatformSlot;
+
 export const PlatformRSVPModal: React.FC<PlatformRSVPModalProps> = ({
   visible,
   onClose,

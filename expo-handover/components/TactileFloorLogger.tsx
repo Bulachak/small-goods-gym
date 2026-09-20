@@ -31,6 +31,15 @@ export interface TactileFloorLoggerProps {
   onLogComplete?: (sets: SetEntry[]) => void;
 }
 
+// Aliases and supplementary interfaces
+export type SetData = SetEntry;
+export interface ActiveExercise {
+  name: string;
+  targetSets: number;
+  prescribedWeightKg: number;
+  prescribedReps: number;
+}
+
 export const TactileFloorLogger: React.FC<TactileFloorLoggerProps> = ({
   exerciseName = 'A1. Snatch (Platform 3)',
   targetSets = 4,

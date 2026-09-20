@@ -42,6 +42,9 @@ export interface GoatAICoPilotProps {
   };
 }
 
+// Alias for athlete triage context
+export type LifterTriageContext = NonNullable<GoatAICoPilotProps['athleteProfile']>;
+
 // Preset Quick Triage Prompts (Accessible across all experience levels)
 const QUICK_PROMPTS = [
   { label: '👋 Day 1 Squat Help', prompt: "I've never done barbell squats before and feel a bit nervous/stiff. Where should I start?" },
