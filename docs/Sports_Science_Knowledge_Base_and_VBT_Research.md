@@ -1,8 +1,8 @@
-# Small Goods Gym — Sports Science Knowledge Base & Computer Vision VBT Research Dossier
+# Small Goods Gym: Sports Science Knowledge Base & Computer Vision VBT Research Dossier
 
-**Author:** Kamilla Gafurzianova, OLY & Antigravity IDE  
-**Target Facility:** Small Goods Gym (Morley, Perth, WA) — Joel Mullen & Holly Hunt  
-**Technical Stakeholders:** Javier (Backend / Cloudflare Infrastructure), Kamilla (Sports Tech / AI Architecture)  
+**Author:** Kamilla Gafurzianova, OLY  
+**Target Facility:** Small Goods Gym (Morley, Perth, WA), Joel Mullen & Holly Hunt  
+**Technical Stakeholders:** Javier (Backend / Cloudflare Infrastructure), Kamilla Gafurzianova, OLY (Sports Tech / AI Architecture)  
 **Date:** September 15, 2026  
 
 ---

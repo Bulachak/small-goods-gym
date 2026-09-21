@@ -1,9 +1,9 @@
-# Small Goods Gym — Advanced Sports Science, Strength Biomechanics & VBT Reference Dossier
+# Small Goods Gym: Advanced Sports Science, Strength Biomechanics & VBT Reference Dossier
 
 **Target Audience:** Joel Mullen (Head Coach), Holly Hunt (Physiotherapist & Elite Lifter), Javier (Backend Architecture), Kamilla Gafurzianova (Sports Tech Architect & Olympic/Paralympic Advisor)  
 **Context:** Intellectual, Biomechanical, and Algorithmic Grounding for the Small Goods Gym PWA, Goat AI Co-Pilot, and Clinical Capacity Building Architecture  
 **Date:** September 15, 2026  
-**Created By:** Antigravity (Sports Tech Architecture Team)
+**Created By:** Kamilla Gafurzianova, OLY (Sports Technology Systems Architecture)
 
 ---
 

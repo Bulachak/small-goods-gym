@@ -1,8 +1,8 @@
 # Small Goods Gym • Arena Powerlifting Benchmark & "Lifter Passport" Blueprint
 **Document ID:** SGG-ANALYSIS-001  
 **Date:** September 16, 2026 (Updated September 19, 2026 for React Native & Cloudflare Architecture)  
-**Author:** Kamilla Gafurzianova, OLY & Antigravity (Google DeepMind Agentic Systems)  
-**Stakeholders:** Kamilla Gafurzianova, Joel Mullen (Head Coach, Small Goods Gym), Javier (Lead Systems Developer)  
+**Author:** Kamilla Gafurzianova, OLY  
+**Stakeholders:** Kamilla Gafurzianova, OLY (Sports Technology Systems Architecture), Joel Mullen (Founder & Head Coach, Small Goods Gym), Javier Pereira (Lead Systems Developer)  
 **Context:** Comprehensive deconstruction of [Arena Powerlifting Amie Culverson Profile](https://arenapowerlifting.com/u/amie-culverson-3096a8e764f1) forwarded by Joel Mullen via WhatsApp (*"My client just sent me this in case it inspires you"*).  
 
 ---

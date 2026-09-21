@@ -1,8 +1,8 @@
 # Small Goods Gym • WhatsApp Bot Architecture & Deployment Guide
 **Document ID:** SGG-GUIDE-WA-001  
-**Author:** Antigravity (Google DeepMind Agentic Systems)  
-**Target Systems:** Small Goods Gym (`small-goods-gym`) & Concierge Bot Engine (`concierge-bot-engine`)  
-**Stakeholders:** Joel Mullen (Owner/Head Coach), Holly Hunt (Physiotherapist), Javier (Hardware/Telemetry), Kamilla (Baza Systems)  
+**Author:** Kamilla Gafurzianova, OLY  
+**Target Systems:** Small Goods Gym WhatsApp Bot Gateway  
+**Stakeholders:** Joel Mullen (Owner/Head Coach), Holly Hunt (Physiotherapist), Javier Pereira (Lead Systems Developer), Kamilla Gafurzianova, OLY  
 **Date:** 2026-09-15  
 **Status:** Production Ready  
 
@@ -15,7 +15,7 @@ At Small Goods Gym in Morley, Perth, head coach Joel Mullen communicates with li
 2. **Gym-Floor 90-Second Rest Window:** When an athlete misses consecutive attempts (e.g. 2 snatches at 85%), they need an immediate neurological triage within their 90-second rest window.
 3. **Friction-Free Athlete Intake:** Lifters do not want to download another complex mobile app if they can check platform availability, log their top sets, or ask technical biomechanics questions directly in their primary messaging app.
 
-This guide provides the complete, production-grade deployment playbook for connecting **Small Goods Gym** to WhatsApp using the `concierge-bot-engine`.
+This guide provides the complete, production-grade deployment playbook for connecting **Small Goods Gym** to WhatsApp via Cloudflare Workers and the WhatsApp Cloud API.
 
 ```mermaid
 sequenceDiagram
@@ -62,7 +62,7 @@ sequenceDiagram
 5. Meta will assign a **Test Phone Number**, a **Phone Number ID**, and a **WhatsApp Business Account ID (WABA ID)**.
 
 ### Step 2: Configure Environment Variables
-In `concierge-bot-engine/.env`:
+In your worker environment configuration (`.env` or Cloudflare Worker secrets):
 ```env
 # Meta WhatsApp Cloud API Credentials
 WHATSAPP_TOKEN=EAAB...your_system_user_access_token...
@@ -148,10 +148,10 @@ If Joel prefers lifters to message his **existing Australian mobile number** rat
 
 ## 7. Local Testing & Tunneling Runbook
 
-### 1. Launch Concierge Bot Engine:
+### 1. Launch WhatsApp Webhook Worker:
 ```bash
-cd concierge-bot-engine
-uvicorn web.app:app --host 0.0.0.0 --port 8000 --reload
+cd expo-handover/worker
+npx wrangler dev
 ```
 
 ### 2. Expose Port 8000:

@@ -2,10 +2,10 @@
 
 **Document ID:** SGG-COMM-003  
 **Date:** September 20, 2026  
-**From:** Kamilla Gafurzianova, OLY ("Mila") — Sports Technology Systems Architect; Head Coach, USA Parafencing National Team  
+**From:** Kamilla Gafurzianova, OLY ("Mila"), Sports Technology Systems Architect; Head Coach, USA Parafencing National Team  
 **To:**  
-- **Joel Mullen** — Founder & Head Coach, Small Goods Gym (Morley, Perth, WA)  
-- **Javier Pereira** — Lead Systems Developer, Small Goods Gym  
+- **Joel Mullen**, Founder & Head Coach, Small Goods Gym (Morley, Perth, WA)  
+- **Javier Pereira**, Lead Systems Developer, Small Goods Gym  
 **CC:** Izzy (Community & Brand)  
 **Live Hosted Web App (Canonical):** [https://bulachak.github.io/small-goods-gym/index.html](https://bulachak.github.io/small-goods-gym/index.html)  
 **Standalone Goat AI Demo:** [https://bulachak.github.io/small-goods-gym/small-goods-coach-demo.html](https://bulachak.github.io/small-goods-gym/small-goods-coach-demo.html)  
@@ -15,13 +15,11 @@
 
 ## 1. Executive Letter: Coach-to-Coach & Architect-to-Developer
 
-G'day Joel and Javier,
+Hey Joel and Javier,
 
-What an incredible 42 minutes we had on Friday night (Saturday lunchtime for you in Perth). 
+What an incredible session we had on Friday. In sports tech, it is rare to find a head coach who understands the exact torque demands of a long-femur squat and the community importance of Sunday morning breakfast biscuits, paired with a lead developer who has built a lean, serverless foundation on Expo, Cloudflare Workers, and D1 specifically to unlock native iOS Bluetooth for VBT accelerometers.
 
-In sports tech, it is exceedingly rare to sit on a call where the head coach understands the exact torque demands of a long-femur squat and the community importance of Sunday morning breakfast biscuits, while the lead developer has built a lean, serverless foundation on Expo, Cloudflare Workers, and D1 specifically to unlock native iOS Bluetooth for VBT accelerometers. That clarity made our architectural alignment effortless.
-
-As promised during our call—and with my departure for international training camp in less than 48 hours—my team and I went into focused execution mode to wrap up every single commitment we made to you. We didn't hand you abstract ideas or heavyweight frameworks that fight Javier's code. We adapted 100% to Javier’s verified stack: **Expo (React Native) + Cloudflare Workers + Cloudflare D1 (SQLite) + Clerk Auth**, with **$0.00/month hosting liability for me and zero idle server costs for Small Goods Gym**.
+As promised during our call, and with my departure for international training camp in less than 48 hours, my team and I wrapped up every commitment we made to you. We did not hand you abstract ideas or heavy frameworks that fight Javier's code. We adapted 100% to Javier’s verified stack: **Expo (React Native) + Cloudflare Workers + Cloudflare D1 (SQLite) + Clerk Auth**, with **$0.00/month hosting liability for me and zero idle server costs for Small Goods Gym**.
 
 Below is your complete handover package, followed by our agreed value-exchange partnership request before I head overseas.
 
@@ -95,8 +93,8 @@ Joel and Javier can click and test everything immediately from their phones:
   - *"Can you explain the difference between Range Adders and Force Builders?"*
 
 - **Download Complete Handover Zip Files:**  
-  - Drop-in Expo/Worker Package: [`expo-handover.zip`](file:///c:/Users/kamil/PROJECTS/small-goods-gym/expo-handover.zip)
-  - Full Project Archive: [`small-goods-gym-full-clean.zip`](file:///c:/Users/kamil/PROJECTS/small-goods-gym/small-goods-gym-full-clean.zip)
+  - Drop-in Expo/Worker Package: [`expo-handover.zip`](./expo-handover.zip)
+  - Full Project Archive: [`small-goods-gym-full-clean.zip`](./small-goods-gym-full-clean.zip)
 
 ---
 
@@ -111,11 +109,11 @@ A written testimonial from Joel (as Founder & Head Coach) and/or Javier (as Lead
 
 To make this frictionless for you during a busy gym week, here are two draft options you are welcome to use, adapt, or personalize:
 
-#### Option A (From Joel Mullen — Coaching & Vision Perspective):
-> *"Working with Kamilla Gafurzianova, OLY has been an absolute game-changer for Small Goods Gym. As an Olympic medalist and world-class coach, Mila immediately understood our gym-floor culture—from our strict 12-platform capacity cap and community breakfast biscuits to the nuanced biomechanics of long-femur squats and velocity-based fatigue. Within days, she translated our coaching philosophy ('The Small Goods Way') into a working mobile suite and an AI Co-Pilot that actually speaks with coach empathy and elite sports-science rigor. If you are building high-performance sports technology or looking for an architect who bridges deep athletic craft with engineering excellence, Kamilla is in a league of her own."*
+#### Option A (From Joel Mullen, Coaching & Vision Perspective):
+> *"Kamilla has been fantastic to work with. She brings an Olympic athlete and coach perspective that you rarely see in tech. She understood our gym-floor culture right away, from our 12-platform setup to long-femur squat mechanics and velocity fatigue. Within days, she turned our coaching ideas into a working web suite and mobile components that our developer could drop straight into our stack. If you need someone who understands elite athletic craft and practical systems architecture, I highly recommend her."*
 
-#### Option B (From Javier Pereira — Engineering & Systems Architecture Perspective):
-> *"Kamilla is one of the sharpest sports technology architects I’ve collaborated with. Rather than forcing heavy, cookie-cutter frameworks on us, she took the time to understand our existing production stack—Expo, Cloudflare Workers, D1 SQLite, and Clerk—and engineered a seamless, modular drop-in package with zero technical friction. Her attention to detail on offline resilience, GDPR biometric isolation, and clean serverless routing saved us months of development. She respects developer velocity as much as athletic performance."*
+#### Option B (From Javier Pereira, Engineering & Systems Architecture Perspective):
+> *"Kamilla is a practical, sharp sports technology architect. Instead of trying to reinvent our setup, she took the time to understand our stack (Expo, Cloudflare Workers, D1 SQLite, and Clerk) and built a clean, modular drop-in package. Her attention to detail on offline resilience, GDPR biometric isolation, and serverless routing saved us weeks of development. She respects developer velocity as much as athletic performance."*
 
 ### 2. Social Shoutout / Partnership Post
 A short post or story on Instagram or LinkedIn tagging **Small Goods Gym** and **Kamilla Gafurzianova (@kamillagafurzianova / LinkedIn)** celebrating the collaboration between Perth's premier community strength haven and elite Olympic sports science.

@@ -1,11 +1,11 @@
-# Small Goods Gym — Backend Integration & AI Engine Handshake Guide
+# Small Goods Gym: Backend Integration & AI Engine Handshake Guide
 
 **Target Audience:** Javier (Backend Lead), Kamilla Gafurzianova (Sports Tech Architect), Joel Mullen (Founder)  
 **Context:** Preparation for 3-Way Technical Alignment Call (Friday, Sep 19, 2026 @ 21:30 PT / Saturday, Sep 20, 2026 @ 12:30 AWST)  
 **Target Milestone:** February 2027 Production MVP Launch  
 **Document ID:** `SGG-DOC-09-JAVIER-INTEGRATION`  
 **Date:** September 15, 2026  
-**Created By:** Kamilla Gafurzianova, OLY & Antigravity (Sports Tech Architecture Team)
+**Created By:** Kamilla Gafurzianova, OLY (Sports Technology Systems Architecture)
 
 ---
 
@@ -82,7 +82,7 @@ sequenceDiagram
     actor Athlete as Athlete (PWA)
     participant CF as Javier's Cloudflare Worker
     participant DB as Cloudflare D1 (SQLite)
-    participant AI as AI Engine (concierge-bot-engine)
+    participant AI as Cloudflare Worker AI Proxy
 
     Athlete->>CF: POST /api/auth/login (credentials)
     CF->>DB: Validate user & subscription
@@ -315,6 +315,4 @@ export default {
 
 ---
 
-*Authored by: Kamilla Gafurzianova, OLY & Antigravity (Sports Tech Architecture Team)*  
-*Canonical Reference: `small-goods-gym/docs/09-javier-hardware-and-ai-integration-guide.md`*  
-*Drive Folder ID: `1oYHlfjHvNT6LrcAKzKySbHAUHqUdLM1G`*
+*Authored by: Kamilla Gafurzianova, OLY*

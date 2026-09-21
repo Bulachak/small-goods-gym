@@ -1,9 +1,9 @@
-# Small Goods Gym — Knowledge Base Architecture & Vector Database Evaluation
+# Small Goods Gym: Knowledge Base Architecture & Vector Database Evaluation
 
 **Target Systems:** Small Goods Core Platform, Javier's Cloudflare Workers & D1 (SQLite) backend, Edge AI Gateway
 **Target Audience:** Kamilla Gafurzianova, Joel Mullen, Javier  
 **Date:** September 15, 2026  
-**Created By:** Antigravity (Sports Tech Architecture Team)
+**Created By:** Kamilla Gafurzianova, OLY (Sports Technology Systems Architecture)
 
 ---
 
@@ -38,7 +38,7 @@ The Small Goods Gym AI Co-Pilot ("Goat AI") faces a dual operational challenge:
   * **Query limitations:** Cannot execute native BM25 full-text keyword boosting alongside vector distance. Finding specific Soviet metrics (e.g., `"КПШ"` or `"0.15s amortization"`) often fails on pure semantic cosine distance.
 
 ### Option 2: Embedded / Local Vector DB (LanceDB / SQLite-vec / Chroma)
-* **Mechanism:** An in-process, zero-server database running inside the Node.js or Python `concierge-bot-engine`. **LanceDB** stores embeddings in disk-based Apache Arrow format (`.lance` files) with native IVF-PQ indexing and built-in Tantivy full-text search.
+* **Mechanism:** An in-process, zero-server database running inside the Node.js or Python backend service. **LanceDB** stores embeddings in disk-based Apache Arrow format (`.lance` files) with native IVF-PQ indexing and built-in Tantivy full-text search.
 * **Pros:**
   * **Zero cloud infrastructure costs:** Zero monthly cluster fees, zero managed database bills.
   * **Sub-15ms local query speed:** Operates directly over shared memory / local NVMe disk via Arrow.
@@ -131,7 +131,7 @@ flowchart TD
 * Pre-processed, OCR-cleaned, and semantically chunked Soviet sports science books (Verkhoshansky, Zatsiorsky, Chernyak, Bondarchuk, Cleather).
 * VBT technical dossier, computer vision calibration formulas (WL Analysis 450mm plate scaling, My Jump flight time physics).
 * Joel Mullen intake transcripts, gym FAQ, and Holly Hunt NDIS clinical documentation.
-* **Engine:** **LanceDB** embedded directly inside `concierge-bot-engine`. It runs hybrid search (Vector + BM25 keyword matching) using Google's `text-embedding-004` (768 dimensions).
+* **Engine:** **LanceDB** embedded directly inside the backend AI service. It runs hybrid search (Vector + BM25 keyword matching) using Google's `text-embedding-004` (768 dimensions).
 * **Execution:** Retrieves top 3–5 exact text chunks and formulas in **< 12ms**, injecting them into the synthesis prompt.
 
 #### Tier 3: Curated Prompt-Layer Golden Rules & Fast-Path Triage
@@ -174,10 +174,10 @@ The Hybrid architecture saves **> 95% of operational infrastructure costs** whil
 
 ---
 
-## 5. Integration Blueprint for `concierge-bot-engine`
+## 5. Integration Blueprint for Knowledge & Retrieval Layer
 
 ```text
-concierge-bot-engine/
+knowledge-layer/
 ├── data\
 │   └── sports_science.lance\          # Embedded LanceDB hybrid index (< 50MB)
 ├── profiles\

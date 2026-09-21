@@ -3,8 +3,8 @@
 
 **Document ID:** `SGG-DOC-10-RUSSIAN-RAG-PLAYBOOK`  
 **Date:** September 15, 2026  
-**Author:** Kamilla Gafurzianova, OLY & Antigravity (Sports Tech Architecture Team)  
-**Applicability:** Small Goods Gym, Concierge Bot Engine, Baza Operating System, Sports Tech / Engineering AI Assistants
+**Author:** Kamilla Gafurzianova, OLY  
+**Applicability:** Small Goods Gym (Barbell Coaching & Knowledge Retrieval Engine)
 
 ---
 
@@ -281,7 +281,4 @@ All multilingual knowledge retrieval changes must be verified through the automa
 
 ---
 
-*Authored by: Kamilla Gafurzianova, OLY & Antigravity (Sports Tech Architecture Team)*  
-*Canonical Repository Path: `small-goods-gym/docs/10-russian-and-multilingual-source-ingestion-and-rag-playbook.md`*  
-*Permanent Engine Reference: `concierge-bot-engine/docs/RUSSIAN_AND_MULTILINGUAL_KNOWLEDGE_BASE_PIPELINE.md`*  
-*Baza Routing Index: `Baza/00-POCHTA/AGENT_NOTES/2026-09-15_RUSSIAN_AND_MULTILINGUAL_DOMAIN_SOURCE_INGESTION_PLAYBOOK_Antigravity.md`*
+*Authored by: Kamilla Gafurzianova, OLY*

@@ -11,7 +11,7 @@
 
 ## Visual Architecture Assets
 
-- **Vector SVG (Infinite Zoom / Mobile Retina Master):** [production-infrastructure-architecture.svg](file:///c:/Users/kamil/PROJECTS/small-goods-gym/docs/assets/production-infrastructure-architecture.svg)
+- **Vector SVG (Infinite Zoom / Mobile Retina Master):** [production-infrastructure-architecture.svg](./assets/production-infrastructure-architecture.svg)
 - **Interactive Markdown Mermaid Source:** Fully rendered inline in [Section 2](#2-production-infrastructure--data-flow-architecture).
 
 ---
@@ -22,8 +22,8 @@ Following the September 18, 2026 technical alignment call between Joel Mullen, J
 
 ### The Zero-Cost Rule for Kamilla Gafurzianova:
 - **Kamilla's Hosting & Infrastructure Bill:** **$0.00 / month (Zero recurring liability).**
-- **Decommissioned Systems:** All temporary Cloud Run containers and Firebase Firestore instances utilized in `concierge-bot-engine` during the exploratory sports-science RAG phase are decommissioned. Kamilla does **not** host, run, or pay for any production services, databases, or API tokens.
-- **Production Ownership:** Small Goods Gym and Javier Pereira assume 100% operational, technical, and financial ownership of the production stack. The entire bot engine, Joel's coaching philosophy, and real-time biomechanical triage rules have been compiled into a drop-in serverless package in [`expo-handover/`](file:///c:/Users/kamil/PROJECTS/small-goods-gym/expo-handover) running natively inside Javier's Cloudflare infrastructure.
+- **Decommissioned Systems:** All temporary Cloud Run containers and Firebase Firestore instances utilized during the exploratory sports-science RAG phase are decommissioned. Kamilla does **not** host, run, or pay for any production services, databases, or API tokens.
+- **Production Ownership:** Small Goods Gym and Javier Pereira assume 100% operational, technical, and financial ownership of the production stack. The entire bot engine, Joel's coaching philosophy, and real-time biomechanical triage rules have been compiled into a drop-in serverless package in [`expo-handover/`](../expo-handover/) running natively inside Javier's Cloudflare infrastructure.
 
 ---
 
@@ -155,7 +155,7 @@ Javier can deploy the complete AI backend to his Cloudflare account in under 3 m
 
 ### Step 1: Clone or Copy the Handover Package
 ```bash
-cd c:/Users/kamil/PROJECTS/small-goods-gym/expo-handover/worker
+cd expo-handover/worker
 ```
 
 ### Step 2: Configure the Secret (Billed to Small Goods)

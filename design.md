@@ -108,7 +108,7 @@ The Small Goods web infrastructure utilizes three distinct Google Fonts loaded v
 ```
 
 ### Zero-Orphan & Text Wrapping Standard
-Per Baza human-machine interface rules:
+Per human-machine interface rules:
 * Headings: `text-wrap: balance;`
 * Paragraphs & Cards: `text-wrap: pretty;`
 * Short sentences (2–4 words) and prepositions (*in, to, on, with, for*) must be glued with `\u00A0` to eliminate trailing single-word wraps.

@@ -169,8 +169,8 @@ def process_and_index():
 
     # 2. Process Core Project Dossiers
     extra_dossiers = [
-        ("07-advanced-sports-science-and-vbt-reference-dossier.md", "Advanced Sports Science & VBT Reference Dossier", "Kamilla Gafurzianova & Antigravity", 2026, "vbt, cleather, periodization, issurin, bondarchuk"),
-        ("08-knowledge-base-architecture-and-vector-eval.md", "Knowledge Base Architecture & Vector Evaluation", "Antigravity Architecture Team", 2026, "architecture, vector_db, lancedb, firestore, latency"),
+        ("07-advanced-sports-science-and-vbt-reference-dossier.md", "Advanced Sports Science & VBT Reference Dossier", "Kamilla Gafurzianova, OLY", 2026, "vbt, cleather, periodization, issurin, bondarchuk"),
+        ("08-knowledge-base-architecture-and-vector-eval.md", "Knowledge Base Architecture & Vector Evaluation", "Sports Tech Architecture Team", 2026, "architecture, vector_db, lancedb, firestore, latency"),
         ("Sports_Science_Knowledge_Base_and_VBT_Research.md", "Sports Science Knowledge Base & VBT Research", "Joel Mullen Coaching Intake", 2026, "vbt, wl_analysis, my_jump_2, kinematics, plate_calibration"),
         ("Joel_Mila_Meeting_Debrief_and_Intake_2026-09-14.md", "Joel & Mila Intake Debrief & Action Plan", "Joel Mullen & Kamilla Gafurzianova", 2026, "small_goods_gym, road_to_mvp, joel_voice, holly_hunt")
     ]
