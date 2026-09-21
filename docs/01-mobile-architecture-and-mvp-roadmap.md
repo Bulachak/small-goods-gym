@@ -2,12 +2,12 @@
 
 ## 1. Gym-Floor UX & Mobile Interaction Architecture
 
-When designing a mobile interface for **Small Goods Gym**, the primary constraint is the physical environment of the gym floor: athletes will have sweaty hands, experience high central nervous system (CNS) fatigue during rest intervals, and need to log training data rapidly without disrupting their training tempo.
+When designing a mobile interface for **Small Goods Gym**, the primary goal is replacing clunky Google Sheets spreadsheets and paper printouts with a streamlined, fast tool: athletes need to follow their 12-week programming blocks, log weights and reps in seconds, and stay focused on their training without pinching and zooming tiny spreadsheet cells.
 
 Applying human-computer interaction (HCI) heuristics and software design guidelines ensures the app remains a transparent athletic tool rather than an administrative burden:
 
-* **Fitts’s Law (Touch Target Optimization):** The time required to acquire a target is a function of target distance and target width. Under fatigue or with sweaty hands, fine motor control degrades significantly.
-  * *Application:* All high-frequency gym-floor actions—such as tapping *"Add Set"*, completing a set, or logging reps—utilize massive touch targets ($64\times64\text{ dp}$ on mobile) positioned within the natural sweeping thumb arc in the lower third of the screen.
+* **Fitts’s Law (Touch Target Optimization):** The time required to acquire a target is a function of target distance and target width. Small, cramped spreadsheet cells cause missed taps and frustration on a mobile screen.
+  * *Application:* All high-frequency gym-floor actions—such as tapping *"Add Set"*, completing a set, or logging reps—utilize clear touch targets ($64\times64\text{ dp}$ on mobile) positioned within the natural sweeping thumb arc in the lower third of the screen.
 * **Hick’s Law (Minimizing Cognitive Load):** Decision time increases logarithmically with the number and complexity of choices.
   * *Application:* Never present a dense spreadsheet of the entire 12-week macrocycle. Instead, display one active exercise block at a time with prominent `+` and `-` weight modifiers (`-5kg`, `-2.5kg`, `+2.5kg`, `+5kg`).
 * **Doherty Threshold (Sub-400ms Feedback Loop):** Productivity and user satisfaction spike when interaction feedback occurs in under 400 milliseconds.

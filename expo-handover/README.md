@@ -69,7 +69,7 @@ All 5 components in `components/` are built using pure React Native and Expo pri
   ```
 
 ### C. `TactileFloorLogger.tsx` (Gym-Floor Logger)
-- **What it does:** Built for sweaty hands and CNS fatigue using Fitts's Law.
+- **What it does:** Replaces clunky Google Sheets spreadsheets on the platform with fast 1-tap logging.
 - Features $64\times64\text{ dp}$ touch targets, `-5kg`/`+2.5kg` modifiers, Enode VBT speed inputs (`m/s`), automated CNS fatigue warnings when bar speed drops >15%, and a 90-second countdown rest timer.
 
 ### D. `PlatformRSVPModal.tsx` (12-Platform Management)

@@ -17,7 +17,7 @@ All prototypes are hosted live on GitHub Pages and can be launched directly in a
 | **Canonical 6-Tab Web App** | [**Launch Web App**](https://bulachak.github.io/small-goods-gym/index.html) | Canonical Neo-Brutalist 6-module gym-floor suite: tactile logger, 5-segment biomechanical lever lab (femur, torso, forearm, upper arm, shoulder width), 12-platform capacity cap, NDIS analytics, Javier architecture handshake, and floating Goat AI drawer (🐐). | [`index.html`](./index.html) |
 | **Goat AI Co-Pilot** | [**Launch Goat AI Coach**](https://bulachak.github.io/small-goods-gym/small-goods-coach-demo.html) | Dedicated full-screen AI coaching companion speaking in Joel's warm, accessible voice. Employs the **Universal Progressive Disclosure Triad** (intuitive somatic cues for day-1 beginners, deep biomechanical torques & VBT for national competitors), Joel's 5 movement categories, and deterministic 90s triage. | [`small-goods-coach-demo.html`](./small-goods-coach-demo.html) |
 | **Athlete Profile View** | [**Launch Athlete Profile**](https://bulachak.github.io/small-goods-gym/athlete-profile-preview.html) | Anthropometry card, leverage tags (long femurs / short torso), PB tracker, and biomechanical ratios. | [`athlete-profile-preview.html`](./athlete-profile-preview.html) |
-| **Tactile Floor Logger** | [**Launch Floor Logger**](https://bulachak.github.io/small-goods-gym/workout-logger-preview.html) | Big-button tactile workout logging interface optimized for sweaty hands and high CNS fatigue. | [`workout-logger-preview.html`](./workout-logger-preview.html) |
+| **Tactile Floor Logger** | [**Launch Floor Logger**](https://bulachak.github.io/small-goods-gym/workout-logger-preview.html) | Big-button tactile workout logging interface replacing pinch-and-zoom Google Sheets on the gym floor. | [`workout-logger-preview.html`](./workout-logger-preview.html) |
 
 ---
 
@@ -30,8 +30,8 @@ All prototypes are hosted live on GitHub Pages and can be launched directly in a
 - **Deterministic 90-Second In-Session Triage:** Live floor decision tree for missed lifts (velocity decay $>15\%$ triggers immediate 5–7.5% load drop or session termination; structural pain $>3/10$ regresses to high-stability Range Adders and routes to Holly Hunt Physiotherapy).
 
 ### 2. Gym-Floor Tactile Interface
-- Designed adhering to Fitts's Law, Hick's Law, and the Doherty Threshold (<400ms feedback).
-- Big-button targets (minimum 64×64 dp) positioned for thumb-arc accessibility during fatigue.
+- Replaces clunky spreadsheet zooming with fast 1-tap logging for 12-week program blocks.
+- Big-button targets (minimum 64×64 dp) positioned for thumb-arc accessibility while training.
 - Direct Enode VBT speed sensor integration and 12-platform capacity cap enforcement.
 
 ### 3. Non-Invasive Integration with Javier's Production Stack

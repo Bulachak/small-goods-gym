@@ -26,7 +26,7 @@ To maximize alignment across diverse stakeholder backgrounds, presentation deliv
 | **Slide 1** | *Engineering Design Stamina* | "Joel, this system is custom-engineered around the barbell, your unique 12-platform limit, and your coaching standards." |
 | **Slide 3** | *Resolving Operational Bottlenecks* | "Your team currently loses 15+ hours weekly copying video links across scattered spreadsheets. We consolidate that into a single, unified mobile dashboard." |
 | **Slide 5** | *Gym Floor ↔ Codebase Collaboration* | "We build from the gym floor out. The true test of our UX occurs with chalk on hands and high heart rates, not in an abstract office." |
-| **Slide 6** | *Gym-Floor UX: Designing for the Sweaty Hand* | "One exercise per card, 64dp buttons positioned in the thumb reach arc, and zero tiny cells to pinch-to-zoom during a workout." |
+| **Slide 6** | *Gym-Floor UX: Replacing Clunky Spreadsheets* | "One exercise per card, 64dp buttons positioned in the thumb reach arc, and zero tiny cells to pinch-to-zoom during a workout." |
 | **Slide 7** | *Neurological Flow & Error Resilience* | "If an athlete types `22..5` with shaking hands, the interface auto-corrects to `22.5 kg` rather than halting the session with an error alert." |
 | **Slide 12** | *Biomechanics & VBT Engine* | "Calculates 4-segment anthropometry (femur, torso, humerus, forelimb) and velocity drop-off in real time to suggest precise load adjustments." |
 
