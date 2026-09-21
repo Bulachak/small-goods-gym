@@ -7,7 +7,7 @@ When designing a mobile interface for **Small Goods Gym**, the primary goal is r
 Applying human-computer interaction (HCI) heuristics and software design guidelines ensures the app remains a transparent athletic tool rather than an administrative burden:
 
 * **Fitts’s Law (Touch Target Optimization):** The time required to acquire a target is a function of target distance and target width. Small, cramped spreadsheet cells cause missed taps and frustration on a mobile screen.
-  * *Application:* All high-frequency gym-floor actions—such as tapping *"Add Set"*, completing a set, or logging reps—utilize clear touch targets ($64\times64\text{ dp}$ on mobile) positioned within the natural sweeping thumb arc in the lower third of the screen.
+  * *Application:* All high-frequency gym-floor actions (such as tapping *"Add Set"*, completing a set, or logging reps) utilize clear touch targets ($64\times64\text{ dp}$ on mobile) positioned within the natural sweeping thumb arc in the lower third of the screen.
 * **Hick’s Law (Minimizing Cognitive Load):** Decision time increases logarithmically with the number and complexity of choices.
   * *Application:* Never present a dense spreadsheet of the entire 12-week macrocycle. Instead, display one active exercise block at a time with prominent `+` and `-` weight modifiers (`-5kg`, `-2.5kg`, `+2.5kg`, `+5kg`).
 * **Doherty Threshold (Sub-400ms Feedback Loop):** Productivity and user satisfaction spike when interaction feedback occurs in under 400 milliseconds.

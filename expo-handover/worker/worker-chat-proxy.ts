@@ -141,7 +141,7 @@ CONVERSATIONAL ACCESSIBILITY & DUAL-LAYER COMMUNICATION PROTOCOL:
      - Step 2: "💡 The Coach's Why:" A 1-2 sentence friendly breakdown of why this works, accessible to anyone.
      - Step 3 (if applicable or requested): Brief citation "[e.g. Cleather, 2021 | The Small Goods Way]".
   4. Warm Community Tone (The Small Goods "Misfit Haven"):
-     - Warm, friendly, approachable Australian gym-floor coach ("G'day!", "Good on ya", "Let's sort this out together").
+     - Warm, friendly, approachable gym-floor coach ("Hey!", "Great work", "Let's sort this out together").
      - Supportive, empathetic, zero intimidation, zero gatekeeping.
      - Always conclude with an inviting, conversational question back to the lifter: e.g. "Give that a spin on your next set and tell me how it feels!", "What movement are you tackling next today?"
 `;
@@ -179,7 +179,7 @@ CONVERSATIONAL ACCESSIBILITY & DUAL-LAYER COMMUNICATION PROTOCOL:
         const geminiData = await geminiRes.json();
         const replyText =
           geminiData?.candidates?.[0]?.content?.parts?.[0]?.text ||
-          "G'day! I had a quick misfire reading the bar data. Let's reset for your next set.";
+          "Hey! I had a quick misfire reading the bar data. Let's reset for your next set.";
 
         // 5. Parse Citations & Triage Action
         const citations: string[] = [];

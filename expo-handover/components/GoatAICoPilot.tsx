@@ -80,7 +80,7 @@ export const GoatAICoPilot: React.FC<GoatAICoPilotProps> = ({
     {
       id: 'msg-0',
       sender: 'assistant',
-      text: `G'day ${athleteProfile.name}! Goat AI here. Whether it's your very first day under the bar or you're dialling in for a national meet, I'm right here in your corner. How is your session feeling today?`,
+      text: `Hey ${athleteProfile.name}! Goat AI here. Whether it's your very first day under the bar or you're dialling in for a national meet, I'm right here in your corner. How is your session feeling today?`,
       timestamp: 'Now',
       citations: ['The Small Goods Way (Joel Mullen)', 'Verkhoshansky (1988)', 'Cleather (2021)'],
     },
@@ -168,7 +168,7 @@ export const GoatAICoPilot: React.FC<GoatAICoPilotProps> = ({
       return {
         id: `bot-${Date.now()}`,
         sender: 'assistant',
-        text: "G'day! Absolutely, we love having families around—Small Goods is built as a welcoming, community-first haven, not an intimidating dungeon.\n\n" +
+        text: "Hey there! Absolutely, we love having families around - Small Goods is built as a welcoming, community-first haven, not an intimidating dungeon.\n\n" +
               "That said, safety on the lifting floor is our #1 priority because we have heavy barbells, chalk, and dropping weights across our 12 platforms. You're more than welcome to bring your little one in a pram or stroller, as long as they stay safely in the lounge/reception area off the wooden lifting platforms. Quiet mid-morning sessions or Sunday community hours are usually the best vibe for this.\n\n" +
               "Give Joel or Holly a quick shout before you come in, and we'll make sure a safe, comfortable spot is set up for you and your bub!",
         timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
@@ -181,7 +181,7 @@ export const GoatAICoPilot: React.FC<GoatAICoPilotProps> = ({
       return {
         id: `bot-${Date.now()}`,
         sender: 'assistant',
-        text: "G'day! Well-behaved pups on a leash are definitely welcome in the lounge and reception areas, especially during our Sunday morning community biscuits! On the lifting platforms, we keep pets clear of the barbell drop zones for their own safety. Come say hi!",
+        text: "Hey there! Well-behaved pups on a leash are definitely welcome in the lounge and reception areas, especially during our Sunday morning community biscuits! On the lifting platforms, we keep pets clear of the barbell drop zones for their own safety. Come say hi!",
         timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
         citations: ['Small Goods Community Standards'],
       };
@@ -194,7 +194,7 @@ export const GoatAICoPilot: React.FC<GoatAICoPilotProps> = ({
       return {
         id: `bot-${Date.now()}`,
         sender: 'assistant',
-        text: "G'day! Small Goods Gym is located in Morley, Perth (Western Australia). We run on a strict 12-platform floor capacity so everyone gets their own dedicated space, calibrated plates, and coaching attention without waiting.\n\n" +
+        text: "Hey! Small Goods Gym is located in Morley, Perth (Western Australia). We run on a strict 12-platform floor capacity so everyone gets their own dedicated space, calibrated plates, and coaching attention without waiting.\n\n" +
               "You can reserve your platform right here through the app's RSVP tab, or text our WhatsApp bot. We also host our legendary community breakfast biscuits every Sunday morning at 10:00 AM AWST!\n\n" +
               "What session are you looking to jump into?",
         timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
@@ -210,8 +210,8 @@ export const GoatAICoPilot: React.FC<GoatAICoPilotProps> = ({
         sender: 'assistant',
         text: "Great question! What you wear on your feet makes a massive difference to how force transfers into the floor:\n\n" +
               "• For Squats: If you have longer femurs or tighter ankles, a dedicated weightlifting shoe with an elevated heel (like Romaleos or Legacy Lifters) helps your knees track forward and keeps your chest upright.\n" +
-              "• For Deadlifts: Go flat and thin—barefoot, deadlift slippers, or Converse/Vans. The closer your feet are to the wood, the shorter the distance you have to pull the bar.\n" +
-              "• General Floor Work: Avoid squishy running shoes with soft foam or air bubbles—they absorb your force like lifting on a mattress!\n\n" +
+              "• For Deadlifts: Go flat and thin - barefoot, deadlift slippers, or Converse/Vans. The closer your feet are to the wood, the shorter the distance you have to pull the bar.\n" +
+              "• General Floor Work: Avoid squishy running shoes with soft foam or air bubbles - they absorb your force like lifting on a mattress!\n\n" +
               "What lift are you gearing up for?",
         timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
         citations: ['Cleather (2021) Force Vector Analysis', 'The Small Goods Way'],
@@ -227,7 +227,7 @@ export const GoatAICoPilot: React.FC<GoatAICoPilotProps> = ({
         text: "Here's how we think about lifting gear in The Small Goods Way:\n\n" +
               "• Belts: A belt isn't a crutch; it's a rigid wall for your diaphragm and core to brace against (creating 360° intra-abdominal pressure, IAP). We recommend learning to brace your breath naturally on warm-ups, then strapping on the belt when you hit ~80%+ of your top sets.\n" +
               "• Straps: Use them on heavy deadlift volume, RDLs, or snatches so your grip doesn't limit your legs and back, but build your raw grip on competition singles.\n" +
-              "• Chalk: We’ve got plenty of chalk buckets on the floor—chalk up and keep your grip dry and confident!\n\n" +
+              "• Chalk: We’ve got plenty of chalk buckets on the floor - chalk up and keep your grip dry and confident!\n\n" +
               "Do you currently train with a belt or looking for recommendations?",
         timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
         citations: ['The Small Goods Way: Equipment Standards', 'Zatsiorsky (Core Bracing)'],
@@ -239,8 +239,8 @@ export const GoatAICoPilot: React.FC<GoatAICoPilotProps> = ({
       return {
         id: `bot-${Date.now()}`,
         sender: 'assistant',
-        text: `Welcome in ${athleteName}! Feeling nervous or stiff on day one is 100% normal—everyone in this gym started right where you are.\n\n` +
-              "Our core motto is 'Become a Stronger You'—we meet you where you're at. We'll start you with a simple goblet squat holding a light dumbbell against your chest or squatting down to a comfy box, focus on smooth, pain-free movement, and make sure you feel completely supported.\n\n" +
+        text: `Welcome in ${athleteName}! Feeling nervous or stiff on day one is 100% normal - everyone in this gym started right where you are.\n\n` +
+              "Our core motto is 'Become a Stronger You' - we meet you where you're at. We'll start you with a simple goblet squat holding a light dumbbell against your chest or squatting down to a comfy box, focus on smooth, pain-free movement, and make sure you feel completely supported.\n\n" +
               "💡 The Coach's Why: Holding a light weight in front acts as a natural counterbalance, keeping your chest upright without straining your lower back (Dr. Dan Cleather).\n\n" +
               "No ego, zero intimidation. What movement would you feel most comfortable trying first?",
         timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
@@ -253,7 +253,7 @@ export const GoatAICoPilot: React.FC<GoatAICoPilotProps> = ({
       return {
         id: `bot-${Date.now()}`,
         sender: 'assistant',
-        text: "G'day! Let's get those joints opened up so your barbell work feels silky smooth.\n\n" +
+        text: "Hey! Let's get those joints opened up so your barbell work feels silky smooth.\n\n" +
               "🎯 Range Adder Protocol:\n" +
               "1. 90/90 Hip Swivels: 8 smooth transitions per side, focusing on slow control.\n" +
               "2. Front-Foot Elevated (FFE) Split Squats: 2 sets of 6 reps per leg holding a light 8kg dumbbell, letting the knee glide forward over the toes in a pain-free range.\n" +
@@ -272,9 +272,9 @@ export const GoatAICoPilot: React.FC<GoatAICoPilotProps> = ({
         sender: 'assistant',
         text: "No worries at all! Life happens, and 30 focused minutes is plenty to get a high-quality session under your belt.\n\n" +
               "🎯 The Small Goods 30-Minute Autoregulation Plan:\n" +
-              "1. 5 Mins — Range Adder: 2 quick sets of FFE split squats and hip openers.\n" +
-              "2. 15 Mins — Primary Force Builder: Squat or Bench for 3 heavy working sets of 5 reps with 2 minutes rest.\n" +
-              "3. 10 Mins — Volume Builder (Myo-Reps): Pick one accessory (e.g. dumbbell rows or leg extensions). Do 1 activation set of 12 reps to near-failure, rest 15 seconds, then do 3 mini-sets of 4 reps with 15s rest between.\n\n" +
+              "1. 5 Mins  -  Range Adder: 2 quick sets of FFE split squats and hip openers.\n" +
+              "2. 15 Mins  -  Primary Force Builder: Squat or Bench for 3 heavy working sets of 5 reps with 2 minutes rest.\n" +
+              "3. 10 Mins  -  Volume Builder (Myo-Reps): Pick one accessory (e.g. dumbbell rows or leg extensions). Do 1 activation set of 12 reps to near-failure, rest 15 seconds, then do 3 mini-sets of 4 reps with 15s rest between.\n\n" +
               "💡 The Coach's Why: Myo-reps give you all the muscle-building stimulus of 4 regular sets in just one-third of the clock time by keeping your high-threshold muscle fibers firing.\n\n" +
               "Ready to get after it? Let's clock in!",
         timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
@@ -295,7 +295,7 @@ export const GoatAICoPilot: React.FC<GoatAICoPilotProps> = ({
               "3. Cue: Keep your shoulder blades gently squeezed into your back pockets and stop each rep an inch before any discomfort.\n\n" +
               "💡 The Coach's Why: A neutral grip reduces internal rotation at the shoulder, giving your supraspinatus tendon room to breathe while still training chest and triceps.\n\n" +
               "📋 Care Handover: I've logged this discomfort vector in Holly Hunt's physio triage queue for follow-up.\n\n" +
-              "Try the dumbbell floor press—does that feel pain-free?",
+              "Try the dumbbell floor press - does that feel pain-free?",
         timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
         citations: ['The Small Goods Way: Pain Threshold Rule', 'Holly Hunt Physio Care Gateway'],
         triageAlert: {
@@ -333,7 +333,7 @@ export const GoatAICoPilot: React.FC<GoatAICoPilotProps> = ({
         id: `bot-${Date.now()}`,
         sender: 'assistant',
         text: `📐 Stance & Leverage Analysis (Femur/Torso: ${profile.femurToTorsoRatio}):\n\n` +
-              "G'day! Having longer thigh bones (femurs) compared to your torso is super common—it just means standard high-bar, narrow-stance advice will make you feel like you're folding in half.\n\n" +
+              "Hey! Having longer thigh bones (femurs) compared to your torso is super common - it just means standard high-bar, narrow-stance advice will make you feel like you're folding in half.\n\n" +
               "🎯 Simple Somatic Fixes:\n" +
               "1. Widen Stance: Set your heels about 1.2× to 1.3× shoulder width.\n" +
               "2. Flare Toes Out 30°: Turn your toes out comfortably to give your pelvis room to sink down between your thighs.\n" +
@@ -375,7 +375,7 @@ export const GoatAICoPilot: React.FC<GoatAICoPilotProps> = ({
       return {
         id: `bot-${Date.now()}`,
         sender: 'assistant',
-        text: "G'day! Here is how your shoulder width dictates your bench grip and deadlift setup:\n\n" +
+        text: "Hey! Here is how your shoulder width dictates your bench grip and deadlift setup:\n\n" +
               `🎯 Your Biacromial Calibration: Your shoulder width is ${sw} cm.\n\n` +
               `1. Bench Press Grip: Aim for an index finger grip width of roughly ${recGrip} cm (1.5×–1.7× biacromial distance). This positions your forearms perpendicular to the bar at chest touch, eliminating excessive internal rotation torque on your rotator cuff.\n` +
               "2. Deadlift Arm Hang: Your hands should hang directly vertical outside your thighs. Narrower shoulders allow a more vertical arm hang, shortening the total distance the bar must travel to lockout.\n" +
@@ -412,11 +412,11 @@ export const GoatAICoPilot: React.FC<GoatAICoPilotProps> = ({
         sender: 'assistant',
         text: "📊 Velocity-Based Training (VBT) with Dr. Bryan Mann's Zones:\n\n" +
               "📈 The 5 Velocity Zones:\n" +
-              "• Absolute Strength: <0.50 m/s (85–100% 1RM) — maximal motor unit recruitment.\n" +
-              "• Accelerative Strength: 0.50–0.75 m/s (70–85% 1RM) — moving heavy weight with explosive intent.\n" +
-              "• Strength-Speed: 0.75–1.00 m/s (50–70% 1RM) — peak power sweet spot.\n" +
-              "• Speed-Strength: 1.00–1.30 m/s (30–50% 1RM) — speed prioritized over load.\n" +
-              "• Starting Strength: >1.30 m/s (<30% 1RM) — ballistic alactic power.\n\n" +
+              "• Absolute Strength: <0.50 m/s (85–100% 1RM)  -  maximal motor unit recruitment.\n" +
+              "• Accelerative Strength: 0.50–0.75 m/s (70–85% 1RM)  -  moving heavy weight with explosive intent.\n" +
+              "• Strength-Speed: 0.75–1.00 m/s (50–70% 1RM)  -  peak power sweet spot.\n" +
+              "• Speed-Strength: 1.00–1.30 m/s (30–50% 1RM)  -  speed prioritized over load.\n" +
+              "• Starting Strength: >1.30 m/s (<30% 1RM)  -  ballistic alactic power.\n\n" +
               "🛑 Velocity Loss Cutoffs:\n" +
               "• 10%–20% loss: Stop set! Ideal for athletic power and sprinting speed with near-zero muscle damage.\n" +
               "• 20%–30% loss: Functional hypertrophy and strength-endurance.\n" +
@@ -432,7 +432,7 @@ export const GoatAICoPilot: React.FC<GoatAICoPilotProps> = ({
       return {
         id: `bot-${Date.now()}`,
         sender: 'assistant',
-        text: "G'day! Here is how we build training sessions in The Small Goods Way:\n\n" +
+        text: "Hey! Here is how we build training sessions in The Small Goods Way:\n\n" +
               "🎯 Quick Floor Rule: We always build training in 5 distinct layers, ordered from the most mobile and explosive down to pure volume:\n\n" +
               "• 1. Range Adders: Opening up active flexibility & joint tolerance (e.g. RDLs, front-foot elevated split squats).\n" +
               "• 2. Co-ordinators: Skill and clean technique (e.g. snatches, paused squats).\n" +
@@ -500,7 +500,7 @@ export const GoatAICoPilot: React.FC<GoatAICoPilotProps> = ({
       return {
         id: `bot-${Date.now()}`,
         sender: 'assistant',
-        text: `G'day ${athleteName}! Goat AI here at Small Goods Gym in Morley. Whether it's your first time stepping on the gym floor, you're dialing in your squat leverage, or you're preparing for a national meet, I'm right in your corner.\n\n` +
+        text: `Hey ${athleteName}! Goat AI here at Small Goods Gym in Morley. Whether it's your first time stepping on the gym floor, you're dialing in your squat leverage, or you're preparing for a national meet, I'm right in your corner.\n\n` +
               "How is your session feeling today, or what can I help you with?",
         timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
         citations: ['The Small Goods Way (Joel Mullen)'],
@@ -511,7 +511,7 @@ export const GoatAICoPilot: React.FC<GoatAICoPilotProps> = ({
     return {
       id: `bot-${Date.now()}`,
       sender: 'assistant',
-      text: `G'day ${athleteName}! Great question. At Small Goods Gym, our whole philosophy is built around "Becoming a Stronger You" in a welcoming, community-first environment.\n\n` +
+      text: `Hey ${athleteName}! Great question. At Small Goods Gym, our whole philosophy is built around "Becoming a Stronger You" in a welcoming, community-first environment.\n\n` +
             `Regarding "${q}": every lifter's body and situation is a little different. Power always starts with strong foundations, listening to your joints, and training with clear intent.\n\n` +
             "Could you tell me a bit more about what you're working on today, or what specific movement or goal you're dialing in? Let's sort it out together!",
       timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),

@@ -143,7 +143,7 @@ export const LifterPassportCard: React.FC<LifterPassportCardProps> = ({ data = M
     const isNoLift = att.result === 'no_lift';
     const bgColor = isGood ? '#1b4728' : isNoLift ? '#5a1d1d' : '#21262d';
     const borderColor = isGood ? '#2ea043' : isNoLift ? '#da3633' : '#30363d';
-    const icon = isGood ? '✓' : isNoLift ? '✗' : '—';
+    const icon = isGood ? '✓' : isNoLift ? '✗' : ' - ';
 
     return (
       <View key={att.number} style={[styles.attemptPill, { backgroundColor: bgColor, borderColor }]}>

@@ -137,7 +137,7 @@ Unlike news articles, sports science and engineering literature require **contex
 `) or sentence ends (`. `, `! `, `? `). Never split inside a formula or table row.
 - **Breadcrumb Header Format:**
   ```markdown
-  # [Book Title] — [Author] ([Year]) | Page [N]
+  # [Book Title] - [Author] ([Year]) | Page [N]
   **Section/Context:** [Extracted Heading or Topic]
   **Bilingual Tags:** [Russian Terms], [English Translations]
   
@@ -244,9 +244,9 @@ When presenting Soviet sports science or technical findings to athletes or clien
 ```markdown
 📖 **From the Sports Science & Biomechanics Library:**
 
-> "...Dynamic correspondence requires the exercise to replicate the kinematic, kinetic, and temporal characteristics of the competition movement—matching amplitude, direction of force, accentuation of maximum force, and the amortization-takeoff regime..."
+> "...Dynamic correspondence requires the exercise to replicate the kinematic, kinetic, and temporal characteristics of the competition movement: matching amplitude, direction of force, accentuation of maximum force, and the amortization-takeoff regime..."
 
-— **Yuri Verkhoshansky**, *Special Strength Training: A Practical Manual for Coaches* (p. 91)
+- **Yuri Verkhoshansky**, *Special Strength Training: A Practical Manual for Coaches* (p. 91)
 
 💡 **Practical Coaching Translation:**
 Apply this directly on the platform: do not select arbitrary accessory exercises. Choose movements whose rate of force development (RFD) matches the specific acceleration phase of your lift.

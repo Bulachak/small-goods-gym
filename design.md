@@ -1,4 +1,4 @@
-# Small Goods Gym — Brand Identity & UI Design System
+# Small Goods Gym: Brand Identity & UI Design System
 **Document ID:** `SGG-SPEC-DESIGN-001`  
 **Version:** `1.0.0`  
 **Status:** `Canonical Brand & Design Specification`  

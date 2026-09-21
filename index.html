@@ -409,21 +409,21 @@
       if (p.includes("child") || p.includes("kid") || p.includes("baby") || p.includes("toddler") || 
           p.includes("pram") || p.includes("stroller") || p.includes("family") || p.includes("one-year") || 
           p.includes("1-year") || p.includes("infant") || p.includes("daughter") || p.includes("son")) {
-        return "G'day! Absolutely, we love having families around—Small Goods is built as a welcoming, community-first haven, not an intimidating dungeon.\n\n" +
+        return "Hey there! Absolutely, we love having families around - Small Goods is built as a welcoming, community-first haven, not an intimidating dungeon.\n\n" +
                "That said, safety on the lifting floor is our #1 priority because we have heavy barbells, chalk, and dropping weights across our 12 platforms. You're more than welcome to bring your little one in a pram or stroller, as long as they stay safely in the lounge/reception area off the wooden lifting platforms. Quiet mid-morning sessions or Sunday community hours are usually the best vibe for this.\n\n" +
                "Give Joel or Holly a quick shout before you come in, and we'll make sure a safe, comfortable spot is set up for you and your bub!";
       }
 
       // 2. Dogs / Pets
       if (p.includes("dog") || p.includes("puppy") || p.includes("pet") || p.includes("animal")) {
-        return "G'day! Well-behaved pups on a leash are definitely welcome in the lounge and reception areas, especially during our Sunday morning community biscuits! On the lifting platforms, we keep pets clear of the barbell drop zones for their own safety. Come say hi!";
+        return "Hey there! Well-behaved pups on a leash are definitely welcome in the lounge and reception areas, especially during our Sunday morning community biscuits! On the lifting platforms, we keep pets clear of the barbell drop zones for their own safety. Come say hi!";
       }
 
       // 3. Location, Opening Hours & 12-Platform Booking
       if (p.includes("location") || p.includes("address") || p.includes("where are you") || 
           p.includes("hours") || p.includes("open") || p.includes("time") || p.includes("schedule") || 
           p.includes("book") || p.includes("rsvp") || p.includes("reserve") || p.includes("biscuit")) {
-        return "G'day! Small Goods Gym is located in Morley, Perth (Western Australia). We run on a strict 12-platform floor capacity so everyone gets their own dedicated space, calibrated plates, and coaching attention without waiting.\n\n" +
+        return "Hey! Small Goods Gym is located in Morley, Perth (Western Australia). We run on a strict 12-platform floor capacity so everyone gets their own dedicated space, calibrated plates, and coaching attention without waiting.\n\n" +
                "You can reserve your platform right here through the app's RSVP tab, or text our WhatsApp bot. We also host our legendary community breakfast biscuits every Sunday morning at 10:00 AM AWST!\n\n" +
                "What session are you looking to jump into?";
       }
@@ -433,8 +433,8 @@
           p.includes("barefoot") || p.includes("heel") || p.includes("boots")) {
         return "Great question! What you wear on your feet makes a massive difference to how force transfers into the floor:\n\n" +
                "• For Squats: If you have longer femurs or tighter ankles, a dedicated weightlifting shoe with an elevated heel (like Romaleos or Legacy Lifters) helps your knees track forward and keeps your chest upright.\n" +
-               "• For Deadlifts: Go flat and thin—barefoot, deadlift slippers, or Converse/Vans. The closer your feet are to the wood, the shorter the distance you have to pull the bar.\n" +
-               "• General Floor Work: Avoid squishy running shoes with soft foam or air bubbles—they absorb your force like lifting on a mattress!\n\n" +
+               "• For Deadlifts: Go flat and thin - barefoot, deadlift slippers, or Converse/Vans. The closer your feet are to the wood, the shorter the distance you have to pull the bar.\n" +
+               "• General Floor Work: Avoid squishy running shoes with soft foam or air bubbles - they absorb your force like lifting on a mattress!\n\n" +
                "What lift are you gearing up for?";
       }
 
@@ -444,7 +444,7 @@
         return "Here's how we think about lifting gear in The Small Goods Way:\n\n" +
                "• Belts: A belt isn't a crutch; it's a rigid wall for your diaphragm and core to brace against (creating 360° intra-abdominal pressure, IAP). We recommend learning to brace your breath naturally on warm-ups, then strapping on the belt when you hit ~80%+ of your top sets.\n" +
                "• Straps: Use them on heavy deadlift volume, RDLs, or snatches so your grip doesn't limit your legs and back, but build your raw grip on competition singles.\n" +
-               "• Chalk: We’ve got plenty of chalk buckets on the floor—chalk up and keep your grip dry and confident!\n\n" +
+               "• Chalk: We’ve got plenty of chalk buckets on the floor - chalk up and keep your grip dry and confident!\n\n" +
                "Do you currently train with a belt or looking for recommendations?";
       }
 
@@ -452,8 +452,8 @@
       if (p.includes("beginner") || p.includes("day 1") || p.includes("first time") || 
           p.includes("never lifted") || p.includes("never done") || p.includes("nervous") || 
           p.includes("scared") || p.includes("intimidated") || p.includes("start")) {
-        return `Welcome in ${athleteName}! Feeling nervous or stiff on day one is 100% normal—every single person under these barbells started right where you are.\n\n` +
-               "Our core motto is 'Become a Stronger You'—we meet you where you're at. We'll start you with a simple goblet squat holding a light dumbbell against your chest or squatting down to a comfy box, focus on smooth, pain-free movement, and make sure you feel completely supported.\n\n" +
+        return `Welcome in ${athleteName}! Feeling nervous or stiff on day one is 100% normal - every single person under these barbells started right where you are.\n\n` +
+               "Our core motto is 'Become a Stronger You' - we meet you where you're at. We'll start you with a simple goblet squat holding a light dumbbell against your chest or squatting down to a comfy box, focus on smooth, pain-free movement, and make sure you feel completely supported.\n\n" +
                "💡 The Coach's Why: Holding a light weight in front acts as a natural counterbalance, keeping your chest upright without straining your lower back (Dr. Dan Cleather).\n\n" +
                "No ego, zero intimidation. What movement would you feel most comfortable trying first?";
       }
@@ -461,7 +461,7 @@
       // 7. Stiff Hips, Ankles & Mobility (Range Adders)
       if (p.includes("stiff") || p.includes("tight") || p.includes("mobility") || 
           p.includes("warm") || (p.includes("hip") && p.includes("ankle"))) {
-        return "G'day! Let's get those joints opened up so your barbell work feels silky smooth.\n\n" +
+        return "Hey! Let's get those joints opened up so your barbell work feels silky smooth.\n\n" +
                "🎯 Range Adder Protocol:\n" +
                "1. 90/90 Hip Swivels: 8 smooth transitions per side, focusing on slow control.\n" +
                "2. Front-Foot Elevated (FFE) Split Squats: 2 sets of 6 reps per leg holding a light 8kg dumbbell, letting the knee glide forward over the toes in a pain-free range.\n" +
@@ -475,9 +475,9 @@
           p.includes("time limit") || p.includes("busy") || p.includes("quick session")) {
         return "No worries at all! Life happens, and 30 focused minutes is plenty to stimulate strength and muscle:\n\n" +
                "🎯 The Small Goods 30-Minute Autoregulation Plan:\n" +
-               "1. 5 Mins — Range Adder: 2 quick sets of split squats and hip openers.\n" +
-               "2. 15 Mins — Primary Force Builder: 3 heavy working sets of 5 on Squat or Bench with 2 mins rest.\n" +
-               "3. 10 Mins — Volume Builder (Myo-Reps): 1 activation set of 12 reps to near-failure, rest 15 seconds, then 3 mini-sets of 4 reps with 15s rest.\n\n" +
+               "1. 5 Mins  -  Range Adder: 2 quick sets of split squats and hip openers.\n" +
+               "2. 15 Mins  -  Primary Force Builder: 3 heavy working sets of 5 on Squat or Bench with 2 mins rest.\n" +
+               "3. 10 Mins  -  Volume Builder (Myo-Reps): 1 activation set of 12 reps to near-failure, rest 15 seconds, then 3 mini-sets of 4 reps with 15s rest.\n\n" +
                "💡 The Coach's Why: Myo-reps give you all the muscle-building stimulus of 4 regular sets in just one-third of the clock time by keeping your high-threshold muscle fibers firing.\n\n" +
                "Ready to clock in and get after it?";
       }
@@ -493,7 +493,7 @@
                "3. Cue: Keep your shoulder blades gently squeezed into your back pockets and stop each rep an inch before any discomfort.\n\n" +
                "💡 The Coach's Why: A neutral grip reduces internal rotation at the shoulder, giving your supraspinatus tendon room to breathe while still training chest and triceps.\n\n" +
                "📋 Care Handover: I've logged this discomfort vector in Holly Hunt's physio triage queue for follow-up.\n\n" +
-               "Try the dumbbell floor press—does that feel pain-free?";
+               "Try the dumbbell floor press - does that feel pain-free?";
       }
 
       // 10. Missed Lifts & Velocity Drop (90-Sec Rest Triage)
@@ -513,7 +513,7 @@
       if (p.includes("femur") || p.includes("squat") || p.includes("leverage") || 
           p.includes("torso") || p.includes("stance") || p.includes("depth")) {
         return `📐 Stance & Leverage Analysis (Femur/Torso: ${femurTorso}):\n\n` +
-               "G'day! Having longer thigh bones (femurs) compared to your torso is super common—it just means standard narrow-stance advice will make you feel like you're folding in half.\n\n" +
+               "Hey! Having longer thigh bones (femurs) compared to your torso is super common - it just means standard narrow-stance advice will make you feel like you're folding in half.\n\n" +
                "🎯 Simple Somatic Fixes:\n" +
                "1. Widen Stance: Set your heels about 1.2× to 1.3× shoulder width.\n" +
                "2. Flare Toes Out 30°: Turn your toes out comfortably to give your pelvis room to sink down between your thighs.\n" +
@@ -554,11 +554,11 @@
           p.includes("speed") || p.includes("enode") || p.includes("zones")) {
         return "📊 Velocity-Based Training (VBT) with Dr. Bryan Mann's Zones:\n\n" +
                "📈 The 5 Velocity Zones:\n" +
-               "• Absolute Strength: <0.50 m/s (85–100% 1RM) — maximal motor unit recruitment.\n" +
-               "• Accelerative Strength: 0.50–0.75 m/s (70–85% 1RM) — moving heavy weight with explosive intent.\n" +
-               "• Strength-Speed: 0.75–1.00 m/s (50–70% 1RM) — peak power sweet spot.\n" +
-               "• Speed-Strength: 1.00–1.30 m/s (30–50% 1RM) — speed prioritized over load.\n" +
-               "• Starting Strength: >1.30 m/s (<30% 1RM) — ballistic alactic power.\n\n" +
+               "• Absolute Strength: <0.50 m/s (85–100% 1RM)  -  maximal motor unit recruitment.\n" +
+               "• Accelerative Strength: 0.50–0.75 m/s (70–85% 1RM)  -  moving heavy weight with explosive intent.\n" +
+               "• Strength-Speed: 0.75–1.00 m/s (50–70% 1RM)  -  peak power sweet spot.\n" +
+               "• Speed-Strength: 1.00–1.30 m/s (30–50% 1RM)  -  speed prioritized over load.\n" +
+               "• Starting Strength: >1.30 m/s (<30% 1RM)  -  ballistic alactic power.\n\n" +
                "🛑 Velocity Loss Cutoffs:\n" +
                "• 10%–20% loss: Stop set! Ideal for athletic power and sprinting speed with near-zero muscle damage.\n" +
                "• 20%–30% loss: Functional hypertrophy and strength-endurance.\n" +
@@ -569,7 +569,7 @@
       // 15. The Small Goods Way Philosophy & 5 Categories
       if (p.includes("small goods way") || p.includes("philosophy") || 
           p.includes("category") || p.includes("categories") || p.includes("ordering")) {
-        return "G'day! Here is how we build training sessions in The Small Goods Way:\n\n" +
+        return "Hey! Here is how we build training sessions in The Small Goods Way:\n\n" +
                "🎯 The 5 Categories:\n" +
                "• 1. Range Adders: Opening up active flexibility & joint tolerance (e.g. RDLs, front-foot elevated split squats).\n" +
                "• 2. Co-ordinators: Skill and clean technique (e.g. snatches, paused squats).\n" +
@@ -616,12 +616,12 @@
           p.startsWith("hi ") || p.startsWith("hello ") || p.startsWith("hey ") || 
           p.includes("good morning") || p.includes("how are you") || p.includes("how's it going") ||
           p.includes("thanks") || p.includes("thank you") || p.includes("cheers")) {
-        return `G'day ${athleteName}! Goat AI here at Small Goods Gym in Morley. Whether it's your first time stepping on the gym floor, you're dialing in your squat leverage, or you're preparing for a national meet, I'm right in your corner.\n\n` +
+        return `Hey ${athleteName}! Goat AI here at Small Goods Gym in Morley. Whether it's your first time stepping on the gym floor, you're dialing in your squat leverage, or you're preparing for a national meet, I'm right in your corner.\n\n` +
                "How is your session feeling today, or what can I help you with?";
       }
 
       // 20. Natural, Human, Conversational Fallback (ZERO robotic strings)
-      return `G'day ${athleteName}! Great question. At Small Goods Gym, our whole philosophy is built around "Becoming a Stronger You" in a welcoming, community-first environment.\n\n` +
+      return `Hey ${athleteName}! Great question. At Small Goods Gym, our whole philosophy is built around "Becoming a Stronger You" in a welcoming, community-first environment.\n\n` +
              `Regarding "${q}": every lifter's body and situation is a little different. Power always starts with strong foundations, listening to your joints, and training with clear intent.\n\n` +
              "Could you tell me a bit more about what you're working on today, or what specific movement or goal you're dialing in? Let's sort it out together!";
     }
@@ -636,7 +636,7 @@
       const [messages, setMessages] = useState([
         {
           sender: "bot",
-          text: "G'day! I'm the Small Goods Goat AI Assistant. Whether you have questions about gym etiquette, bringing your kids, or fine-tuning your squat leverage, I'm right here in your corner. How can I help you today?"
+          text: "Welcome in! I'm the Small Goods Goat AI Assistant. Whether you have questions about gym etiquette, bringing your kids, or fine-tuning your squat leverage, I'm right here in your corner. How can I help you today?"
         }
       ]);
       const endRef = useRef(null);
@@ -1137,7 +1137,7 @@
               </div>
               <div class="meta-item">
                 <strong>Support Category</strong>
-                <span>Capacity Building — Daily Living & Movement Resilience (CB-IDL-015)</span>
+                <span>Capacity Building  -  Daily Living & Movement Resilience (CB-IDL-015)</span>
               </div>
               <div class="meta-item">
                 <strong>Assessment Period & Date</strong>

@@ -31,7 +31,7 @@ sequenceDiagram
     Worker->>D1: Check open platforms for 5:30 PM
     D1-->>Worker: 10 / 12 platforms booked (2 open)
     Worker->>Gemini: Draft coaching confirmation in Joel's voice
-    Gemini-->>Worker: "G'day! 2 spots open. Reserved Platform 11 for you."
+    Gemini-->>Worker: "Hi! 2 spots open. Reserved Platform 11 for you."
     Worker->>Meta: POST /messages (WhatsApp reply)
     Meta-->>Lifter: Instant WhatsApp message received
 ```
@@ -124,14 +124,14 @@ If Joel prefers lifters to message his **existing Australian mobile number** rat
   > *"🚨 **90-Sec Floor Triage:** If bar velocity dropped >15% on your second pull, Vladimir Zatsiorsky's fatigue thresholds indicate acute CNS depletion, not technical error.*
   > 
   > *1. **Drop load immediately to 77.5kg–80kg (5–7.5% drop)** and perform 2 crisp technical singles.*
-  > *2. Remember Verkhoshansky's rule: Drive the floor with your legs — do not heave with your arms early!*
+  > *2. Remember Verkhoshansky's rule: Drive the floor with your legs: do not heave with your arms early!*
   > *3. If velocity doesn't recover, terminate the snatch block and preserve CNS for clean & jerks."*
 
 ### Scenario 2: Platform Reservation & 12-Lifter Cap
 - **Athlete WhatsApp Message:**
   > *"Can I come in for open lifting at 5:30 PM today?"*
 - **Bot Response:**
-  > *"G'day! Checking the platform board for 5:30 PM: We have **10 of 12 platforms booked** (2 spots remaining). I've reserved Platform 11 for you. Remember chalk is by Platform 4 and wipe down your bar with disinfectant after your session! See you on the floor."*
+  > *"Hey! Checking the platform board for 5:30 PM: We have **10 of 12 platforms booked** (2 spots remaining). I've reserved Platform 11 for you. Remember chalk is by Platform 4 and wipe down your bar with disinfectant after your session! See you on the floor."*
 
 ### Scenario 3: Biomechanical Squat Setup (#LongFemurs)
 - **Athlete WhatsApp Message:**

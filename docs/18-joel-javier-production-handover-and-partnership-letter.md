@@ -69,7 +69,7 @@ expo-handover/
 ```
 
 ### Javier's 3-Minute Deployment Steps:
-1. **Unzip & Copy Components:** Copy `components/` directly into your Expo mobile project. All components use standard React Native primitives (`View`, `Text`, `TouchableOpacity`, `ScrollView`, `TextInput`, `Modal`)—zero browser DOM code.
+1. **Unzip & Copy Components:** Copy `components/` directly into your Expo mobile project. All components use standard React Native primitives (`View`, `Text`, `TouchableOpacity`, `ScrollView`, `TextInput`, `Modal`): zero browser DOM code.
 2. **Deploy Edge Worker:** Run `cd worker && npx wrangler secret put GEMINI_API_KEY` (using Joel's Google AI Studio key), then `npx wrangler deploy`.
 3. **Run D1 Schema:** Run `npx wrangler d1 execute small_goods_d1 --file=./database/schema-cloudflare-d1.sql`.
 4. **Plug & Play:** Connect `<GoatAICoPilot />` to your newly deployed Worker endpoint.

@@ -45,7 +45,7 @@ flowchart TD
     %% -------------------------------------------------------------
     %% TIER 1: CLIENT APPLICATION TIER (EXPO & CLERK)
     %% -------------------------------------------------------------
-    subgraph TIER1 ["📱 1. Client Tier (Expo React Native — iOS, Android & Web)"]
+    subgraph TIER1 ["📱 1. Client Tier (Expo React Native: iOS, Android & Web)"]
         ATHLETE["🏋️ Lifter / Coach on Morley Gym Floor"]
         EXPO_APP["📱 Expo React Native Client (Javier's App)<br/>• GoatAICoPilot.tsx (Sports Science Chat Drawer)<br/>• BiomechanicalLeverHUD.tsx (Limb Ratio Diagnostic)<br/>• TactileFloorLogger.tsx (64px Touch Targets, VBT)<br/>• PlatformRSVPModal.tsx (12-Platform Enforcer)<br/>• LifterPassportCard.tsx (ArenaPL Meet Record)"]
         CLERK_AUTH["🔐 Clerk Authentication Provider<br/>• User Registration & Sessions<br/>• Bearer JWT Token Issuance<br/>• Billed to: Small Goods Gym"]

@@ -9,7 +9,7 @@
 
 ## 1. Executive Summary & Core Strategic Takeaways
 
-The link forwarded by Joel represents a critical psychological pivot in how competitive powerlifters perceive digital tools. Historically, strength athletes relied on **OpenPowerlifting.org**—a sterile, utilitarian database that presents raw competition results as black-and-white spreadsheet rows.
+The link forwarded by Joel represents a critical psychological pivot in how competitive powerlifters perceive digital tools. Historically, strength athletes relied on **OpenPowerlifting.org**: a sterile, utilitarian database that presents raw competition results as black-and-white spreadsheet rows.
 
 **Arena Powerlifting (ArenaPL)** successfully solved the *athletic identity problem*. It wraps public competition scraping into an esports-grade, gamified athlete profile complete with tier ranks (*"Silver 2"*), digital trophy cases, 9-attempt visual timelines, and 1-click Instagram story export cards.
 
@@ -130,7 +130,7 @@ flowchart TD
 ## 7. Strategic Alignment for Joel and Javier
 
 ### Talking Points for Joel Mullen (Founder & Head Coach):
-> *"Joel, that link your client sent confirms something we already know about lifters: they love feeling like elite athletes with rank badges, attempt cards, and trophy cases. OpenPowerlifting gives them a sterile spreadsheet; ArenaPL gives them an esports card. What we're delivering for Small Goods Gym gives them that exact same esports pride—but instead of being an empty website that only updates twice a year after a meet, it lives natively in their pocket in React Native, tracks their daily bar speed on your platforms, and enforces your 12-lifter coaching cap."*
+> *"Joel, that link your client sent confirms something we already know about lifters: they love feeling like elite athletes with rank badges, attempt cards, and trophy cases. OpenPowerlifting gives them a sterile spreadsheet; ArenaPL gives them an esports card. What we're delivering for Small Goods Gym gives them that exact same esports pride: but instead of being an empty website that only updates twice a year after a meet, it lives natively in their pocket in React Native, tracks their daily bar speed on your platforms, and enforces your 12-lifter coaching cap."*
 
 ### Talking Points for Javier (Lead Systems Developer):
 > *"Javier, this ArenaPL concept is strictly a front-end presentation component in our React Native package (`LifterPassportCard.tsx`). It connects directly into your Cloudflare Workers and Cloudflare D1 (SQLite) backend without schema breaking changes. Meet records and attempt history map cleanly to lightweight SQLite tables (`competition_records`, `trophy_case`), keeping edge query latency under 15ms."*

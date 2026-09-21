@@ -41,7 +41,7 @@ flowchart TD
 
 ---
 
-## 1. Mel Siff & Yuri Verkhoshansky — *Supertraining* (6th Expanded Edition)
+## 1. Mel Siff & Yuri Verkhoshansky: *Supertraining* (6th Expanded Edition)
 
 ### 1.1 Bibliographic Details
 * **Authors:** Mel C. Siff, PhD, MSc; Yuri V. Verkhoshansky, PhD, Prof.
@@ -82,7 +82,7 @@ flowchart TD
 
 ---
 
-## 2. Dr. Dan Cleather — *Force: The Biomechanics of Training*
+## 2. Dr. Dan Cleather: *Force: The Biomechanics of Training*
 
 ### 2.1 Bibliographic Details
 * **Author:** Dr. Daniel J. Cleather (Reader in Strength & Conditioning, St Mary's University Twickenham; PhD in Biomedical Engineering, Imperial College London; former coach of World and Olympic medalists).
@@ -135,7 +135,7 @@ $$\sum \vec{F} = m \vec{a} \quad \text{and} \quad \vec{\tau} = \vec{F} \times \v
 
 ## 3. Essential Modern & Soviet Crossover Works
 
-### 3.1 Vladimir Issurin — *Block Periodization* Series
+### 3.1 Vladimir Issurin: *Block Periodization* Series
 
 #### Bibliographic Details
 * **Author:** Prof. Vladimir Issurin, PhD (Wingate Institute, former Soviet Olympic rowing sports scientist).
@@ -171,7 +171,7 @@ Issurin systematically dissects the shortcomings of Leonid Matveyev’s traditio
 
 ---
 
-### 3.2 Dr. Bryan Mann — Velocity-Based Training (VBT) Research
+### 3.2 Dr. Bryan Mann: Velocity-Based Training (VBT) Research
 
 #### Bibliographic Details
 * **Author:** Dr. J. Bryan Mann, PhD, CSCS, SCCC (Associate Professor of Kinesiology, University of Miami; pioneer of collegiate VBT at University of Missouri).
@@ -198,7 +198,7 @@ Issurin systematically dissects the shortcomings of Leonid Matveyev’s traditio
 
 ---
 
-### 3.3 Mladen Jovanović — Contemporary Periodization & Agile S&C Frameworks
+### 3.3 Mladen Jovanović: Contemporary Periodization & Agile S&C Frameworks
 
 #### Bibliographic Details
 * **Author:** Mladen Jovanović (Sports Performance Scientist, Founder of *Complementary Training*, former Head of Physical Preparation for elite European soccer and track clubs).
@@ -213,7 +213,7 @@ Issurin systematically dissects the shortcomings of Leonid Matveyev’s traditio
 
 ---
 
-### 3.4 Dr. Anatoliy Bondarchuk — *Transfer of Training in Sports* (Volumes I–III)
+### 3.4 Dr. Anatoliy Bondarchuk: *Transfer of Training in Sports* (Volumes I–III)
 
 #### Bibliographic Details
 * **Author:** Dr. Anatoliy P. Bondarchuk (Olympic Gold Medalist in Hammer Throw; Coach of World Record holders Yuriy Sedykh and Sergey Litvinov). Translated by Dr. Michael Yessis.

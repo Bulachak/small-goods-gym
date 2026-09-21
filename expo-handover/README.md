@@ -111,14 +111,14 @@ The script `worker/worker-chat-proxy.ts` allows the Expo app to talk to Google G
 
 The file `database/schema-cloudflare-d1.sql` contains the 8 core relational SQLite tables we aligned on:
 
-1. `users` — Synced with Clerk (`clerk_user_id`, `email`, `role`, `membership_status`).
-2. `biometrics` — **Strictly isolated from users for GDPR & California PII compliance.** Holds millimetric limb lengths, ratios, and categorical lever tags.
-3. `exercises` — Exercise movement patterns, video URLs, and cues.
-4. `user_programs` — 12-week macrocycle and block tracking.
-5. `program_sets` — Prescribed vs. logged load, reps, and Enode VBT velocities.
-6. `events` & `event_rsvps` — 12-platform sessions and community RSVP management.
-7. `competition_records` — Historical and OpenPowerlifting meet records with 9-attempt breakdown.
-8. `trophy_case` — Medals, state/national championships, and podium finishes.
+1. `users`  -  Synced with Clerk (`clerk_user_id`, `email`, `role`, `membership_status`).
+2. `biometrics`  -  **Strictly isolated from users for GDPR & California PII compliance.** Holds millimetric limb lengths, ratios, and categorical lever tags.
+3. `exercises`  -  Exercise movement patterns, video URLs, and cues.
+4. `user_programs`  -  12-week macrocycle and block tracking.
+5. `program_sets`  -  Prescribed vs. logged load, reps, and Enode VBT velocities.
+6. `events` & `event_rsvps`  -  12-platform sessions and community RSVP management.
+7. `competition_records`  -  Historical and OpenPowerlifting meet records with 9-attempt breakdown.
+8. `trophy_case`  -  Medals, state/national championships, and podium finishes.
 
 ### Privacy & Anonymization Trigger:
 An automated SQLite trigger (`trg_anonymize_member_biometrics`) is included. When a member's `membership_status` transitions to `'hiatus'` or `'archived'`, all exact limb measurements in `biometrics` are wiped to `NULL`, while preserving non-identifiable categorical lever tags (`["long_femur"]`) for gym-wide biomechanical modeling.
