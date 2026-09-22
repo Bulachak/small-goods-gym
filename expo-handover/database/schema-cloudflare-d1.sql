@@ -9,20 +9,28 @@
 -- 4. Automated GDPR / PII Anonymization on member hiatus or archive
 -- ==============================================================================
 
--- 1. USERS TABLE (Synced via Clerk Webhook)
+-- 1. USERS TABLE (Javier's Live Production Schema in D1)
+-- Columns: clerkId email firstName lastName displayName role coach org membership status synced
 CREATE TABLE IF NOT EXISTS users (
-    id TEXT PRIMARY KEY,                       -- Internal UUID
-    clerk_user_id TEXT UNIQUE NOT NULL,        -- Clerk JWT Sub claim
+    clerkId TEXT PRIMARY KEY,                  -- Clerk JWT Sub claim
     email TEXT UNIQUE NOT NULL,
-    display_name TEXT NOT NULL,
-    role TEXT NOT NULL CHECK(role IN ('member', 'coach', 'physio', 'admin')) DEFAULT 'member',
-    membership_status TEXT NOT NULL CHECK(membership_status IN ('active', 'hiatus', 'archived')) DEFAULT 'active',
+    firstName TEXT,
+    lastName TEXT,
+    displayName TEXT NOT NULL,
+    role TEXT NOT NULL CHECK(role IN ('admin', 'coach', 'athlete')) DEFAULT 'athlete',
+    coach TEXT,                                -- Reference to a 'coach' role user in users table (clerkId)
+    org TEXT CHECK(org IN ('sg', 'sgOnline', 'none')) DEFAULT 'sg',
+    membership TEXT CHECK(membership IN ('none', 'club', 'online')) DEFAULT 'club',
+    status TEXT NOT NULL CHECK(status IN ('none', 'active', 'paused', 'banned', 'locked')) DEFAULT 'active',
+    synced INTEGER DEFAULT 1,                  -- Webhook sync status flag
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (coach) REFERENCES users(clerkId) ON DELETE SET NULL
 );
 
-CREATE INDEX IF NOT EXISTS idx_users_clerk_id ON users(clerk_user_id);
-CREATE INDEX IF NOT EXISTS idx_users_status ON users(membership_status);
+CREATE INDEX IF NOT EXISTS idx_users_email ON users(email);
+CREATE INDEX IF NOT EXISTS idx_users_role ON users(role);
+CREATE INDEX IF NOT EXISTS idx_users_status ON users(status);
 
 -- 2. BIOMETRICS TABLE (Isolated for Privacy & GDPR / PII Compliance)
 CREATE TABLE IF NOT EXISTS biometrics (
@@ -51,7 +59,7 @@ CREATE TABLE IF NOT EXISTS biometrics (
     max_lifts_json TEXT DEFAULT '{}',         -- JSON e.g. '{"snatch_tier": "80-90kg", "squat_tier": "140-160kg"}'
     
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+    FOREIGN KEY (user_id) REFERENCES users(clerkId) ON DELETE CASCADE
 );
 
 CREATE INDEX IF NOT EXISTS idx_biometrics_user_id ON biometrics(user_id);
@@ -76,7 +84,7 @@ CREATE TABLE IF NOT EXISTS user_programs (
     cycle_week INTEGER DEFAULT 1,
     status TEXT NOT NULL CHECK(status IN ('active', 'completed', 'paused')) DEFAULT 'active',
     start_date DATE NOT NULL,
-    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+    FOREIGN KEY (user_id) REFERENCES users(clerkId) ON DELETE CASCADE
 );
 
 CREATE INDEX IF NOT EXISTS idx_programs_user_id ON user_programs(user_id);
@@ -120,7 +128,7 @@ CREATE TABLE IF NOT EXISTS event_rsvps (
     waitlist_position INTEGER,
     rsvp_time DATETIME DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (event_id) REFERENCES events(id) ON DELETE CASCADE,
-    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (user_id) REFERENCES users(clerkId) ON DELETE CASCADE,
     UNIQUE(event_id, platform_number)          -- Enforce 1 lifter per platform per session
 );
 
@@ -131,12 +139,12 @@ CREATE INDEX IF NOT EXISTS idx_rsvps_user_id ON event_rsvps(user_id);
 -- PRIVACY & ANONYMIZATION PIPELINE (GDPR / California PII Compliance)
 -- ==============================================================================
 
--- Trigger: When a member's status is changed to 'hiatus' or 'archived',
+-- Trigger: When a member's status is changed to 'paused', 'banned', or 'locked',
 -- wipe exact millimetric limb measurements while preserving non-identifiable
 -- leverage tags and ratios for gym-floor biomechanical modeling.
 CREATE TRIGGER IF NOT EXISTS trg_anonymize_member_biometrics
-AFTER UPDATE OF membership_status ON users
-WHEN NEW.membership_status IN ('hiatus', 'archived')
+AFTER UPDATE OF status ON users
+WHEN NEW.status IN ('paused', 'banned', 'locked')
 BEGIN
     UPDATE biometrics
     SET 
@@ -149,7 +157,7 @@ BEGIN
         shoulder_width_cm = NULL,
         arm_span_cm = NULL,
         updated_at = CURRENT_TIMESTAMP
-    WHERE user_id = NEW.id;
+    WHERE user_id = NEW.clerkId;
 END;
 
 -- ==============================================================================
@@ -171,7 +179,7 @@ CREATE TABLE IF NOT EXISTS competition_records (
     total_kg REAL,
     attempts_json TEXT NOT NULL DEFAULT '{}', -- JSON object with squat, bench, deadlift 3-attempt arrays
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+    FOREIGN KEY (user_id) REFERENCES users(clerkId) ON DELETE CASCADE
 );
 
 CREATE INDEX IF NOT EXISTS idx_competitions_user_id ON competition_records(user_id);
@@ -187,7 +195,7 @@ CREATE TABLE IF NOT EXISTS trophy_case (
     awarded_date DATE,
     competition_record_id TEXT,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (user_id) REFERENCES users(clerkId) ON DELETE CASCADE,
     FOREIGN KEY (competition_record_id) REFERENCES competition_records(id) ON DELETE SET NULL
 );
 

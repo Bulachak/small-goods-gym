@@ -22,6 +22,10 @@ You can test every prototype directly on your phone or desktop in any browser:
 ## 🧭 Documentation Roadmap
 
 ### 1. Executive Handover & Architecture Overview
+* [**19-javier-architecture-review-and-d1-schema-reconciliation.md**](./19-javier-architecture-review-and-d1-schema-reconciliation.md)  
+  *Technical review of Javier Pereira's architecture brief (`SGApp Architecture Overview.pdf`), live D1 `users` table audit, R2 vs Stream storage strategy, and non-breaking schema reconciliation.*
+* [**SGApp Architecture Overview.pdf**](./SGApp%20Architecture%20Overview.pdf)  
+  *Original PDF architecture overview received from Joel Mullen on behalf of Javier Pereira (September 22, 2026).*
 * [**18-joel-javier-production-handover-and-partnership-letter.md**](./18-joel-javier-production-handover-and-partnership-letter.md)  
   *Executive handover letter, production asset ledger, zero-cost operational structure ($0/mo), and partnership framework.*
 * [**17-production-infrastructure-and-zero-cost-handover-architecture.md**](./17-production-infrastructure-and-zero-cost-handover-architecture.md)  

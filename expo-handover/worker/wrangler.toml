@@ -11,6 +11,11 @@ binding = "DB"
 database_name = "small_goods_d1"
 database_id = "your-d1-database-id-here"
 
+# Cloudflare R2 Video Storage Binding (For form-check video clips with zero egress fees)
+# [[r2_buckets]]
+# binding = "VIDEO_BUCKET"
+# bucket_name = "small-goods-videos"
+
 # Secrets required (Deploy via CLI):
 # npx wrangler secret put GEMINI_API_KEY
 # npx wrangler secret put CLERK_PEM_PUBLIC_KEY

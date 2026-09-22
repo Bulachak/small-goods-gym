@@ -6,12 +6,14 @@
 
 export interface Env {
   GEMINI_API_KEY: string;
-  DB: D1Database; // Cloudflare D1 SQLite binding
+  DB?: D1Database; // Cloudflare D1 SQLite binding
+  VIDEO_BUCKET?: R2Bucket; // Cloudflare R2 object storage for video form checks
   CLERK_PEM_PUBLIC_KEY?: string; // Optional JWT verification key
 }
 
 interface ChatRequestBody {
   prompt: string;
+  clerkId?: string;
   athleteProfile?: {
     name?: string;
     femurToTorsoRatio?: number;
@@ -20,6 +22,28 @@ interface ChatRequestBody {
     leverageTags?: string[];
     currentExercise?: string;
   };
+}
+
+/**
+ * Extracts Clerk User ID (sub claim) from Bearer JWT without external dependencies
+ */
+function extractClerkSub(token: string): string | null {
+  try {
+    const parts = token.split('.');
+    if (parts.length < 2) return null;
+    const base64Url = parts[1];
+    const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    const jsonPayload = decodeURIComponent(
+      atob(base64)
+        .split('')
+        .map((c) => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2))
+        .join('')
+    );
+    const parsed = JSON.parse(jsonPayload);
+    return parsed.sub || null;
+  } catch {
+    return null;
+  }
 }
 
 const CORS_HEADERS = {
@@ -61,13 +85,57 @@ export default {
         // For development, token presence indicates authenticated session
 
         const body: ChatRequestBody = await request.json();
-        const { prompt, athleteProfile } = body;
+        let { prompt, athleteProfile } = body;
 
         if (!prompt || typeof prompt !== 'string') {
           return new Response(JSON.stringify({ error: 'Bad Request: Missing prompt' }), {
             status: 400,
             headers: { ...CORS_HEADERS, 'Content-Type': 'application/json' },
           });
+        }
+
+        // 2b. Attempt to enrich athlete profile from Cloudflare D1 using Javier's users table
+        const clerkSub = body.clerkId || extractClerkSub(token);
+        if (env.DB && clerkSub) {
+          try {
+            // Query Javier's live users table (clerkId, displayName, firstName, role)
+            const user = await env.DB.prepare(
+              'SELECT displayName, firstName, role FROM users WHERE clerkId = ?'
+            ).bind(clerkSub).first<{ displayName?: string; firstName?: string; role?: string }>();
+
+            // Query isolated biometrics table if populated
+            const bio = await env.DB.prepare(
+              'SELECT femur_to_torso_ratio, forearm_to_arm_ratio, shoulder_width_cm, leverage_tags FROM biometrics WHERE user_id = ?'
+            ).bind(clerkSub).first<{
+              femur_to_torso_ratio?: number;
+              forearm_to_arm_ratio?: number;
+              shoulder_width_cm?: number;
+              leverage_tags?: string;
+            }>();
+
+            if (user || bio) {
+              let parsedTags: string[] | undefined;
+              if (bio?.leverage_tags) {
+                try {
+                  parsedTags = typeof bio.leverage_tags === 'string' ? JSON.parse(bio.leverage_tags) : bio.leverage_tags;
+                } catch {
+                  parsedTags = undefined;
+                }
+              }
+
+              athleteProfile = {
+                name: athleteProfile?.name || user?.displayName || user?.firstName || 'Lifter',
+                femurToTorsoRatio: athleteProfile?.femurToTorsoRatio ?? bio?.femur_to_torso_ratio,
+                forearmToArmRatio: athleteProfile?.forearmToArmRatio ?? bio?.forearm_to_arm_ratio,
+                shoulderWidthCm: athleteProfile?.shoulderWidthCm ?? bio?.shoulder_width_cm,
+                leverageTags: athleteProfile?.leverageTags || parsedTags,
+                currentExercise: athleteProfile?.currentExercise,
+              };
+            }
+          } catch (dbErr) {
+            // Graceful fallback - D1 query bypasses without failing chat
+            console.warn('D1 athlete profile enrichment bypassed:', dbErr);
+          }
         }
 
         // 3. Construct System Prompt Grounded in The Small Goods Way & Sports Science Foundations
@@ -217,6 +285,40 @@ CONVERSATIONAL ACCESSIBILITY & DUAL-LAYER COMMUNICATION PROTOCOL:
           { status: 500, headers: { ...CORS_HEADERS, 'Content-Type': 'application/json' } }
         );
       }
+    }
+
+    // Route: PUT /api/videos/upload/:filename (Direct R2 Form-Check Storage)
+    if (url.pathname.startsWith('/api/videos/upload') && (request.method === 'PUT' || request.method === 'POST')) {
+      if (!env.VIDEO_BUCKET) {
+        return new Response(JSON.stringify({ error: 'R2 VIDEO_BUCKET binding not configured in wrangler.toml' }), {
+          status: 501,
+          headers: { ...CORS_HEADERS, 'Content-Type': 'application/json' },
+        });
+      }
+
+      const authHeader = request.headers.get('Authorization');
+      if (!authHeader || !authHeader.startsWith('Bearer ')) {
+        return new Response(JSON.stringify({ error: 'Unauthorized: Missing Clerk Token' }), {
+          status: 401,
+          headers: { ...CORS_HEADERS, 'Content-Type': 'application/json' },
+        });
+      }
+
+      const filename = url.pathname.replace('/api/videos/upload', '').replace(/^\//, '') || `lift-${Date.now()}.mp4`;
+      const contentType = request.headers.get('Content-Type') || 'video/mp4';
+
+      await env.VIDEO_BUCKET.put(filename, request.body, {
+        httpMetadata: { contentType },
+      });
+
+      return new Response(
+        JSON.stringify({
+          success: true,
+          filename,
+          message: 'Video clip saved directly to Cloudflare R2 with zero egress fees',
+        }),
+        { headers: { ...CORS_HEADERS, 'Content-Type': 'application/json' } }
+      );
     }
 
     // Default 404
